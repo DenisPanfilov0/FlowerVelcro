@@ -30,7 +30,7 @@ namespace Code.Infrastructure.States.GameStates
         
         public void Enter()
         {
-            _gameScoreService.ScoreUpdate();
+            // _gameScoreService.ScoreUpdate();
         }
 
         public void Exit()

@@ -11,11 +11,14 @@ namespace Code.Gameplay.Services.PlayerStickingService
         private readonly IPlayerFallingService _playerFallingService;
         public event Action<SlimeView> PlayerGlued;
         public event Action OnFinishSticking;
-        
+
         private PlayerView _playerView;
         private SlimeView _currentStickSlime;
         private bool _isGlued = false;
         private readonly IGameStateService _gameStateService;
+
+        // Минимальная вертикальная дистанция в world units, чтобы можно было прилипнуть
+        private const float MinDistanceY = 1.5f;
 
         public PlayerStickingService(IPlayerFallingService playerFallingService, IGameStateService gameStateService)
         {
@@ -24,7 +27,7 @@ namespace Code.Gameplay.Services.PlayerStickingService
 
             _gameStateService.OnGameLose += FinishSticking;
         }
-        
+
         public void AddPlayer(PlayerView player)
         {
             _playerView = player;
@@ -57,27 +60,20 @@ namespace Code.Gameplay.Services.PlayerStickingService
         public void FinishSticking()
         {
             _isGlued = false;
-            _playerFallingService.PlayerFall();
+            // _playerFallingService.PlayerFall();
             OnFinishSticking?.Invoke();
         }
-        
+
         private bool CanStickToSlime(SlimeView slimeView)
         {
-            Vector3 playerPosition = _playerView.transform.position;
-            Vector3 slimePosition = slimeView.transform.position;
+            if (_playerView == null) return false;
 
-            float screenHeight = Camera.main.pixelHeight;
+            Vector3 playerPos = _playerView.transform.position;
+            Vector3 slimePos = slimeView.transform.position;
 
-            float minDistanceY = screenHeight * 0.10f;
-
-            if (slimePosition.y > playerPosition.y && (slimePosition.y - playerPosition.y) >= minDistanceY)
-            {
-                return true;
-            }
-
-            return false;
+            // Проверяем, что слайм выше игрока на определённую дистанцию
+            return slimePos.y > playerPos.y && (slimePos.y - playerPos.y) >= MinDistanceY;
         }
-
 
         private void StickPlayerToSlime(SlimeView slimeView)
         {

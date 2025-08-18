@@ -35,19 +35,19 @@ namespace Code.Gameplay.Services.FallManagerService
 
         public void UpdateFallingObjects()
         {
-            if (!_isCanFalling || _isGameStop)
-            {
-                return;
-            }
-            
-            foreach (var fallingObject in _fallingObjects)
-            {
-                RectTransform rectTransform = fallingObject.GetComponent<RectTransform>();
-                if (rectTransform != null)
-                {
-                    rectTransform.localPosition += Vector3.down * _fallSpeed;
-                }
-            }
+            // if (!_isCanFalling || _isGameStop)
+            // {
+            //     return;
+            // }
+            //
+            // foreach (var fallingObject in _fallingObjects)
+            // {
+            //     // RectTransform rectTransform = fallingObject.GetComponent<RectTransform>();
+            //     if (fallingObject.transform != null)
+            //     {
+            //         fallingObject.transform.localPosition += Vector3.down * _fallSpeed;
+            //     }
+            // }
         }
 
         public void Cleanup()

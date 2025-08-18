@@ -54,40 +54,37 @@ namespace Code.Gameplay.Services.SpawnersServices.SlimeSpawnerService
 
             _timerService.StartTimer(Random.Range(1f, 1.7f), () =>
             {
-                SpawnSlime(spawnZoneTransform);
-                StartSpawnLoop(spawnZoneTransform);
+                if (spawnZoneTransform != null)
+                {
+                    SpawnSlime(spawnZoneTransform);
+                    StartSpawnLoop(spawnZoneTransform);
+                }
             });
 
         }
 
         private void SpawnSlime(Transform spawnZoneTransform)
         {
-            if (_isSpawningActive)
-            {
+            if (!_isSpawningActive) return;
 
-                RectTransform rectTransform = spawnZoneTransform as RectTransform;
-                if (rectTransform == null)
-                {
-                    return;
-                }
+            Vector2 spawnPosition = GetRandomSpawnPosition(spawnZoneTransform);
+            GameObject slime = _container.InstantiatePrefab(_slimePrefab, spawnPosition, Quaternion.identity, spawnZoneTransform);
 
-                Vector2 slimeSize = _slimePrefab.GetComponent<RectTransform>().sizeDelta;
+            _fallManagerService.AddFallingObject(slime);
+        }
+        
+        private Vector2 GetRandomSpawnPosition(Transform spawnZoneTransform)
+        {
+            Vector3 spawnZoneSize = spawnZoneTransform.GetComponent<BoxCollider2D>().size; // Предполагается, что у SpawnZone есть BoxCollider2D
+            // Vector3 spawnZoneSize = new Vector3(spawnZoneTransform.position.x, spawnZoneTransform.position.y, spawnZoneTransform.position.z);
+            Vector3 spawnZonePosition = spawnZoneTransform.position;
 
-                float minX = rectTransform.position.x - rectTransform.rect.width / 2 + slimeSize.x / 2;
-                float maxX = rectTransform.position.x + rectTransform.rect.width / 2 - slimeSize.x / 2;
-                float minY = rectTransform.position.y - rectTransform.rect.height / 2 + slimeSize.y / 2;
-                float maxY = rectTransform.position.y + rectTransform.rect.height / 2 - slimeSize.y / 2;
+            float minX = spawnZonePosition.x - spawnZoneSize.x / 2;
+            float maxX = spawnZonePosition.x + spawnZoneSize.x / 2;
+            float minY = spawnZonePosition.y + spawnZoneSize.y / 2; // Спавн сверху зоны
+            float maxY = spawnZonePosition.y + spawnZoneSize.y / 2;
 
-                Vector2 randomLocalPosition = new Vector2(
-                    UnityEngine.Random.Range(minX, maxX),
-                    UnityEngine.Random.Range(minY, maxY)
-                );
-
-                GameObject slime = _container.InstantiatePrefab(_slimePrefab, randomLocalPosition, Quaternion.identity,
-                    spawnZoneTransform);
-
-                _fallManagerService.AddFallingObject(slime);
-            }
+            return new Vector2(Random.Range(minX, maxX), Random.Range(minY, maxY));
         }
 
         private GameObject GetSlimePrefab() => 

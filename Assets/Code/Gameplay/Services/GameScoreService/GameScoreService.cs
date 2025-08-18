@@ -32,13 +32,13 @@ namespace Code.Gameplay.Services.GameScoreService
             };
         }
 
-        public void ScoreUpdate()
-        {
-            if (!_isGameStop)
-            {
-                _timerService.StartTimer(0.5f, IncreaseScore);
-            }
-        }
+        // public void ScoreUpdate()
+        // {
+        //     if (!_isGameStop)
+        //     {
+        //         _timerService.StartTimer(0.5f, IncreaseScore);
+        //     }
+        // }
 
         public void Cleanup()
         {
@@ -46,13 +46,12 @@ namespace Code.Gameplay.Services.GameScoreService
             _isGameStop = false;
         }
 
-        private void IncreaseScore()
+        public void IncreaseScore()
         {
             _score++;
             
             ScoreChange?.Invoke(_score);
-
-            ScoreUpdate();
+            // ScoreUpdate();
         }
     }
 }

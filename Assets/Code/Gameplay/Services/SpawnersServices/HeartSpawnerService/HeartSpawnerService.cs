@@ -49,8 +49,11 @@ namespace Code.Gameplay.Services.SpawnersServices.HeartSpawnerService
 
             _timerService.StartTimer(Random.Range(2.1f, 3.5f), () =>
             {
-                SpawnBomb(spawnZoneTransform);
-                StartSpawnLoop(spawnZoneTransform);
+                if (spawnZoneTransform != null)
+                {
+                    SpawnBomb(spawnZoneTransform);
+                    StartSpawnLoop(spawnZoneTransform);
+                }
             });
 
         }
@@ -62,32 +65,26 @@ namespace Code.Gameplay.Services.SpawnersServices.HeartSpawnerService
 
         private void SpawnBomb(Transform spawnZoneTransform)
         {
-            if (_isSpawningActive)
-            {
+            if (!_isSpawningActive) return;
 
-                RectTransform rectTransform = spawnZoneTransform as RectTransform;
-                if (rectTransform == null)
-                {
-                    return;
-                }
+            Vector2 spawnPosition = GetRandomSpawnPosition(spawnZoneTransform);
+            GameObject bomb = _container.InstantiatePrefab(_bombPrefab, spawnPosition, Quaternion.identity, spawnZoneTransform);
 
-                Vector2 bombSize = _bombPrefab.GetComponent<RectTransform>().sizeDelta;
+            _fallManagerService.AddFallingObject(bomb);
+        }
+        
+        private Vector2 GetRandomSpawnPosition(Transform spawnZoneTransform)
+        {
+            Vector3 spawnZoneSize = spawnZoneTransform.GetComponent<BoxCollider2D>().size; // Предполагается, что у SpawnZone есть BoxCollider2D
+            // Vector3 spawnZoneSize = new Vector3(spawnZoneTransform.position.x, spawnZoneTransform.position.y, spawnZoneTransform.position.z);
+            Vector3 spawnZonePosition = spawnZoneTransform.position;
 
-                float minX = rectTransform.position.x - rectTransform.rect.width / 2 + bombSize.x / 2;
-                float maxX = rectTransform.position.x + rectTransform.rect.width / 2 - bombSize.x / 2;
-                float minY = rectTransform.position.y - rectTransform.rect.height / 2 + bombSize.y / 2;
-                float maxY = rectTransform.position.y + rectTransform.rect.height / 2 - bombSize.y / 2;
+            float minX = spawnZonePosition.x - spawnZoneSize.x / 2;
+            float maxX = spawnZonePosition.x + spawnZoneSize.x / 2;
+            float minY = spawnZonePosition.y + spawnZoneSize.y / 2; // Спавн сверху зоны
+            float maxY = spawnZonePosition.y + spawnZoneSize.y / 2;
 
-                Vector2 randomLocalPosition = new Vector2(
-                    UnityEngine.Random.Range(minX, maxX),
-                    UnityEngine.Random.Range(minY, maxY)
-                );
-
-                GameObject bomb = _container.InstantiatePrefab(_bombPrefab, randomLocalPosition, Quaternion.identity,
-                    spawnZoneTransform);
-
-                _fallManagerService.AddFallingObject(bomb);
-            }
+            return new Vector2(Random.Range(minX, maxX), Random.Range(minY, maxY));
         }
 
         private GameObject GetBombPrefab() => 
