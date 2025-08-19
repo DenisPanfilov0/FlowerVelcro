@@ -48,7 +48,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   <_slimeCollider2D>k__BackingField: {fileID: 4305623968376092602}
-  _rb: {fileID: 0}
+  _rb: {fileID: 7770162052386186670}
+  _icon: {fileID: 7926654377359352355}
   N: 3
   baseFallSpeed: 5
 --- !u!58 &4305623968376092602

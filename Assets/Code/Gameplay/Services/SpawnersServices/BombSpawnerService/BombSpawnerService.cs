@@ -1,8 +1,10 @@
 using Code.Configs.ItemSpawnerConfig;
+using Code.Gameplay.Behaviour.View;
 using Code.Gameplay.Services.FallManagerService;
 using Code.Gameplay.Services.GameStateService;
 using Code.Gameplay.Services.TimerService;
 using Code.Infrastructure.StaticData;
+using Code.Inventory;
 using UnityEngine;
 using Zenject;
 using Random = UnityEngine.Random;
@@ -16,21 +18,25 @@ namespace Code.Gameplay.Services.SpawnersServices.BombSpawnerService
         private readonly DiContainer _container;
         private readonly IFallManagerService _fallManagerService;
         private readonly IGameStateService _gameStateService;
+        private readonly InventoryModel _inventoryModel;
 
-        private GameObject _bombPrefab;
+        private BombView _bombPrefab;
         private bool _isSpawningActive;
+        private Sprite _bombIcon;
 
         public BombSpawnerService(IStaticDataService staticDataService, ITimerService timerService,
             DiContainer container, IFallManagerService fallManagerService,
-            IGameStateService gameStateService)
+            IGameStateService gameStateService, InventoryModel inventoryModel)
         {
             _staticDataService = staticDataService;
             _timerService = timerService;
             _container = container;
             _fallManagerService = fallManagerService;
             _gameStateService = gameStateService;
+            _inventoryModel = inventoryModel;
 
             _bombPrefab = GetBombPrefab();
+            _bombIcon = _inventoryModel.GetSkin(InventoryCategoryType.Bomb);
 
             _gameStateService.OnGameLose += StopSpawn;
         }
@@ -65,9 +71,10 @@ namespace Code.Gameplay.Services.SpawnersServices.BombSpawnerService
             if (!_isSpawningActive) return;
 
             Vector2 spawnPosition = GetRandomSpawnPosition(spawnZoneTransform);
-            GameObject bomb = _container.InstantiatePrefab(_bombPrefab, spawnPosition, Quaternion.identity, spawnZoneTransform);
+            BombView bomb = Object.Instantiate(_bombPrefab, spawnPosition, Quaternion.identity, spawnZoneTransform);
+            bomb.Setup(_bombIcon);
 
-            _fallManagerService.AddFallingObject(bomb);
+            // _fallManagerService.AddFallingObject(bomb);
         }
         
         private Vector2 GetRandomSpawnPosition(Transform spawnZoneTransform)
@@ -84,7 +91,11 @@ namespace Code.Gameplay.Services.SpawnersServices.BombSpawnerService
             return new Vector2(Random.Range(minX, maxX), Random.Range(minY, maxY));
         }
 
-        private GameObject GetBombPrefab() =>
-            _staticDataService.GetItemSpawnerPrefab(ItemSpawnerTypeId.Bomb);
+        private BombView GetBombPrefab()
+        {
+            GameObject prefab = _staticDataService.GetItemSpawnerPrefab(ItemSpawnerTypeId.Bomb);
+            BombView view = prefab.GetComponent<BombView>();
+            return view != null ? view : null;
+        }
     }
 }

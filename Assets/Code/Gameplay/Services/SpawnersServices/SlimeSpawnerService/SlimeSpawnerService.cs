@@ -1,8 +1,11 @@
 using Code.Configs.ItemSpawnerConfig;
+using Code.Gameplay.Behaviour.View;
 using Code.Gameplay.Services.FallManagerService;
 using Code.Gameplay.Services.GameStateService;
+using Code.Gameplay.Services.PlayerStickingService;
 using Code.Gameplay.Services.TimerService;
 using Code.Infrastructure.StaticData;
+using Code.Inventory;
 using Code.Progress.Provider;
 using UnityEngine;
 using Zenject;
@@ -18,12 +21,16 @@ namespace Code.Gameplay.Services.SpawnersServices.SlimeSpawnerService
         private readonly DiContainer _container;
         private readonly IFallManagerService _fallManagerService;
         private readonly IGameStateService _gameStateService;
+        private readonly InventoryModel _inventoryModel;
+        private readonly IPlayerStickingService _playerStickingService;
 
-        private GameObject _slimePrefab;
+        private SlimeView _slimePrefab;
+        private Sprite _slimeIcon;
         private bool _isSpawningActive;
 
         public SlimeSpawnerService(IStaticDataService staticDataService, ITimerService timerService, IProgressProvider progress,
-            DiContainer container, IFallManagerService fallManagerService, IGameStateService gameStateService)
+            DiContainer container, IFallManagerService fallManagerService, IGameStateService gameStateService, 
+            InventoryModel inventoryModel, IPlayerStickingService playerStickingService)
         {
             _staticDataService = staticDataService;
             _timerService = timerService;
@@ -31,8 +38,11 @@ namespace Code.Gameplay.Services.SpawnersServices.SlimeSpawnerService
             _container = container;
             _fallManagerService = fallManagerService;
             _gameStateService = gameStateService;
+            _inventoryModel = inventoryModel;
+            _playerStickingService = playerStickingService;
 
             _slimePrefab = GetSlimePrefab();
+            _slimeIcon = _inventoryModel.GetSkin(InventoryCategoryType.Flowers);
             
             _gameStateService.OnGameLose += StopSpawn;
         }
@@ -68,9 +78,10 @@ namespace Code.Gameplay.Services.SpawnersServices.SlimeSpawnerService
             if (!_isSpawningActive) return;
 
             Vector2 spawnPosition = GetRandomSpawnPosition(spawnZoneTransform);
-            GameObject slime = _container.InstantiatePrefab(_slimePrefab, spawnPosition, Quaternion.identity, spawnZoneTransform);
+            SlimeView slime = Object.Instantiate(_slimePrefab, spawnPosition, Quaternion.identity, spawnZoneTransform);
+            slime.Setup(_playerStickingService, _slimeIcon);
 
-            _fallManagerService.AddFallingObject(slime);
+            // _fallManagerService.AddFallingObject(slime);
         }
         
         private Vector2 GetRandomSpawnPosition(Transform spawnZoneTransform)
@@ -87,7 +98,11 @@ namespace Code.Gameplay.Services.SpawnersServices.SlimeSpawnerService
             return new Vector2(Random.Range(minX, maxX), Random.Range(minY, maxY));
         }
 
-        private GameObject GetSlimePrefab() => 
-            _staticDataService.GetItemSpawnerPrefab(ItemSpawnerTypeId.Slime);
+        private SlimeView GetSlimePrefab()
+        {
+            GameObject prefab = _staticDataService.GetItemSpawnerPrefab(ItemSpawnerTypeId.Slime);
+            SlimeView slimeView = prefab.GetComponent<SlimeView>();
+            return slimeView != null ? slimeView : null;
+        }
     }
 }

@@ -119,7 +119,7 @@ TextureImporter:
         width: 193
         height: 189
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -141,7 +141,7 @@ TextureImporter:
         width: 193
         height: 189
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -163,7 +163,7 @@ TextureImporter:
         width: 193
         height: 189
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -185,7 +185,7 @@ TextureImporter:
         width: 193
         height: 189
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -193,6 +193,132 @@ TextureImporter:
       bones: []
       spriteID: ee92ee6d0d6245347b0504b24529ee8b
       internalID: -973088847
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: FloweerSet_1_0
+      rect:
+        serializedVersion: 2
+        x: 435
+        y: 812
+        width: 193
+        height: 189
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9e5401bd717a74f4b8c60661dcd82c7c
+      internalID: -663615792
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: FloweerSet_1_1
+      rect:
+        serializedVersion: 2
+        x: 622
+        y: 813
+        width: 193
+        height: 189
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 720788097f65f364d93c159dcc517bbb
+      internalID: 680175041
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: FloweerSet_1_2
+      rect:
+        serializedVersion: 2
+        x: 814
+        y: 619
+        width: 193
+        height: 189
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c2b81eb44e489d14fa676f2fabbe7b52
+      internalID: 145875537
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: FloweerSet_1_3
+      rect:
+        serializedVersion: 2
+        x: 626
+        y: 428
+        width: 193
+        height: 189
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 633672fab859d134393383ec775aa050
+      internalID: 576326733
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: FloweerSet_1_4
+      rect:
+        serializedVersion: 2
+        x: 37
+        y: 425
+        width: 193
+        height: 189
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2d4a01180e70f4f4088f473772dde11f
+      internalID: 1414347645
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: FloweerSet_1_5
+      rect:
+        serializedVersion: 2
+        x: 37
+        y: 616
+        width: 193
+        height: 189
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ca084af5330c3494f9012f66aedf6c36
+      internalID: -681202618
       vertices: []
       indices: 
       edges: []
@@ -208,6 +334,12 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
+      FloweerSet_1_0: -663615792
+      FloweerSet_1_1: 680175041
+      FloweerSet_1_2: 145875537
+      FloweerSet_1_3: 576326733
+      FloweerSet_1_4: 1414347645
+      FloweerSet_1_5: -681202618
       '{____role___{______description____You_are_the_world''s_leading_game_artist_specializing_in_vibrant,_engaging_designs_for_children_and_women._Your_expertise_lies_in_creating_universally_appealing_game_art_that_ca (4)_0': 1383199593
       '{____role___{______description____You_are_the_world''s_leading_game_artist_specializing_in_vibrant,_engaging_designs_for_children_and_women._Your_expertise_lies_in_creating_universally_appealing_game_art_that_ca (4)_1': -2113032161
       '{____role___{______description____You_are_the_world''s_leading_game_artist_specializing_in_vibrant,_engaging_designs_for_children_and_women._Your_expertise_lies_in_creating_universally_appealing_game_art_that_ca (4)_2': 1426622940

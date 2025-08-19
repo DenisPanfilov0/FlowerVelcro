@@ -1,0 +1,28 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3cfbf0c066aa4250a653774c489990b4, type: 3}
+  m_Name: BombSkins
+  m_EditorClassIdentifier: 
+  Type: 2
+  InventorySkins:
+  - SkinId: 1
+    Icon: {fileID: 21300000, guid: 2dd8cd285bdb4f5419eca8104cbe23fd, type: 3}
+  - SkinId: 2
+    Icon: {fileID: 21300000, guid: 90d7de8aa11c0464a8b4000710cbcc19, type: 3}
+  - SkinId: 3
+    Icon: {fileID: 21300000, guid: ee9621870eb0d694d8d8f93de9a9486f, type: 3}
+  - SkinId: 4
+    Icon: {fileID: 21300000, guid: b69ad34d27840e84fb55bb26da64b48a, type: 3}
+  - SkinId: 5
+    Icon: {fileID: 21300000, guid: 57a98e88f959cc44882017f99d52316d, type: 3}
+  - SkinId: 6
+    Icon: {fileID: 21300000, guid: 06dabf3f8b9dcc2448bbbf0c1023c094, type: 3}

@@ -10,6 +10,7 @@ namespace Code.Gameplay.Behaviour.View
     {
         [field: SerializeField] public Collider2D _slimeCollider2D { get; private set; }
         [SerializeField] private Rigidbody2D _rb;
+        [SerializeField] private SpriteRenderer _icon;
 
         // Множитель скорости игры
         public float N = 1f;
@@ -21,10 +22,16 @@ namespace Code.Gameplay.Behaviour.View
         private bool _isFalling = true;
         private bool _isCollected;
 
-        [Inject]
-        public void Construct(IPlayerStickingService playerStickingService)
+        // [Inject]
+        // public void Construct(IPlayerStickingService playerStickingService)
+        // {
+        //     _playerStickingService = playerStickingService;
+        // }
+        
+        public void Setup(IPlayerStickingService playerStickingService, Sprite slimeIcon)
         {
             _playerStickingService = playerStickingService;
+            _icon.sprite = slimeIcon;
         }
 
         private void Awake()

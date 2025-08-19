@@ -14,14 +14,19 @@ using Code.Infrastructure.States.Factory;
 using Code.Infrastructure.States.GameStates;
 using Code.Infrastructure.States.StateMachine;
 using Code.Infrastructure.StaticData;
+using Code.Inventory;
 using Code.MainMenu.Services.AmbientSoundService;
 using Code.Progress.Provider;
+using UnityEngine;
 using Zenject;
 
 namespace Code.Infrastructure.Installers
 {
     public class BootstrapInstaller : MonoInstaller, ICoroutineRunner, IInitializable
     {
+        [SerializeField] private InventorySkinConfigs _inventorySkinConfigs;
+        [SerializeField] private CurrencyConfig _currencyConfig;
+        
         public override void InstallBindings()
         {
             BindInfrastructureServices();
@@ -32,6 +37,12 @@ namespace Code.Infrastructure.Installers
             BindStateFactory();
             BindGameStates();
             BindProgressServices();
+
+            Container.BindInterfacesAndSelfTo<InventoryModel>().AsSingle().NonLazy();
+            Container.Bind<InventorySkinConfigs>().FromInstance(_inventorySkinConfigs).AsSingle().NonLazy();
+
+            Container.BindInterfacesAndSelfTo<CurrencyModel>().AsSingle().NonLazy();
+            Container.Bind<CurrencyConfig>().FromInstance(_currencyConfig).AsSingle().NonLazy();
         }
 
         private void BindStateMachine()

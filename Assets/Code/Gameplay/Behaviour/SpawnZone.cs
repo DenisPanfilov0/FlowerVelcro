@@ -34,10 +34,5 @@ namespace Code.Gameplay.Behaviour
             float width = height * _camera.aspect; // Ширина с учётом соотношения сторон
             _collider.size = new Vector2(width, height);
         }
-
-        // private void OnValidate()
-        // {
-        //     UpdateColliderSize(); // Для редактора
-        // }
     }
 }

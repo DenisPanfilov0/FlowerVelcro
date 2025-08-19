@@ -1,6 +1,7 @@
 using Code.Gameplay.Services.FallManagerService;
 using Code.Gameplay.Services.HeartService;
 using UnityEngine;
+using UnityEngine.UI;
 using Zenject;
 
 namespace Code.Gameplay.Behaviour.View
@@ -9,6 +10,7 @@ namespace Code.Gameplay.Behaviour.View
     public class BombView : MonoBehaviour
     {
         [SerializeField] private Rigidbody2D _rb;
+        [SerializeField] private SpriteRenderer _icon;
 
         // Множитель скорости игры (меняется извне)
         public float N = 1f;
@@ -20,11 +22,16 @@ namespace Code.Gameplay.Behaviour.View
         // Базовая скорость падения (единиц в секунду)
         [SerializeField] private float baseFallSpeed = 5f;
 
-        [Inject]
-        public void Construct(IHeartService heartService, IFallManagerService fallManagerService)
+        // [Inject]
+        // public void Construct(IHeartService heartService, IFallManagerService fallManagerService)
+        // {
+        //     _fallManagerService = fallManagerService;
+        //     _heartService = heartService;
+        // }
+        
+        public void Setup(Sprite slimeIcon)
         {
-            _fallManagerService = fallManagerService;
-            _heartService = heartService;
+            _icon.sprite = slimeIcon;
         }
 
         private void Awake()
@@ -59,8 +66,8 @@ namespace Code.Gameplay.Behaviour.View
         {
             if (other.gameObject.GetComponent<PlayerView>())
             {
-                _heartService.DecreaseHeart();
-                _fallManagerService.RemoveFallingObject(gameObject);
+                // _heartService.DecreaseHeart();
+                // _fallManagerService.RemoveFallingObject(gameObject);
                 Destroy(gameObject);
             }
         }
