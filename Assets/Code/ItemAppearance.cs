@@ -23,11 +23,11 @@ namespace Code.Gameplay.Behaviour.View
 
         public IEnumerator DisappearAnimation(Action onComplete)
         {
-            if (_currentAnimation != null)
-            {
-                StopCoroutine(_currentAnimation);
-                _currentAnimation = null;
-            }
+            // if (_currentAnimation != null)
+            // {
+            //     StopCoroutine(_currentAnimation);
+            //     _currentAnimation = null;
+            // }
             //
             // Vector3 startScale = transform.localScale;
             // float t = 0f;

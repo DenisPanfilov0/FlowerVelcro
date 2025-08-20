@@ -15,6 +15,7 @@ namespace Code.Inventory
         private InventoryCategoryType _categoryType;
         private InventoryModel _inventoryModel;
         private InventoryChanger _changer;
+        private bool _isLocked; // Added to store locked state
 
         private const float AnimDuration = 0.2f;
         private const float StaggerDelay = 0.05f;
@@ -22,13 +23,18 @@ namespace Code.Inventory
         private const float BounceReturn = 0.9f;
         private Coroutine _currentAnimation;
 
-        public void Setup(Sprite icon, int skinId, InventoryCategoryType categoryType, InventoryModel inventoryModel, InventoryChanger changer)
+        public void Setup(Sprite icon, int skinId, InventoryCategoryType categoryType, InventoryModel inventoryModel, InventoryChanger changer, bool isLocked)
         {
             _inventoryModel = inventoryModel;
             _categoryType = categoryType;
             _changer = changer;
             _icon.sprite = icon;
             _skinId = skinId;
+            _isLocked = isLocked;
+
+            // Apply locked state visuals
+            _icon.color = _isLocked ? Color.black : Color.white;
+            _useButton.interactable = !_isLocked;
 
             if (_currentAnimation != null)
             {
@@ -38,11 +44,7 @@ namespace Code.Inventory
 
             gameObject.SetActive(true);
             transform.localScale = Vector3.zero;
-            // Choose one of the appearance animations below
             _currentAnimation = StartCoroutine(AppearAnimationSmoothOvershoot());
-            // Alternative options:
-            // _currentAnimation = StartCoroutine(AppearAnimationElastic());
-            // _currentAnimation = StartCoroutine(AppearAnimationNoBounce());
         }
 
         public void HideAnimated(Action onComplete)
@@ -56,7 +58,6 @@ namespace Code.Inventory
             _currentAnimation = StartCoroutine(DisappearAnimation(onComplete));
         }
 
-        // Smooth overshoot with a gentle return for a subtle bounce
         private IEnumerator AppearAnimationSmoothOvershoot()
         {
             float t = 0f;
@@ -71,7 +72,6 @@ namespace Code.Inventory
             _currentAnimation = null;
         }
 
-        // Elastic bounce with multiple oscillations
         private IEnumerator AppearAnimationElastic()
         {
             float t = 0f;
@@ -86,7 +86,6 @@ namespace Code.Inventory
             _currentAnimation = null;
         }
 
-        // Simple smooth scale without bounce
         private IEnumerator AppearAnimationNoBounce()
         {
             float t = 0f;
@@ -143,7 +142,7 @@ namespace Code.Inventory
         public void SetSelected(bool isSelected)
         {
             _backImage.color = isSelected ? _selectedColor : Color.white;
-            _useButton.interactable = !isSelected;
+            _useButton.interactable = !isSelected && !_isLocked; // Respect locked state
         }
 
         private void Start()

@@ -16,5 +16,6 @@ namespace Code.Inventory
     {
         public int SkinId;
         public Sprite Icon;
+        public bool IsLocked; // Added field to track locked state
     }
 }

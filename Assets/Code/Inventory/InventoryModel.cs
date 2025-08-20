@@ -1,38 +1,103 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Code;
 using UnityEngine;
 using Zenject;
 
 namespace Code.Inventory
 {
     [Serializable]
+    public class InventorySaveData
+    {
+        public List<InventorySkinsData> Skins; // Stores category, skin ID, and locked state
+    }
+
+    [Serializable]
     public class InventorySkinsData
     {
         public InventoryCategoryType Type;
         public int SkinId;
+        public bool IsLocked; // Tracks locked state
     }
-    
-    public class InventoryModel : IInitializable
+
+    public class InventoryModel : IInitializable, ISaveLoad, IDisposable
     {
         private readonly InventorySkinConfigs _inventorySkinConfigs;
+        private readonly SaveLoadService _saveLoadService;
+        private List<InventorySkinsData> _inventorySkins = new();
+        private const string SAVE_KEY = "InventorySkins";
 
-        public InventoryModel(InventorySkinConfigs inventorySkinConfigs)
+        public InventoryModel(InventorySkinConfigs inventorySkinConfigs, SaveLoadService saveLoadService)
         {
             _inventorySkinConfigs = inventorySkinConfigs;
+            _saveLoadService = saveLoadService;
         }
-        
-        public List<InventorySkinsData> _inventorySkins = new();
 
         public void Initialize()
         {
-            _inventorySkins = new()
+            LoadData();
+        }
+
+        private void InitializeDefaultValues()
+        {
+            _inventorySkins = new List<InventorySkinsData>();
+            foreach (var config in _inventorySkinConfigs.InventorySkinsConfigs)
             {
-                new InventorySkinsData { Type = InventoryCategoryType.Flowers, SkinId = 1 },
-                new InventorySkinsData { Type = InventoryCategoryType.Bomb, SkinId = 1 },
-                new InventorySkinsData { Type = InventoryCategoryType.Zigzag, SkinId = 1 },
-                new InventorySkinsData { Type = InventoryCategoryType.Spike, SkinId = 1 },
+                foreach (var skin in config.InventorySkins)
+                {
+                    // Initialize IsLocked from InventorySkinConfig
+                    _inventorySkins.Add(new InventorySkinsData
+                    {
+                        Type = config.Type,
+                        SkinId = skin.SkinId,
+                        IsLocked = skin.IsLocked // Use value from config
+                    });
+                }
+                // Ensure at least one skin is selected per category
+                if (_inventorySkins.Any(x => x.Type == config.Type && !x.IsLocked))
+                {
+                    var firstUnlocked = _inventorySkins.FirstOrDefault(x => x.Type == config.Type && !x.IsLocked);
+                    ChangeSkin(config.Type, firstUnlocked.SkinId);
+                }
+                else
+                {
+                    // Fallback: select first skin if none are unlocked
+                    var firstSkin = config.InventorySkins.FirstOrDefault();
+                    if (firstSkin != null)
+                    {
+                        ChangeSkin(config.Type, firstSkin.SkinId);
+                    }
+                }
+            }
+            SaveData();
+        }
+
+        public void SaveData()
+        {
+            var data = new InventorySaveData
+            {
+                Skins = _inventorySkins
             };
+            _saveLoadService.SaveData(SAVE_KEY, data);
+        }
+
+        public void LoadData()
+        {
+            var data = _saveLoadService.LoadData<InventorySaveData>(SAVE_KEY);
+            if (data != null && data.Skins != null)
+            {
+                _inventorySkins = data.Skins;
+            }
+            else
+            {
+                InitializeDefaultValues();
+            }
+        }
+
+        public void Dispose()
+        {
+            SaveData();
         }
 
         public void ChangeSkin(InventoryCategoryType category, int skinId)
@@ -45,8 +110,9 @@ namespace Code.Inventory
             }
             else
             {
-                _inventorySkins.Add(new InventorySkinsData { Type = category, SkinId = skinId });
+                _inventorySkins.Add(new InventorySkinsData { Type = category, SkinId = skinId, IsLocked = false });
             }
+            SaveData();
         }
 
         public int GetSelectedSkinId(InventoryCategoryType category)
@@ -61,11 +127,24 @@ namespace Code.Inventory
 
             if (skinData != null && skinConfig != null)
             {
-                return skinConfig.InventorySkins.FirstOrDefault(x => x.SkinId == skinData.SkinId).Icon;
+                return skinConfig.InventorySkins.FirstOrDefault(x => x.SkinId == skinData.SkinId)?.Icon;
             }
-            else
+            return null;
+        }
+
+        public bool IsSkinLocked(InventoryCategoryType category, int skinId)
+        {
+            var skinData = _inventorySkins.FirstOrDefault(x => x.Type == category && x.SkinId == skinId);
+            return skinData != null ? skinData.IsLocked : true; // Default to locked if not found
+        }
+
+        public void UnlockSkin(InventoryCategoryType category, int skinId)
+        {
+            var skinData = _inventorySkins.FirstOrDefault(x => x.Type == category && x.SkinId == skinId);
+            if (skinData != null)
             {
-                return null;
+                skinData.IsLocked = false;
+                SaveData();
             }
         }
     }

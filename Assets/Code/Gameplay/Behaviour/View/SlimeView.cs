@@ -8,7 +8,7 @@ namespace Code.Gameplay.Behaviour.View
 {
     public class SlimeView : ItemView
     {
-        [field: SerializeField] public Collider2D _slimeCollider2D { get; private set; }
+        // [field: SerializeField] public Collider2D _slimeCollider2D { get; private set; }
         private bool _isCollected;
 
         public override void Setup(IPlayerStickingService playerStickingService, Sprite slimeIcon, ItemSpawnerTypeId typeId, IHeartService heartService, IGameStateService gameStateService)

@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 4305623968376092602}
   - component: {fileID: 7926654377359352355}
   - component: {fileID: 7770162052386186670}
-  m_Layer: 5
+  m_Layer: 0
   m_Name: Slime
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -51,7 +51,6 @@ MonoBehaviour:
   _icon: {fileID: 7926654377359352355}
   baseFallSpeed: 8
   N: 1
-  <_slimeCollider2D>k__BackingField: {fileID: 4305623968376092602}
 --- !u!58 &4305623968376092602
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -64,10 +63,10 @@ CircleCollider2D:
   m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 4294967295
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 4294967295
   m_LayerOverridePriority: 0
   m_ForceSendLayers:
     serializedVersion: 2

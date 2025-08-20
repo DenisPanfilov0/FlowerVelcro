@@ -25,6 +25,7 @@ namespace Code.Inventory
         [SerializeField] private InventoryChanger _inventoryChanger;
         private CurrencyModel _currencyModel;
         private InventorySkinConfigs _inventorySkinConfigs;
+        private InventoryModel _inventoryModel; // Added for unlocking skins
         private RewardSkin _rewardSkinInstance;
         private Coroutine _currentAnimation;
 
@@ -33,10 +34,11 @@ namespace Code.Inventory
         private Vector3 _closePanelInitialScale;
 
         [Inject]
-        public void Construct(CurrencyModel currencyModel, InventorySkinConfigs inventorySkinConfigs)
+        public void Construct(CurrencyModel currencyModel, InventorySkinConfigs inventorySkinConfigs, InventoryModel inventoryModel)
         {
             _currencyModel = currencyModel;
             _inventorySkinConfigs = inventorySkinConfigs;
+            _inventoryModel = inventoryModel;
         }
 
         private void Awake()
@@ -224,7 +226,16 @@ namespace Code.Inventory
             {
                 yield break;
             }
-            InventorySkinData randomSkin = skinConfig.InventorySkins[UnityEngine.Random.Range(0, skinConfig.InventorySkins.Count)];
+
+            // Select only locked skins
+            var lockedSkins = skinConfig.InventorySkins
+                .Where(x => _inventoryModel.IsSkinLocked(category, x.SkinId))
+                .ToList();
+            if (lockedSkins.Count == 0)
+            {
+                yield break; // No locked skins available
+            }
+            InventorySkinData randomSkin = lockedSkins[UnityEngine.Random.Range(0, lockedSkins.Count)];
 
             _activeShadow.gameObject.SetActive(true);
             Color startShadowColor = _activeShadow.color;
@@ -289,6 +300,10 @@ namespace Code.Inventory
             _chestImage.transform.localScale = startChestScale;
             _chestImage.transform.rotation = Quaternion.identity;
             _chestImage.transform.localPosition = initialChestPosition; // Return to initial position
+
+            // Unlock the selected skin
+            _inventoryModel.UnlockSkin(category, randomSkin.SkinId);
+            _inventoryChanger.RefreshCategory(); // Refresh inventory to reflect unlocked skin
 
             _interactiveShadow.interactable = true;
         }

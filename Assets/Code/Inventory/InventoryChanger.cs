@@ -22,6 +22,7 @@ namespace Code.Inventory
         private Coroutine _currentShowCoroutine;
         private InventoryCategoryType _currentCategory;
 
+
         private const float StaggerDelay = 0.05f;
 
         [Inject]
@@ -119,7 +120,18 @@ namespace Code.Inventory
                 return;
             }
 
-            int needed = skinConfig.InventorySkins.Count;
+            // Sort skins: unlocked (IsLocked == false) first, then locked (IsLocked == true)
+            var sortedConfigs = skinConfig.InventorySkins
+                .Select(skin => new
+                {
+                    Skin = skin,
+                    IsLocked = _inventoryModel.IsSkinLocked(categoryType, skin.SkinId)
+                })
+                .OrderBy(x => x.IsLocked)
+                .Select(x => x.Skin)
+                .ToList();
+
+            int needed = sortedConfigs.Count;
             while (_pool.Count < needed)
             {
                 InventoryItem item = Instantiate(_inventoryItem, _itemsContainer);
@@ -132,14 +144,13 @@ namespace Code.Inventory
                 StopCoroutine(_currentShowCoroutine);
                 _currentShowCoroutine = null;
             }
-            _currentShowCoroutine = StartCoroutine(ShowStaggered(skinConfig));
+            _currentShowCoroutine = StartCoroutine(ShowStaggered(sortedConfigs, categoryType));
         }
 
-        private IEnumerator ShowStaggered(InventorySkinConfig skinConfig)
+        private IEnumerator ShowStaggered(List<InventorySkinData> sortedConfigs, InventoryCategoryType categoryType)
         {
-            var configs = skinConfig.InventorySkins;
             List<InventoryItem> selected = new List<InventoryItem>();
-            for (int i = 0; i < configs.Count; i++)
+            for (int i = 0; i < sortedConfigs.Count; i++)
             {
                 selected.Add(_pool.Pop());
             }
@@ -147,7 +158,8 @@ namespace Code.Inventory
 
             for (int i = 0; i < showOrder.Count; i++)
             {
-                showOrder[i].Setup(configs[i].Icon, configs[i].SkinId, skinConfig.Type, _inventoryModel, this);
+                bool isLocked = _inventoryModel.IsSkinLocked(categoryType, sortedConfigs[i].SkinId);
+                showOrder[i].Setup(sortedConfigs[i].Icon, sortedConfigs[i].SkinId, categoryType, _inventoryModel, this, isLocked);
                 _activeItems.Add(showOrder[i]);
                 if (i < showOrder.Count - 1)
                 {
@@ -172,6 +184,15 @@ namespace Code.Inventory
         public void Hide()
         {
             gameObject.SetActive(false);
+        }
+
+        public void RefreshCategory()
+        {
+            if (_categoryItem != null)
+            {
+                ChangeCategory(_currentCategory, _categoryItem);
+                _inventoryModel.SaveData(); // Save after refreshing
+            }
         }
 
         public InventoryCategoryType GetCurrentCategory()

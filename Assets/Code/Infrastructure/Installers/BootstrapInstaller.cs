@@ -30,6 +30,8 @@ namespace Code.Infrastructure.Installers
         
         public override void InstallBindings()
         {
+            Container.BindInterfacesAndSelfTo<SaveLoadService>().AsSingle().NonLazy();
+            
             Container.BindInterfacesAndSelfTo<InventoryModel>().AsSingle().NonLazy();
             Container.Bind<InventorySkinConfigs>().FromInstance(_inventorySkinConfigs).AsSingle().NonLazy();
 
