@@ -64,7 +64,8 @@ namespace Code.Gameplay.Behaviour.View
             if (other.gameObject.GetComponent<PlayerView>())
             {
                 _heartService?.DecreaseHeart();
-                StartCoroutine(GetComponent<ItemAppearance>().DisappearAnimation(() => _spawnerService?.ReturnToPool(this, _typeId)));
+                // StartCoroutine(GetComponent<ItemAppearance>().DisappearAnimation(() => _spawnerService?.ReturnToPool(this, _typeId)));
+                _spawnerService.ReturnToPool(this, _typeId);
             }
         }
     }

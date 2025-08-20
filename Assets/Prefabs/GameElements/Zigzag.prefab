@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 3076503948413194509}
   - component: {fileID: 7715650546336453523}
   - component: {fileID: 5546850433881515711}
-  m_Layer: 5
+  m_Layer: 2
   m_Name: Zigzag
   m_TagString: Bomb
   m_Icon: {fileID: 0}
@@ -165,5 +165,7 @@ MonoBehaviour:
   _icon: {fileID: 1612249821862196965}
   baseFallSpeed: 8
   N: 1
+  _isGameActive: 1
+  _screenBottom: 0
   horizontalSpeed: 2
   edgeMarginPercent: 0.05

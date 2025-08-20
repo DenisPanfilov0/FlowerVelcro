@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6424266694121916703}
   - component: {fileID: 8367568558838607005}
-  m_Layer: 5
+  m_Layer: 2
   m_Name: Rope
   m_TagString: Untagged
   m_Icon: {fileID: 0}

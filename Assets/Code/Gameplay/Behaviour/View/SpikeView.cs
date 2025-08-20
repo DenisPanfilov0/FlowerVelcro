@@ -21,7 +21,8 @@ namespace Code.Gameplay.Behaviour.View
                 if (other.transform.position.y > transform.position.y)
                 {
                     _heartService?.DecreaseHeart();
-                    StartCoroutine(GetComponent<ItemAppearance>().DisappearAnimation(() => _spawnerService?.ReturnToPool(this, _typeId)));
+                    // StartCoroutine(GetComponent<ItemAppearance>().DisappearAnimation(() => _spawnerService?.ReturnToPool(this, _typeId)));
+                    _spawnerService.ReturnToPool(this, _typeId);
                 }
             }
         }

@@ -64,8 +64,8 @@ namespace Code.Gameplay.Services.SpawnersServices
 
         private const float BaseMinPatternDelay = 0.4f; // Ускорили спавн
         private const float BaseMaxPatternDelay = 1.2f; // Ускорили спавн
-        private const float BaseSpikeStageTime = 10f; // Шипы раньше (было 15f)
-        private const float BaseZigzagStageTime = 20f; // Зигзаги раньше (было 30f)
+        private const float BaseSpikeStageTime = 20f; // Шипы раньше (было 15f)
+        private const float BaseZigzagStageTime = 50f; // Зигзаги раньше (было 30f)
         private const int InitialPoolSize = 10;
         private const float SafeZoneRadius = 2f;
         private const float MinSpawnDistance = 1.5f;

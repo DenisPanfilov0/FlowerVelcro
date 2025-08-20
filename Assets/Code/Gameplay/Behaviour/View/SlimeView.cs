@@ -9,7 +9,7 @@ namespace Code.Gameplay.Behaviour.View
     public class SlimeView : ItemView
     {
         // [field: SerializeField] public Collider2D _slimeCollider2D { get; private set; }
-        private bool _isCollected;
+        [SerializeField] private bool _isCollected;
 
         public override void Setup(IPlayerStickingService playerStickingService, Sprite slimeIcon, ItemSpawnerTypeId typeId, IHeartService heartService, IGameStateService gameStateService)
         {
@@ -29,12 +29,21 @@ namespace Code.Gameplay.Behaviour.View
                 _playerStickingService.SlimeClicked(this);
             }
         }
+        
+        // public void OnClicked()
+        // {
+        //     if (!_isCollected)
+        //     {
+        //         _playerStickingService.SlimeClicked(this);
+        //     }
+        // }
 
         public void CloseFlower()
         {
             _icon.color = Color.gray;
             _isCollected = true;
-            StartCoroutine(GetComponent<ItemAppearance>().DisappearAnimation(() => _spawnerService?.ReturnToPool(this, _typeId)));
+            // StartCoroutine(GetComponent<ItemAppearance>().DisappearAnimation(() => _spawnerService?.ReturnToPool(this, _typeId)));
+            _spawnerService?.ReturnToPool(this, _typeId);
         }
     }
 }

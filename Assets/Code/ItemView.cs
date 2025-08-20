@@ -16,13 +16,13 @@ namespace Code.Gameplay.Behaviour.View
         [SerializeField] protected float baseFallSpeed = 5f;
         [SerializeField] public float N = 1f; // For Inspector visibility, updated by GameSpeed
         protected bool _isFalling = true;
-        protected bool _isGameActive = true;
+        [SerializeField] protected bool _isGameActive = true;
         protected IPlayerStickingService _playerStickingService;
         protected IHeartService _heartService;
         protected ItemSpawnerService _spawnerService;
         protected ItemSpawnerTypeId _typeId;
         protected IGameStateService _gameStateService;
-        private float _screenBottom;
+        [SerializeField] private float _screenBottom;
 
         [Inject]
         public void Construct(IGameStateService gameStateService)
@@ -37,10 +37,10 @@ namespace Code.Gameplay.Behaviour.View
             _heartService = heartService;
             _gameStateService = gameStateService ?? _gameStateService; // Ensure gameStateService is set
             _icon.sprite = icon;
-            if (GetComponent<ItemAppearance>() == null)
-            {
-                gameObject.AddComponent<ItemAppearance>();
-            }
+            // if (GetComponent<ItemAppearance>() == null)
+            // {
+            //     gameObject.AddComponent<ItemAppearance>();
+            // }
         }
 
         public void SetupPool(ItemSpawnerService spawnerService, ItemSpawnerTypeId typeId)

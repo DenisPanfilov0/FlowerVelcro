@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 6915847887245448121}
   - component: {fileID: 7923753917852775714}
   - component: {fileID: 7810389160988484454}
-  m_Layer: 5
+  m_Layer: 2
   m_Name: Spike
   m_TagString: Bomb
   m_Icon: {fileID: 0}
@@ -166,6 +166,8 @@ MonoBehaviour:
   _icon: {fileID: 8296534807041739767}
   baseFallSpeed: 8
   N: 1
+  _isGameActive: 1
+  _screenBottom: 0
 --- !u!61 &7810389160988484454
 BoxCollider2D:
   m_ObjectHideFlags: 0

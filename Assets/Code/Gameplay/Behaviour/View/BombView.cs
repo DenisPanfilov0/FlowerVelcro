@@ -24,14 +24,16 @@ namespace Code.Gameplay.Behaviour.View
             {
                 _heartService?.DecreaseHeart();
                 _isReturningToPool = true;
-                StartCoroutine(GetComponent<ItemAppearance>().DisappearAnimation(() => 
-                {
-                    if (_spawnerService != null && gameObject != null)
-                    {
-                        _spawnerService.ReturnToPool(this, _typeId);
-                    }
-                    _isReturningToPool = false;
-                }));
+                // StartCoroutine(GetComponent<ItemAppearance>().DisappearAnimation(() => 
+                // {
+                //     if (_spawnerService != null && gameObject != null)
+                //     {
+                //         _spawnerService.ReturnToPool(this, _typeId);
+                //     }
+                //     _isReturningToPool = false;
+                // }));
+                
+                _spawnerService.ReturnToPool(this, _typeId);
             }
         }
     }
