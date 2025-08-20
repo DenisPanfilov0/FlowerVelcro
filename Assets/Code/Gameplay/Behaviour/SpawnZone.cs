@@ -1,6 +1,4 @@
-using Code.Gameplay.Services.SpawnersServices.BombSpawnerService;
-using Code.Gameplay.Services.SpawnersServices.HeartSpawnerService;
-using Code.Gameplay.Services.SpawnersServices.SlimeSpawnerService;
+using Code.Gameplay.Services.SpawnersServices;
 using UnityEngine;
 using Zenject;
 
@@ -12,17 +10,14 @@ namespace Code.Gameplay.Behaviour
         private Camera _camera;
 
         [Inject]
-        public void Construct(IBombSpawnerService bombSpawner, IHeartSpawnerService heartSpawner, ISlimeSpawnerService slimeSpawner, Camera mainCamera)
+        public void Construct(ItemSpawnerService itemSpawner, Camera mainCamera)
         {
-            bombSpawner.StartSpawn(transform);
-            heartSpawner.StartSpawn(transform);
-            slimeSpawner.StartSpawn(transform);
+            itemSpawner.StartSpawn(transform);
             _camera = mainCamera;
         }
 
         private void Start()
         {
-            // _mainCamera = Camera.main;
             _collider = gameObject.GetComponent<BoxCollider2D>();
             _collider.isTrigger = true;
             UpdateColliderSize();
@@ -30,8 +25,8 @@ namespace Code.Gameplay.Behaviour
 
         private void UpdateColliderSize()
         {
-            float height = 2f * _camera.orthographicSize; // Высота камеры
-            float width = height * _camera.aspect; // Ширина с учётом соотношения сторон
+            float height = 2f * _camera.orthographicSize;
+            float width = height * _camera.aspect;
             _collider.size = new Vector2(width, height);
         }
     }

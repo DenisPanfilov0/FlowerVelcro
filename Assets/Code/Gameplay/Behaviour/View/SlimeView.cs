@@ -1,62 +1,27 @@
+using Code.Configs.ItemSpawnerConfig;
+using Code.Gameplay.Services.GameStateService;
 using Code.Gameplay.Services.PlayerStickingService;
+using Code.Gameplay.Services.HeartService;
 using UnityEngine;
-using UnityEngine.UI;
-using Zenject;
 
 namespace Code.Gameplay.Behaviour.View
 {
-    [RequireComponent(typeof(Rigidbody2D), typeof(Collider2D))]
-    public class SlimeView : MonoBehaviour
+    public class SlimeView : ItemView
     {
         [field: SerializeField] public Collider2D _slimeCollider2D { get; private set; }
-        [SerializeField] private Rigidbody2D _rb;
-        [SerializeField] private SpriteRenderer _icon;
-
-        // Множитель скорости игры
-        public float N = 1f;
-
-        // Базовая скорость падения
-        [SerializeField] private float baseFallSpeed = 5f;
-
-        private IPlayerStickingService _playerStickingService;
-        private bool _isFalling = true;
         private bool _isCollected;
 
-        // [Inject]
-        // public void Construct(IPlayerStickingService playerStickingService)
-        // {
-        //     _playerStickingService = playerStickingService;
-        // }
-        
-        public void Setup(IPlayerStickingService playerStickingService, Sprite slimeIcon)
+        public override void Setup(IPlayerStickingService playerStickingService, Sprite slimeIcon, ItemSpawnerTypeId typeId, IHeartService heartService, IGameStateService gameStateService)
         {
-            _playerStickingService = playerStickingService;
-            _icon.sprite = slimeIcon;
+            base.Setup(playerStickingService, slimeIcon, typeId, heartService, gameStateService);
         }
 
-        private void Awake()
+        public override void Reset()
         {
-            if (_rb == null)
-                _rb = GetComponent<Rigidbody2D>();
-
-            _rb.collisionDetectionMode = CollisionDetectionMode2D.Continuous;
-            _rb.interpolation = RigidbodyInterpolation2D.Interpolate;
-            _rb.gravityScale = 0f;
+            base.Reset();
+            _isCollected = false;
         }
 
-        private void OnEnable()
-        {
-            // Падаем с постоянной скоростью сразу при спавне
-            _rb.velocity = Vector2.down * baseFallSpeed * N;
-        }
-
-        private void FixedUpdate()
-        {
-            if (_isFalling)
-                _rb.velocity = Vector2.down * baseFallSpeed * N;
-        }
-
-        // Реакция на клик мышью или тап
         private void OnMouseDown()
         {
             if (!_isCollected)
@@ -67,9 +32,9 @@ namespace Code.Gameplay.Behaviour.View
 
         public void CloseFlower()
         {
-            GetComponent<SpriteRenderer>().color = Color.gray;
+            _icon.color = Color.gray;
             _isCollected = true;
-            // Destroy(gameObject); // временный дестрой в методе, в будущем хочу сделать анимационную замену
+            StartCoroutine(GetComponent<ItemAppearance>().DisappearAnimation(() => _spawnerService?.ReturnToPool(this, _typeId)));
         }
     }
 }

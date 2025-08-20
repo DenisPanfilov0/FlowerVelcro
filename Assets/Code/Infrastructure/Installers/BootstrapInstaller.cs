@@ -4,6 +4,7 @@ using Code.Gameplay.Services.GameStateService;
 using Code.Gameplay.Services.HeartService;
 using Code.Gameplay.Services.PlayerFallingService;
 using Code.Gameplay.Services.PlayerStickingService;
+using Code.Gameplay.Services.SpawnersServices;
 using Code.Gameplay.Services.SpawnersServices.BombSpawnerService;
 using Code.Gameplay.Services.SpawnersServices.HeartSpawnerService;
 using Code.Gameplay.Services.SpawnersServices.SlimeSpawnerService;
@@ -29,6 +30,12 @@ namespace Code.Infrastructure.Installers
         
         public override void InstallBindings()
         {
+            Container.BindInterfacesAndSelfTo<InventoryModel>().AsSingle().NonLazy();
+            Container.Bind<InventorySkinConfigs>().FromInstance(_inventorySkinConfigs).AsSingle().NonLazy();
+
+            Container.BindInterfacesAndSelfTo<CurrencyModel>().AsSingle().NonLazy();
+            Container.Bind<CurrencyConfig>().FromInstance(_currencyConfig).AsSingle().NonLazy();
+            
             BindInfrastructureServices();
             BindCommonServices();
             BindMainMenuServices();
@@ -38,11 +45,7 @@ namespace Code.Infrastructure.Installers
             BindGameStates();
             BindProgressServices();
 
-            Container.BindInterfacesAndSelfTo<InventoryModel>().AsSingle().NonLazy();
-            Container.Bind<InventorySkinConfigs>().FromInstance(_inventorySkinConfigs).AsSingle().NonLazy();
-
-            Container.BindInterfacesAndSelfTo<CurrencyModel>().AsSingle().NonLazy();
-            Container.Bind<CurrencyConfig>().FromInstance(_currencyConfig).AsSingle().NonLazy();
+            
         }
 
         private void BindStateMachine()
@@ -78,12 +81,19 @@ namespace Code.Infrastructure.Installers
 
         private void BindGameplayServices()
         {
-            Container.Bind<IBombSpawnerService>().To<BombSpawnerService>().AsSingle();
-            Container.Bind<ISlimeSpawnerService>().To<SlimeSpawnerService>().AsSingle();
+            // Container.Bind<IBombSpawnerService>().To<BombSpawnerService>().AsSingle();
+            // Container.Bind<ISlimeSpawnerService>().To<SlimeSpawnerService>().AsSingle();
+            
+            
+            
+            // Container.BindInterfacesAndSelfTo<ItemSpawnerService>().AsSingle();
+            
+            
+            
             Container.Bind<IHeartSpawnerService>().To<HeartSpawnerService>().AsSingle();
             Container.Bind<IPlayerStickingService>().To<PlayerStickingService>().AsSingle();
             Container.Bind<IPlayerFallingService>().To<PlayerFallingService>().AsSingle();
-            Container.Bind<IGameStateService>().To<GameStateService>().AsSingle();
+            Container.BindInterfacesAndSelfTo<IGameStateService>().AsSingle();
             Container.Bind<IGameScoreService>().To<GameScoreService>().AsSingle();
             Container.Bind<IHeartService>().To<HeartService>().AsSingle();
             Container.Bind<IFallManagerService>().To<FallManagerService>().AsSingle();

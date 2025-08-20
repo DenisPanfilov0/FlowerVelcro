@@ -20,6 +20,7 @@ namespace Code.Inventory
         private int _switchVersion = 0;
         private Coroutine _currentHideCoroutine;
         private Coroutine _currentShowCoroutine;
+        private InventoryCategoryType _currentCategory;
 
         private const float StaggerDelay = 0.05f;
 
@@ -76,6 +77,8 @@ namespace Code.Inventory
             {
                 ShowCategorySkins(categoryType);
             }
+
+            _currentCategory = categoryType;
         }
 
         private IEnumerator HideStaggered(InventoryCategoryType categoryType, int thisVersion)
@@ -169,6 +172,11 @@ namespace Code.Inventory
         public void Hide()
         {
             gameObject.SetActive(false);
+        }
+
+        public InventoryCategoryType GetCurrentCategory()
+        {
+            return _currentCategory;
         }
     }
 }

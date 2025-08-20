@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Code.Gameplay.Services.SpawnersServices;
 using UnityEngine;
 using Zenject;
 
@@ -17,6 +18,8 @@ namespace Code.Infrastructure.Installers
             }
 
             Container.BindInterfacesAndSelfTo<Camera>().FromInstance(_mainCamera).AsCached();
+            
+            Container.BindInterfacesAndSelfTo<ItemSpawnerService>().AsSingle();
         }
     }
 }

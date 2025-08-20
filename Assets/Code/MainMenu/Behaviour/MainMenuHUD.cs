@@ -1,5 +1,6 @@
 using Code.Infrastructure.States.GameStates;
 using Code.Infrastructure.States.StateMachine;
+using Code.Inventory;
 using Code.Progress.Provider;
 using DG.Tweening;
 using TMPro;
@@ -15,15 +16,18 @@ namespace Code.MainMenu.Behaviour
         [SerializeField] private Button _volumeSettingsButton;
         [SerializeField] private GameObject _setingsPanel;
         [SerializeField] private TextMeshProUGUI _maxScore;
+        [SerializeField] private TMP_Text _currency;
         
         private IGameStateMachine _stateMachine;
         private IProgressProvider _progress;
         private bool _isSettingsPanelOpen = false;
         private Vector2 _initialPosition;
+        private CurrencyModel _currencyModel;
 
         [Inject]
-        public void Construct(IGameStateMachine stateMachine, IProgressProvider progress)
+        public void Construct(IGameStateMachine stateMachine, IProgressProvider progress, CurrencyModel currencyModel)
         {
+            _currencyModel = currencyModel;
             _progress = progress;
             _stateMachine = stateMachine;
         }
@@ -34,6 +38,7 @@ namespace Code.MainMenu.Behaviour
             _volumeSettingsButton.onClick.AddListener(OpenOrCloseSettingsPanel);
 
             _maxScore.text = _progress.ProgressData.MaxScore.ToString();
+            _currency.text = _currencyModel.GetCurrencyAmount().ToString();
 
             RectTransform rectTransform = _setingsPanel.GetComponent<RectTransform>();
             _initialPosition = rectTransform.anchoredPosition;

@@ -8,7 +8,7 @@ namespace Code.Gameplay.Services.HeartService
         private readonly IGameStateService _gameStateService;
         public event Action<int> HeartCountChange; 
         
-        private int _heartCount = 3;
+        private int _heartCount = 1;
 
         public HeartService(IGameStateService gameStateService)
         {
@@ -43,7 +43,7 @@ namespace Code.Gameplay.Services.HeartService
 
         public void Cleanup()
         {
-            _heartCount = 3;
+            _heartCount = 1;
         }
 
         private void GameLose()

@@ -47,11 +47,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 29db712fcfa549849a8d5708e78e5b37, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  <_slimeCollider2D>k__BackingField: {fileID: 4305623968376092602}
   _rb: {fileID: 7770162052386186670}
   _icon: {fileID: 7926654377359352355}
-  N: 3
-  baseFallSpeed: 5
+  baseFallSpeed: 8
+  N: 1
+  <_slimeCollider2D>k__BackingField: {fileID: 4305623968376092602}
 --- !u!58 &4305623968376092602
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -86,7 +86,7 @@ CircleCollider2D:
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
-  m_Radius: 1.1
+  m_Radius: 1.6
 --- !u!212 &7926654377359352355
 SpriteRenderer:
   m_ObjectHideFlags: 0

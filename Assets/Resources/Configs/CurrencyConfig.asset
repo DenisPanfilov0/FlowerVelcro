@@ -12,5 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ca99a72890f04a0289e9f418eb255ab3, type: 3}
   m_Name: CurrencyConfig
   m_EditorClassIdentifier: 
-  Icon: {fileID: 21300000, guid: d112be57e9f9a64478fe1bfc3c2629f2, type: 3}
-  Amount: 150
+  Icon: {fileID: 21300000, guid: 3e1f691bc84e03e4cb2fbcd7d2280d58, type: 3}
+  Amount: 2300

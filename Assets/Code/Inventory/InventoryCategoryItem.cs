@@ -48,6 +48,7 @@ namespace Code.Inventory
         Unknown = 0,
         Flowers = 1,
         Bomb = 2,
-        Bug = 3,
+        Zigzag = 3,
+        Spike = 4,
     }
 }

@@ -7,6 +7,7 @@ namespace Code.Gameplay.Services.GameScoreService
         // void ScoreUpdate();
         void Cleanup();
         void IncreaseScore();
+        int GetScore();
         event Action<int> ScoreChange;
     }
 }

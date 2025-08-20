@@ -27,15 +27,15 @@ namespace Code.Inventory
 
         public void AddCurrency(int amount)
         {
-            if (CanSpend(amount))
-            {
+            // if (CanSpend(amount))
+            // {
                 _currencyAmount += amount;
                 AmountChanged?.Invoke(_currencyAmount);
-            }
-            else
-            {
-                throw new ArgumentException();
-            }
+            // }
+            // else
+            // {
+                // throw new ArgumentException();
+            // }
         }
         
         public void SpendCurrency(int amount)
@@ -49,6 +49,11 @@ namespace Code.Inventory
             {
                 throw new ArgumentException();
             }
+        }
+
+        public int GetCurrencyAmount()
+        {
+            return _currencyAmount;
         }
     }
 }

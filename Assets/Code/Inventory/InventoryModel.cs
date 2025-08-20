@@ -30,6 +30,8 @@ namespace Code.Inventory
             {
                 new InventorySkinsData { Type = InventoryCategoryType.Flowers, SkinId = 1 },
                 new InventorySkinsData { Type = InventoryCategoryType.Bomb, SkinId = 1 },
+                new InventorySkinsData { Type = InventoryCategoryType.Zigzag, SkinId = 1 },
+                new InventorySkinsData { Type = InventoryCategoryType.Spike, SkinId = 1 },
             };
         }
 

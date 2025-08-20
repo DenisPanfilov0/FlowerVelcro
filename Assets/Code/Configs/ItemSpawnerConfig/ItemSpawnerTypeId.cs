@@ -6,5 +6,7 @@ namespace Code.Configs.ItemSpawnerConfig
         Bomb = 1,
         Heart = 2,
         Slime = 3,
+        Zigzag = 4,
+        Spike = 5,
     }
 }
