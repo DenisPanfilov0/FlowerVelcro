@@ -69,7 +69,7 @@ MonoBehaviour:
       height: 24
       color1: {r: 0.25, g: 0.6392, b: 1, a: 1}
       color2: {r: 1, g: 0.831, b: 0.149, a: 0.7}
-    fixedAspectRatio: 1
+    fixedAspectRatio: 0
     aspectRatio: 9/18
     disableForMobile: 1
     fillBackground: 1

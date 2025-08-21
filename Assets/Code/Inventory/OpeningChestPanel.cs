@@ -21,39 +21,42 @@ namespace Code.Inventory
         [SerializeField] private Transform _rewardParent;
         [SerializeField] private TMP_Text _chestText;
         [SerializeField] private TMP_Text _categoryText;
+        [SerializeField] private TMP_Text _promptText;
         [SerializeField] private GameObject _blocker;
         [SerializeField] private InventoryChanger _inventoryChanger;
         private CurrencyModel _currencyModel;
         private InventorySkinConfigs _inventorySkinConfigs;
-        private InventoryModel _inventoryModel; // Added for unlocking skins
+        private InventoryModel _inventoryModel;
+        private Camera _mainCamera;
         private RewardSkin _rewardSkinInstance;
         private Coroutine _currentAnimation;
-
+        private bool _isHidingReward;
         private Vector3 _buyButtonInitialPos;
         private Vector3 _adButtonInitialPos;
         private Vector3 _closePanelInitialScale;
+        private Vector2 _lastScreenResolution;
 
         [Inject]
-        public void Construct(CurrencyModel currencyModel, InventorySkinConfigs inventorySkinConfigs, InventoryModel inventoryModel)
+        public void Construct(CurrencyModel currencyModel, InventorySkinConfigs inventorySkinConfigs, InventoryModel inventoryModel, Camera mainCamera)
         {
             _currencyModel = currencyModel;
             _inventorySkinConfigs = inventorySkinConfigs;
             _inventoryModel = inventoryModel;
+            _mainCamera = mainCamera;
         }
 
         private void Awake()
         {
-            // Save initial positions and scales
-            _buyButtonInitialPos = _buyButton.transform.localPosition;
-            _adButtonInitialPos = _adButton.transform.localPosition;
+            UpdateButtonPositions();
+
             _closePanelInitialScale = _closePanel.transform.localScale;
 
-            // Set initial states
             _chestImage.transform.localScale = Vector3.zero;
             _chestImage.transform.rotation = Quaternion.identity;
 
             _chestText.color = new Color(_chestText.color.r, _chestText.color.g, _chestText.color.b, 0f);
             _categoryText.color = new Color(_categoryText.color.r, _categoryText.color.g, _categoryText.color.b, 0f);
+            _promptText.color = new Color(_promptText.color.r, _promptText.color.g, _promptText.color.b, 0f);
 
             _buyButton.transform.localPosition = _buyButtonInitialPos + new Vector3(-Screen.width, 0f, 0f);
             _buyButton.gameObject.SetActive(false);
@@ -68,8 +71,29 @@ namespace Code.Inventory
             _panelShadow.color = new Color(_panelShadow.color.r, _panelShadow.color.g, _panelShadow.color.b, 0f);
             _blocker.SetActive(true);
 
-            // Set panel scale last
+            _isHidingReward = false;
+
             transform.localScale = Vector3.zero;
+            _lastScreenResolution = new Vector2(Screen.width, Screen.height);
+        }
+
+        private void Update()
+        {
+            if (Screen.width != _lastScreenResolution.x || Screen.height != _lastScreenResolution.y)
+            {
+                UpdateButtonPositions();
+                _lastScreenResolution = new Vector2(Screen.width, Screen.height);
+            }
+        }
+
+        private void UpdateButtonPositions()
+        {
+            CanvasScaler canvasScaler = GetComponentInParent<CanvasScaler>();
+            float referenceWidth = canvasScaler.referenceResolution.x;
+            float scaleFactor = Screen.width / referenceWidth;
+
+            _buyButtonInitialPos = _buyButton.GetComponent<RectTransform>().anchoredPosition * scaleFactor;
+            _adButtonInitialPos = _adButton.GetComponent<RectTransform>().anchoredPosition * scaleFactor;
         }
 
         private void Start()
@@ -112,32 +136,27 @@ namespace Code.Inventory
         {
             _blocker.SetActive(true);
 
-            float panelDuration = 0.3f; // Panel and shadow
-            float elementDuration = 0.5f; // Chest, texts, buttons, close button
+            float panelDuration = 0.3f;
+            float elementDuration = 0.5f;
 
-            // Scale panel and fade shadow
             Coroutine panelCoroutine = StartCoroutine(ScaleCoroutine(transform, Vector3.zero, Vector3.one, panelDuration));
             Coroutine shadowCoroutine = StartCoroutine(FadeImageCoroutine(_panelShadow, 0f, 230f / 255f, panelDuration));
 
             yield return panelCoroutine;
             yield return shadowCoroutine;
 
-            // Start chest animation
             StartCoroutine(ScaleCoroutine(_chestImage.transform, Vector3.zero, Vector3.one, elementDuration));
 
-            // Start text animation after 0.3s
             yield return new WaitForSeconds(0.3f);
             StartCoroutine(FadeTextCoroutine(_chestText, 0f, 1f, elementDuration));
             StartCoroutine(FadeTextCoroutine(_categoryText, 0f, 1f, elementDuration));
 
-            // Start buttons animation after 0.2s
             yield return new WaitForSeconds(0.2f);
             _buyButton.gameObject.SetActive(true);
             _adButton.gameObject.SetActive(true);
             StartCoroutine(SlideButtonCoroutine(_buyButton.transform, _buyButton.transform.localPosition, _buyButtonInitialPos, elementDuration));
             StartCoroutine(SlideButtonCoroutine(_adButton.transform, _adButton.transform.localPosition, _adButtonInitialPos, elementDuration));
 
-            // Start close button scale after 0.2s
             yield return new WaitForSeconds(0.2f);
             StartCoroutine(ScaleCoroutine(_closePanel.transform, Vector3.zero, _closePanelInitialScale, elementDuration));
 
@@ -148,13 +167,11 @@ namespace Code.Inventory
         {
             _blocker.SetActive(true);
 
-            float panelDuration = 0.3f; // Panel and shadow
-            float elementDuration = 0.5f; // Chest, texts, buttons, close button
+            float panelDuration = 0.3f;
+            float elementDuration = 0.5f;
 
-            // Scale close button to 0
             Coroutine closeButtonCoroutine = StartCoroutine(ScaleCoroutine(_closePanel.transform, _closePanel.transform.localScale, Vector3.zero, elementDuration));
 
-            // Start buttons slide out after 0.3s
             yield return new WaitForSeconds(0.3f);
             Vector3 buyTargetPos = _buyButtonInitialPos + new Vector3(-Screen.width, 0f, 0f);
             Coroutine buyButtonCoroutine = StartCoroutine(SlideButtonCoroutine(_buyButton.transform, _buyButton.transform.localPosition, buyTargetPos, elementDuration));
@@ -162,16 +179,13 @@ namespace Code.Inventory
             Vector3 adTargetPos = _adButtonInitialPos + new Vector3(Screen.width, 0f, 0f);
             Coroutine adButtonCoroutine = StartCoroutine(SlideButtonCoroutine(_adButton.transform, _adButton.transform.localPosition, adTargetPos, elementDuration));
 
-            // Start text fade out after 0.2s
             yield return new WaitForSeconds(0.2f);
             Coroutine textCoroutine = StartCoroutine(FadeTextCoroutine(_chestText, 1f, 0f, elementDuration));
             Coroutine categoryTextCoroutine = StartCoroutine(FadeTextCoroutine(_categoryText, 1f, 0f, elementDuration));
 
-            // Start chest scale to 0 after 0.2s
             yield return new WaitForSeconds(0.2f);
             Coroutine chestCoroutine = StartCoroutine(ScaleCoroutine(_chestImage.transform, _chestImage.transform.localScale, Vector3.zero, elementDuration));
 
-            // Wait for all animations to complete
             yield return closeButtonCoroutine;
             yield return buyButtonCoroutine;
             yield return adButtonCoroutine;
@@ -179,11 +193,9 @@ namespace Code.Inventory
             yield return categoryTextCoroutine;
             yield return chestCoroutine;
 
-            // Disable buttons
             _buyButton.gameObject.SetActive(false);
             _adButton.gameObject.SetActive(false);
 
-            // Scale panel and fade shadow
             Coroutine panelCoroutine = StartCoroutine(ScaleCoroutine(transform, transform.localScale, Vector3.zero, panelDuration));
             Coroutine shadowCoroutine = StartCoroutine(FadeImageCoroutine(_panelShadow, _panelShadow.color.a, 0f, panelDuration));
 
@@ -227,13 +239,12 @@ namespace Code.Inventory
                 yield break;
             }
 
-            // Select only locked skins
             var lockedSkins = skinConfig.InventorySkins
                 .Where(x => _inventoryModel.IsSkinLocked(category, x.SkinId))
                 .ToList();
             if (lockedSkins.Count == 0)
             {
-                yield break; // No locked skins available
+                yield break;
             }
             InventorySkinData randomSkin = lockedSkins[UnityEngine.Random.Range(0, lockedSkins.Count)];
 
@@ -244,20 +255,22 @@ namespace Code.Inventory
 
             Vector3 startChestScale = _chestImage.transform.localScale;
             Vector3 targetChestScale = Vector3.one * 2f;
-            Vector3 initialChestPosition = _chestImage.transform.localPosition; // Save initial position
+            Vector3 initialChestPosition = _chestImage.transform.localPosition;
             float elapsed = 0f;
-            float duration = 2f;
+            float shakeDuration = 1.5f;
+            float shrinkDuration = 0.5f;
             float shadowDuration = 1f;
 
-            float shakeFrequency = 10f;
-            float shakeAmplitude = 20f; // Max ±20 degrees
-            float verticalShakeAmplitude = 10f;
-            float horizontalShakeAmplitude = 10f;
+            float shakeFrequency = 20f;
+            float shakeAmplitude = 30f;
+            float verticalShakeAmplitude = 15f;
+            float horizontalShakeAmplitude = 15f;
 
-            while (elapsed < duration)
+            // Phase 1: Shake and scale up
+            while (elapsed < shakeDuration)
             {
                 elapsed += Time.deltaTime;
-                float t = elapsed / duration;
+                float t = elapsed / shakeDuration;
 
                 if (elapsed < shadowDuration)
                 {
@@ -269,8 +282,7 @@ namespace Code.Inventory
 
                 _chestImage.transform.localScale = Vector3.Lerp(startChestScale, targetChestScale, t);
 
-                // Shake rotation starts near 0 and ramps up to ±20 degrees
-                float currentAmplitude = shakeAmplitude * t; // Linearly increase amplitude
+                float currentAmplitude = shakeAmplitude * t;
                 float shakeZ = Mathf.Sin(elapsed * shakeFrequency) * currentAmplitude;
                 float shakeX = Mathf.Sin(elapsed * shakeFrequency * 1.5f) * horizontalShakeAmplitude * t;
                 float shakeY = Mathf.Cos(elapsed * shakeFrequency * 0.8f) * verticalShakeAmplitude * t;
@@ -281,36 +293,51 @@ namespace Code.Inventory
                 yield return null;
             }
 
+            // Phase 2: Shrink chest and spawn reward simultaneously
             _rewardSkinInstance = Instantiate(_rewardSkinPrefab, _rewardParent);
             _rewardSkinInstance.transform.localScale = Vector3.zero;
             _rewardSkinInstance.Setup(randomSkin.Icon);
 
-            float rewardDuration = 1f;
+            _promptText.color = new Color(_promptText.color.r, _promptText.color.g, _promptText.color.b, 0f);
+
             elapsed = 0f;
-            while (elapsed < rewardDuration)
+            while (elapsed < shrinkDuration)
             {
                 elapsed += Time.deltaTime;
-                float t = elapsed / rewardDuration;
+                float t = elapsed / shrinkDuration;
                 float eased = EaseOutBack(t);
+
+                // Shrink chest
+                _chestImage.transform.localScale = Vector3.Lerp(targetChestScale, Vector3.zero, eased);
+                _chestImage.transform.rotation = Quaternion.identity;
+                _chestImage.transform.localPosition = initialChestPosition;
+
+                // Scale up reward
                 _rewardSkinInstance.transform.localScale = Vector3.one * 2f * eased;
+
+                // Fade in prompt text
+                _promptText.color = new Color(_promptText.color.r, _promptText.color.g, _promptText.color.b, eased);
+
                 yield return null;
             }
-            _rewardSkinInstance.transform.localScale = Vector3.one * 2f;
 
+            // Restore chest to original scale
             _chestImage.transform.localScale = startChestScale;
-            _chestImage.transform.rotation = Quaternion.identity;
-            _chestImage.transform.localPosition = initialChestPosition; // Return to initial position
+            _rewardSkinInstance.transform.localScale = Vector3.one * 2f;
+            _promptText.color = new Color(_promptText.color.r, _promptText.color.g, _promptText.color.b, 1f);
 
-            // Unlock the selected skin
             _inventoryModel.UnlockSkin(category, randomSkin.SkinId);
-            _inventoryChanger.RefreshCategory(); // Refresh inventory to reflect unlocked skin
+            _inventoryChanger.RefreshCategory();
 
             _interactiveShadow.interactable = true;
         }
 
         private void HideReward()
         {
+            if (_isHidingReward) return;
+            _isHidingReward = true;
             _interactiveShadow.interactable = false;
+
             if (_currentAnimation != null)
             {
                 StopCoroutine(_currentAnimation);
@@ -323,34 +350,48 @@ namespace Code.Inventory
         {
             float fadeDuration = 0.5f;
             Color startShadowColor = _activeShadow.color;
+            Vector3 startRewardScale = _rewardSkinInstance != null ? _rewardSkinInstance.transform.localScale : Vector3.zero;
+            Color startPromptColor = _promptText.color;
+
             float elapsed = 0f;
             while (elapsed < fadeDuration)
             {
                 elapsed += Time.deltaTime;
                 float t = elapsed / fadeDuration;
+                float eased = EaseInBack(t);
+
+                // Fade out shadow
                 Color targetShadowColor = startShadowColor;
                 targetShadowColor.a = Mathf.Lerp(startShadowColor.a, 0f, t);
                 _activeShadow.color = targetShadowColor;
+
+                // Shrink reward
+                if (_rewardSkinInstance != null)
+                {
+                    _rewardSkinInstance.transform.localScale = Vector3.Lerp(startRewardScale, Vector3.zero, eased);
+                }
+
+                // Fade out prompt text
+                _promptText.color = new Color(startPromptColor.r, startPromptColor.g, startPromptColor.b, Mathf.Lerp(startPromptColor.a, 0f, t));
+
                 yield return null;
             }
+
+            _activeShadow.color = new Color(startShadowColor.r, startShadowColor.g, startShadowColor.b, 0f);
             _activeShadow.gameObject.SetActive(false);
 
-            if (_rewardSkinInstance == null) yield break;
-            Vector3 startRewardScale = _rewardSkinInstance.transform.localScale;
-            float rewardDuration = 0.5f;
-            elapsed = 0f;
-            while (elapsed < rewardDuration)
+            if (_rewardSkinInstance != null)
             {
-                elapsed += Time.deltaTime;
-                float t = elapsed / rewardDuration;
-                float eased = EaseInBack(t);
-                _rewardSkinInstance.transform.localScale = Vector3.Lerp(startRewardScale, Vector3.zero, eased);
-                yield return null;
+                _rewardSkinInstance.transform.localScale = Vector3.zero;
+                Destroy(_rewardSkinInstance.gameObject);
+                _rewardSkinInstance = null;
             }
-            _rewardSkinInstance.transform.localScale = Vector3.zero;
-            Destroy(_rewardSkinInstance.gameObject);
+
+            _promptText.color = new Color(startPromptColor.r, startPromptColor.g, startPromptColor.b, 0f);
 
             _buyButton.interactable = _currencyModel.CanSpend(1000);
+            _isHidingReward = false;
+            _blocker.SetActive(false);
         }
 
         private float EaseOutBack(float t)
