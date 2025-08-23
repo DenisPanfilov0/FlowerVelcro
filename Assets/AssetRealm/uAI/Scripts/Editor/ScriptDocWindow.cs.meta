@@ -1,0 +1,18 @@
+fileFormatVersion: 2
+guid: 5f5667509b5d28540be04b69846e2df4
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences: []
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 248269
+  packageName: uAI - AI Assistant
+  packageVersion: 1.4.0
+  assetPath: Assets/AssetRealm/uAI/Scripts/Editor/ScriptDocWindow.cs
+  uploadId: 690380

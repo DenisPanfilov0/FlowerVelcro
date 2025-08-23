@@ -1,0 +1,396 @@
+:root {
+    --color-background-dark: rgb(35, 35, 35);
+    --color-background: rgb(42, 42, 42);
+    --color-background-light: rgb(56, 56, 56);
+    --color-border-dark: rgb(17, 17, 17);
+    --color-border: rgb(60, 60, 60);
+    --color-border-light: rgb(80, 80, 80);
+    --color-text: rgb(224, 224, 224);
+    --color-text-muted: rgb(187, 187, 187);
+    --color-accent: rgb(74, 144, 226);
+    --color-accent-hover: rgb(90, 160, 242);
+    --color-delete: rgb(159, 58, 56);
+    --color-delete-hover: rgb(176, 58, 56);
+}
+
+.panel {
+    display: none;
+    flex-grow: 1;
+}
+
+.panel-title {
+    font-size: 18px;
+    -unity-font-style: bold;
+    margin-bottom: 5px;
+}
+
+.panel-description {
+    font-size: 12px;
+    margin-bottom: 15px;
+    white-space: normal;
+}
+
+.section-title {
+    font-size: 14px;
+    -unity-font-style: bold;
+    margin-left: 10px;
+    margin-top: 10px;
+    margin-bottom: 5px;
+}
+
+.side-panel {
+    background-color: rgb(51, 51, 51);
+    border-right-width: 1px;
+    border-right-color: var(--color-border-dark);
+    width: 150px;
+}
+
+.sidebar-button {
+    -unity-text-align: middle-left;
+    padding-left: 16px;
+    border-radius: 0;
+    background-color: rgba(0, 0, 0, 0);
+    color: var(--color-text);
+    transition-property: background-color;
+    transition-duration: 0.15s;
+    transition-timing-function: ease-out;
+}
+
+.sidebar-button:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+.sidebar-separator {
+    height: 4px;
+    background-color: var(--color-background-dark);
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.settings-button {
+    position: relative;
+}
+
+.gear-icon {
+    width: 16px;
+    height: 16px;
+    margin-right: 8px;
+}
+
+.logo-text {
+    font-size: 24px;
+    -unity-font-style: bold;
+    color: var(--color-accent);
+}
+
+Box {
+    background-color: rgba(5, 5, 5, 0);
+    border-radius: 4px;
+    border-width: 1px;
+    border-color: var(--color-border);
+    border-top-width: 0;
+    border-right-width: 0;
+    border-bottom-width: 0;
+    border-left-width: 0;
+}
+
+Label {
+    color: var(--color-text);
+}
+
+TextField {
+    background-color: var(--color-background-light);
+    border-color: var(--color-border-light);
+    border-radius: 3px;
+}
+
+TextField #unity-text-input {
+    background-color: rgb(42, 42, 42);
+    color: var(--color-text);
+}
+
+.unity-base-popup-field__input {
+    background-color: rgb(42, 42, 42);
+    border-color: var(--color-border-light);
+    border-radius: 3px;
+    color: var(--color-text);
+}
+
+.unity-base-slider__dragger {
+    background-color: var(--color-accent);
+    border-color: var(--color-accent);
+    border-radius: 8px;
+    width: 16px;
+    height: 16px;
+    margin-top: -8px;
+}
+
+.unity-base-slider__tracker {
+    background-color: var(--color-background-light);
+    border-color: var(--color-border-light);
+    border-radius: 2px;
+    height: 4px;
+    margin-top: -2px;
+}
+
+Button {
+    border-radius: 3px;
+    background-color: var(--color-background-light);
+    color: var(--color-text);
+    transition-property: background-color;
+    transition-duration: 0.15s;
+    transition-timing-function: ease-out;
+}
+
+Button:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+.generate-button {
+    background-color: var(--color-accent);
+    color: white;
+    padding: 10px 20px;
+    font-size: 14px;
+    border-radius: 4px;
+    min-width: 180px;
+    height: 40px;
+    align-self: center;
+    margin-top: 20px;
+    margin-bottom: 10px;
+}
+
+.generate-button:hover {
+    background-color: var(--color-accent-hover);
+}
+
+.delete-button {
+    background-color: var(--color-delete);
+    color: white;
+}
+
+.delete-button:hover {
+    background-color: var(--color-delete-hover);
+}
+
+.back-button {
+    margin-bottom: 15px;
+    background-color: var(--color-background-dark);
+    border-radius: 3px;
+    height: 30px;
+    width: 150px;
+}
+
+.add-button {
+    margin-left: 10px;
+    margin-bottom: 10px;
+    width: 150px;
+}
+
+.prompt-container {
+    margin-left: 10px;
+    margin-right: 10px;
+    margin-bottom: 15px;
+    background-color: rgba(35, 35, 35, 0);
+    border-radius: 5px;
+    padding: 10px;
+    min-height: 80px;
+    padding-top: 0;
+    padding-right: 0;
+    padding-bottom: 0;
+    padding-left: 0;
+}
+
+.settings-grid {
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+
+.setting-field {
+    width: 280px;
+    margin-right: 16px;
+    margin-bottom: 12px;
+}
+
+.size-icon {
+    width: 30px;
+    height: 30px;
+    font-size: 18px;
+    -unity-text-align: middle-center;
+    margin-left: 5px;
+    background-color: var(--color-background-light);
+}
+
+.size-icon.selected {
+    background-color: var(--color-accent);
+}
+
+.thumbnails-container {
+    flex-direction: row;
+    flex-wrap: wrap;
+    margin-left: 10px;
+    margin-right: 10px;
+    margin-bottom: 10px;
+}
+
+.image-thumbnail {
+    width: 100px;
+    height: 100px;
+    margin-right: 10px;
+    margin-bottom: 10px;
+    overflow: hidden;
+    background-color: var(--color-background-dark);
+    border-radius: 3px;
+    transition-property: border-color;
+    transition-duration: 0.15s;
+}
+
+.image-thumbnail:hover {
+    border-color: var(--color-accent);
+    border-width: 2px;
+}
+
+.date-group {
+    margin-bottom: 20px;
+}
+
+.date-group > Label {
+    border-bottom-width: 1px;
+    border-bottom-color: var(--color-border);
+    padding-bottom: 6px;
+    margin-bottom: 12px;
+    -unity-font-style: bold;
+    color: var(--color-accent);
+}
+
+.placeholder-image {
+    height: 40px;
+    margin: 0;
+    align-items: center;
+    justify-content: center;
+} 
+
+.loading-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    align-items: center;
+    justify-content: center;
+    display: none;
+}
+
+.progress-bar {
+    width: 200px;
+    height: 10px;
+    background-color: var(--color-background-dark);
+}
+
+.progress-fill {
+    width: 0;
+    height: 10px;
+    background-color: var(--color-accent);
+}
+
+.tool-button {
+    background-color: var(--color-background-light);
+    color: var(--color-text);
+    margin-right: 5px;
+}
+
+.tool-button.selected {
+    background-color: var(--color-accent);
+    color: white;
+}
+
+.preview-image-container {
+    background-color: var(--color-background-dark);
+    border-radius: 4px;
+    min-height: 300px;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+}
+
+.info-title {
+    font-size: 14px;
+    -unity-font-style: bold;
+    padding: 10px;
+    padding-bottom: 5px;
+}
+
+.info-label {
+    color: var(--color-text-muted);
+    -unity-font-style: bold;
+    font-size: 12px;
+    margin-top: 8px;
+    padding-left: 10px;
+}
+
+.info-text {
+    color: var(--color-text);
+    white-space: normal;
+    margin-bottom: 8px;
+    padding: 0 10px;
+}
+
+.action-container {
+    flex-direction: row;
+    justify-content: center;
+    margin-top: 16px;
+}
+
+.action-button {
+    margin: 0 8px;
+    padding: 8px 16px;
+    min-width: 100px;
+    background-color: var(--color-background-light);
+    color: var(--color-text);
+    border-radius: 4px;
+    -unity-font-style: bold;
+    margin-top: 8px;
+}
+
+.mask-drawing-container {
+    background-color: var(--color-background-dark);
+    border-radius: 4px;
+    margin-bottom: 15px;
+    min-width: 512px;
+    min-height: 512px;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+}
+
+.unity-text-field {
+}
+
+.prompt-field {
+}
+.load-more-button {
+    background-color: var(--color-accent);
+    color: white;
+    padding: 8px 16px;
+    border-radius: 4px;
+    width: 180px;
+    height: 36px;
+    font-size: 14px;
+    transition-property: background-color;
+    transition-duration: 0.15s;
+    transition-timing-function: ease-out;
+}
+
+.load-more-button:hover {
+    background-color: var(--color-accent-hover);
+}
+
+#count-info-container {
+    margin-top: 10px;
+    margin-bottom: 10px;
+    padding: 5px;
+}
+
+#image-count-label {
+    font-size: 12px;
+    color: var(--color-text-muted);
+}

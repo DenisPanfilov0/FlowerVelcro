@@ -1,0 +1,100 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" editor-extension-mode="True">
+    <Style src="project://database/Assets/AssetRealm/uAI/Scripts/Editor/Resources/TrellisAPIEditorStyle.uss?fileID=7433441132597879392&amp;guid=f88f55232989dd14c865914dba2b2739&amp;type=3#TrellisAPIEditorStyle" />
+    <ui:VisualElement class="main-container">
+        <ui:VisualElement class="content-container">
+            <ui:ScrollView class="left-column">
+                <ui:Label text="3D Creator" class="header-title" />
+                <ui:VisualElement name="VisualElement" class="section">
+                    <ui:Label text="Connection Test" class="section-title" />
+                    <ui:VisualElement class="connection-row">
+                        <ui:TextField name="base-url" label="API URL" value="http://localhost:8000" class="url-field" style="flex-shrink: 1;" />
+                        <ui:Button name="health-check-btn" text="Connect" class="connection-btn" />
+                        <ui:Label name="connection-status" text="●" class="connection-indicator disconnected" />
+                    </ui:VisualElement>
+                </ui:VisualElement>
+                <ui:VisualElement name="VisualElement" class="section">
+                    <ui:Label text="Input Images" class="section-title" />
+                    <ui:VisualElement name="image-list" class="image-list" />
+                    <ui:Button name="add-image-btn" text="+ Add Image" class="add-btn" />
+                </ui:VisualElement>
+                <ui:VisualElement class="section">
+                    <ui:Label text="Generation Settings" class="section-title" />
+                    <ui:VisualElement class="setting-row" style="flex-direction: row;">
+                        <ui:IntegerField name="seed" label="Seed" value="42" style="flex-grow: 1;" />
+                        <ui:Toggle name="randomize-seed" label="Randomize" value="false" />
+                    </ui:VisualElement>
+                    <ui:VisualElement style="flex-grow: 1;" />
+                    <ui:VisualElement style="flex-grow: 1; flex-direction: row;">
+                        <ui:VisualElement class="setting-row" style="flex-grow: 1;">
+                            <ui:Label text="SS Guidance Strength" class="slider-label" />
+                            <ui:Slider name="ss-guidance" low-value="0" high-value="10" value="7.5" show-input-field="true" class="setting-slider" />
+                        </ui:VisualElement>
+                        <ui:VisualElement class="setting-row" style="flex-grow: 1;">
+                            <ui:Label text="SS Sampling Steps" class="slider-label" />
+                            <ui:SliderInt name="ss-steps" low-value="1" high-value="100" value="12" show-input-field="true" class="setting-slider" />
+                        </ui:VisualElement>
+                    </ui:VisualElement>
+                    <ui:VisualElement style="flex-grow: 1; flex-direction: row;">
+                        <ui:VisualElement class="setting-row" style="flex-grow: 1;">
+                            <ui:Label text="SLAT Guidance Strength" class="slider-label" />
+                            <ui:Slider name="slat-guidance" low-value="0" high-value="10" value="3.0" show-input-field="true" class="setting-slider" />
+                        </ui:VisualElement>
+                        <ui:VisualElement name="VisualElement" class="setting-row" style="flex-grow: 1;">
+                            <ui:Label text="SLAT Sampling Steps" class="slider-label" />
+                            <ui:SliderInt name="slat-steps" low-value="1" high-value="100" value="12" show-input-field="true" class="setting-slider" />
+                        </ui:VisualElement>
+                    </ui:VisualElement>
+                    <ui:DropdownField name="multiimage-algo" label="Multi-Image Algorithm" class="dropdown" />
+                </ui:VisualElement>
+                <ui:Button name="generate-btn" text="Generate 3D Model" class="generate-btn" />
+                <ui:VisualElement name="extraction-section" class="section disabled">
+                    <ui:Label text="Extraction Settings" class="section-title" />
+                    <ui:VisualElement class="setting-row">
+                        <ui:Label text="Mesh Simplify" class="slider-label" />
+                        <ui:Slider name="mesh-simplify" low-value="0.5" high-value="0.98" value="0.95" show-input-field="true" class="setting-slider" />
+                    </ui:VisualElement>
+                    <ui:VisualElement class="setting-row">
+                        <ui:Label text="Texture Size" class="slider-label" />
+                        <ui:SliderInt name="texture-size" low-value="512" high-value="2048" value="1024" show-input-field="true" class="setting-slider" />
+                    </ui:VisualElement>
+                    <ui:VisualElement class="extraction-buttons">
+                        <ui:Button name="extract-glb-btn" text="Extract GLB" class="extract-btn" style="flex-grow: 1; flex-shrink: 1;" />
+                        <ui:Button name="extract-ply-btn" text="Extract PLY" class="extract-btn" style="flex-grow: 1; flex-shrink: 1;" />
+                        <ui:Button name="extract-fbx-btn" text="Extract FBX" parse-escape-sequences="true" class="extract-btn" style="flex-grow: 1; flex-shrink: 1;" />
+                    </ui:VisualElement>
+                </ui:VisualElement>
+            </ui:ScrollView>
+            <ui:VisualElement class="right-column">
+                <ui:VisualElement class="section">
+                    <ui:Label text="Preview" class="section-title" />
+                    <ui:VisualElement name="video-container" class="video-container" style="height: 240px;">
+                        <ui:VisualElement name="video-placeholder" class="video-placeholder">
+                            <ui:Label text="Video preview will appear here after generation" class="placeholder-text" />
+                        </ui:VisualElement>
+                    </ui:VisualElement>
+                </ui:VisualElement>
+                <ui:VisualElement class="section">
+                    <ui:Label text="Progress" class="section-title" />
+                    <ui:VisualElement class="progress-container">
+                        <ui:VisualElement name="VisualElement" class="progress-info" style="height: 29px;">
+                            <ui:Label name="progress-stage" text="Ready" class="progress-stage" />
+                            <ui:Label name="progress-message" text="Waiting for generation to start..." class="progress-message" />
+                        </ui:VisualElement>
+                        <ui:ProgressBar name="progress-bar" value="0" class="progress-bar" />
+                        <ui:Label name="progress-percent" text="0%" class="progress-percent" />
+                    </ui:VisualElement>
+                </ui:VisualElement>
+                <ui:VisualElement class="section">
+                    <ui:Label text="Console" class="section-title" />
+                    <ui:ScrollView name="console-scroll" class="console-container">
+                        <ui:VisualElement name="console-content" class="console-content" />
+                    </ui:ScrollView>
+                    <ui:Button name="clear-console-btn" text="Clear" class="clear-console-btn" />
+                </ui:VisualElement>
+            </ui:VisualElement>
+        </ui:VisualElement>
+        <ui:VisualElement class="status-bar">
+            <ui:Label name="status-label" text="Ready" class="status-text" />
+        </ui:VisualElement>
+    </ui:VisualElement>
+</ui:UXML>

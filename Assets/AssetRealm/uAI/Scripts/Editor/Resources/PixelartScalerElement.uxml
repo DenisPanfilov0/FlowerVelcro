@@ -1,0 +1,85 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" editor-extension-mode="True">
+    <Style src="project://database/Assets/AssetRealm/uAI/Scripts/Editor/Resources/PixelartScalerElement.uss?fileID=7433441132597879392&amp;guid=385fa196552d89c42b811fb9c7f0bc26&amp;type=3#PixelartScalerElement" />
+    <ui:VisualElement name="root" style="flex-grow: 1; padding-left: 10px; padding-right: 10px; padding-top: 10px; padding-bottom: 10px;">
+        <ui:VisualElement style="flex-direction: row; flex-grow: 1;">
+            <ui:VisualElement name="left-panel" style="width: 300px; margin-right: 10px;">
+                <ui:VisualElement name="source-section" class="panel-section" style="margin-bottom: 15px; padding: 10px; border-width: 1px; border-color: rgb(90, 90, 90); border-radius: 5px;">
+                    <ui:Label text="Source Image" class="panel-header" style="font-size: 14px; -unity-font-style: bold; margin-bottom: 5px;" />
+                    <uie:ObjectField label="Texture" name="sourceTexture" allow-scene-objects="false" type="UnityEngine.Texture2D, UnityEngine.CoreModule" />
+                </ui:VisualElement>
+                <ui:VisualElement name="grid-section" enabled="false" class="panel-section" style="margin-bottom: 15px; padding: 10px; border-width: 1px; border-color: rgb(90, 90, 90); border-radius: 5px;">
+                    <ui:Label text="Grid Detection" class="panel-header" style="font-size: 14px; -unity-font-style: bold; margin-bottom: 5px;" />
+                    <ui:Toggle label="Force Uniform Spacing" name="forceUniformSpacing" value="true" style="-unity-text-align: middle-center;" />
+                    <ui:Toggle label="Enable Grid Snapping" name="enableGridSnapping" value="false" tooltip="Automatically crops the image to align with detected pixel grid boundaries. (Tipp: Try scaling with pixel grid alignment and without)" />
+                    <ui:Button text="Detect Pixel Grid" name="detectPixelGrid" style="margin-top: 5px;" />
+                    <ui:VisualElement style="flex-direction: row; margin-top: 5px;">
+                        <ui:FloatField label="H-Spacing" name="hSpacing" style="flex-grow: 1; margin-right: 5px;" />
+                        <ui:FloatField label="V-Spacing" name="vSpacing" style="flex-grow: 1;" />
+                    </ui:VisualElement>
+                </ui:VisualElement>
+                <ui:VisualElement name="quantization-section" enabled="false" class="panel-section" style="margin-bottom: 15px; padding: 10px; border-width: 1px; border-color: rgb(90, 90, 90); border-radius: 5px;">
+                    <ui:VisualElement style="flex-grow: 1; flex-direction: row;">
+                        <ui:Label text="Color Quantization Settings" tooltip="Changing settings in Color Quantization will clear the cached quantized image, meaning the quantization process will run again, which may take a few seconds." class="panel-header" style="font-size: 14px; -unity-font-style: bold; margin-bottom: 5px;" />
+                        <ui:Label name="lblQuantizationDone" class="panel-header" style="font-size: 14px; -unity-font-style: bold; margin-bottom: 5px; color: rgb(57, 226, 63);" />
+                    </ui:VisualElement>
+                    <ui:Toggle label="Auto-detect Optimal Colors" name="autoDetectColors" value="true" style="margin-bottom: 10px;" />
+                    <ui:IntegerField label="Max Colors" name="maxColors" value="16" style="flex-grow: 0; margin-right: 5px; flex-shrink: 1; width: 229px;" />
+                    <ui:Button text="Preview Quantization (2s)" name="previewQuantization" style="margin-bottom: 10px; background-color: rgb(80, 120, 80); display: none;" />
+                    <uie:EnumField label="Quantization Stage" name="quantizationStage" type="uAI.PixelArtScaler.AdvancedColorQuantizer+QuantizationStage, Assembly-CSharp-Editor" value="Both" style="margin-bottom: 5px;" />
+                    <ui:Foldout text="Advanced Settings" value="false" style="margin-top: 10px;">
+                        <ui:Slider label="Dominance Threshold" name="dominanceThreshold" low-value="0.05" high-value="0.8" value="0.15" show-input-field="true" />
+                        <uie:EnumField label="Dominant Method" name="dominantColorMethod" type="uAI.PixelArtScaler.AdvancedColorQuantizer+DominantColorMethod, Assembly-CSharp-Editor" value="WeightedFrequency" style="margin-top: 5px;" />
+                        <ui:VisualElement style="flex-direction: column; margin-top: 5px; align-items: center;">
+                            <ui:IntegerField label="Quality Level" name="qualityLevel" value="3" style="flex-grow: 1; margin-right: 5px;" />
+                            <ui:Toggle label="Perceptual" name="usePerceptualWeighting" value="true" style="width: 167px; flex-grow: 0;" />
+                        </ui:VisualElement>
+                        <ui:Slider label="Perceptual Sensitivity" name="perceptualSensitivity" low-value="0.1" high-value="3.0" value="1.0" show-input-field="true" />
+                        <ui:Toggle label="Preserve Alpha Variation" name="preserveAlphaVariation" value="true" style="margin-top: 5px;" />
+                    </ui:Foldout>
+                </ui:VisualElement>
+                <ui:VisualElement name="scaling-section" enabled="false" class="panel-section" style="margin-bottom: 15px; padding: 10px; border-width: 1px; border-color: rgb(90, 90, 90); border-radius: 5px;">
+                    <ui:Label text="Scaling Methods" class="panel-header" style="font-size: 14px; -unity-font-style: bold; margin-bottom: 5px;" />
+                    <uie:EnumField label="Method" name="enumScalingMethod" type="uAI.PixelArtScaler.PixelArtScalingMethods+ScalingMethod, Assembly-CSharp" value="KCentroid" />
+                    <ui:IntegerField label="K-Centroids" name="centroids" value="4" style="flex-grow: 1; margin-right: 5px;" />
+                    <ui:Button text="Scale" name="normalScale" usage-hints="None" style="margin-top: 5px;" />
+                    <ui:VisualElement style="flex-direction: row; margin-top: 5px; align-items: center; display: none;">
+                        <ui:DropdownField label="Steps per Cell" name="dropdownGridSamplingSteps" choices="1,2,4" index="1" style="flex-grow: 1; margin-right: 5px;" />
+                        <ui:Button text="Add Shifted" name="addCentroidShiftedGrids" style="width: 80px;" />
+                    </ui:VisualElement>
+                </ui:VisualElement>
+                <ui:VisualElement name="export-section" enabled="false" class="panel-section" style="margin-bottom: 15px; padding: 10px; border-width: 1px; border-color: rgb(90, 90, 90); border-radius: 5px;">
+                    <ui:Label text="Export" class="panel-header" style="font-size: 14px; -unity-font-style: bold; margin-bottom: 5px;" />
+                    <ui:VisualElement style="flex-direction: row;">
+                        <ui:Button text="Save Active" name="saveActiveResult" style="flex-grow: 1; margin-right: 5px;" />
+                        <ui:Button text="Save All" name="saveAllResults" style="flex-grow: 1;" />
+                    </ui:VisualElement>
+                </ui:VisualElement>
+            </ui:VisualElement>
+            <ui:VisualElement name="right-panel" style="flex-grow: 1; max-height: 850px; max-width: 833px;">
+                <ui:VisualElement name="activeResultsMain" class="panel-section" style="margin-bottom: 15px; padding: 10px; border-width: 1px; border-color: rgb(90, 90, 90); border-radius: 5px; max-height: 400px; flex-direction: column; min-height: 127px;">
+                    <ui:Label text="Active Results" class="panel-header" style="font-size: 14px; -unity-font-style: bold; margin-bottom: 5px;" />
+                    <ui:ScrollView name="activeResults" mode="Horizontal" style="flex-grow: 1; flex-direction: column;" />
+                </ui:VisualElement>
+                <ui:VisualElement name="preview-controls" style="flex-direction: row; align-items: center; margin-bottom: 10px; padding: 5px; border-width: 1px; border-color: rgb(90, 90, 90); border-radius: 5px; -unity-text-align: upper-right; white-space: normal; align-content: auto; justify-content: flex-start; flex-grow: 1;">
+                    <ui:Toggle label="Show Layered" name="showLayered" value="true" style="margin-right: 100px; display: none;" />
+                    <ui:Toggle label="Original Size" name="showOriginalSize" style="margin-right: 10px; align-self: center; flex-direction: row; -unity-text-align: middle-center;" />
+                    <ui:VisualElement style="flex-direction: row; align-items: center; margin-left: auto;">
+                        <ui:Button text="-" name="zoomOut" style="width: 30px; margin-right: 5px;" />
+                        <ui:Label text="Zoom: 1.00x" name="zoomLabel" style="width: 80px; -unity-text-align: middle-center;" />
+                        <ui:Button text="+" name="zoomIn" style="width: 30px; margin-left: 5px; margin-right: 10px;" />
+                        <ui:Button text="Reset" name="resetView" style="width: 60px;" />
+                    </ui:VisualElement>
+                </ui:VisualElement>
+                <ui:Label name="previewStatusLabel" style="font-size: 12px; color: rgb(255, 200, 100); margin-bottom: 5px; -unity-text-align: middle-center; font-style: italic;" />
+                <ui:VisualElement style="flex-direction: row; margin-bottom: 5px;">
+                    <ui:Label text="Original Texture: " name="originalSizeLabel" style="flex-grow: 1; font-size: 11px;" />
+                    <ui:Label text="Result Texture: " name="resultSizeLabel" style="flex-grow: 1; font-size: 11px;" />
+                </ui:VisualElement>
+                <ui:ScrollView name="previewScrollView" mode="VerticalAndHorizontal" style="flex-grow: 1; border-width: 2px; border-color: rgb(60, 60, 60); border-radius: 5px; background-color: rgb(40, 40, 40); width: 100%; height: 100%;">
+                    <ui:VisualElement name="previewContainer" style="position: relative; background-image: none;" />
+                    <ui:VisualElement name="overlayContainer" style="position: absolute; top: 0; left: 0;" />
+                </ui:ScrollView>
+            </ui:VisualElement>
+        </ui:VisualElement>
+    </ui:VisualElement>
+</ui:UXML>

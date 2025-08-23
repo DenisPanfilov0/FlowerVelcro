@@ -1,0 +1,225 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" editor-extension-mode="True">
+    <Style src="project://database/Assets/AssetRealm/uAI/Scripts/Editor/Resources/SoundCreatorStyles.uss?fileID=7433441132597879392&amp;guid=9752f0bb73d5b3b4780610844bd14a7b&amp;type=3#SoundCreatorStyles" />
+    <ui:VisualElement name="root-element" style="flex-grow: 1;">
+        <ui:VisualElement name="main-layout" style="flex-direction: row; flex-grow: 1; background-color: rgba(0, 0, 0, 0.85);">
+            <ui:VisualElement name="sidebar" class="side-panel">
+                <ui:VisualElement class="title-container" style="height: 50px; min-height: 30px; align-items: center; justify-content: center; margin-top: 10px; margin-bottom: 10px;">
+                    <ui:Label text="UAI" name="logo-text" class="logo-text" />
+                </ui:VisualElement>
+                <ui:Button text="Create" name="create-button" class="sidebar-button" style="border-top-width: 0; border-right-width: 0; border-bottom-width: 0; border-left-width: 0; display: none;" />
+                <ui:Button text="Creations" name="creations-button" class="sidebar-button" style="border-top-width: 0; border-right-width: 0; border-bottom-width: 0; border-left-width: 0;" />
+                <ui:Button text="Trash" name="trash-button" class="sidebar-button" style="border-top-width: 0; border-right-width: 0; border-bottom-width: 0; border-left-width: 0;" />
+                <ui:VisualElement class="sidebar-separator" />
+                <ui:Button name="settings-button" class="sidebar-button settings-button" style="border-top-width: 0; border-right-width: 0; border-bottom-width: 0; border-left-width: 0;">
+                    <ui:VisualElement style="flex-direction: row; align-items: center;">
+                        <ui:VisualElement name="gear-icon" class="gear-icon" />
+                        <ui:Label text="Settings" />
+                    </ui:VisualElement>
+                </ui:Button>
+                <ui:VisualElement class="sidebar-separator" />
+                <ui:VisualElement style="flex-grow: 1; align-items: center; justify-content: flex-end;">
+                    <ui:Button text="Global Settings" name="global-settings-button" class="sidebar-button" style="border-top-width: 0; border-right-width: 0; border-bottom-width: 0; border-left-width: 0; align-self: center; justify-content: center; margin-top: 5px; margin-right: 5px; margin-bottom: 5px; margin-left: 5px; padding-top: 5px; padding-right: 5px; padding-bottom: 5px; padding-left: 5px;" />
+                </ui:VisualElement>
+            </ui:VisualElement>
+            <ui:VisualElement name="main-content" style="flex-grow: 1; flex-direction: column; padding: 15px; background-color: rgb(56, 56, 56);">
+                <ui:VisualElement name="creations-panel" class="panel" style="display: flex;">
+                    <ui:Box style="flex-grow: 1;">
+                        <ui:ScrollView name="timeline-scroll-view" style="flex-grow: 1;" />
+                    </ui:Box>
+                    <ui:VisualElement name="create-panel" class="panel" style="display: flex; position: absolute; background-color: rgba(14, 14, 14, 0.71); border-top-left-radius: 15px; border-top-right-radius: 15px; border-bottom-right-radius: 15px; border-bottom-left-radius: 15px; bottom: 10px; align-items: auto; align-self: center;">
+                        <ui:VisualElement style="flex-direction: column-reverse; flex-grow: 1;">
+                            <ui:Box style="flex-grow: 0; -unity-text-align: upper-left; justify-content: flex-end;">
+                                <ui:VisualElement name="creation-tabs" style="flex-direction: row; margin-top: 7px; margin-left: 10px; margin-bottom: 5px;">
+                                    <ui:Button text="Sound Effects" name="sfx-tab-button" class="tool-button selected" />
+                                    <ui:Button text="Text to Speech" name="tts-tab-button" class="tool-button" />
+                                    <ui:Button text="Voice Changer" name="vc-tab-button" class="tool-button" />
+                                </ui:VisualElement>
+                                <ui:VisualElement name="sfx-panel" class="create-subpanel" style="display: flex;">
+                                    <ui:VisualElement name="prompt-container" class="prompt-container" style="flex-direction: column; flex-shrink: 0;">
+                                        <ui:VisualElement style="flex-grow: 1; flex-direction: row;">
+                                            <ui:TextField name="sfx-prompt-field" multiline="true" value="Spacious braam suitable for high-impact movie trailer moments" class="prompt-field" style="font-size: 14px; background-color: rgba(56, 56, 56, 0); width: 545px; flex-grow: 1; flex-shrink: 1; min-height: 36px; padding-top: 0; padding-right: 0; padding-bottom: 5px; padding-left: 0; margin-left: 8px; margin-right: 8px; -unity-text-align: upper-left; white-space: normal;" />
+                                            <ui:Button text="↑" name="generate-sfx-button" class="generate-button" style="margin-top: 0; margin-right: 0; margin-bottom: 0; margin-left: 0; min-width: 42px; align-self: flex-start; font-size: 19px; border-top-left-radius: 16px; border-top-right-radius: 16px; border-bottom-right-radius: 16px; border-bottom-left-radius: 16px; width: 46px; max-width: 42px; flex-shrink: 1;" />
+                                        </ui:VisualElement>
+                                        <ui:VisualElement style="flex-grow: 1; flex-direction: row;">
+                                            <ui:Label text="Duration:" style="align-self: center; margin-right: 5px; min-width: 60px;" />
+                                            <ui:Slider name="duration-slider" low-value="0.5" high-value="22.0" value="3.0" style="flex-grow: 1; margin-right: 10px;" />
+                                            <ui:Label name="duration-value" text="3.0s" style="align-self: center; min-width: 40px;" />
+                                            <ui:Label text="Influence:" style="align-self: center; margin-right: 5px; margin-left: 10px; min-width: 60px;" />
+                                            <ui:Slider name="influence-slider" low-value="0" high-value="1" value="0.3" style="flex-grow: 1; margin-right: 10px;" />
+                                            <ui:Label name="influence-value" text="0.3" style="align-self: center; min-width: 40px;" />
+                                            <ui:DropdownField name="quality-dropdown" tooltip="Quality" style="width: 150px; font-size: 12px;" />
+                                            <ui:VisualElement name="placeholder-image" class="placeholder-image" style="flex-grow: 1;" />
+                                        </ui:VisualElement>
+                                    </ui:VisualElement>
+                                </ui:VisualElement>
+                                <ui:VisualElement name="tts-panel" class="create-subpanel" style="display: none;">
+                                    <ui:VisualElement name="prompt-container" class="prompt-container" style="flex-direction: column; flex-shrink: 0;">
+                                        <ui:VisualElement style="flex-grow: 1; flex-direction: row;">
+                                            <ui:TextField name="tts-prompt-field" multiline="true" value="Welcome to the game. This is a test of the text to speech system." class="prompt-field" style="font-size: 14px; background-color: rgba(56, 56, 56, 0); width: 545px; flex-grow: 1; flex-shrink: 1; min-height: 36px; padding-top: 0; padding-right: 0; padding-bottom: 5px; padding-left: 0; margin-left: 8px; margin-right: 8px; -unity-text-align: upper-left; white-space: normal;" />
+                                            <ui:Button text="↑" name="generate-tts-button" class="generate-button" style="margin-top: 0; margin-right: 0; margin-bottom: 0; margin-left: 0; min-width: 42px; align-self: flex-start; font-size: 19px; border-top-left-radius: 16px; border-top-right-radius: 16px; border-bottom-right-radius: 16px; border-bottom-left-radius: 16px; width: 46px; max-width: 42px; flex-shrink: 1;" />
+                                        </ui:VisualElement>
+                                        <ui:VisualElement style="flex-grow: 1; flex-direction: row;">
+                                            <ui:DropdownField name="voice-dropdown" tooltip="Voice" style="font-size: 12px; min-width: 120px;" />
+                                            <ui:DropdownField name="model-dropdown" tooltip="Model" style="font-size: 12px; min-width: 150px;" />
+                                            <ui:DropdownField name="tts-quality-dropdown" tooltip="Quality" style="font-size: 12px; min-width: 120px;" />
+                                            <ui:Toggle name="text-normalization-toggle" label="Apply Text Normalization" style="align-self: center; margin-left: 10px;" />
+                                            <ui:VisualElement name="placeholder-image" class="placeholder-image" style="flex-grow: 1;">
+                                                <ui:VisualElement name="loading-overlay" class="loading-overlay">
+                                                    <ui:Label text="Generating..." />
+                                                    <ui:VisualElement name="progress-bar" class="progress-bar">
+                                                        <ui:VisualElement name="progress-fill" class="progress-fill" />
+                                                    </ui:VisualElement>
+                                                </ui:VisualElement>
+                                            </ui:VisualElement>
+                                        </ui:VisualElement>
+                                    </ui:VisualElement>
+                                </ui:VisualElement>
+                                <ui:VisualElement name="voice-changer-panel" class="create-subpanel" style="display: none;">
+                                    <ui:VisualElement name="prompt-container" class="prompt-container" style="flex-direction: column; flex-shrink: 0;">
+                                        <ui:VisualElement style="flex-grow: 1; flex-direction: row;">
+                                            <ui:Label text="Audio Source:" style="align-self: center; margin-right: 5px; min-width: 80px;" />
+                                            <uie:ObjectField name="audio-file-field" allow-scene-objects="false" style="flex-grow: 1; margin-right: 10px;" />
+                                            <ui:Button text="🎤" name="record-voice-button" tooltip="Record from microphone" class="action-button" style="min-width: 30px; width: 40px; padding: 0 5px; align-self: center; margin-right: 10px; border-radius: 16px;" />
+                                            <ui:Button text="↑" name="generate-vc-button" class="generate-button" style="margin-top: 0; margin-right: 0; margin-bottom: 0; margin-left: 0; min-width: 42px; align-self: flex-start; font-size: 19px; border-top-left-radius: 16px; border-top-right-radius: 16px; border-bottom-right-radius: 16px; border-bottom-left-radius: 16px; width: 46px; max-width: 42px; flex-shrink: 1;" />
+                                        </ui:VisualElement>
+                                        <ui:VisualElement style="flex-grow: 1; flex-direction: row;">
+                                            <ui:DropdownField name="target-voice-dropdown" tooltip="Target Voice" style="font-size: 12px; min-width: 120px;" />
+                                            <ui:DropdownField name="vc-model-dropdown" tooltip="Model" style="font-size: 12px; min-width: 150px;" />
+                                            <ui:DropdownField name="vc-quality-dropdown" tooltip="Quality" style="font-size: 12px; min-width: 120px;" />
+                                            <ui:Toggle name="noise-removal-toggle" label="Remove Background Noise" style="align-self: center; margin-left: 10px;" />
+                                            <ui:VisualElement name="placeholder-image" class="placeholder-image" style="flex-grow: 1;">
+                                                <ui:VisualElement name="loading-overlay" class="loading-overlay">
+                                                    <ui:Label text="Generating..." />
+                                                    <ui:VisualElement name="progress-bar" class="progress-bar">
+                                                        <ui:VisualElement name="progress-fill" class="progress-fill" />
+                                                    </ui:VisualElement>
+                                                </ui:VisualElement>
+                                            </ui:VisualElement>
+                                        </ui:VisualElement>
+                                        <ui:VisualElement name="recording-ui" style="flex-direction: row; align-items: center; margin-top: 10px; display: none;">
+                                            <ui:VisualElement name="recording-indicator" style="width: 12px; height: 12px; border-radius: 6px; background-color: rgb(255, 0, 0); margin-right: 10px;" />
+                                            <ui:Label text="Recording... " name="recording-time-label" style="margin-right: 10px;" />
+                                            <ui:Button text="Stop Recording" name="stop-recording-button" class="action-button" style="background-color: rgb(159, 58, 56); color: white;" />
+                                        </ui:VisualElement>
+                                    </ui:VisualElement>
+                                </ui:VisualElement>
+                            </ui:Box>
+                        </ui:VisualElement>
+                    </ui:VisualElement>
+                </ui:VisualElement>
+                <ui:VisualElement name="trash-panel" class="panel">
+                    <ui:Label text="Trash" class="panel-title" />
+                    <ui:Label text="Sound assets moved to trash can be restored or permanently deleted." class="panel-description" />
+                    <ui:VisualElement style="flex-direction: row; justify-content: flex-end; margin-bottom: 10px;">
+                        <ui:Button text="Empty Trash" name="empty-trash-button" class="delete-button" />
+                    </ui:VisualElement>
+                    <ui:Box style="flex-grow: 1;">
+                        <ui:ScrollView name="trash-scroll-view" style="flex-grow: 1;" />
+                    </ui:Box>
+                </ui:VisualElement>
+                <ui:VisualElement name="audio-preview-panel" class="panel" style="display: none;">
+                    <ui:Button text="← Back to Creations" name="back-to-creations-button" class="back-button" />
+                    <ui:VisualElement style="flex-direction: row; flex-grow: 1;">
+                        <ui:Box class="preview-image-container" style="flex-grow: 1; margin-right: 15px;">
+                            <ui:VisualElement style="width: 100%; height: 100%;">
+                                <ui:VisualElement name="waveform-display" style="height: 150px; width: 100%; margin-bottom: 20px;" />
+                                <ui:VisualElement class="audio-controls" style="flex-direction: row; align-items: center; justify-content: center;">
+                                    <ui:Button name="play-button" text="▶ Play" class="action-button" style="min-width: 100px;" />
+                                    <ui:Button name="stop-button" text="■ Stop" class="action-button" style="min-width: 100px;" />
+                                </ui:VisualElement>
+                                <ui:Slider name="timeline-slider" high-value="1" class="timeline-slider" style="margin-top: 20px;" />
+                                <ui:Label name="duration-label" text="00:00" style="align-self: center; margin-top: 10px;" />
+                            </ui:VisualElement>
+                        </ui:Box>
+                        <ui:VisualElement style="width: 300px;">
+                            <ui:Box style="margin-bottom: 15px;">
+                                <ui:Label text="Sound Information" class="info-title" />
+                                <ui:Label text="Generated from prompt:" class="info-label" />
+                                <ui:ScrollView scroll-deceleration-rate="0,135" elasticity="0,1" style="flex-grow: 1; height: 100px; max-height: 100px; min-height: 100px;">
+                                    <ui:Label name="prompt-info-label" class="info-text" style="overflow: hidden; padding-top: 10px; padding-right: 10px; padding-bottom: 10px; padding-left: 10px;" />
+                                </ui:ScrollView>
+                                <ui:Label text="Sound type:" class="info-label" />
+                                <ui:Label name="type-info-label" class="info-text" />
+                                <ui:Label text="Created on:" class="info-label" />
+                                <ui:Label name="date-info-label" class="info-text" />
+                            </ui:Box>
+                            <ui:Box>
+                                <ui:Label text="Actions" class="info-title" />
+                                <ui:Button text="Export Sound" name="export-sound-button" class="action-button" />
+                                <ui:Button text="Delete Sound" name="delete-sound-button" class="action-button delete-button" style="background-color: rgb(120, 68, 68);" />
+                            </ui:Box>
+                        </ui:VisualElement>
+                    </ui:VisualElement>
+                </ui:VisualElement>
+                <ui:VisualElement name="settings-panel" class="panel" style="display: none;">
+                    <ui:Label text="Settings" class="panel-title" />
+                    <ui:Label text="Configure ElevenLabs API and default settings for sound generation." class="panel-description" />
+                    <ui:Box style="flex-grow: 1; padding: 15px;">
+                        <ui:VisualElement>
+                            <ui:Label text="ElevenLabs API" class="section-title" />
+                            <ui:VisualElement style="margin-bottom: 15px;">
+                                <ui:Label text="API Key:" style="margin-bottom: 5px;" />
+                                <ui:VisualElement style="flex-direction: row;">
+                                    <ui:TextField name="api-key-field" password="true" style="flex-grow: 1; margin-right: 5px;" />
+                                    <ui:Button text="Fetch Voices" name="fetch-voices-button" style="width: 100px;" />
+                                </ui:VisualElement>
+                                <ui:Label name="voices-info-label" style="margin-top: 5px; font-size: 12px; color: rgb(120, 180, 120);" />
+                            </ui:VisualElement>
+                        </ui:VisualElement>
+                        <ui:VisualElement>
+                            <ui:Label text="Save Location" class="section-title" />
+                            <ui:VisualElement style="margin-bottom: 15px;">
+                                <ui:Label text="Project Save Path:" style="margin-bottom: 5px;" />
+                                <ui:VisualElement style="flex-direction: row;">
+                                    <ui:TextField name="save-path-field" style="flex-grow: 1; margin-right: 5px;" />
+                                    <ui:Button text="Browse..." name="project-browse-button" style="width: 100px;" />
+                                </ui:VisualElement>
+                            </ui:VisualElement>
+                            <ui:VisualElement style="flex-direction: row; margin-top: 5px; margin-bottom: 10px;">
+                                <ui:Toggle name="use-external-path-toggle" label="Save to external location (outside project)" />
+                            </ui:VisualElement>
+                            <ui:VisualElement name="external-path-container" style="margin-bottom: 20px;">
+                                <ui:Label text="External Save Path:" style="margin-bottom: 5px;" />
+                                <ui:VisualElement style="flex-direction: row;">
+                                    <ui:TextField name="external-path-field" style="flex-grow: 1; margin-right: 5px;" />
+                                    <ui:Button text="Browse..." name="browse-path-button" style="width: 100px;" />
+                                </ui:VisualElement>
+                            </ui:VisualElement>
+                        </ui:VisualElement>
+                        <ui:VisualElement style="margin-top: 20px;">
+                            <ui:Label text="Default Generation Settings" class="section-title" />
+                            <ui:VisualElement class="settings-grid">
+                                <ui:VisualElement class="setting-field">
+                                    <ui:Label text="Default Voice:" />
+                                    <ui:DropdownField name="default-voice-dropdown" />
+                                </ui:VisualElement>
+                                <ui:VisualElement class="setting-field">
+                                    <ui:Label text="Default TTS Model:" />
+                                    <ui:DropdownField name="default-tts-model-dropdown" />
+                                </ui:VisualElement>
+                                <ui:VisualElement class="setting-field">
+                                    <ui:Label text="Default Quality:" />
+                                    <ui:DropdownField name="default-quality-dropdown" />
+                                </ui:VisualElement>
+                            </ui:VisualElement>
+                        </ui:VisualElement>
+                        <ui:VisualElement style="flex-direction: row; justify-content: center; margin-top: 30px;">
+                            <ui:Button text="Reset to Defaults" name="reset-settings-button" style="margin-right: 10px; width: 150px;" />
+                            <ui:Button text="Save Settings" name="save-settings-button" class="generate-button" style="width: 150px;" />
+                        </ui:VisualElement>
+                    </ui:Box>
+                </ui:VisualElement>
+            </ui:VisualElement>
+        </ui:VisualElement>
+        <ui:VisualElement name="loading-overlay-fullscreen" class="loading-overlay" style="display: none; background-color: rgba(0, 0, 0, 0.52);">
+            <ui:VisualElement class="loading-modal">
+                <ui:Label text="Generating Sound..." class="loading-text" />
+                <ui:VisualElement name="progress-container" class="progress-container">
+                    <ui:VisualElement name="progress-bar" class="progress-bar" style="flex-grow: 1; width: 100%;">
+                        <ui:VisualElement name="progress-fill" class="progress-fill" style="height: 23px;" />
+                    </ui:VisualElement>
+                </ui:VisualElement>
+            </ui:VisualElement>
+        </ui:VisualElement>
+    </ui:VisualElement>
+</ui:UXML>

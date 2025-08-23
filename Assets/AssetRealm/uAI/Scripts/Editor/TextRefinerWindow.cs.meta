@@ -1,0 +1,18 @@
+fileFormatVersion: 2
+guid: 7eaba3f79ddeb4c4397bc713678b7952
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences: []
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 248269
+  packageName: uAI - AI Assistant
+  packageVersion: 1.4.0
+  assetPath: Assets/AssetRealm/uAI/Scripts/Editor/TextRefinerWindow.cs
+  uploadId: 690380

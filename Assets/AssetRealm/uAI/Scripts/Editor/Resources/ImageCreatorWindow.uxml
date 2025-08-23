@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<engine:UXML 
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+    xmlns:engine="UnityEngine.UIElements" 
+    xmlns:editor="UnityEditor.UIElements"
+    xmlns:uai="UAI">
+
+    <engine:VisualElement name="root-container">
+        <uai:TabButtonStrip name="tab-strip">
+        </uai:TabButtonStrip>
+        
+        <engine:VisualElement name="content-container">
+        </engine:VisualElement>
+    </engine:VisualElement>
+
+</engine:UXML>

@@ -76,3 +76,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _inventorySkinConfigs: {fileID: 11400000, guid: f5160052362e76646994e2ce1d352459, type: 2}
   _currencyConfig: {fileID: 11400000, guid: 9e2d414bc1debda408c6ae78f37f011b, type: 2}
+  _audioManager: {fileID: 494207302971246681, guid: 329cd9a5153c6d0419e6a104167d90cf, type: 3}

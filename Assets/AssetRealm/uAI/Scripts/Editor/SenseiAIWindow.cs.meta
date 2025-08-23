@@ -1,0 +1,18 @@
+fileFormatVersion: 2
+guid: a6bbc520e13b4f7418c8c5e8ec67f3b8
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences: []
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 248269
+  packageName: uAI - AI Assistant
+  packageVersion: 1.4.0
+  assetPath: Assets/AssetRealm/uAI/Scripts/Editor/SenseiAIWindow.cs
+  uploadId: 690380

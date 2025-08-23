@@ -1,0 +1,238 @@
+:root {
+    --unity-colors-default-background: #2D2D2D;
+    --unity-colors-default-text: #E0E0E0;
+    --accent-color: #0077CC;
+    --accent-color-hover: #0088EE;
+    --border-radius: 4px;
+    --spacing-xs: 4px;
+    --spacing-sm: 8px;
+    --spacing-md: 12px;
+    --spacing-lg: 16px;
+    --spacing-xl: 24px;
+}
+
+.tab-content {
+    padding: var(--spacing-lg);
+}
+
+.header-label {
+    font-size: 20px;
+    -unity-font-style: bold;
+    margin-bottom: var(--spacing-md);
+    color: var(--unity-colors-default-text);
+}
+
+.description-label {
+    font-size: 14px;
+    margin-bottom: var(--spacing-md);
+    white-space: normal;
+    color: var(--unity-colors-default-text);
+}
+
+.prompt-field {
+    min-height: 80px;
+    margin-bottom: var(--spacing-lg);
+    border-radius: var(--border-radius);
+}
+
+.settings-panel {
+    margin-bottom: var(--spacing-lg);
+    border-radius: var(--border-radius);
+    padding: var(--spacing-md);
+    background-color: rgba(0, 0, 0, 0.1);
+}
+
+.settings-container {
+    flex-direction: row;
+    margin-bottom: var(--spacing-lg);
+}
+
+.settings-column {
+    flex: 1;
+    margin-right: var(--spacing-lg);
+}
+
+.preview-column {
+    width: 250px;
+}
+
+.setting-row {
+    flex-direction: row;
+    align-items: center;
+    margin-bottom: var(--spacing-md);
+}
+
+.setting-row Label {
+    min-width: 120px;
+    margin-right: var(--spacing-md);
+}
+
+.setting-label {
+    margin-bottom: var(--spacing-xs);
+    margin-top: var(--spacing-md);
+}
+
+.advanced-toggle {
+    margin-top: var(--spacing-md);
+}
+
+.advanced-panel {
+    margin-top: var(--spacing-md);
+    padding: var(--spacing-md);
+    border-radius: var(--border-radius);
+    background-color: rgba(0, 0, 0, 0.1);
+}
+
+.generate-button {
+    height: 40px;
+    margin-bottom: var(--spacing-md);
+    border-radius: var(--border-radius);
+    background-color: var(--accent-color);
+    color: white;
+    font-size: 14px;
+    -unity-font-style: bold;
+}
+
+.generate-button:hover {
+    background-color: var(--accent-color-hover);
+}
+
+.status-label {
+    margin-bottom: var(--spacing-md);
+    color: var(--unity-colors-default-text);
+    /* font-style: italic; */
+    white-space: normal;
+}
+
+.results-container {
+    flex-direction: row;
+    height: 500px;
+    margin-top: var(--spacing-lg);
+}
+
+.thumbnails-scroll {
+    width: 150px;
+    margin-right: var(--spacing-lg);
+    background-color: rgba(0, 0, 0, 0.1);
+    border-radius: var(--border-radius);
+    padding: var(--spacing-sm);
+}
+
+.thumbnail {
+    width: 130px;
+    height: 130px;
+    margin-bottom: var(--spacing-md);
+    border-radius: var(--border-radius);
+    background-color: rgba(255, 255, 255, 0.05);
+    transition: all 0.2s;
+}
+
+.thumbnail:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+.thumbnail-image {
+    width: 120px;
+    height: 120px;
+    margin: 5px;
+    border-radius: var(--border-radius);
+}
+
+.preview-container {
+    flex: 1;
+    align-items: center;
+}
+
+.preview-label {
+    font-size: 16px;
+    -unity-font-style: bold;
+    margin-bottom: var(--spacing-md);
+}
+
+.preview-image {
+    width: 512px;
+    height: 512px;
+    background-color: rgba(0, 0, 0, 0.1);
+    border-radius: var(--border-radius);
+    margin-bottom: var(--spacing-md);
+}
+
+.save-button {
+    width: 150px;
+    height: 30px;
+    border-radius: var(--border-radius);
+    background-color: var(--accent-color);
+    color: white;
+}
+
+.save-button:hover {
+    background-color: var(--accent-color-hover);
+}
+
+.border-preview {
+    width: 200px;
+    height: 200px;
+    background-color: rgba(0, 0, 0, 0.1);
+    border-radius: var(--border-radius);
+}
+
+.note-label {
+    margin-top: var(--spacing-md);
+    /* font-style: italic; */
+    color: #CCCCCC;
+}
+
+/* Tab button styling */
+.tab-button {
+    border-radius: var(--border-radius);
+    margin: 0 var(--spacing-xs);
+    height: 32px;
+    background-color: rgba(255, 255, 255, 0.1);
+    border-width: 0;
+    transition: all 0.2s;
+}
+
+.tab-button:hover {
+    background-color: rgba(255, 255, 255, 0.15);
+}
+
+.tab-button-active {
+    background-color: var(--accent-color);
+    color: white;
+}
+
+.tab-button-active:hover {
+    background-color: var(--accent-color-hover);
+}
+
+/* Canvas Container Styles */
+.canvas-container {
+    border-width: 1px;
+    border-color: #444444;
+    border-radius: 4px;
+    background-color: #252525;
+    min-height: 300px;
+}
+
+/* Thumbnail styles - make sure these exist or add them */
+.thumbnail {
+    width: 100px;
+    height: 100px;
+    margin: 5px;
+    background-color: #333333;
+    border-width: 1px;
+    border-color: #555555;
+    border-radius: 2px;
+    overflow: hidden;
+}
+
+.thumbnail-image {
+    width: 100%;
+    height: 100%;
+}
+
+.thumbnails-scroll {
+    flex-direction: row;
+    flex-wrap: wrap;
+    height: 120px;
+}

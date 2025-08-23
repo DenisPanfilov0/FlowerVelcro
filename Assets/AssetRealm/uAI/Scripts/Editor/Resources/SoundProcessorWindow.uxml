@@ -1,0 +1,224 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" editor-extension-mode="True">
+    <Style src="project://database/Assets/AssetRealm/uAI/Scripts/Editor/Resources/SoundProcessorStyles.uss?fileID=7433441132597879392&amp;guid=67dc6269ce7c23d46bba330b13deb454&amp;type=3#SoundProcessorStyles" />
+    <ui:VisualElement name="root-element" style="flex-grow: 1;">
+        <ui:VisualElement name="main-layout" style="flex-direction: row; flex-grow: 1;">
+            <ui:VisualElement name="sidebar" class="side-panel">
+                <ui:VisualElement class="title-container" style="height: 50px; min-height: 30px; align-items: center; justify-content: center; margin-top: 10px; margin-bottom: 10px;">
+                    <ui:Label text="UAI" name="logo-text" class="logo-text" />
+                </ui:VisualElement>
+                <ui:Button text="Process Clip" name="processing-button" class="sidebar-button active" style="border-width: 0;" />
+                <ui:Button text="Batch Process" name="batch-button" class="sidebar-button" style="border-width: 0;" />
+                <ui:Button text="Raw Edit" name="raw-edit-button" class="sidebar-button" style="border-width: 0;" />
+                <ui:VisualElement class="sidebar-separator" />
+                <ui:Button text="Back to Creator" name="back-to-creator-button" class="sidebar-button" style="border-width: 0;" />
+                <ui:VisualElement style="flex-grow: 1;" />
+            </ui:VisualElement>
+            <ui:VisualElement name="main-content" style="flex-grow: 1; flex-direction: column; padding: 15px; background-color: rgb(56, 56, 56);">
+                <ui:VisualElement name="processing-panel" class="panel" style="display: none; flex-grow: 1;">
+                    <ui:Label text="Process Audio Clip" class="panel-title" />
+                    <ui:Label text="Apply audio processing effects to enhance your sounds." class="panel-description" />
+                    <ui:VisualElement style="flex-direction: row; flex-grow: 1;">
+                        <ui:VisualElement style="width: 320px; margin-right: 15px;">
+                            <ui:Box style="padding: 10px;">
+                                <ui:Label text="Source Audio" class="info-title" />
+                                <ui:VisualElement style="margin-bottom: 10px;">
+                                    <ui:Label text="Select audio clip:" style="margin-bottom: 5px;" />
+                                    <uie:ObjectField name="source-clip-field" allow-scene-objects="false" style="flex-grow: 1;" />
+                                    <ui:VisualElement style="flex-direction: row; margin-top: 10px; justify-content: center;">
+                                        <ui:Button name="source-play-button" text="▶ Play Source" class="action-button" style="min-width: 100px;" />
+                                        <ui:Button name="source-stop-button" text="■ Stop" class="action-button" style="min-width: 80px;" />
+                                    </ui:VisualElement>
+                                </ui:VisualElement>
+                            </ui:Box>
+                            <ui:Box style="margin-top: 10px; padding: 10px;">
+                                <ui:Label text="Processing Options" class="info-title" />
+                                <ui:Toggle name="normalize-toggle" label="Normalize Volume" value="false" tooltip="Adjust audio levels for consistent volume" />
+                                <ui:Toggle name="trim-silence-toggle" label="Trim Silence" value="false" tooltip="Remove silent sections from start/end" />
+                                <ui:Toggle name="apply-fades-toggle" label="Apply Fades" value="false" tooltip="Add fade in/out to avoid pops and clicks" />
+                                <ui:Toggle name="make-loopable-toggle" label="Make Loopable" value="false" tooltip="Process for seamless looping" />
+                                <ui:VisualElement name="loopable-crossfade-container" style="flex-direction: column; margin-top: 0; align-items: center; padding-top: 5px; padding-right: 5px; padding-bottom: 5px; padding-left: 5px; -unity-text-outline-width: 0; border-top-width: 3px; border-right-width: 3px; border-bottom-width: 3px; border-left-width: 3px; border-left-color: rgb(63, 63, 63); border-right-color: rgb(63, 63, 63); border-top-color: rgb(63, 63, 63); border-bottom-color: rgb(63, 63, 63); border-top-left-radius: 5px; border-top-right-radius: 5px; border-bottom-right-radius: 5px; border-bottom-left-radius: 5px; display: none;">
+                                    <ui:VisualElement style="flex-grow: 1; flex-direction: row;">
+                                        <ui:Label text="Overlay in s:" tooltip="How many seconds at the end and front should be overlayed?" style="min-width: 70px;" />
+                                        <ui:Slider picking-mode="Ignore" value="0.5" high-value="2" name="loopable-crossfade-slider" low-value="0.1" show-input-field="true" style="flex-grow: 1; flex-shrink: 1;" />
+                                    </ui:VisualElement>
+                                    <ui:Label tabindex="-1" text="Best suited for sounds with consistent patterns or textures, such as rivers, wind, or ambient noise. Results may vary with sharp or distinct start/end points." parse-escape-sequences="true" display-tooltip-when-elided="true" style="flex-grow: 1; flex-wrap: nowrap; align-items: auto; justify-content: flex-start; white-space: normal; padding-top: 2px; padding-right: 2px; padding-bottom: 2px; padding-left: 2px; -unity-text-outline-width: 0; border-top-width: 0; border-right-width: 0; border-bottom-width: 0; border-left-width: 0; font-size: 10px;" />
+                                </ui:VisualElement>
+                                <ui:VisualElement style="flex-direction: row; margin-top: 15px; align-items: center;">
+                                    <ui:Label text="Pitch Shift:" style="min-width: 70px;" />
+                                    <ui:Slider name="pitch-slider" low-value="0.5" high-value="2.0" value="1.0" show-input-field="true" style="flex-grow: 1; flex-shrink: 1;" />
+                                </ui:VisualElement>
+                                <ui:VisualElement style="flex-direction: row; margin-top: 15px; align-items: center;">
+                                    <ui:Label text="Low-Pass Filter:" style="min-width: 70px;" />
+                                    <ui:Slider name="filter-slider" low-value="0.01" high-value="0.99" value="0.9" show-input-field="true" style="flex-grow: 1; flex-shrink: 1;" />
+                                </ui:VisualElement>
+                            </ui:Box>
+                            <ui:Button text="Process Clip" name="process-button" class="generate-button" style="margin-top: 15px;" />
+                        </ui:VisualElement>
+                        <ui:VisualElement name="preview-container" style="flex-grow: 1;">
+                            <ui:Box style="padding: 10px; flex-grow: 1;">
+                                <ui:Label text="Audio Preview" class="info-title" />
+                                <ui:VisualElement name="waveform-container" style="height: 150px; width: 100%; margin-top: 10px; margin-bottom: 10px; background-color: rgb(35, 35, 35); border-radius: 4px;">
+                                    <ui:VisualElement name="waveform-display" class="waveform-display" style="height: 100%; width: 100%;" />
+                                </ui:VisualElement>
+                                <ui:Slider name="timeline-slider" high-value="1" class="timeline-slider" style="margin-top: 5px;" />
+                                <ui:Label name="duration-label" text="00:00" style="align-self: center; margin-top: 5px;" />
+                                <ui:VisualElement class="audio-controls" style="flex-direction: row; justify-content: center; margin-top: 15px;">
+                                    <ui:Button name="play-button" text="▶ Play" class="action-button" style="min-width: 80px;" />
+                                    <ui:Button name="pause-button" text="|| Pause" class="action-button" style="min-width: 80px;" />
+                                    <ui:Button name="stop-button" text="■ Stop" class="action-button" style="min-width: 80px;" />
+                                    <ui:Toggle name="loop-toggle" label="Loop" tooltip="Toggle looping playback" style="align-self: center; margin-left: 15px;" />
+                                </ui:VisualElement>
+                                <ui:VisualElement style="flex-direction: row; margin-top: 15px; justify-content: center;">
+                                    <ui:Button name="export-button" text="Export Processed Audio" class="action-button" style="margin-top: 10px;" />
+                                </ui:VisualElement>
+                                <ui:VisualElement name="clip-info" style="margin-top: 20px;">
+                                    <ui:Label name="clip-name-label" text="Clip Name: Not selected" style="margin-bottom: 5px;" />
+                                    <ui:Label name="clip-length-label" text="Length: --" style="margin-bottom: 5px;" />
+                                    <ui:Label name="clip-channels-label" text="Channels: --" style="margin-bottom: 5px;" />
+                                    <ui:Label name="clip-frequency-label" text="Frequency: -- Hz" style="margin-bottom: 5px;" />
+                                    <ui:Label name="result-label" text="No processing performed yet." style="margin-top: 10px; white-space: normal;" />
+                                </ui:VisualElement>
+                            </ui:Box>
+                        </ui:VisualElement>
+                    </ui:VisualElement>
+                </ui:VisualElement>
+                <ui:VisualElement name="batch-processing-panel" class="panel" style="display: none; flex-grow: 1;">
+                    <ui:Label text="Batch Process Multiple Clips" class="panel-title" />
+                    <ui:Label text="Apply the same processing to multiple audio clips at once." class="panel-description" />
+                    <ui:VisualElement style="flex-direction: row; flex-grow: 1;">
+                        <ui:VisualElement style="width: 320px; margin-right: 15px; flex-grow: 1;">
+                            <ui:Box style="padding: 10px; flex-grow: 1;">
+                                <ui:Label text="Source Audio Clips" class="info-title" />
+                                <ui:VisualElement name="list-container" style="height: 250px; margin-top: 10px; margin-bottom: 10px;">
+                                    <ui:ListView name="source-clips-listview" show-border="true" reorderable="true" style="height: 100%;" />
+                                </ui:VisualElement>
+                                <ui:VisualElement style="flex-direction: row; justify-content: space-between; margin-top: 5px;">
+                                    <ui:Button name="add-folder-button" text="Add Folder..." class="action-button" style="margin: 0;" />
+                                    <ui:Button name="clear-button" text="Clear All" class="action-button" style="margin: 0;" />
+                                </ui:VisualElement>
+                            </ui:Box>
+                        </ui:VisualElement>
+                        <ui:VisualElement style="width: 320px;">
+                            <ui:Box style="padding: 10px;">
+                                <ui:Label text="Batch Processing Options" class="info-title" />
+                                <ui:Toggle name="batch-normalize-toggle" label="Normalize Volume" value="true" />
+                                <ui:Toggle name="batch-trim-silence-toggle" label="Trim Silence" value="true" />
+                                <ui:Toggle name="batch-apply-fades-toggle" label="Apply Fades" value="true" />
+                                <ui:Toggle name="batch-make-loopable-toggle" label="Make Loopable" value="false" />
+                                <ui:VisualElement name="batch-loopable-crossfade-container" style="flex-direction: row; margin-top: 0; align-items: center; height: 117px; display: none;">
+                                    <ui:Label text="Overlay in s:" tooltip="How many seconds at the end and front should be overlayed?" style="min-width: 70px;" />
+                                    <ui:Slider name="batch-loopable-crossfade-slider" low-value="0.5" high-value="2.0" value="1.0" show-input-field="true" style="flex-grow: 1; flex-shrink: 1;" />
+                                </ui:VisualElement>
+                                <ui:VisualElement style="flex-direction: row; margin-top: 15px; align-items: center;">
+                                    <ui:Label text="Pitch Shift:" style="min-width: 70px;" />
+                                    <ui:Slider name="batch-pitch-slider" low-value="0.5" high-value="2.0" value="1.0" show-input-field="true" style="flex-grow: 1; flex-shrink: 1;" />
+                                </ui:VisualElement>
+                                <ui:VisualElement style="flex-direction: row; margin-top: 15px; align-items: center;">
+                                    <ui:Label text="Low-Pass Filter:" style="min-width: 70px;" />
+                                    <ui:Slider name="batch-filter-slider" low-value="0.01" high-value="0.99" value="0.9" show-input-field="true" style="flex-grow: 1; flex-shrink: 1;" />
+                                </ui:VisualElement>
+                                <ui:VisualElement style="margin-top: 20px;">
+                                    <ui:Label text="Output Folder:" style="margin-bottom: 5px;" />
+                                    <ui:VisualElement style="flex-direction: row;">
+                                        <ui:TextField name="output-folder-field" style="flex-grow: 1; margin-right: 5px; height: 19px;" />
+                                        <ui:Button name="browse-button" text="Browse..." style="width: 80px; height: 21px;" />
+                                    </ui:VisualElement>
+                                </ui:VisualElement>
+                            </ui:Box>
+                            <ui:Button text="Process All Clips" name="batch-process-button" class="generate-button" style="margin-top: 15px;" />
+                        </ui:VisualElement>
+                    </ui:VisualElement>
+                </ui:VisualElement>
+                <ui:VisualElement name="raw-edit-panel" class="panel" style="display: flex; flex-grow: 1;">
+                    <ui:Label text="Raw Audio Editor" class="panel-title" />
+                    <ui:Label text="Edit audio directly with sample-accurate precision." class="panel-description" />
+                    <ui:VisualElement style="flex-direction: row; margin-bottom: 15px;">
+                        <ui:VisualElement style="width: 320px; margin-right: 15px;">
+                            <ui:Box style="padding: 10px;">
+                                <ui:Label text="Source Audio" class="info-title" />
+                                <ui:Label text="Select audio clip to edit:" style="margin-bottom: 5px;" />
+                                <uie:ObjectField name="raw-edit-clip-field" allow-scene-objects="false" style="flex-grow: 1;" />
+                            </ui:Box>
+                        </ui:VisualElement>
+                        <ui:VisualElement style="flex-grow: 1;">
+                            <ui:Box style="padding: 10px;">
+                                <ui:Label text="Edit Information" class="info-title" />
+                                <ui:Label name="zoom-label" text="Zoom: 1.0x" style="margin-bottom: 3px;" />
+                                <ui:Label name="cursor-label" text="Cursor: 0.000s" style="margin-bottom: 3px;" />
+                                <ui:Label name="selection-label" text="Selection: None" style="margin-bottom: 3px;" />
+                            </ui:Box>
+                        </ui:VisualElement>
+                    </ui:VisualElement>
+                    <ui:VisualElement style="flex-grow: 0; margin-bottom: 15px;">
+                        <ui:Box style="padding: 10px; flex-grow: 0;">
+                            <ui:Label text="Waveform Editor" class="info-title" />
+                            <ui:Label text="Edit Operations" class="section-title" />
+                            <ui:VisualElement style="flex-direction: row; width: 100%; justify-content: flex-end;">
+                                <ui:VisualElement style="flex-direction: row; justify-content: center; margin-top: 5px;">
+                                    <ui:Button name="undo-button" text="↶" tooltip="Undo last action" class="action-button" style="min-width: 36px;" />
+                                    <ui:Button name="redo-button" text="↷" tooltip="Redo last action" class="action-button" style="min-width: 36px;" />
+                                    <ui:Button name="select-all-button" text="Select All" tooltip="Select entire audio clip" class="action-button" style="min-width: 80px;" />
+                                </ui:VisualElement>
+                            </ui:VisualElement>
+                            <ui:VisualElement style="flex-direction: row; align-items: center; margin-bottom: 10px;">
+                                <ui:Label text="Zoom:" style="min-width: 50px;" />
+                                <ui:Slider name="zoom-slider" low-value="1" high-value="50" value="1" style="flex-grow: 1; margin-right: 10px; flex-shrink: 1;" />
+                            </ui:VisualElement>
+                            <ui:VisualElement name="timeline-container" style="height: 20px; width: 100%; margin-bottom: 5px; position: relative;">
+                                <ui:VisualElement name="timeline-labels" style="height: 100%; width: 100%; position: relative;" />
+                            </ui:VisualElement>
+                            <ui:ScrollView name="waveform-scroll-view" mode="Horizontal" horizontal-scroller-visibility="Hidden" vertical-scroller-visibility="Hidden" style="height: 200px; width: 100%; margin-bottom: 10px;">
+                                <ui:VisualElement name="raw-waveform-display" class="raw-waveform-display" style="height: 200px; min-width: 100%; background-color: rgb(35, 35, 35); border-radius: 4px; border-width: 1px; border-color: rgb(60, 60, 60); position: relative;">
+                                    <ui:VisualElement name="raw-waveform-container" style="height: 100%; width: 100%; position: relative;" />
+                                </ui:VisualElement>
+                            </ui:ScrollView>
+                            <ui:Slider name="raw-timeline-slider" high-value="1" low-value="0" value="0" style="margin-top: 5px;" />
+                            <ui:VisualElement style="flex-grow: 1; flex-direction: row;">
+                                <ui:VisualElement name="VisualElement" style="flex-direction: row; justify-content: center; margin-top: 10px; padding-left: 10px;">
+                                    <ui:Button name="cut-button" text="Cut out" tooltip="Cut selected audio to clipboard" class="action-button" style="min-width: 40px; max-width: 65px;" />
+                                    <ui:Button name="copy-button" text="Copy" tooltip="Copy selected audio to clipboard" class="action-button" style="min-width: 40px; max-width: 65px;" />
+                                    <ui:Button name="paste-button" text="Paste" tooltip="Paste clipboard audio at cursor" class="action-button" style="min-width: 40px; max-width: 65px;" />
+                                    <ui:Button name="delete-button" text="Delete" tooltip="Delete selected audio" class="action-button" style="min-width: 40px; max-width: 65px;" />
+                                </ui:VisualElement>
+                                <ui:VisualElement style="flex-direction: row; justify-content: flex-end; margin-top: 10px; align-self: auto; margin-right: 10px; flex-grow: 1;">
+                                    <ui:Button name="fade-in-button" text="Fade in" tooltip="Audio will start quite and become louder" class="action-button" style="min-width: 40px; max-width: 65px;" />
+                                    <ui:Button name="fade-out-button" text="Fade out" tooltip="Audio will start loud and become quite" class="action-button" style="min-width: 40px; max-width: 65px;" />
+                                    <ui:Button name="silence-button" text="Silence" tooltip="Selection will be silenced" class="action-button" style="min-width: 40px; max-width: 65px;" />
+                                </ui:VisualElement>
+                            </ui:VisualElement>
+                        </ui:Box>
+                    </ui:VisualElement>
+                    <ui:VisualElement style="flex-direction: row; justify-content: space-between;">
+                        <ui:VisualElement style="flex-direction: row; flex-grow: 1; height: 49px; width: 424px;">
+                            <ui:Label text="Playback" class="section-title" />
+                            <ui:VisualElement style="flex-direction: row; justify-content: center; margin-top: 0;">
+                                <ui:Button name="raw-play-button" text="▶ Play" class="action-button" style="min-width: 60px;" />
+                                <ui:Button name="raw-pause-button" text="|| Pause" class="action-button" style="min-width: 60px;" />
+                                <ui:Button name="raw-stop-button" text="■ Stop" class="action-button" style="min-width: 60px;" />
+                            </ui:VisualElement>
+                            <ui:VisualElement style="flex-direction: row; justify-content: center; margin-top: 5px; width: 69px;">
+                                <ui:Label tabindex="-1" text="Loop" parse-escape-sequences="true" display-tooltip-when-elided="true" style="flex-grow: 0; justify-content: center; align-items: center; align-self: center;" />
+                                <ui:Toggle name="raw-loop-toggle" value="false" tooltip="Loop playback in visible range when zoomed" style="flex-direction: row-reverse; flex-wrap: nowrap; align-items: center; flex-shrink: 1; flex-grow: 0; justify-content: flex-end; align-self: center; width: 17px;" />
+                            </ui:VisualElement>
+                        </ui:VisualElement>
+                        <ui:VisualElement style="flex-direction: row; flex-grow: 1;">
+                            <ui:Label text="Export" class="section-title" style="justify-content: center; align-self: center;" />
+                            <ui:Button name="raw-export-button" text="Export Audio" class="generate-button" style="margin-top: 10px; font-size: 12px; min-height: 35px; min-width: 130px; align-self: auto;" />
+                            <ui:Button name="save-selection-button" text="Save Selection" tooltip="Save only the selected audio portion" class="action-button" style="margin-top: 10px; font-size: 11px; min-height: 30px; margin-right: 3px; margin-bottom: 10px; margin-left: 3px;" />
+                        </ui:VisualElement>
+                    </ui:VisualElement>
+                </ui:VisualElement>
+            </ui:VisualElement>
+        </ui:VisualElement>
+    </ui:VisualElement>
+    <ui:VisualElement name="loading-overlay" class="loading-overlay" style="display: none;">
+        <ui:VisualElement class="loading-modal">
+            <ui:Label text="Processing Audio..." class="loading-text" />
+            <ui:VisualElement name="progress-container" class="progress-container">
+                <ui:VisualElement name="progress-bar" class="progress-bar">
+                    <ui:VisualElement name="progress-fill" class="progress-fill" />
+                </ui:VisualElement>
+            </ui:VisualElement>
+        </ui:VisualElement>
+    </ui:VisualElement>
+</ui:UXML>

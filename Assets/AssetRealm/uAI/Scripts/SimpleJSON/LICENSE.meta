@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: 15e815b65f4524c43bdb7d877eacdcf6
+DefaultImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 248269
+  packageName: uAI - AI Assistant
+  packageVersion: 1.4.0
+  assetPath: Assets/AssetRealm/uAI/Scripts/SimpleJSON/LICENSE
+  uploadId: 690380

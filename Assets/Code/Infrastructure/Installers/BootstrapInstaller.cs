@@ -10,6 +10,7 @@ using Code.Gameplay.Services.SpawnersServices.HeartSpawnerService;
 using Code.Gameplay.Services.SpawnersServices.SlimeSpawnerService;
 using Code.Gameplay.Services.TimerService;
 using Code.Gameplay.Windows;
+using Code.GlobalScreen.Behaviour;
 using Code.Infrastructure.Loading;
 using Code.Infrastructure.States.Factory;
 using Code.Infrastructure.States.GameStates;
@@ -27,6 +28,7 @@ namespace Code.Infrastructure.Installers
     {
         [SerializeField] private InventorySkinConfigs _inventorySkinConfigs;
         [SerializeField] private CurrencyConfig _currencyConfig;
+        [SerializeField] private AudioManager _audioManager;
         
         public override void InstallBindings()
         {
@@ -38,6 +40,8 @@ namespace Code.Infrastructure.Installers
 
             Container.BindInterfacesAndSelfTo<CurrencyModel>().AsSingle().NonLazy();
             Container.Bind<CurrencyConfig>().FromInstance(_currencyConfig).AsSingle().NonLazy();
+            
+            Container.Bind<AudioManager>().FromComponentInNewPrefab(_audioManager).AsSingle().NonLazy();
             
             BindInfrastructureServices();
             BindCommonServices();

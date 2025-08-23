@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: 59dadae6fb84ec648b4554c560b48f0f
+TextScriptImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 248269
+  packageName: uAI - AI Assistant
+  packageVersion: 1.4.0
+  assetPath: Assets/AssetRealm/uAI/Third-Party Notices.txt
+  uploadId: 690380

@@ -1,0 +1,111 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" editor-extension-mode="True">
+    <Style src="project://database/Assets/AssetRealm/uAI/Scripts/Editor/Resources/ScriptDocWindow.uss?fileID=7433441132597879392&amp;guid=a86df714e6fd3104284e0a7566c195a6&amp;type=3#ScriptDocWindow" />
+    <ui:VisualElement name="root" class="root">
+        <ui:VisualElement name="main-container" class="main-container">
+            <ui:VisualElement name="top-bar" class="top-bar">
+                <ui:VisualElement name="logo-container" class="logo-container">
+                    <ui:Label text="UAI Script Doctor Pro" name="logo" class="logo" />
+                    <ui:Label text="AI-Powered Code Assistant" name="subtitle" class="subtitle" />
+                </ui:VisualElement>
+                <ui:VisualElement name="tab-container" class="tab-container">
+                    <ui:Button text="Assistant" name="main-tab-button" class="tab-button active-tab" />
+                    <ui:Button text="Settings" name="settings-tab-button" class="tab-button" />
+                </ui:VisualElement>
+            </ui:VisualElement>
+            <ui:VisualElement name="main-content" class="main-content">
+                <ui:VisualElement name="three-column-layout" class="three-column-layout">
+                    <ui:VisualElement name="left-column" class="left-column">
+                        <ui:VisualElement name="script-list-panel" class="panel-container script-list-panel">
+                            <ui:VisualElement name="panel-header" class="panel-header">
+                                <ui:Label text="Scripts" class="panel-title" />
+                                <ui:VisualElement name="header-buttons" class="header-buttons">
+                                    <ui:Button text="Clear All" name="clear-all-button" tooltip="Remove all scripts" class="header-button" />
+                                </ui:VisualElement>
+                            </ui:VisualElement>
+                            <ui:VisualElement name="panel-content" class="panel-content">
+                                <ui:ScrollView name="script-list-container" class="script-list-container" />
+                                <ui:Button text="+ Add Script" name="add-script-button" class="add-script-button" />
+                            </ui:VisualElement>
+                        </ui:VisualElement>
+                        <ui:VisualElement name="actions-panel" class="panel-container actions-panel">
+                            <ui:VisualElement name="panel-header" class="panel-header">
+                                <ui:Label text="Quick Actions" class="panel-title" />
+                            </ui:VisualElement>
+                            <ui:ScrollView name="actions-content" class="panel-content actions-content" />
+                        </ui:VisualElement>
+                    </ui:VisualElement>
+                    <ui:VisualElement name="code-viewer-panel" class="panel-container code-viewer-panel">
+                        <ui:VisualElement name="panel-header" class="panel-header">
+                            <ui:Label text="Code Viewer" name="code-viewer-title" class="panel-title" />
+                            <ui:VisualElement name="header-buttons" class="header-buttons">
+                                <ui:Button text="Revert" name="revert-changes-button" class="header-button hidden" />
+                                <ui:Button text="Save" name="save-changes-button" class="header-button primary hidden" />
+                            </ui:VisualElement>
+                        </ui:VisualElement>
+                        <ui:ScrollView name="code-viewer-scroll" class="code-viewer-scroll">
+                            <ui:VisualElement name="code-viewer-content" class="code-viewer-content">
+                                <ui:Label text="Select a script to view its content" class="empty-state-text" />
+                            </ui:VisualElement>
+                        </ui:ScrollView>
+                    </ui:VisualElement>
+                    <ui:VisualElement name="conversation-panel" class="panel-container conversation-panel" style="flex-grow: 1;">
+                        <ui:VisualElement name="panel-header" class="panel-header">
+                            <ui:Label text="AI Assistant" class="panel-title" />
+                            <ui:VisualElement name="header-buttons" class="header-buttons">
+                                <ui:Button text="Export" name="export-conversation-button" tooltip="Export conversation" class="header-button" />
+                                <ui:Button text="Clear" name="clear-conversation-button" tooltip="Clear conversation" class="header-button" />
+                            </ui:VisualElement>
+                        </ui:VisualElement>
+                        <ui:ScrollView name="conversation-scroll" class="conversation-scroll">
+                            <ui:Label text="Select a script and start a conversation" class="empty-state-text" />
+                        </ui:ScrollView>
+                        <ui:VisualElement name="progress-container" class="progress-container hidden">
+                            <ui:Label name="progress-label" text="AI is thinking..." class="progress-label" />
+                            <ui:VisualElement name="progress-bar" class="progress-bar">
+                                <ui:VisualElement name="progress-fill" class="progress-fill" />
+                            </ui:VisualElement>
+                        </ui:VisualElement>
+                        <ui:VisualElement name="input-section" class="input-section">
+                            <ui:VisualElement style="flex-grow: 1; flex-direction: row;">
+                                <ui:Toggle name="send-all-scripts-toggle" label="Include all scripts for context" tooltip="When enabled, all scripts in the list will be sent to AI for better context understanding" class="send-all-toggle" />
+                            </ui:VisualElement>
+                            <ui:VisualElement name="additional-info-container" class="additional-info-container hidden">
+                                <ui:Label text="Additional Information:" class="additional-info-label" />
+                                <ui:TextField name="additional-info-field" multiline="true" class="additional-info-field" />
+                            </ui:VisualElement>
+                            <ui:VisualElement name="input-container" class="input-container">
+                                <ui:VisualElement name="input-wrapper" class="input-wrapper">
+                                    <ui:TextField name="user-input-field" multiline="true" class="user-input-field" />
+                                </ui:VisualElement>
+                                <ui:Button text="Send" name="send-button" class="send-button" />
+                            </ui:VisualElement>
+                        </ui:VisualElement>
+                    </ui:VisualElement>
+                </ui:VisualElement>
+            </ui:VisualElement>
+            <ui:VisualElement name="settings-content" class="settings-content hidden">
+                <ui:VisualElement name="settings-header" class="settings-header">
+                    <ui:Label text="Settings" class="settings-title" />
+                    <ui:Label text="Configure AI behavior and preferences" class="settings-subtitle" />
+                </ui:VisualElement>
+                <ui:ScrollView name="settings-scroll" class="settings-scroll">
+                    <ui:VisualElement name="settings-form" class="settings-form">
+                        <ui:VisualElement name="coding-standards-section" class="settings-section">
+                            <ui:Label text="Coding Standards" class="settings-section-header" />
+                            <ui:DropdownField name="coding-pattern-dropdown" label="Coding Pattern" class="settings-dropdown" />
+                            <ui:DropdownField name="naming-format-dropdown" label="Naming Convention" class="settings-dropdown" />
+                        </ui:VisualElement>
+                        <ui:VisualElement name="custom-prompts-section" class="settings-section">
+                            <ui:Label text="Custom Instructions" class="settings-section-header" />
+                            <ui:TextField name="custom-prompts-field" multiline="true" class="custom-prompts-field" />
+                        </ui:VisualElement>
+                        <ui:VisualElement name="settings-actions" class="settings-actions">
+                            <ui:Button text="Save Settings" name="save-settings-button" class="primary-button" />
+                            <ui:Button text="Reset to Defaults" name="reset-settings-button" class="secondary-button" />
+                        </ui:VisualElement>
+                    </ui:VisualElement>
+                </ui:ScrollView>
+            </ui:VisualElement>
+        </ui:VisualElement>
+    </ui:VisualElement>
+</ui:UXML>

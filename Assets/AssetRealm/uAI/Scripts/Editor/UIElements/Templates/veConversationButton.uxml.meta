@@ -1,0 +1,17 @@
+fileFormatVersion: 2
+guid: fea24daf2a11273438006c907089094c
+ScriptedImporter:
+  internalIDToNameTable: []
+  externalObjects: {}
+  serializedVersion: 2
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+  script: {fileID: 13804, guid: 0000000000000000e000000000000000, type: 0}
+AssetOrigin:
+  serializedVersion: 1
+  productId: 248269
+  packageName: uAI - AI Assistant
+  packageVersion: 1.4.0
+  assetPath: Assets/AssetRealm/uAI/Scripts/Editor/UIElements/Templates/veConversationButton.uxml
+  uploadId: 690380

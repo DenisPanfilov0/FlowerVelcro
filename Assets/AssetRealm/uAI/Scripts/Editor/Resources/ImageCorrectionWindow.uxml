@@ -1,0 +1,170 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements">
+    <ui:VisualElement name="root-container" class="root-container">
+        
+        <!-- Header Toolbar -->
+        <ui:VisualElement name="toolbar" class="toolbar">
+            <ui:VisualElement class="toolbar-section">
+                <ui:Button name="load-button" text="Load Image" class="toolbar-button primary-button" />
+                <ui:Button name="save-button" text="Save Image" class="toolbar-button" />
+                <ui:Button name="revert-button" text="Revert" class="toolbar-button danger-button" />
+            </ui:VisualElement>
+            <ui:VisualElement class="toolbar-section">
+                <ui:Label name="status-label" text="No image loaded" class="status-label" />
+            </ui:VisualElement>
+        </ui:VisualElement>
+        
+        <!-- Main Content Area -->
+        <ui:VisualElement name="main-content" class="main-content">
+            
+            <!-- Left Panel - Image Preview -->
+            <ui:VisualElement name="preview-panel" class="preview-panel">
+                <ui:Label text="Preview" class="panel-header" />
+                <ui:VisualElement name="image-container" class="image-container">
+                    <ui:VisualElement name="image-preview" class="image-preview">
+                        <ui:Label name="placeholder-label" text="Drag &amp; Drop Image Here" class="placeholder-text" />
+                    </ui:VisualElement>
+                </ui:VisualElement>
+            </ui:VisualElement>
+            
+            <!-- Right Panel - Controls -->
+            <ui:VisualElement name="controls-panel" class="controls-panel">
+                <ui:Label text="Image Adjustments" class="panel-header" />
+                
+                <ui:ScrollView class="controls-scroll">
+                    <!-- Basic Color Section -->
+                    <ui:Foldout text="Basic Color" value="true" class="control-section">
+                        
+                        <!-- Hue Control -->
+                        <ui:VisualElement class="control-group">
+                            <ui:Label text="Hue" class="control-label" />
+                            <ui:VisualElement class="control-row">
+                                <ui:Slider name="hue-slider" low-value="-0.5" high-value="0.5" value="0" class="adjustment-slider" />
+                                <ui:FloatField name="hue-field" value="0" class="value-field" />
+                            </ui:VisualElement>
+                        </ui:VisualElement>
+                        
+                        <!-- Saturation Control -->
+                        <ui:VisualElement class="control-group">
+                            <ui:Label text="Saturation" class="control-label" />
+                            <ui:VisualElement class="control-row">
+                                <ui:Slider name="saturation-slider" low-value="0" high-value="2" value="1" class="adjustment-slider" />
+                                <ui:FloatField name="saturation-field" value="1" class="value-field" />
+                            </ui:VisualElement>
+                        </ui:VisualElement>
+                        
+                        <!-- Brightness Control -->
+                        <ui:VisualElement class="control-group">
+                            <ui:Label text="Brightness" class="control-label" />
+                            <ui:VisualElement class="control-row">
+                                <ui:Slider name="brightness-slider" low-value="0" high-value="2" value="1" class="adjustment-slider" />
+                                <ui:FloatField name="brightness-field" value="1" class="value-field" />
+                            </ui:VisualElement>
+                        </ui:VisualElement>
+                        
+                        <!-- Contrast Control -->
+                        <ui:VisualElement class="control-group">
+                            <ui:Label text="Contrast" class="control-label" />
+                            <ui:VisualElement class="control-row">
+                                <ui:Slider name="contrast-slider" low-value="0" high-value="2" value="1" class="adjustment-slider" />
+                                <ui:FloatField name="contrast-field" value="1" class="value-field" />
+                            </ui:VisualElement>
+                        </ui:VisualElement>
+                        
+                    </ui:Foldout>
+                    <!-- Levels Section -->
+                    <ui:Foldout text="Levels" value="true" class="control-section">
+                        
+                        <!-- Black Point -->
+                        <ui:VisualElement class="control-group">
+                            <ui:Label text="Black Point" class="control-label" />
+                            <ui:VisualElement class="control-row">
+                                <ui:Slider name="black-point-slider" low-value="0" high-value="1" value="0" class="adjustment-slider" />
+                                <ui:FloatField name="black-point-field" value="0" class="value-field" />
+                            </ui:VisualElement>
+                        </ui:VisualElement>
+                        
+                        <!-- White Point -->
+                        <ui:VisualElement class="control-group">
+                            <ui:Label text="White Point" class="control-label" />
+                            <ui:VisualElement class="control-row">
+                                <ui:Slider name="white-point-slider" low-value="0" high-value="1" value="1" class="adjustment-slider" />
+                                <ui:FloatField name="white-point-field" value="1" class="value-field" />
+                            </ui:VisualElement>
+                        </ui:VisualElement>
+                        
+                        <!-- Mid Point -->
+                        <ui:VisualElement class="control-group">
+                            <ui:Label text="Mid Point" class="control-label" />
+                            <ui:VisualElement class="control-row">
+                                <ui:Slider name="mid-point-slider" low-value="0.1" high-value="5" value="1" class="adjustment-slider" />
+                                <ui:FloatField name="mid-point-field" value="1" class="value-field" />
+                            </ui:VisualElement>
+                        </ui:VisualElement>
+                        
+                    </ui:Foldout>
+                    
+                    <!-- Exposure Section -->
+                    <ui:Foldout text="Exposure &amp; Gamma" value="true" class="control-section">
+                        
+                        <!-- Exposure -->
+                        <ui:VisualElement class="control-group">
+                            <ui:Label text="Exposure" class="control-label" />
+                            <ui:VisualElement class="control-row">
+                                <ui:Slider name="exposure-slider" low-value="-3" high-value="3" value="0" class="adjustment-slider" />
+                                <ui:FloatField name="exposure-field" value="0" class="value-field" />
+                            </ui:VisualElement>
+                        </ui:VisualElement>
+                        
+                        <!-- Gamma -->
+                        <ui:VisualElement class="control-group">
+                            <ui:Label text="Gamma" class="control-label" />
+                            <ui:VisualElement class="control-row">
+                                <ui:Slider name="gamma-slider" low-value="0.1" high-value="3" value="1" class="adjustment-slider" />
+                                <ui:FloatField name="gamma-field" value="1" class="value-field" />
+                            </ui:VisualElement>
+                        </ui:VisualElement>
+                        
+                    </ui:Foldout>
+                    
+                    <!-- Color Temperature Section -->
+                    <ui:Foldout text="Color Temperature" value="true" class="control-section">
+                        
+                        <!-- Temperature -->
+                        <ui:VisualElement class="control-group">
+                            <ui:Label text="Temperature" class="control-label" />
+                            <ui:VisualElement class="control-row">
+                                <ui:Slider name="temperature-slider" low-value="-100" high-value="100" value="0" class="adjustment-slider" />
+                                <ui:FloatField name="temperature-field" value="0" class="value-field" />
+                            </ui:VisualElement>
+                        </ui:VisualElement>
+                        
+                        <!-- Tint -->
+                        <ui:VisualElement class="control-group">
+                            <ui:Label text="Tint" class="control-label" />
+                            <ui:VisualElement class="control-row">
+                                <ui:Slider name="tint-slider" low-value="-100" high-value="100" value="0" class="adjustment-slider" />
+                                <ui:FloatField name="tint-field" value="0" class="value-field" />
+                            </ui:VisualElement>
+                        </ui:VisualElement>
+                        
+                    </ui:Foldout>
+                    
+                    
+                    
+                    <!-- Effects Section -->
+                    <ui:Foldout text="Effects" value="true" class="control-section">
+                        
+                        <ui:VisualElement class="effects-row">
+                            <ui:Toggle name="grayscale-toggle" label="Grayscale" class="effect-toggle" />
+                            <ui:Toggle name="invert-toggle" label="Invert" class="effect-toggle" />
+                        </ui:VisualElement>
+                        
+                    </ui:Foldout>
+                    
+                </ui:ScrollView>
+            </ui:VisualElement>
+            
+        </ui:VisualElement>
+        
+    </ui:VisualElement>
+</ui:UXML>
