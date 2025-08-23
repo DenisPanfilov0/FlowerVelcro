@@ -40,13 +40,13 @@ namespace Code.Gameplay.Behaviour.View
         private void OnEnable()
         {
             // Начинаем движение с постоянной скоростью
-            _rb.velocity = Vector2.down * baseFallSpeed * N;
+            _rb.linearVelocity = Vector2.down * baseFallSpeed * N;
         }
 
         private void FixedUpdate()
         {
             if (_isFalling)
-                _rb.velocity = Vector2.down * baseFallSpeed * N;
+                _rb.linearVelocity = Vector2.down * baseFallSpeed * N;
         }
 
         private void OnTriggerEnter2D(Collider2D other)

@@ -56,7 +56,7 @@ namespace Code.Gameplay.Behaviour.View
             if (gameObject == null || !_isGameActive || _gameStateService == null) return;
             _isFalling = true;
             N = _gameStateService.GameSpeed; // Update serialized field for Inspector
-            _rb.velocity = Vector2.down * baseFallSpeed * _gameStateService.GameSpeed;
+            _rb.linearVelocity = Vector2.down * baseFallSpeed * _gameStateService.GameSpeed;
             _icon.color = Color.white;
         }
 
@@ -79,7 +79,7 @@ namespace Code.Gameplay.Behaviour.View
             if (_rb != null && _isGameActive && _gameStateService != null)
             {
                 N = _gameStateService.GameSpeed; // Update serialized field for Inspector
-                _rb.velocity = Vector2.down * baseFallSpeed * _gameStateService.GameSpeed;
+                _rb.linearVelocity = Vector2.down * baseFallSpeed * _gameStateService.GameSpeed;
             }
         }
 
@@ -93,10 +93,10 @@ namespace Code.Gameplay.Behaviour.View
 
         protected virtual void FixedUpdate()
         {
-            if (!_isFalling || !_isGameActive || gameObject == null || transform == null || _gameStateService == null) return;
+            if (!_isFalling || !_isGameActive || gameObject == null || transform == null || _gameStateService == null || _gameStateService.IsGameStop) return;
 
             N = _gameStateService.GameSpeed; // Update serialized field for Inspector
-            _rb.velocity = new Vector2(_rb.velocity.x, -baseFallSpeed * _gameStateService.GameSpeed);
+            _rb.linearVelocity = new Vector2(_rb.linearVelocity.x, -baseFallSpeed * _gameStateService.GameSpeed);
             if (transform.position.y < _screenBottom)
             {
                 _spawnerService?.ReturnToPool(this, _typeId);
@@ -119,7 +119,7 @@ namespace Code.Gameplay.Behaviour.View
             _isFalling = false;
             if (_rb != null)
             {
-                _rb.velocity = Vector2.zero;
+                _rb.linearVelocity = Vector2.zero;
             }
         }
     }

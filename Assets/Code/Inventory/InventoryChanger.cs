@@ -2,7 +2,9 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 using Zenject;
 
 namespace Code.Inventory
@@ -11,6 +13,11 @@ namespace Code.Inventory
     {
         [SerializeField] private InventoryItem _inventoryItem;
         [SerializeField] private Transform _itemsContainer;
+        [SerializeField] private Button _chestButton;
+        [SerializeField] private TMP_Text _chestText;
+        [SerializeField] private Image _chestImage;
+        [SerializeField] private Color _activeColor;
+        [SerializeField] private Color _inactiveColor;
 
         private List<InventoryItem> _activeItems = new List<InventoryItem>();
         private Stack<InventoryItem> _pool = new Stack<InventoryItem>();
@@ -22,8 +29,7 @@ namespace Code.Inventory
         private Coroutine _currentShowCoroutine;
         private InventoryCategoryType _currentCategory;
 
-
-        private const float StaggerDelay = 0.05f;
+        private const float StaggerDelay = 0.025f;
 
         [Inject]
         public void Construct(InventorySkinConfigs inventorySkinConfigs, InventoryModel inventoryModel)
@@ -31,6 +37,20 @@ namespace Code.Inventory
             _inventoryModel = inventoryModel;
             _inventorySkinConfigs = inventorySkinConfigs;
             InitPool();
+        }
+
+        private void Start()
+        {
+            var firstCategory = _inventorySkinConfigs.InventorySkinsConfigs.FirstOrDefault()?.Type ?? InventoryCategoryType.Unknown;
+            if (firstCategory != InventoryCategoryType.Unknown)
+            {
+                var firstCategoryItem = FindObjectsOfType<InventoryCategoryItem>()
+                    .FirstOrDefault(item => item.GetComponent<InventoryCategoryItem>().GetCategoryType() == firstCategory);
+                if (firstCategoryItem != null)
+                {
+                    ChangeCategory(firstCategory, firstCategoryItem);
+                }
+            }
         }
 
         private void InitPool()
@@ -80,6 +100,17 @@ namespace Code.Inventory
             }
 
             _currentCategory = categoryType;
+            UpdateChestButtonState(categoryType);
+        }
+
+        public void UpdateChestButtonState(InventoryCategoryType categoryType)
+        {
+            bool hasLockedSkins = _inventorySkinConfigs.InventorySkinsConfigs
+                .FirstOrDefault(x => x.Type == categoryType)?.InventorySkins
+                .Any(skin => _inventoryModel.IsSkinLocked(categoryType, skin.SkinId)) ?? false;
+            _chestButton.interactable = hasLockedSkins;
+            _chestText.color = hasLockedSkins ? _activeColor : _inactiveColor;
+            _chestImage.color = hasLockedSkins ? _activeColor : _inactiveColor;
         }
 
         private IEnumerator HideStaggered(InventoryCategoryType categoryType, int thisVersion)
@@ -120,7 +151,6 @@ namespace Code.Inventory
                 return;
             }
 
-            // Sort skins: unlocked (IsLocked == false) first, then locked (IsLocked == true)
             var sortedConfigs = skinConfig.InventorySkins
                 .Select(skin => new
                 {
@@ -150,6 +180,7 @@ namespace Code.Inventory
         private IEnumerator ShowStaggered(List<InventorySkinData> sortedConfigs, InventoryCategoryType categoryType)
         {
             List<InventoryItem> selected = new List<InventoryItem>();
+            int selectedSkinId = _inventoryModel.GetSelectedSkinId(categoryType);
             for (int i = 0; i < sortedConfigs.Count; i++)
             {
                 selected.Add(_pool.Pop());
@@ -159,12 +190,60 @@ namespace Code.Inventory
             for (int i = 0; i < showOrder.Count; i++)
             {
                 bool isLocked = _inventoryModel.IsSkinLocked(categoryType, sortedConfigs[i].SkinId);
-                showOrder[i].Setup(sortedConfigs[i].Icon, sortedConfigs[i].SkinId, categoryType, _inventoryModel, this, isLocked);
+                bool isSelected = sortedConfigs[i].SkinId == selectedSkinId;
+                showOrder[i].Setup(sortedConfigs[i].Icon, sortedConfigs[i].SkinId, categoryType, _inventoryModel, this, isLocked, isSelected);
                 _activeItems.Add(showOrder[i]);
                 if (i < showOrder.Count - 1)
                 {
                     yield return new WaitForSeconds(StaggerDelay);
                 }
+            }
+        }
+
+        public void UnlockSkinInList(InventoryCategoryType categoryType, int skinId)
+        {
+            InventoryItem itemToUnlock = _activeItems.FirstOrDefault(item => item.GetSkinId() == skinId);
+            if (itemToUnlock != null)
+            {
+                itemToUnlock.Unlock();
+                ResortItems(categoryType);
+                int selectedSkinId = _inventoryModel.GetSelectedSkinId(categoryType);
+                InventoryItem selectedItem = _activeItems.FirstOrDefault(item => item.GetSkinId() == selectedSkinId);
+                if (selectedItem != null)
+                {
+                    SelectItem(selectedItem);
+                }
+            }
+        }
+
+        private void ResortItems(InventoryCategoryType categoryType)
+        {
+            InventorySkinConfig skinConfig = _inventorySkinConfigs.InventorySkinsConfigs.FirstOrDefault(x => x.Type == categoryType);
+            if (skinConfig == null)
+            {
+                return;
+            }
+
+            var sortedConfigs = skinConfig.InventorySkins
+                .Select((skin, index) => new { Skin = skin, Index = index })
+                .OrderBy(x => _inventoryModel.IsSkinLocked(categoryType, x.Skin.SkinId))
+                .ThenBy(x => x.Index)
+                .ToList();
+
+            var sortedItems = new List<InventoryItem>();
+            foreach (var config in sortedConfigs)
+            {
+                var item = _activeItems.FirstOrDefault(i => i.GetSkinId() == config.Skin.SkinId);
+                if (item != null)
+                {
+                    sortedItems.Add(item);
+                }
+            }
+
+            _activeItems = sortedItems;
+            for (int i = 0; i < _activeItems.Count; i++)
+            {
+                _activeItems[i].transform.SetSiblingIndex(i);
             }
         }
 
@@ -191,7 +270,7 @@ namespace Code.Inventory
             if (_categoryItem != null)
             {
                 ChangeCategory(_currentCategory, _categoryItem);
-                _inventoryModel.SaveData(); // Save after refreshing
+                _inventoryModel.SaveData();
             }
         }
 

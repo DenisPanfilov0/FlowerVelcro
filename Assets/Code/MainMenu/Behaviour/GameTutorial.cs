@@ -1,5 +1,5 @@
 using System.Collections.Generic;
-using Code.Progress.Provider;
+using Code.Progress.Data;
 using UnityEngine;
 using UnityEngine.UI;
 using Zenject;
@@ -11,18 +11,18 @@ namespace Code.MainMenu.Behaviour
         [SerializeField] private List<GameObject> _slids;
         [SerializeField] private Button _nextSlde;
         
-        private IProgressProvider _progress;
+        private ProgressData _progress;
         private int _counter = 0;
 
         [Inject]
-        public void Construct(IProgressProvider progress)
+        public void Construct(ProgressData progress)
         {
             _progress = progress;
         }
 
         private void Start()
         {
-            if (!_progress.ProgressData.IsTutorialChecked)
+            if (!_progress.IsTutorialChecked)
             {
                 _nextSlde.onClick.AddListener(NextSlide);
                 
@@ -44,7 +44,8 @@ namespace Code.MainMenu.Behaviour
             }
             else
             {
-                _progress.ProgressData.IsTutorialChecked = true;
+                // _progress.ProgressData.IsTutorialChecked = true;
+                _progress.SetTutorialChecked(true);
                 Destroy(gameObject);
             }
         }

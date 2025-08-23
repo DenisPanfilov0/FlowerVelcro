@@ -2,7 +2,7 @@ using System;
 using Code.Gameplay.Services.GameStateService;
 using Code.Gameplay.Services.TimerService;
 using Code.Inventory;
-using Code.Progress.Provider;
+using Code.Progress.Data;
 
 namespace Code.Gameplay.Services.GameScoreService
 {
@@ -12,12 +12,13 @@ namespace Code.Gameplay.Services.GameScoreService
         
         private readonly ITimerService _timerService;
         private readonly IGameStateService _gameStateService;
-        private readonly IProgressProvider _progress;
+        private readonly ProgressData _progress;
         private readonly CurrencyModel _currencyModel;
         private int _score = 0;
         private bool _isGameStop = false;
+        private bool _isNewRecord = false;
 
-        public GameScoreService(ITimerService timerService, IGameStateService gameStateService, IProgressProvider progress, CurrencyModel currencyModel)
+        public GameScoreService(ITimerService timerService, IGameStateService gameStateService, ProgressData progress, CurrencyModel currencyModel)
         {
             _gameStateService = gameStateService;
             _progress = progress;
@@ -30,9 +31,11 @@ namespace Code.Gameplay.Services.GameScoreService
                 
                 _currencyModel.AddCurrency(_score);
                 
-                if (_progress.ProgressData.MaxScore < _score)
+                if (_progress.MaxScore < _score)
                 {
-                    _progress.ProgressData.MaxScore = _score;
+                    // _progress.ProgressData.MaxScore = _score;
+                    _progress.ChangeMaxScore(_score);
+                    _isNewRecord = true;
                 }
             };
         }
@@ -49,6 +52,7 @@ namespace Code.Gameplay.Services.GameScoreService
         {
             _score = 0;
             _isGameStop = false;
+            _isNewRecord = false;
         }
 
         public void IncreaseScore()
@@ -62,6 +66,11 @@ namespace Code.Gameplay.Services.GameScoreService
         public int GetScore()
         {
             return _score;
+        }
+
+        public bool CheckTheRecord()
+        {
+            return _isNewRecord;
         }
     }
 }

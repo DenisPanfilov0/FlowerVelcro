@@ -17,7 +17,7 @@ using Code.Infrastructure.States.StateMachine;
 using Code.Infrastructure.StaticData;
 using Code.Inventory;
 using Code.MainMenu.Services.AmbientSoundService;
-using Code.Progress.Provider;
+using Code.Progress.Data;
 using UnityEngine;
 using Zenject;
 
@@ -31,6 +31,7 @@ namespace Code.Infrastructure.Installers
         public override void InstallBindings()
         {
             Container.BindInterfacesAndSelfTo<SaveLoadService>().AsSingle().NonLazy();
+            Container.BindInterfacesAndSelfTo<ProgressData>().AsSingle().NonLazy();
             
             Container.BindInterfacesAndSelfTo<InventoryModel>().AsSingle().NonLazy();
             Container.Bind<InventorySkinConfigs>().FromInstance(_inventorySkinConfigs).AsSingle().NonLazy();
@@ -73,7 +74,7 @@ namespace Code.Infrastructure.Installers
         
         private void BindProgressServices()
         {
-            Container.Bind<IProgressProvider>().To<ProgressProvider>().AsSingle();
+            
         }
         
         private void BindMainMenuServices()
@@ -92,7 +93,7 @@ namespace Code.Infrastructure.Installers
             
             
             
-            Container.Bind<IHeartSpawnerService>().To<HeartSpawnerService>().AsSingle();
+            // Container.Bind<IHeartSpawnerService>().To<HeartSpawnerService>().AsSingle();
             Container.Bind<IPlayerStickingService>().To<PlayerStickingService>().AsSingle();
             Container.Bind<IPlayerFallingService>().To<PlayerFallingService>().AsSingle();
             Container.BindInterfacesAndSelfTo<IGameStateService>().AsSingle();

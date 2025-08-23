@@ -24,31 +24,34 @@ namespace Code.Inventory
         [SerializeField] private TMP_Text _promptText;
         [SerializeField] private GameObject _blocker;
         [SerializeField] private InventoryChanger _inventoryChanger;
+        [SerializeField] private Color _activeColor;
+        [SerializeField] private Color _inactiveColor;
+        [SerializeField] private Image _buyImage;
+        [SerializeField] private TMP_Text _buyText;
+
         private CurrencyModel _currencyModel;
         private InventorySkinConfigs _inventorySkinConfigs;
         private InventoryModel _inventoryModel;
-        private Camera _mainCamera;
         private RewardSkin _rewardSkinInstance;
         private Coroutine _currentAnimation;
         private bool _isHidingReward;
-        private Vector3 _buyButtonInitialPos;
-        private Vector3 _adButtonInitialPos;
+
+        private Vector2 _buyButtonInitialPos;
+        private Vector2 _adButtonInitialPos;
         private Vector3 _closePanelInitialScale;
-        private Vector2 _lastScreenResolution;
 
         [Inject]
-        public void Construct(CurrencyModel currencyModel, InventorySkinConfigs inventorySkinConfigs, InventoryModel inventoryModel, Camera mainCamera)
+        public void Construct(CurrencyModel currencyModel, InventorySkinConfigs inventorySkinConfigs, InventoryModel inventoryModel)
         {
             _currencyModel = currencyModel;
             _inventorySkinConfigs = inventorySkinConfigs;
             _inventoryModel = inventoryModel;
-            _mainCamera = mainCamera;
         }
 
         private void Awake()
         {
-            UpdateButtonPositions();
-
+            _buyButtonInitialPos = _buyButton.GetComponent<RectTransform>().anchoredPosition;
+            _adButtonInitialPos = _adButton.GetComponent<RectTransform>().anchoredPosition;
             _closePanelInitialScale = _closePanel.transform.localScale;
 
             _chestImage.transform.localScale = Vector3.zero;
@@ -58,10 +61,10 @@ namespace Code.Inventory
             _categoryText.color = new Color(_categoryText.color.r, _categoryText.color.g, _categoryText.color.b, 0f);
             _promptText.color = new Color(_promptText.color.r, _promptText.color.g, _promptText.color.b, 0f);
 
-            _buyButton.transform.localPosition = _buyButtonInitialPos + new Vector3(-Screen.width, 0f, 0f);
+            _buyButton.GetComponent<RectTransform>().anchoredPosition = _buyButtonInitialPos + new Vector2(-Screen.width, 0f);
             _buyButton.gameObject.SetActive(false);
 
-            _adButton.transform.localPosition = _adButtonInitialPos + new Vector3(Screen.width, 0f, 0f);
+            _adButton.GetComponent<RectTransform>().anchoredPosition = _adButtonInitialPos + new Vector2(Screen.width, 0f);
             _adButton.gameObject.SetActive(false);
 
             _closePanel.transform.localScale = Vector3.zero;
@@ -72,33 +75,15 @@ namespace Code.Inventory
             _blocker.SetActive(true);
 
             _isHidingReward = false;
-
-            transform.localScale = Vector3.zero;
-            _lastScreenResolution = new Vector2(Screen.width, Screen.height);
-        }
-
-        private void Update()
-        {
-            if (Screen.width != _lastScreenResolution.x || Screen.height != _lastScreenResolution.y)
-            {
-                UpdateButtonPositions();
-                _lastScreenResolution = new Vector2(Screen.width, Screen.height);
-            }
-        }
-
-        private void UpdateButtonPositions()
-        {
-            CanvasScaler canvasScaler = GetComponentInParent<CanvasScaler>();
-            float referenceWidth = canvasScaler.referenceResolution.x;
-            float scaleFactor = Screen.width / referenceWidth;
-
-            _buyButtonInitialPos = _buyButton.GetComponent<RectTransform>().anchoredPosition * scaleFactor;
-            _adButtonInitialPos = _adButton.GetComponent<RectTransform>().anchoredPosition * scaleFactor;
         }
 
         private void Start()
         {
-            _buyButton.interactable = _currencyModel.CanSpend(1000);
+            bool canSpend = _currencyModel.CanSpend(1000);
+            _buyButton.interactable = canSpend;
+            _buyText.color = canSpend ? _activeColor : _inactiveColor;
+            _buyImage.color = canSpend ? _activeColor : _inactiveColor;
+
             _buyButton.onClick.AddListener(BuyChest);
             _adButton.onClick.AddListener(WatchAd);
             _interactiveShadow.onClick.AddListener(HideReward);
@@ -154,8 +139,14 @@ namespace Code.Inventory
             yield return new WaitForSeconds(0.2f);
             _buyButton.gameObject.SetActive(true);
             _adButton.gameObject.SetActive(true);
-            StartCoroutine(SlideButtonCoroutine(_buyButton.transform, _buyButton.transform.localPosition, _buyButtonInitialPos, elementDuration));
-            StartCoroutine(SlideButtonCoroutine(_adButton.transform, _adButton.transform.localPosition, _adButtonInitialPos, elementDuration));
+            StartCoroutine(SlideButtonCoroutine(_buyButton.GetComponent<RectTransform>(), 
+                _buyButtonInitialPos + new Vector2(-Screen.width, 0f), 
+                _buyButtonInitialPos, 
+                elementDuration));
+            StartCoroutine(SlideButtonCoroutine(_adButton.GetComponent<RectTransform>(), 
+                _adButtonInitialPos + new Vector2(Screen.width, 0f), 
+                _adButtonInitialPos, 
+                elementDuration));
 
             yield return new WaitForSeconds(0.2f);
             StartCoroutine(ScaleCoroutine(_closePanel.transform, Vector3.zero, _closePanelInitialScale, elementDuration));
@@ -173,11 +164,14 @@ namespace Code.Inventory
             Coroutine closeButtonCoroutine = StartCoroutine(ScaleCoroutine(_closePanel.transform, _closePanel.transform.localScale, Vector3.zero, elementDuration));
 
             yield return new WaitForSeconds(0.3f);
-            Vector3 buyTargetPos = _buyButtonInitialPos + new Vector3(-Screen.width, 0f, 0f);
-            Coroutine buyButtonCoroutine = StartCoroutine(SlideButtonCoroutine(_buyButton.transform, _buyButton.transform.localPosition, buyTargetPos, elementDuration));
-
-            Vector3 adTargetPos = _adButtonInitialPos + new Vector3(Screen.width, 0f, 0f);
-            Coroutine adButtonCoroutine = StartCoroutine(SlideButtonCoroutine(_adButton.transform, _adButton.transform.localPosition, adTargetPos, elementDuration));
+            Coroutine buyButtonCoroutine = StartCoroutine(SlideButtonCoroutine(_buyButton.GetComponent<RectTransform>(), 
+                _buyButton.GetComponent<RectTransform>().anchoredPosition, 
+                _buyButtonInitialPos + new Vector2(-Screen.width, 0f), 
+                elementDuration));
+            Coroutine adButtonCoroutine = StartCoroutine(SlideButtonCoroutine(_adButton.GetComponent<RectTransform>(), 
+                _adButton.GetComponent<RectTransform>().anchoredPosition, 
+                _adButtonInitialPos + new Vector2(Screen.width, 0f), 
+                elementDuration));
 
             yield return new WaitForSeconds(0.2f);
             Coroutine textCoroutine = StartCoroutine(FadeTextCoroutine(_chestText, 1f, 0f, elementDuration));
@@ -266,7 +260,6 @@ namespace Code.Inventory
             float verticalShakeAmplitude = 15f;
             float horizontalShakeAmplitude = 15f;
 
-            // Phase 1: Shake and scale up
             while (elapsed < shakeDuration)
             {
                 elapsed += Time.deltaTime;
@@ -293,7 +286,6 @@ namespace Code.Inventory
                 yield return null;
             }
 
-            // Phase 2: Shrink chest and spawn reward simultaneously
             _rewardSkinInstance = Instantiate(_rewardSkinPrefab, _rewardParent);
             _rewardSkinInstance.transform.localScale = Vector3.zero;
             _rewardSkinInstance.Setup(randomSkin.Icon);
@@ -307,29 +299,34 @@ namespace Code.Inventory
                 float t = elapsed / shrinkDuration;
                 float eased = EaseOutBack(t);
 
-                // Shrink chest
                 _chestImage.transform.localScale = Vector3.Lerp(targetChestScale, Vector3.zero, eased);
                 _chestImage.transform.rotation = Quaternion.identity;
                 _chestImage.transform.localPosition = initialChestPosition;
 
-                // Scale up reward
                 _rewardSkinInstance.transform.localScale = Vector3.one * 2f * eased;
 
-                // Fade in prompt text
                 _promptText.color = new Color(_promptText.color.r, _promptText.color.g, _promptText.color.b, eased);
 
                 yield return null;
             }
 
-            // Restore chest to original scale
-            _chestImage.transform.localScale = startChestScale;
+            _chestImage.transform.localScale = Vector3.one;
+            _chestImage.transform.rotation = Quaternion.identity;
+            _chestImage.transform.localPosition = initialChestPosition;
+
             _rewardSkinInstance.transform.localScale = Vector3.one * 2f;
             _promptText.color = new Color(_promptText.color.r, _promptText.color.g, _promptText.color.b, 1f);
 
             _inventoryModel.UnlockSkin(category, randomSkin.SkinId);
-            _inventoryChanger.RefreshCategory();
+            _inventoryChanger.UnlockSkinInList(category, randomSkin.SkinId);
 
             _interactiveShadow.interactable = true;
+
+            bool isLastSkin = !skinConfig.InventorySkins.Any(x => _inventoryModel.IsSkinLocked(category, x.SkinId));
+            if (isLastSkin)
+            {
+                _inventoryChanger.UpdateChestButtonState(category);
+            }
         }
 
         private void HideReward()
@@ -360,19 +357,16 @@ namespace Code.Inventory
                 float t = elapsed / fadeDuration;
                 float eased = EaseInBack(t);
 
-                // Fade out shadow
                 Color targetShadowColor = startShadowColor;
-                targetShadowColor.a = Mathf.Lerp(startShadowColor.a, 0f, t);
+                targetShadowColor.a = Mathf.Lerp(startShadowColor.a, 0f, eased);
                 _activeShadow.color = targetShadowColor;
 
-                // Shrink reward
                 if (_rewardSkinInstance != null)
                 {
                     _rewardSkinInstance.transform.localScale = Vector3.Lerp(startRewardScale, Vector3.zero, eased);
                 }
 
-                // Fade out prompt text
-                _promptText.color = new Color(startPromptColor.r, startPromptColor.g, startPromptColor.b, Mathf.Lerp(startPromptColor.a, 0f, t));
+                _promptText.color = new Color(startPromptColor.r, startPromptColor.g, startPromptColor.b, Mathf.Lerp(startPromptColor.a, 0f, eased));
 
                 yield return null;
             }
@@ -389,9 +383,25 @@ namespace Code.Inventory
 
             _promptText.color = new Color(startPromptColor.r, startPromptColor.g, startPromptColor.b, 0f);
 
-            _buyButton.interactable = _currencyModel.CanSpend(1000);
+            bool canSpend = _currencyModel.CanSpend(1000);
+            _buyButton.interactable = canSpend;
+            _buyText.color = canSpend ? _activeColor : _inactiveColor;
+            _buyImage.color = canSpend ? _activeColor : _inactiveColor;
+
             _isHidingReward = false;
             _blocker.SetActive(false);
+
+            InventoryCategoryType category = _inventoryChanger.GetCurrentCategory();
+            InventorySkinConfig skinConfig = _inventorySkinConfigs.InventorySkinsConfigs.FirstOrDefault(x => x.Type == category);
+            if (skinConfig != null)
+            {
+                bool isLastSkin = !skinConfig.InventorySkins.Any(x => _inventoryModel.IsSkinLocked(category, x.SkinId));
+                if (isLastSkin)
+                {
+                    Hide();
+                    _inventoryChanger.UpdateChestButtonState(category);
+                }
+            }
         }
 
         private float EaseOutBack(float t)
@@ -455,17 +465,17 @@ namespace Code.Inventory
             image.color = color;
         }
 
-        private IEnumerator SlideButtonCoroutine(Transform button, Vector3 startPos, Vector3 targetPos, float duration)
+        private IEnumerator SlideButtonCoroutine(RectTransform button, Vector2 startPos, Vector2 targetPos, float duration)
         {
             float elapsed = 0f;
             while (elapsed < duration)
             {
                 elapsed += Time.deltaTime;
                 float t = elapsed / duration;
-                button.localPosition = Vector3.Lerp(startPos, targetPos, t);
+                button.anchoredPosition = Vector2.Lerp(startPos, targetPos, t);
                 yield return null;
             }
-            button.localPosition = targetPos;
+            button.anchoredPosition = targetPos;
         }
     }
 }

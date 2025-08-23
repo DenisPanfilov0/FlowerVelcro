@@ -1,24 +1,25 @@
 using Code.Infrastructure.States.StateInfrastructure;
 using Code.Infrastructure.States.StateMachine;
 using Code.Progress.Data;
-using Code.Progress.Provider;
 
 namespace Code.Infrastructure.States.GameStates
 {
     public class LoadProgressState : IState
     {
         private readonly IGameStateMachine _stateMachine;
-        private readonly IProgressProvider _progress;
+        private readonly ProgressData _progress;
+        private readonly SaveLoadService _saveLoadService;
 
-        public LoadProgressState(IGameStateMachine stateMachine, IProgressProvider progress)
+        public LoadProgressState(IGameStateMachine stateMachine, ProgressData progress, SaveLoadService saveLoadService)
         {
             _stateMachine = stateMachine;
             _progress = progress;
+            _saveLoadService = saveLoadService;
         }
     
         public void Enter()
         {
-            CreateNewProgress();
+            // CreateNewProgress();
             
             EnterMainMenuState();
         }
@@ -33,9 +34,9 @@ namespace Code.Infrastructure.States.GameStates
       
         }
         
-        private void CreateNewProgress()
-        {
-            _progress.SetProgressData(new ProgressData());
-        }
+        // private void CreateNewProgress()
+        // {
+        //     _progress.SetProgressData(new ProgressData(_saveLoadService));
+        // }
     }
 }

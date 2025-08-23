@@ -41,6 +41,11 @@ namespace Code.Inventory
                 _useCategory.interactable = true;
             }
         }
+
+        public InventoryCategoryType GetCategoryType()
+        {
+            return _categoryType;
+        }
     }
 
     public enum InventoryCategoryType

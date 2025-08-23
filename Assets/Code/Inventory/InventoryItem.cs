@@ -9,21 +9,22 @@ namespace Code.Inventory
     {
         [SerializeField] private Image _icon;
         [SerializeField] private Image _backImage;
+        [SerializeField] private Image _frameImage;
         [SerializeField] private Button _useButton;
         [SerializeField] private Color _selectedColor;
         private int _skinId;
         private InventoryCategoryType _categoryType;
         private InventoryModel _inventoryModel;
         private InventoryChanger _changer;
-        private bool _isLocked; // Added to store locked state
+        private bool _isLocked;
 
         private const float AnimDuration = 0.2f;
-        private const float StaggerDelay = 0.05f;
+        private const float StaggerDelay = 0.025f;
         private const float BounceOvershoot = 1.2f;
         private const float BounceReturn = 0.9f;
         private Coroutine _currentAnimation;
 
-        public void Setup(Sprite icon, int skinId, InventoryCategoryType categoryType, InventoryModel inventoryModel, InventoryChanger changer, bool isLocked)
+        public void Setup(Sprite icon, int skinId, InventoryCategoryType categoryType, InventoryModel inventoryModel, InventoryChanger changer, bool isLocked, bool isSelected = false)
         {
             _inventoryModel = inventoryModel;
             _categoryType = categoryType;
@@ -32,9 +33,8 @@ namespace Code.Inventory
             _skinId = skinId;
             _isLocked = isLocked;
 
-            // Apply locked state visuals
-            _icon.color = _isLocked ? Color.black : Color.white;
-            _useButton.interactable = !_isLocked;
+            UpdateVisuals();
+            SetSelected(isSelected);
 
             if (_currentAnimation != null)
             {
@@ -45,6 +45,18 @@ namespace Code.Inventory
             gameObject.SetActive(true);
             transform.localScale = Vector3.zero;
             _currentAnimation = StartCoroutine(AppearAnimationSmoothOvershoot());
+        }
+
+        public void Unlock()
+        {
+            _isLocked = false;
+            UpdateVisuals();
+        }
+
+        private void UpdateVisuals()
+        {
+            _icon.color = _isLocked ? Color.black : Color.white;
+            _useButton.interactable = !_isLocked;
         }
 
         public void HideAnimated(Action onComplete)
@@ -58,7 +70,7 @@ namespace Code.Inventory
             _currentAnimation = StartCoroutine(DisappearAnimation(onComplete));
         }
 
-        private IEnumerator AppearAnimationSmoothOvershoot()
+        public IEnumerator AppearAnimationSmoothOvershoot()
         {
             float t = 0f;
             while (t < 1f)
@@ -141,8 +153,9 @@ namespace Code.Inventory
 
         public void SetSelected(bool isSelected)
         {
-            _backImage.color = isSelected ? _selectedColor : Color.white;
-            _useButton.interactable = !isSelected && !_isLocked; // Respect locked state
+            // _backImage.color = isSelected ? _selectedColor : Color.white;
+            _frameImage.gameObject.SetActive(isSelected);
+            _useButton.interactable = !isSelected && !_isLocked;
         }
 
         private void Start()
@@ -160,6 +173,11 @@ namespace Code.Inventory
             if (!_useButton.interactable) return;
             _changer.SelectItem(this);
             _inventoryModel.ChangeSkin(_categoryType, _skinId);
+        }
+
+        public int GetSkinId()
+        {
+            return _skinId;
         }
     }
 }

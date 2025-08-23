@@ -10,6 +10,7 @@ namespace Code.Gameplay.Behaviour.View
     {
         // [field: SerializeField] public Collider2D _slimeCollider2D { get; private set; }
         [SerializeField] private bool _isCollected;
+        [SerializeField] private ParticleSystem _particlePrefab;
 
         public override void Setup(IPlayerStickingService playerStickingService, Sprite slimeIcon, ItemSpawnerTypeId typeId, IHeartService heartService, IGameStateService gameStateService)
         {
@@ -44,6 +45,8 @@ namespace Code.Gameplay.Behaviour.View
             _isCollected = true;
             // StartCoroutine(GetComponent<ItemAppearance>().DisappearAnimation(() => _spawnerService?.ReturnToPool(this, _typeId)));
             _spawnerService?.ReturnToPool(this, _typeId);
+            ParticleSystem particle = Instantiate(_particlePrefab, transform.parent);
+            particle.transform.position = transform.position;
         }
     }
 }

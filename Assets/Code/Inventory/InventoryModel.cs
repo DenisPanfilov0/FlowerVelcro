@@ -10,7 +10,7 @@ namespace Code.Inventory
     [Serializable]
     public class InventorySaveData
     {
-        public List<InventorySkinsData> Skins; // Stores category, skin ID, and locked state
+        public List<InventorySkinsData> Skins;
     }
 
     [Serializable]
@@ -18,7 +18,7 @@ namespace Code.Inventory
     {
         public InventoryCategoryType Type;
         public int SkinId;
-        public bool IsLocked; // Tracks locked state
+        public bool IsLocked;
     }
 
     public class InventoryModel : IInitializable, ISaveLoad, IDisposable
@@ -46,15 +46,13 @@ namespace Code.Inventory
             {
                 foreach (var skin in config.InventorySkins)
                 {
-                    // Initialize IsLocked from InventorySkinConfig
                     _inventorySkins.Add(new InventorySkinsData
                     {
                         Type = config.Type,
                         SkinId = skin.SkinId,
-                        IsLocked = skin.IsLocked // Use value from config
+                        IsLocked = skin.IsLocked
                     });
                 }
-                // Ensure at least one skin is selected per category
                 if (_inventorySkins.Any(x => x.Type == config.Type && !x.IsLocked))
                 {
                     var firstUnlocked = _inventorySkins.FirstOrDefault(x => x.Type == config.Type && !x.IsLocked);
@@ -62,11 +60,15 @@ namespace Code.Inventory
                 }
                 else
                 {
-                    // Fallback: select first skin if none are unlocked
                     var firstSkin = config.InventorySkins.FirstOrDefault();
                     if (firstSkin != null)
                     {
                         ChangeSkin(config.Type, firstSkin.SkinId);
+                        var skinData = _inventorySkins.FirstOrDefault(x => x.Type == config.Type && x.SkinId == firstSkin.SkinId);
+                        if (skinData != null)
+                        {
+                            skinData.IsLocked = false; // Ensure first skin is unlocked
+                        }
                     }
                 }
             }
@@ -88,6 +90,22 @@ namespace Code.Inventory
             if (data != null && data.Skins != null)
             {
                 _inventorySkins = data.Skins;
+                // Ensure all skins from config are present in save data
+                foreach (var config in _inventorySkinConfigs.InventorySkinsConfigs)
+                {
+                    foreach (var skin in config.InventorySkins)
+                    {
+                        if (!_inventorySkins.Any(x => x.Type == config.Type && x.SkinId == skin.SkinId))
+                        {
+                            _inventorySkins.Add(new InventorySkinsData
+                            {
+                                Type = config.Type,
+                                SkinId = skin.SkinId,
+                                IsLocked = skin.IsLocked
+                            });
+                        }
+                    }
+                }
             }
             else
             {
@@ -135,7 +153,7 @@ namespace Code.Inventory
         public bool IsSkinLocked(InventoryCategoryType category, int skinId)
         {
             var skinData = _inventorySkins.FirstOrDefault(x => x.Type == category && x.SkinId == skinId);
-            return skinData != null ? skinData.IsLocked : true; // Default to locked if not found
+            return skinData != null ? skinData.IsLocked : true;
         }
 
         public void UnlockSkin(InventoryCategoryType category, int skinId)
@@ -144,8 +162,17 @@ namespace Code.Inventory
             if (skinData != null)
             {
                 skinData.IsLocked = false;
-                SaveData();
             }
+            else
+            {
+                _inventorySkins.Add(new InventorySkinsData
+                {
+                    Type = category,
+                    SkinId = skinId,
+                    IsLocked = false
+                });
+            }
+            SaveData();
         }
     }
 }

@@ -55,7 +55,7 @@ namespace Code.Gameplay.Behaviour.View
                 float t = Time.time - _startTime;
                 float h_vel = _amplitude * horizontalSpeed * Mathf.Cos(t * horizontalSpeed);
                 base.FixedUpdate();
-                _rb.velocity = new Vector2(h_vel, _rb.velocity.y);
+                _rb.linearVelocity = new Vector2(h_vel, _rb.linearVelocity.y);
             }
         }
 

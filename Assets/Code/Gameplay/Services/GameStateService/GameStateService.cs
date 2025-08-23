@@ -12,6 +12,7 @@ namespace Code.Gameplay.Services.GameStateService
     {
         public event Action<float> OnGameSpeedChange; 
         public float GameSpeed { get; set; }
+        public bool IsGameStop { get; set; }
 
         public event Action OnGameLose;
         
@@ -24,6 +25,12 @@ namespace Code.Gameplay.Services.GameStateService
             _gameStateMachine = gameStateMachine;
 
             GameSpeed = 1;
+            IsGameStop = false;
+        }
+
+        public void GameStart()
+        {
+            IsGameStop = true;
         }
 
         public void GameLose()
@@ -41,6 +48,8 @@ namespace Code.Gameplay.Services.GameStateService
 
         public void Tick()
         {
+            if (!IsGameStop) return;
+            
             GameSpeed += Time.deltaTime / 100f;
         }
     }

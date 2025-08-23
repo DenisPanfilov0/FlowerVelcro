@@ -51,6 +51,10 @@ MonoBehaviour:
   _icon: {fileID: 7926654377359352355}
   baseFallSpeed: 8
   N: 1
+  _isGameActive: 1
+  _screenBottom: 0
+  _isCollected: 0
+  _particlePrefab: {fileID: 267211935025711679, guid: 25ed538d1f92d5c4abf18a8ac0cb655b, type: 3}
 --- !u!58 &4305623968376092602
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -59,6 +63,7 @@ CircleCollider2D:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4712033213272179402}
   m_Enabled: 1
+  serializedVersion: 3
   m_Density: 1
   m_Material: {fileID: 0}
   m_IncludeLayers:
@@ -82,9 +87,9 @@ CircleCollider2D:
     m_Bits: 4294967295
   m_IsTrigger: 1
   m_UsedByEffector: 0
-  m_UsedByComposite: 0
+  m_CompositeOperation: 0
+  m_CompositeOrder: 0
   m_Offset: {x: 0, y: 0}
-  serializedVersion: 2
   m_Radius: 1.6
 --- !u!212 &7926654377359352355
 SpriteRenderer:
@@ -103,6 +108,9 @@ SpriteRenderer:
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 0
   m_RayTraceProcedural: 0
+  m_RayTracingAccelStructBuildFlagsOverride: 0
+  m_RayTracingAccelStructBuildFlags: 1
+  m_SmallMeshCulling: 1
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -140,7 +148,7 @@ SpriteRenderer:
   m_SpriteSortPoint: 0
 --- !u!50 &7770162052386186670
 Rigidbody2D:
-  serializedVersion: 4
+  serializedVersion: 5
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -151,9 +159,9 @@ Rigidbody2D:
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
   m_Mass: 1
-  m_LinearDrag: 0
-  m_AngularDrag: 0.05
-  m_GravityScale: 1
+  m_LinearDamping: 0
+  m_AngularDamping: 0.05
+  m_GravityScale: 0
   m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2

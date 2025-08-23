@@ -211,6 +211,8 @@ namespace Code.Gameplay.Services.SpawnersServices
 
         public void Initialize()
         {
+            _gameStateService.GameStart();
+            
             foreach (var config in _spawnConfigs)
             {
                 GameObject prefab = _staticDataService.GetItemSpawnerPrefab(config.TypeId);

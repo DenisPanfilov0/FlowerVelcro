@@ -1,7 +1,7 @@
 using Code.Infrastructure.States.GameStates;
 using Code.Infrastructure.States.StateMachine;
 using Code.Inventory;
-using Code.Progress.Provider;
+using Code.Progress.Data;
 using DG.Tweening;
 using TMPro;
 using UnityEngine;
@@ -19,13 +19,13 @@ namespace Code.MainMenu.Behaviour
         [SerializeField] private TMP_Text _currency;
         
         private IGameStateMachine _stateMachine;
-        private IProgressProvider _progress;
+        private ProgressData _progress;
         private bool _isSettingsPanelOpen = false;
         private Vector2 _initialPosition;
         private CurrencyModel _currencyModel;
 
         [Inject]
-        public void Construct(IGameStateMachine stateMachine, IProgressProvider progress, CurrencyModel currencyModel)
+        public void Construct(IGameStateMachine stateMachine, ProgressData progress, CurrencyModel currencyModel)
         {
             _currencyModel = currencyModel;
             _progress = progress;
@@ -37,18 +37,22 @@ namespace Code.MainMenu.Behaviour
             _startButton.onClick.AddListener(EnterGameLoop);
             _volumeSettingsButton.onClick.AddListener(OpenOrCloseSettingsPanel);
 
-            _maxScore.text = _progress.ProgressData.MaxScore.ToString();
+            _maxScore.text = _progress.MaxScore.ToString();
             _currency.text = _currencyModel.GetCurrencyAmount().ToString();
 
             RectTransform rectTransform = _setingsPanel.GetComponent<RectTransform>();
             _initialPosition = rectTransform.anchoredPosition;
             _setingsPanel.SetActive(false);
+
+            _currencyModel.AmountChanged += ChangePollenAmount;
         }
 
         private void OnDestroy()
         {
             _startButton.onClick.RemoveListener(EnterGameLoop);
             _volumeSettingsButton.onClick.RemoveListener(OpenOrCloseSettingsPanel);
+            
+            _currencyModel.AmountChanged -= ChangePollenAmount;
         }
 
         private void OpenOrCloseSettingsPanel()
@@ -81,6 +85,11 @@ namespace Code.MainMenu.Behaviour
                         _isSettingsPanelOpen = false;
                     });
             }
+        }
+
+        private void ChangePollenAmount(int amount)
+        {
+            _currency.text = $"{amount}";
         }
 
 

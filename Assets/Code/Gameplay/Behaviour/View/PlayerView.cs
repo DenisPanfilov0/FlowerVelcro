@@ -79,7 +79,7 @@ namespace Code.Gameplay.Behaviour.View
             if (_isGameActive)
             {
                 N = _gameStateService.GameSpeed; // Update serialized field for Inspector
-                _rb.velocity = Vector2.down * _baseFallSpeed * _gameStateService.GameSpeed;
+                _rb.linearVelocity = Vector2.down * _baseFallSpeed * _gameStateService.GameSpeed;
             }
         }
 
@@ -111,13 +111,13 @@ namespace Code.Gameplay.Behaviour.View
             if (!_isGameActive || !_isFalling) return;
 
             N = _gameStateService.GameSpeed; // Update serialized field for Inspector
-            _rb.velocity = Vector2.down * _baseFallSpeed * _gameStateService.GameSpeed;
+            _rb.linearVelocity = Vector2.down * _baseFallSpeed * _gameStateService.GameSpeed;
 
             float playerBottomY = transform.position.y - _playerHeight / 2f;
             if (playerBottomY <= _screenBottomY + _stopThreshold)
             {
                 transform.position = new Vector3(transform.position.x, _screenBottomY + _playerHeight / 2f, transform.position.z);
-                _rb.velocity = Vector2.zero;
+                _rb.linearVelocity = Vector2.zero;
             }
         }
 
@@ -137,7 +137,7 @@ namespace Code.Gameplay.Behaviour.View
             }
 
             _isFalling = false;
-            _rb.velocity = Vector2.zero;
+            _rb.linearVelocity = Vector2.zero;
             CreateRope();
             _moveCoroutine = StartCoroutine(MoveTowards(slime));
         }
@@ -217,7 +217,7 @@ namespace Code.Gameplay.Behaviour.View
 
             _isFalling = true;
             N = _gameStateService.GameSpeed; // Update serialized field for Inspector
-            _rb.velocity = Vector2.down * _baseFallSpeed * _gameStateService.GameSpeed;
+            _rb.linearVelocity = Vector2.down * _baseFallSpeed * _gameStateService.GameSpeed;
         }
 
         private void HandleGameLose()
@@ -236,7 +236,7 @@ namespace Code.Gameplay.Behaviour.View
             }
             if (_rb != null)
             {
-                _rb.velocity = Vector2.zero;
+                _rb.linearVelocity = Vector2.zero;
             }
         }
     }
