@@ -19,7 +19,7 @@ MonoBehaviour:
     IsLocked: 0
   - SkinId: 2
     Icon: {fileID: 680175041, guid: 01d085cd6e0eeda4ab65823042d599ae, type: 3}
-    IsLocked: 0
+    IsLocked: 1
   - SkinId: 3
     Icon: {fileID: 145875537, guid: 01d085cd6e0eeda4ab65823042d599ae, type: 3}
     IsLocked: 1

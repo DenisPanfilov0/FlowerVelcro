@@ -15,4 +15,23 @@ MonoBehaviour:
   Type: 4
   InventorySkins:
   - SkinId: 1
-    Icon: {fileID: -167343736, guid: d0ee06062dafbc54eb2b2f0f18fe2659, type: 3}
+    Icon: {fileID: -1573231533, guid: 5b1e7032da17c6749896fa08d0a87cbf, type: 3}
+    IsLocked: 0
+  - SkinId: 2
+    Icon: {fileID: -1535593505, guid: 5b1e7032da17c6749896fa08d0a87cbf, type: 3}
+    IsLocked: 1
+  - SkinId: 3
+    Icon: {fileID: 2140505885, guid: 5b1e7032da17c6749896fa08d0a87cbf, type: 3}
+    IsLocked: 1
+  - SkinId: 4
+    Icon: {fileID: -1829412764, guid: 53feb7ebb3c289c4cb6e18f43709fec9, type: 3}
+    IsLocked: 1
+  - SkinId: 5
+    Icon: {fileID: -156583185, guid: 53feb7ebb3c289c4cb6e18f43709fec9, type: 3}
+    IsLocked: 1
+  - SkinId: 6
+    Icon: {fileID: -1635400430, guid: 6225da69b96a6d844993c9ac5c517296, type: 3}
+    IsLocked: 1
+  - SkinId: 7
+    Icon: {fileID: -158382317, guid: 4f4815c71d77f8e40926d18b7439bb36, type: 3}
+    IsLocked: 1

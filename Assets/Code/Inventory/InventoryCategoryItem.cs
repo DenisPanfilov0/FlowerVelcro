@@ -65,6 +65,6 @@ namespace Code.Inventory
         Bomb = 2,
         Zigzag = 3,
         Spike = 4,
-        Character = 4,
+        Character = 5,
     }
 }

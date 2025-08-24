@@ -22,6 +22,8 @@ namespace Code.Inventory
         [SerializeField] private Color _inactiveColor;
         [SerializeField] private Button _closeButton;
 
+        [SerializeField] private InventoryCategoryItem _firstOpenCategory;
+
         private List<InventoryItem> _activeItems = new List<InventoryItem>();
         private Stack<InventoryItem> _pool = new Stack<InventoryItem>();
         private InventorySkinConfigs _inventorySkinConfigs;
@@ -46,16 +48,17 @@ namespace Code.Inventory
 
         private void Start()
         {
-            var firstCategory = _inventorySkinConfigs.InventorySkinsConfigs.FirstOrDefault()?.Type ?? InventoryCategoryType.Unknown;
-            if (firstCategory != InventoryCategoryType.Unknown)
+            // var firstCategory = _inventorySkinConfigs.InventorySkinsConfigs.FirstOrDefault()?.Type ?? InventoryCategoryType.Unknown;
+            var firstCategory = InventoryCategoryType.Character;
+            // if (firstCategory != InventoryCategoryType.Unknown)
+            // {
+            InventoryCategoryItem firstCategoryItem = _firstOpenCategory;
+
+            if (firstCategoryItem != null)
             {
-                var firstCategoryItem = FindObjectsOfType<InventoryCategoryItem>()
-                    .FirstOrDefault(item => item.GetComponent<InventoryCategoryItem>().GetCategoryType() == firstCategory);
-                if (firstCategoryItem != null)
-                {
-                    ChangeCategory(firstCategory, firstCategoryItem);
-                }
+                ChangeCategory(firstCategory, firstCategoryItem);
             }
+            // }
             
             _chestButton.onClick.AddListener(OpeningChestPanelShow);
             _closeButton.onClick.AddListener(Hide);

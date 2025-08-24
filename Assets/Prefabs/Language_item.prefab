@@ -247,4 +247,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _selectLanguage: {fileID: 1006555760727683244}
   _selectedImage: {fileID: 9202456439197374555}
+  _languageIcon: {fileID: 7320333115814985902}
   _language: 1

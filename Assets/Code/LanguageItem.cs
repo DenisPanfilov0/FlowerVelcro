@@ -9,6 +9,7 @@ namespace Code
     {
         [SerializeField] private Button _selectLanguage;
         [SerializeField] private Image _selectedImage;
+        [SerializeField] private Image _languageIcon;
         [SerializeField] private LanguageType _language;
         private LanguageChanger _languageChanger;
         private AudioManager _audioManager;
@@ -46,7 +47,7 @@ namespace Code
 
         public Sprite GetSelectedImageSprite()
         {
-            return _selectedImage != null ? _selectedImage.sprite : null;
+            return _languageIcon != null ? _languageIcon.sprite : null;
         }
     }
 }

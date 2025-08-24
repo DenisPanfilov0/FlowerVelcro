@@ -23,6 +23,10 @@ namespace Code.Gameplay.Behaviour.View
             centerPos.x = Camera.main.transform.position.x;
             transform.position = centerPos;
             _startTime = Time.time;
+
+            // Set initial rotation based on initial velocity
+            float initialVelocity = _amplitude * horizontalSpeed * Mathf.Cos(0 * horizontalSpeed);
+            transform.rotation = Quaternion.Euler(0, 0, initialVelocity >= 0 ? -90 : 90);
         }
 
         public override void Reset()
@@ -34,6 +38,9 @@ namespace Code.Gameplay.Behaviour.View
                 Vector3 centerPos = transform.position;
                 centerPos.x = Camera.main.transform.position.x;
                 transform.position = centerPos;
+                // Set initial rotation based on initial velocity
+                float initialVelocity = _amplitude * horizontalSpeed * Mathf.Cos(0 * horizontalSpeed);
+                transform.rotation = Quaternion.Euler(0, 0, initialVelocity >= 0 ? -90 : 90);
             }
         }
 
@@ -56,6 +63,9 @@ namespace Code.Gameplay.Behaviour.View
                 float h_vel = _amplitude * horizontalSpeed * Mathf.Cos(t * horizontalSpeed);
                 base.FixedUpdate();
                 _rb.linearVelocity = new Vector2(h_vel, _rb.linearVelocity.y);
+
+                // Update rotation every frame based on horizontal velocity
+                transform.rotation = Quaternion.Euler(0, 0, h_vel >= 0 ? -90 : 90);
             }
         }
 

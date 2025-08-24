@@ -179,6 +179,10 @@ namespace Code.Gameplay.Behaviour.View
                         _moveSpeed * _gameStateService.GameSpeed * Time.deltaTime
                     );
                     UpdateRope(slime);
+                    // Rotate player to face slime (same as rope rotation)
+                    Vector3 direction = slime.transform.position - transform.position;
+                    float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
+                    transform.rotation = Quaternion.Euler(0, 0, angle - 90);
                 }
                 yield return null;
             } while (distance > _centerThreshold && _isGameActive);
@@ -233,6 +237,8 @@ namespace Code.Gameplay.Behaviour.View
             _isFalling = true;
             N = _gameStateService.GameSpeed; // Update serialized field for Inspector
             _rb.linearVelocity = Vector2.down * _baseFallSpeed * _gameStateService.GameSpeed;
+            // Reset rotation to face upward when falling
+            transform.rotation = Quaternion.Euler(0, 0, 0);
         }
 
         private void HandleGameLose()
@@ -253,6 +259,8 @@ namespace Code.Gameplay.Behaviour.View
             {
                 _rb.linearVelocity = Vector2.zero;
             }
+            // Reset rotation to face upward on game over
+            transform.rotation = Quaternion.Euler(0, 0, 0);
         }
     }
 }

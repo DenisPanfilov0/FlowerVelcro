@@ -668,7 +668,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4053886799384053836, guid: 4b5fa0ed7130c0e4aa2b0fc5bf86d3a3, type: 3}
       propertyPath: _language
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7320333115814985902, guid: 4b5fa0ed7130c0e4aa2b0fc5bf86d3a3, type: 3}
       propertyPath: m_Sprite
@@ -1717,6 +1717,7 @@ MonoBehaviour:
   - {fileID: 5815126508989066384}
   - {fileID: 134244158}
   - {fileID: 204528636}
+  _languageIcon: {fileID: 1110589946}
   lang: 
 --- !u!1 &316026263
 GameObject:
@@ -10278,6 +10279,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2839141861913254988, guid: 4b5fa0ed7130c0e4aa2b0fc5bf86d3a3, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4053886799384053836, guid: 4b5fa0ed7130c0e4aa2b0fc5bf86d3a3, type: 3}
+      propertyPath: _language
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8564484664180910680, guid: 4b5fa0ed7130c0e4aa2b0fc5bf86d3a3, type: 3}
