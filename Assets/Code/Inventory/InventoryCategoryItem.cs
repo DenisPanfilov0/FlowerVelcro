@@ -1,6 +1,8 @@
 using System;
+using Code.GlobalScreen.Behaviour;
 using UnityEngine;
 using UnityEngine.UI;
+using Zenject;
 
 namespace Code.Inventory
 {
@@ -11,7 +13,14 @@ namespace Code.Inventory
         [SerializeField] private InventoryCategoryType _categoryType;
         [SerializeField] private InventoryChanger _inventoryChanger;
         [SerializeField] private Color _colorActive;
+        private AudioManager _audioManager;
 
+        [Inject]
+        public void Construct(AudioManager audioManager)
+        {
+            _audioManager = audioManager;
+        }
+        
         private void Start()
         {
             _useCategory.onClick.AddListener(ChangeCategory);
@@ -24,6 +33,7 @@ namespace Code.Inventory
 
         private void ChangeCategory()
         {
+            _audioManager.PlaySoundEffect(AudioClipTypeId.ButtonClick);
             _inventoryChanger.ChangeCategory(_categoryType, this);
             ChangeAvailable(true);
         }
@@ -55,5 +65,6 @@ namespace Code.Inventory
         Bomb = 2,
         Zigzag = 3,
         Spike = 4,
+        Character = 4,
     }
 }

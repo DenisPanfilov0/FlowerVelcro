@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using Code.GlobalScreen.Behaviour;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -14,10 +15,12 @@ namespace Code.Inventory
         [SerializeField] private InventoryItem _inventoryItem;
         [SerializeField] private Transform _itemsContainer;
         [SerializeField] private Button _chestButton;
+        [SerializeField] private OpeningChestPanel _openingChestPanel;
         [SerializeField] private TMP_Text _chestText;
         [SerializeField] private Image _chestImage;
         [SerializeField] private Color _activeColor;
         [SerializeField] private Color _inactiveColor;
+        [SerializeField] private Button _closeButton;
 
         private List<InventoryItem> _activeItems = new List<InventoryItem>();
         private Stack<InventoryItem> _pool = new Stack<InventoryItem>();
@@ -28,12 +31,14 @@ namespace Code.Inventory
         private Coroutine _currentHideCoroutine;
         private Coroutine _currentShowCoroutine;
         private InventoryCategoryType _currentCategory;
+        private AudioManager _audioManager;
 
         private const float StaggerDelay = 0.025f;
 
         [Inject]
-        public void Construct(InventorySkinConfigs inventorySkinConfigs, InventoryModel inventoryModel)
+        public void Construct(InventorySkinConfigs inventorySkinConfigs, InventoryModel inventoryModel, AudioManager audioManager)
         {
+            _audioManager = audioManager;
             _inventoryModel = inventoryModel;
             _inventorySkinConfigs = inventorySkinConfigs;
             InitPool();
@@ -51,6 +56,15 @@ namespace Code.Inventory
                     ChangeCategory(firstCategory, firstCategoryItem);
                 }
             }
+            
+            _chestButton.onClick.AddListener(OpeningChestPanelShow);
+            _closeButton.onClick.AddListener(Hide);
+        }
+
+        private void OnDestroy()
+        {
+            _chestButton.onClick.RemoveListener(OpeningChestPanelShow);
+            _closeButton.onClick.RemoveListener(Hide);
         }
 
         private void InitPool()
@@ -62,6 +76,12 @@ namespace Code.Inventory
                 item.gameObject.SetActive(false);
                 _pool.Push(item);
             }
+        }
+
+        private void OpeningChestPanelShow()
+        {
+            _audioManager.PlaySoundEffect(AudioClipTypeId.ButtonClick);
+            _openingChestPanel.Show();
         }
 
         public void ChangeCategory(InventoryCategoryType categoryType, InventoryCategoryItem categoryItem)
@@ -191,7 +211,7 @@ namespace Code.Inventory
             {
                 bool isLocked = _inventoryModel.IsSkinLocked(categoryType, sortedConfigs[i].SkinId);
                 bool isSelected = sortedConfigs[i].SkinId == selectedSkinId;
-                showOrder[i].Setup(sortedConfigs[i].Icon, sortedConfigs[i].SkinId, categoryType, _inventoryModel, this, isLocked, isSelected);
+                showOrder[i].Setup(_audioManager, sortedConfigs[i].Icon, sortedConfigs[i].SkinId, categoryType, _inventoryModel, this, isLocked, isSelected);
                 _activeItems.Add(showOrder[i]);
                 if (i < showOrder.Count - 1)
                 {
@@ -262,6 +282,7 @@ namespace Code.Inventory
 
         public void Hide()
         {
+            _audioManager.PlaySoundEffect(AudioClipTypeId.ButtonClick);
             gameObject.SetActive(false);
         }
 

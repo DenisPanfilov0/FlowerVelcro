@@ -130,7 +130,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 999999
+  m_text: 0
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -260,6 +260,7 @@ MonoBehaviour:
   _restartLevel: {fileID: 2590229182599159876}
   _home: {fileID: 7150282788472513087}
   _score: {fileID: 133628781665508495}
+  _recordCounter: {fileID: 133628781665508495}
   _newRecordMessage: {fileID: 2861988049620067699}
 --- !u!1 &1801988774596835966
 GameObject:
@@ -685,6 +686,7 @@ GameObject:
   - component: {fileID: 673330677363737375}
   - component: {fileID: 5840072870280589091}
   - component: {fileID: 1719626554570081698}
+  - component: {fileID: 8151211751407040078}
   m_Layer: 5
   m_Name: Text (TMP)
   m_TagString: Untagged
@@ -709,7 +711,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0.5}
   m_AnchorMax: {x: 1, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 50}
+  m_SizeDelta: {x: -92.5671, y: 135.955}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &5840072870280589091
 CanvasRenderer:
@@ -739,7 +741,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "\u0417\u0410\u041D\u041E\u0412\u041E"
+  m_text: "\u0421\u041D\u041E\u0412\u0410"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -769,9 +771,9 @@ MonoBehaviour:
   m_fontSize: 110
   m_fontSizeBase: 110
   m_fontWeight: 400
-  m_enableAutoSizing: 0
+  m_enableAutoSizing: 1
   m_fontSizeMin: 18
-  m_fontSizeMax: 72
+  m_fontSizeMax: 110
   m_fontStyle: 1
   m_HorizontalAlignment: 2
   m_VerticalAlignment: 512
@@ -810,6 +812,175 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
+--- !u!114 &8151211751407040078
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3228982220695313491}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f34f36451b093ee4c83ad4aa5459d2ac, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  textMPComponent: {fileID: 1719626554570081698}
+  uniqueFontTMP: {fileID: 0}
+  textLComponent: {fileID: 0}
+  info:
+    domainAutoLocalization: com
+    languages:
+      ru: 1
+      en: 1
+      tr: 1
+      az: 0
+      be: 0
+      he: 0
+      hy: 0
+      ka: 0
+      et: 0
+      fr: 1
+      kk: 0
+      ky: 0
+      lt: 0
+      lv: 0
+      ro: 0
+      tg: 0
+      tk: 0
+      uk: 0
+      uz: 0
+      es: 1
+      pt: 0
+      ar: 0
+      id: 0
+      ja: 1
+      it: 0
+      de: 1
+      hi: 0
+    fonts:
+      defaultFont:
+      - {fileID: 12800000, guid: e3265ab4bf004d28a9537516768c1c75, type: 3}
+      ru: []
+      en: []
+      tr: []
+      az: []
+      be: []
+      he: []
+      hy: []
+      ka: []
+      et: []
+      fr: []
+      kk: []
+      ky: []
+      lt: []
+      lv: []
+      ro: []
+      tg: []
+      tk: []
+      uk: []
+      uz: []
+      es: []
+      pt: []
+      ar: []
+      id: []
+      ja: []
+      it: []
+      de: []
+      hi: []
+    fontsTMP:
+      defaultFont:
+      - {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+      ru: []
+      en: []
+      tr: []
+      az: []
+      be: []
+      he: []
+      hy: []
+      ka: []
+      et: []
+      fr: []
+      kk: []
+      ky: []
+      lt: []
+      lv: []
+      ro: []
+      tg: []
+      tk: []
+      uk: []
+      uz: []
+      es: []
+      pt: []
+      ar: []
+      id: []
+      ja: []
+      it: []
+      de: []
+      hi: []
+    fontsSizeCorrect:
+      ru: 
+      en: 
+      tr: 
+      az: 
+      be: 
+      he: 
+      hy: 
+      ka: 
+      et: 
+      fr: 
+      kk: 
+      ky: 
+      lt: 
+      lv: 
+      ro: 
+      tg: 
+      tk: 
+      uk: 
+      uz: 
+      es: 
+      pt: 
+      ar: 
+      id: 
+      ja: 
+      it: 
+      de: 
+      hi: 
+  text: 
+  ru: "\u0421\u041D\u041E\u0412\u0410"
+  en: AGAIN
+  tr: TEKRAR
+  az: 
+  be: 
+  he: 
+  hy: 
+  ka: 
+  et: 
+  fr: ENCORE
+  kk: 
+  ky: 
+  lt: 
+  lv: 
+  ro: 
+  tg: 
+  tk: 
+  uk: 
+  uz: 
+  es: DE NUEVO
+  pt: 
+  ar: 
+  id: 
+  ja: "\u307E\u305F"
+  it: 
+  de: WIEDER
+  hi: 
+  changeOnlyFont: 0
+  fontNumber: 0
+  uniqueFont: {fileID: 0}
+  additionalText: {fileID: 0}
+  textHeight: 20
+  processTranslateLabel: 7/7 completed
+  componentTextField: 1
+  countLang: 7
 --- !u!1 &3768774208813008791
 GameObject:
   m_ObjectHideFlags: 0
@@ -821,6 +992,7 @@ GameObject:
   - component: {fileID: 162283492193525103}
   - component: {fileID: 3803121502418019913}
   - component: {fileID: 3694768048019483058}
+  - component: {fileID: 1193141245523983027}
   m_Layer: 5
   m_Name: Lable
   m_TagString: Untagged
@@ -845,7 +1017,7 @@ RectTransform:
   m_AnchorMin: {x: 0.07425637, y: 0.54468745}
   m_AnchorMax: {x: 0.92912006, y: 0.646}
   m_AnchoredPosition: {x: 1.7248535, y: 228}
-  m_SizeDelta: {x: 6.1013184, y: -2.2241821}
+  m_SizeDelta: {x: -429.1955, y: -2.2242}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &3803121502418019913
 CanvasRenderer:
@@ -875,7 +1047,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "\u0421\u0431\u043E\u0440\n\u043E\u043A\u043E\u043D\u0447\u0435\u043D"
+  m_text: "\u0421\u0431\u043E\u0440 \u043E\u043A\u043E\u043D\u0447\u0435\u043D"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -902,12 +1074,12 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 100
+  m_fontSize: 104.95
   m_fontSizeBase: 100
   m_fontWeight: 400
-  m_enableAutoSizing: 0
+  m_enableAutoSizing: 1
   m_fontSizeMin: 18
-  m_fontSizeMax: 72
+  m_fontSizeMax: 110
   m_fontStyle: 1
   m_HorizontalAlignment: 2
   m_VerticalAlignment: 512
@@ -946,6 +1118,175 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
+--- !u!114 &1193141245523983027
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3768774208813008791}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f34f36451b093ee4c83ad4aa5459d2ac, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  textMPComponent: {fileID: 3694768048019483058}
+  uniqueFontTMP: {fileID: 0}
+  textLComponent: {fileID: 0}
+  info:
+    domainAutoLocalization: com
+    languages:
+      ru: 1
+      en: 1
+      tr: 1
+      az: 0
+      be: 0
+      he: 0
+      hy: 0
+      ka: 0
+      et: 0
+      fr: 1
+      kk: 0
+      ky: 0
+      lt: 0
+      lv: 0
+      ro: 0
+      tg: 0
+      tk: 0
+      uk: 0
+      uz: 0
+      es: 1
+      pt: 0
+      ar: 0
+      id: 0
+      ja: 1
+      it: 0
+      de: 1
+      hi: 0
+    fonts:
+      defaultFont:
+      - {fileID: 12800000, guid: e3265ab4bf004d28a9537516768c1c75, type: 3}
+      ru: []
+      en: []
+      tr: []
+      az: []
+      be: []
+      he: []
+      hy: []
+      ka: []
+      et: []
+      fr: []
+      kk: []
+      ky: []
+      lt: []
+      lv: []
+      ro: []
+      tg: []
+      tk: []
+      uk: []
+      uz: []
+      es: []
+      pt: []
+      ar: []
+      id: []
+      ja: []
+      it: []
+      de: []
+      hi: []
+    fontsTMP:
+      defaultFont:
+      - {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+      ru: []
+      en: []
+      tr: []
+      az: []
+      be: []
+      he: []
+      hy: []
+      ka: []
+      et: []
+      fr: []
+      kk: []
+      ky: []
+      lt: []
+      lv: []
+      ro: []
+      tg: []
+      tk: []
+      uk: []
+      uz: []
+      es: []
+      pt: []
+      ar: []
+      id: []
+      ja: []
+      it: []
+      de: []
+      hi: []
+    fontsSizeCorrect:
+      ru: 
+      en: 
+      tr: 
+      az: 
+      be: 
+      he: 
+      hy: 
+      ka: 
+      et: 
+      fr: 
+      kk: 
+      ky: 
+      lt: 
+      lv: 
+      ro: 
+      tg: 
+      tk: 
+      uk: 
+      uz: 
+      es: 
+      pt: 
+      ar: 
+      id: 
+      ja: 
+      it: 
+      de: 
+      hi: 
+  text: 
+  ru: "\u0421\u0431\u043E\u0440 \u043E\u043A\u043E\u043D\u0447\u0435\u043D"
+  en: The collection is over
+  tr: Koleksiyon bitti
+  az: 
+  be: 
+  he: 
+  hy: 
+  ka: 
+  et: 
+  fr: "La collection est termin\xE9e"
+  kk: 
+  ky: 
+  lt: 
+  lv: 
+  ro: 
+  tg: 
+  tk: 
+  uk: 
+  uz: 
+  es: "La colecci\xF3n ha terminado"
+  pt: 
+  ar: 
+  id: 
+  ja: "\u30B3\u30EC\u30AF\u30B7\u30E7\u30F3\u306F\u7D42\u308F\u308A\u307E\u3057\u305F"
+  it: 
+  de: Die Sammlung ist vorbei
+  hi: 
+  changeOnlyFont: 0
+  fontNumber: 0
+  uniqueFont: {fileID: 0}
+  additionalText: {fileID: 0}
+  textHeight: 20
+  processTranslateLabel: 7/7 completed
+  componentTextField: 1
+  countLang: 7
 --- !u!1 &4050657924331248673
 GameObject:
   m_ObjectHideFlags: 0
@@ -957,13 +1298,14 @@ GameObject:
   - component: {fileID: 679036583984164476}
   - component: {fileID: 7456220624819640957}
   - component: {fileID: 2861988049620067699}
+  - component: {fileID: 1993864656916577295}
   m_Layer: 5
   m_Name: Record_message
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &679036583984164476
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1077,12 +1419,181 @@ MonoBehaviour:
   m_VertexBufferAutoSizeReduction: 0
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: 0, y: 0, z: 0, w: 0}
+  m_margin: {x: 202.10205, y: 62.185112, z: 203.82956, w: 43.184387}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
+--- !u!114 &1993864656916577295
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4050657924331248673}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f34f36451b093ee4c83ad4aa5459d2ac, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  textMPComponent: {fileID: 2861988049620067699}
+  uniqueFontTMP: {fileID: 0}
+  textLComponent: {fileID: 0}
+  info:
+    domainAutoLocalization: com
+    languages:
+      ru: 1
+      en: 1
+      tr: 1
+      az: 0
+      be: 0
+      he: 0
+      hy: 0
+      ka: 0
+      et: 0
+      fr: 1
+      kk: 0
+      ky: 0
+      lt: 0
+      lv: 0
+      ro: 0
+      tg: 0
+      tk: 0
+      uk: 0
+      uz: 0
+      es: 1
+      pt: 0
+      ar: 0
+      id: 0
+      ja: 1
+      it: 0
+      de: 1
+      hi: 0
+    fonts:
+      defaultFont:
+      - {fileID: 12800000, guid: e3265ab4bf004d28a9537516768c1c75, type: 3}
+      ru: []
+      en: []
+      tr: []
+      az: []
+      be: []
+      he: []
+      hy: []
+      ka: []
+      et: []
+      fr: []
+      kk: []
+      ky: []
+      lt: []
+      lv: []
+      ro: []
+      tg: []
+      tk: []
+      uk: []
+      uz: []
+      es: []
+      pt: []
+      ar: []
+      id: []
+      ja: []
+      it: []
+      de: []
+      hi: []
+    fontsTMP:
+      defaultFont:
+      - {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+      ru: []
+      en: []
+      tr: []
+      az: []
+      be: []
+      he: []
+      hy: []
+      ka: []
+      et: []
+      fr: []
+      kk: []
+      ky: []
+      lt: []
+      lv: []
+      ro: []
+      tg: []
+      tk: []
+      uk: []
+      uz: []
+      es: []
+      pt: []
+      ar: []
+      id: []
+      ja: []
+      it: []
+      de: []
+      hi: []
+    fontsSizeCorrect:
+      ru: 
+      en: 
+      tr: 
+      az: 
+      be: 
+      he: 
+      hy: 
+      ka: 
+      et: 
+      fr: 
+      kk: 
+      ky: 
+      lt: 
+      lv: 
+      ro: 
+      tg: 
+      tk: 
+      uk: 
+      uz: 
+      es: 
+      pt: 
+      ar: 
+      id: 
+      ja: 
+      it: 
+      de: 
+      hi: 
+  text: 
+  ru: "\u041D\u043E\u0432\u044B\u0439 \u0420\u0435\u043A\u043E\u0440\u0434"
+  en: New record
+  tr: "Yeni Kay\u0131t"
+  az: 
+  be: 
+  he: 
+  hy: 
+  ka: 
+  et: 
+  fr: Nouveau record
+  kk: 
+  ky: 
+  lt: 
+  lv: 
+  ro: 
+  tg: 
+  tk: 
+  uk: 
+  uz: 
+  es: "Nuevo r\xE9cord"
+  pt: 
+  ar: 
+  id: 
+  ja: "\u65B0\u3057\u3044\u30EC\u30B3\u30FC\u30C9"
+  it: 
+  de: Neuer Rekord
+  hi: 
+  changeOnlyFont: 0
+  fontNumber: 0
+  uniqueFont: {fileID: 0}
+  additionalText: {fileID: 0}
+  textHeight: 20
+  processTranslateLabel: 7/7 completed
+  componentTextField: 1
+  countLang: 7
 --- !u!1 &4579254840136827980
 GameObject:
   m_ObjectHideFlags: 0
@@ -1326,6 +1837,7 @@ GameObject:
   - component: {fileID: 5884261933116810909}
   - component: {fileID: 6720118402524258398}
   - component: {fileID: 1044327974043831966}
+  - component: {fileID: 775641536631756119}
   m_Layer: 5
   m_Name: Text (TMP)
   m_TagString: Untagged
@@ -1350,7 +1862,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0.5}
   m_AnchorMax: {x: 1, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 50}
+  m_SizeDelta: {x: -161.9924, y: 155.7909}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &6720118402524258398
 CanvasRenderer:
@@ -1410,9 +1922,9 @@ MonoBehaviour:
   m_fontSize: 110
   m_fontSizeBase: 110
   m_fontWeight: 400
-  m_enableAutoSizing: 0
+  m_enableAutoSizing: 1
   m_fontSizeMin: 18
-  m_fontSizeMax: 72
+  m_fontSizeMax: 110
   m_fontStyle: 1
   m_HorizontalAlignment: 2
   m_VerticalAlignment: 512
@@ -1451,6 +1963,175 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
+--- !u!114 &775641536631756119
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6695212571397848430}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f34f36451b093ee4c83ad4aa5459d2ac, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  textMPComponent: {fileID: 1044327974043831966}
+  uniqueFontTMP: {fileID: 0}
+  textLComponent: {fileID: 0}
+  info:
+    domainAutoLocalization: com
+    languages:
+      ru: 1
+      en: 1
+      tr: 1
+      az: 0
+      be: 0
+      he: 0
+      hy: 0
+      ka: 0
+      et: 0
+      fr: 1
+      kk: 0
+      ky: 0
+      lt: 0
+      lv: 0
+      ro: 0
+      tg: 0
+      tk: 0
+      uk: 0
+      uz: 0
+      es: 1
+      pt: 0
+      ar: 0
+      id: 0
+      ja: 1
+      it: 0
+      de: 1
+      hi: 0
+    fonts:
+      defaultFont:
+      - {fileID: 12800000, guid: e3265ab4bf004d28a9537516768c1c75, type: 3}
+      ru: []
+      en: []
+      tr: []
+      az: []
+      be: []
+      he: []
+      hy: []
+      ka: []
+      et: []
+      fr: []
+      kk: []
+      ky: []
+      lt: []
+      lv: []
+      ro: []
+      tg: []
+      tk: []
+      uk: []
+      uz: []
+      es: []
+      pt: []
+      ar: []
+      id: []
+      ja: []
+      it: []
+      de: []
+      hi: []
+    fontsTMP:
+      defaultFont:
+      - {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+      ru: []
+      en: []
+      tr: []
+      az: []
+      be: []
+      he: []
+      hy: []
+      ka: []
+      et: []
+      fr: []
+      kk: []
+      ky: []
+      lt: []
+      lv: []
+      ro: []
+      tg: []
+      tk: []
+      uk: []
+      uz: []
+      es: []
+      pt: []
+      ar: []
+      id: []
+      ja: []
+      it: []
+      de: []
+      hi: []
+    fontsSizeCorrect:
+      ru: 
+      en: 
+      tr: 
+      az: 
+      be: 
+      he: 
+      hy: 
+      ka: 
+      et: 
+      fr: 
+      kk: 
+      ky: 
+      lt: 
+      lv: 
+      ro: 
+      tg: 
+      tk: 
+      uk: 
+      uz: 
+      es: 
+      pt: 
+      ar: 
+      id: 
+      ja: 
+      it: 
+      de: 
+      hi: 
+  text: 
+  ru: "\u0414\u041E\u041C\u041E\u0419"
+  en: HOME
+  tr: EV
+  az: 
+  be: 
+  he: 
+  hy: 
+  ka: 
+  et: 
+  fr: MAISON
+  kk: 
+  ky: 
+  lt: 
+  lv: 
+  ro: 
+  tg: 
+  tk: 
+  uk: 
+  uz: 
+  es: HOGAR
+  pt: 
+  ar: 
+  id: 
+  ja: "\u5BB6"
+  it: 
+  de: HEIM
+  hi: 
+  changeOnlyFont: 0
+  fontNumber: 0
+  uniqueFont: {fileID: 0}
+  additionalText: {fileID: 0}
+  textHeight: 20
+  processTranslateLabel: 7/7 completed
+  componentTextField: 1
+  countLang: 7
 --- !u!1 &8068068673085192478
 GameObject:
   m_ObjectHideFlags: 0

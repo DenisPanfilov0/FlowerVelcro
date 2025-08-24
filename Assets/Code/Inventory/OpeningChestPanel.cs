@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Linq;
+using Code.GlobalScreen.Behaviour;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -39,10 +40,12 @@ namespace Code.Inventory
         private Vector2 _buyButtonInitialPos;
         private Vector2 _adButtonInitialPos;
         private Vector3 _closePanelInitialScale;
+        private AudioManager _audioManager;
 
         [Inject]
-        public void Construct(CurrencyModel currencyModel, InventorySkinConfigs inventorySkinConfigs, InventoryModel inventoryModel)
+        public void Construct(CurrencyModel currencyModel, InventorySkinConfigs inventorySkinConfigs, InventoryModel inventoryModel, AudioManager audioManager)
         {
+            _audioManager = audioManager;
             _currencyModel = currencyModel;
             _inventorySkinConfigs = inventorySkinConfigs;
             _inventoryModel = inventoryModel;
@@ -110,6 +113,8 @@ namespace Code.Inventory
 
         public void Hide()
         {
+            _audioManager.PlaySoundEffect(AudioClipTypeId.ButtonClick);
+            
             if (_currentAnimation != null)
             {
                 StopCoroutine(_currentAnimation);
@@ -204,6 +209,7 @@ namespace Code.Inventory
         {
             if (_currencyModel.CanSpend(1000))
             {
+                _audioManager.PlaySoundEffect(AudioClipTypeId.ButtonClick);
                 _currencyModel.SpendCurrency(1000);
                 OpenChest();
             }
@@ -211,6 +217,7 @@ namespace Code.Inventory
 
         private void WatchAd()
         {
+            _audioManager.PlaySoundEffect(AudioClipTypeId.ButtonClick);
             OpenChest();
         }
 
@@ -285,6 +292,8 @@ namespace Code.Inventory
 
                 yield return null;
             }
+
+            _audioManager.PlaySoundEffect(AudioClipTypeId.OpenChest);
 
             _rewardSkinInstance = Instantiate(_rewardSkinPrefab, _rewardParent);
             _rewardSkinInstance.transform.localScale = Vector3.zero;

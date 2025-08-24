@@ -34,6 +34,7 @@ namespace Code.Infrastructure.Installers
         {
             Container.BindInterfacesAndSelfTo<SaveLoadService>().AsSingle().NonLazy();
             Container.BindInterfacesAndSelfTo<ProgressData>().AsSingle().NonLazy();
+            Container.BindInterfacesAndSelfTo<LanguageModel>().AsSingle().NonLazy();
             
             Container.BindInterfacesAndSelfTo<InventoryModel>().AsSingle().NonLazy();
             Container.Bind<InventorySkinConfigs>().FromInstance(_inventorySkinConfigs).AsSingle().NonLazy();

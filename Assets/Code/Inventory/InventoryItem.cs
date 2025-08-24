@@ -1,5 +1,6 @@
 using System;
 using System.Collections;
+using Code.GlobalScreen.Behaviour;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -23,9 +24,12 @@ namespace Code.Inventory
         private const float BounceOvershoot = 1.2f;
         private const float BounceReturn = 0.9f;
         private Coroutine _currentAnimation;
+        private AudioManager _audioManager;
 
-        public void Setup(Sprite icon, int skinId, InventoryCategoryType categoryType, InventoryModel inventoryModel, InventoryChanger changer, bool isLocked, bool isSelected = false)
+        public void Setup(AudioManager audioManager, Sprite icon, int skinId, InventoryCategoryType categoryType, InventoryModel inventoryModel, InventoryChanger changer, 
+            bool isLocked, bool isSelected = false)
         {
+            _audioManager = audioManager;
             _inventoryModel = inventoryModel;
             _categoryType = categoryType;
             _changer = changer;
@@ -170,6 +174,7 @@ namespace Code.Inventory
 
         private void ItemClick()
         {
+            _audioManager.PlaySoundEffect(AudioClipTypeId.ButtonClick);
             if (!_useButton.interactable) return;
             _changer.SelectItem(this);
             _inventoryModel.ChangeSkin(_categoryType, _skinId);

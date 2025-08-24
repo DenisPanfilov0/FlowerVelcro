@@ -5,6 +5,7 @@ using Zenject;
 using Code.Gameplay.Services.GameStateService;
 using Code.Gameplay.Services.PlayerFallingService;
 using Code.Gameplay.Services.PlayerStickingService;
+using Code.GlobalScreen.Behaviour;
 
 namespace Code.Gameplay.Behaviour.View
 {
@@ -22,6 +23,7 @@ namespace Code.Gameplay.Behaviour.View
         private IPlayerStickingService _playerStickingService;
         private IGameStateService _gameStateService;
         private IGameScoreService _gameScoreService;
+        private AudioManager _audioManager;
         private GameObject _ropeObject;
         private SpriteRenderer _ropeSpriteRenderer;
         private Coroutine _moveCoroutine;
@@ -33,6 +35,7 @@ namespace Code.Gameplay.Behaviour.View
         private float _lastOrthographicSize;
         private Vector2 _lastScreenResolution;
         private float _playerHeight;
+        private bool _hasCollectedFirstPollen;
 
         [Inject]
         public void Construct(
@@ -40,13 +43,15 @@ namespace Code.Gameplay.Behaviour.View
             IPlayerFallingService playerFallingService,
             IGameStateService gameStateService,
             Camera mainCamera,
-            IGameScoreService gameScoreService)
+            IGameScoreService gameScoreService,
+            AudioManager audioManager)
         {
             _gameScoreService = gameScoreService;
             _playerFallingService = playerFallingService;
             _playerStickingService = playerStickingService;
             _gameStateService = gameStateService;
             _mainCamera = mainCamera;
+            _audioManager = audioManager;
         }
 
         private void Awake()
@@ -60,6 +65,8 @@ namespace Code.Gameplay.Behaviour.View
 
             Collider2D collider = GetComponent<Collider2D>();
             _playerHeight = collider.bounds.size.y;
+
+            _hasCollectedFirstPollen = false; // Сбрасываем флаг при создании объекта
         }
 
         private void Start()
@@ -182,6 +189,14 @@ namespace Code.Gameplay.Behaviour.View
                 _playerStickingService.FinishSticking();
                 slime.CloseFlower();
                 _gameScoreService.IncreaseScore();
+
+                _audioManager.PlaySoundEffect(AudioClipTypeId.CollectedPollen);
+
+                // // Проигрываем звук при первом сборе цветка
+                // if (!_hasCollectedFirstPollen)
+                // {
+                //     _hasCollectedFirstPollen = true;
+                // }
             }
         }
 

@@ -17,7 +17,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &8954728757479419452
 RectTransform:
   m_ObjectHideFlags: 0
@@ -160,6 +160,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2839141861913254988}
   - component: {fileID: 1006555760727683244}
+  - component: {fileID: 4053886799384053836}
   m_Layer: 5
   m_Name: Language_item
   m_TagString: Untagged
@@ -209,11 +210,11 @@ MonoBehaviour:
     m_SelectOnRight: {fileID: 0}
   m_Transition: 1
   m_Colors:
-    m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
+    m_NormalColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
     m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
     m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
     m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
-    m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
+    m_DisabledColor: {r: 1, g: 1, b: 1, a: 1}
     m_ColorMultiplier: 1
     m_FadeDuration: 0.1
   m_SpriteState:
@@ -232,3 +233,18 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls: []
+--- !u!114 &4053886799384053836
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8564484664180910680}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 71db0135ccc044fd874290eebd1e248b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _selectLanguage: {fileID: 1006555760727683244}
+  _selectedImage: {fileID: 9202456439197374555}
+  _language: 1

@@ -17,6 +17,9 @@ namespace Code
         [SerializeField] private Image _soundToogleOn;
         [SerializeField] private Button _soundChangeStateButton;
 
+        [SerializeField] private Button _openLanguageChanger;
+        [SerializeField] private LanguageChanger _languageChanger;
+
         [SerializeField] private Button _shadowInteractive; // Hides the current window, similar to the back button
         [SerializeField] private Button _backButton; // Closes the current window by deactivating it
 
@@ -53,8 +56,9 @@ namespace Code
         {
             _musicChangeStateButton.onClick.AddListener(ToggleMusic);
             _soundChangeStateButton.onClick.AddListener(ToggleSound);
-            _shadowInteractive.onClick.AddListener(CloseWindow);
-            _backButton.onClick.AddListener(CloseWindow);
+            _openLanguageChanger.onClick.AddListener(OpenLanguageWindow);
+            _shadowInteractive.onClick.AddListener(Hide);
+            _backButton.onClick.AddListener(Hide);
         }
 
         private void ToggleMusic()
@@ -97,7 +101,18 @@ namespace Code
             }
         }
 
-        private void CloseWindow()
+        private void OpenLanguageWindow()
+        {
+            _audioManager.PlaySoundEffect(AudioClipTypeId.ButtonClick);
+            _languageChanger.Show();
+        }
+
+        public void Show()
+        {
+            gameObject.SetActive(true);
+        }
+
+        private void Hide()
         {
             _audioManager.PlaySoundEffect(AudioClipTypeId.ButtonClick);
             gameObject.SetActive(false);
@@ -107,8 +122,9 @@ namespace Code
         {
             _musicChangeStateButton.onClick.RemoveListener(ToggleMusic);
             _soundChangeStateButton.onClick.RemoveListener(ToggleSound);
-            _shadowInteractive.onClick.RemoveListener(CloseWindow);
-            _backButton.onClick.RemoveListener(CloseWindow);
+            _openLanguageChanger.onClick.RemoveListener(OpenLanguageWindow);
+            _shadowInteractive.onClick.RemoveListener(Hide);
+            _backButton.onClick.RemoveListener(Hide);
         }
     }
 }
