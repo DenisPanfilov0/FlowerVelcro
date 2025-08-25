@@ -130,26 +130,22 @@ namespace Code.Gameplay.Services.SpawnersServices
                 new SpawnPattern { Items = new List<SpawnPatternItem> { 
                     new() { TypeId = ItemSpawnerTypeId.Slime, Delay = 0.5f }, 
                     new() { TypeId = ItemSpawnerTypeId.Slime, Delay = 0.5f, PreferSideSpawn = true }, 
-                    new() { TypeId = ItemSpawnerTypeId.Bomb, Delay = 0.8f, IsSafeZoneAvoided = true },
-                    new() { TypeId = ItemSpawnerTypeId.Zigzag, Delay = 0.8f, IsSafeZoneAvoided = true },
+                    new() { TypeId = ItemSpawnerTypeId.Bomb, Delay = 0.8f, IsSafeZoneAvoided = true } 
                 } },
                 new SpawnPattern { Items = new List<SpawnPatternItem> { 
                     new() { TypeId = ItemSpawnerTypeId.Slime, Delay = 0.5f }, 
                     new() { TypeId = ItemSpawnerTypeId.Slime, Delay = 0.5f, IsSafeZoneAvoided = true }, 
-                    new() { TypeId = ItemSpawnerTypeId.Bomb, Delay = 0.8f, PreferSideSpawn = true },
-                    new() { TypeId = ItemSpawnerTypeId.Zigzag, Delay = 0.8f, IsSafeZoneAvoided = true },
+                    new() { TypeId = ItemSpawnerTypeId.Bomb, Delay = 0.8f, PreferSideSpawn = true } 
                 } },
                 new SpawnPattern { Items = new List<SpawnPatternItem> { 
                     new() { TypeId = ItemSpawnerTypeId.Slime, Delay = 0.5f, PreferSideSpawn = true }, 
                     new() { TypeId = ItemSpawnerTypeId.Slime, Delay = 0.5f }, 
-                    new() { TypeId = ItemSpawnerTypeId.Bomb, Delay = 0.8f },
-                    new() { TypeId = ItemSpawnerTypeId.Zigzag, Delay = 0.8f, IsSafeZoneAvoided = true },
+                    new() { TypeId = ItemSpawnerTypeId.Bomb, Delay = 0.8f } 
                 } },
                 new SpawnPattern { Items = new List<SpawnPatternItem> { 
                     new() { TypeId = ItemSpawnerTypeId.Slime, Delay = 0.5f }, 
                     new() { TypeId = ItemSpawnerTypeId.Slime, Delay = 0.5f, UseSamePosition = true }, 
-                    new() { TypeId = ItemSpawnerTypeId.Slime, Delay = 0.5f },
-                    new() { TypeId = ItemSpawnerTypeId.Zigzag, Delay = 0.8f, IsSafeZoneAvoided = true },
+                    new() { TypeId = ItemSpawnerTypeId.Slime, Delay = 0.5f } 
                 } },
             };
 

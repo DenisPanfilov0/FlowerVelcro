@@ -2,6 +2,7 @@ using Code.GlobalScreen.Behaviour;
 using Code.Infrastructure.States.GameStates;
 using Code.Infrastructure.States.StateMachine;
 using Code.Inventory;
+using Code.Leaderboards;
 using Code.Progress.Data;
 using DG.Tweening;
 using TMPro;
@@ -13,6 +14,8 @@ namespace Code.MainMenu.Behaviour
 {
     public class MainMenuHUD : MonoBehaviour
     {
+        [SerializeField] private Button _openLBWindow;
+        [SerializeField] private LeaderboardWindow _lbWindow;
         [SerializeField] private Button _startButton;
         [SerializeField] private Button _openInventoryWindow;
         [SerializeField] private InventoryChanger _inventoryChanger;
@@ -40,6 +43,7 @@ namespace Code.MainMenu.Behaviour
 
         private void Start()
         {
+            _openLBWindow.onClick.AddListener(OpenLeaderboardWindow);
             _startButton.onClick.AddListener(EnterGameLoop);
             _openInventoryWindow.onClick.AddListener(OpenInventoryWindow);
             _openSettingWindow.onClick.AddListener(OpenSettingWindow);
@@ -56,6 +60,7 @@ namespace Code.MainMenu.Behaviour
 
         private void OnDestroy()
         {
+            _openLBWindow.onClick.RemoveListener(OpenLeaderboardWindow);
             _startButton.onClick.RemoveListener(EnterGameLoop);
             _openInventoryWindow.onClick.RemoveListener(OpenInventoryWindow);
             _openSettingWindow.onClick.RemoveListener(OpenSettingWindow);
@@ -75,38 +80,6 @@ namespace Code.MainMenu.Behaviour
             _settingWindow.Show();
         }
 
-        // private void OpenOrCloseSettingsPanel()
-        // {
-        //     RectTransform rectTransform = _setingsPanel.GetComponent<RectTransform>();
-        //     float panelHeight = rectTransform.rect.height;
-        //
-        //     Vector2 abovePosition = _initialPosition + new Vector2(0, panelHeight);
-        //     Vector2 originalPosition = _initialPosition;
-        //
-        //     if (!_isSettingsPanelOpen)
-        //     {
-        //         _setingsPanel.SetActive(true);
-        //         rectTransform.anchoredPosition = abovePosition;
-        //
-        //         rectTransform.DOAnchorPos(originalPosition, 0.5f)
-        //             .SetEase(Ease.OutQuad)
-        //             .OnComplete(() =>
-        //             {
-        //                 _isSettingsPanelOpen = true;
-        //             });
-        //     }
-        //     else
-        //     {
-        //         rectTransform.DOAnchorPos(abovePosition, 0.5f)
-        //             .SetEase(Ease.InQuad)
-        //             .OnComplete(() =>
-        //             {
-        //                 _setingsPanel.SetActive(false);
-        //                 _isSettingsPanelOpen = false;
-        //             });
-        //     }
-        // }
-
         private void ChangePollenAmount(int amount)
         {
             _currency.text = $"{amount}";
@@ -117,6 +90,12 @@ namespace Code.MainMenu.Behaviour
         {
             _audioManager.PlaySoundEffect(AudioClipTypeId.ButtonClick);
             _stateMachine.Enter<LoadGameLoopState>();
+        }
+
+        private void OpenLeaderboardWindow()
+        {
+            _audioManager.PlaySoundEffect(AudioClipTypeId.ButtonClick);
+            _lbWindow.Show();
         }
     }
 }

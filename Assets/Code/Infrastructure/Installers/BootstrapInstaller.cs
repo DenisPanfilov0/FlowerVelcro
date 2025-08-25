@@ -17,6 +17,7 @@ using Code.Infrastructure.States.GameStates;
 using Code.Infrastructure.States.StateMachine;
 using Code.Infrastructure.StaticData;
 using Code.Inventory;
+using Code.Leaderboards;
 using Code.MainMenu.Services.AmbientSoundService;
 using Code.Progress.Data;
 using UnityEngine;
@@ -35,6 +36,7 @@ namespace Code.Infrastructure.Installers
             Container.BindInterfacesAndSelfTo<SaveLoadService>().AsSingle().NonLazy();
             Container.BindInterfacesAndSelfTo<ProgressData>().AsSingle().NonLazy();
             Container.BindInterfacesAndSelfTo<LanguageModel>().AsSingle().NonLazy();
+            Container.BindInterfacesAndSelfTo<LeaderBoardModel>().AsSingle().NonLazy();
             
             Container.BindInterfacesAndSelfTo<InventoryModel>().AsSingle().NonLazy();
             Container.Bind<InventorySkinConfigs>().FromInstance(_inventorySkinConfigs).AsSingle().NonLazy();

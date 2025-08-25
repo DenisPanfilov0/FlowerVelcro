@@ -173,7 +173,8 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      fg4_iconsGold_musicOff_0: 3081494780930563320
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

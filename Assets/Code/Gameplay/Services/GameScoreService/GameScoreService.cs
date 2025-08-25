@@ -2,6 +2,7 @@ using System;
 using Code.Gameplay.Services.GameStateService;
 using Code.Gameplay.Services.TimerService;
 using Code.Inventory;
+using Code.Leaderboards;
 using Code.Progress.Data;
 
 namespace Code.Gameplay.Services.GameScoreService
@@ -14,15 +15,18 @@ namespace Code.Gameplay.Services.GameScoreService
         private readonly IGameStateService _gameStateService;
         private readonly ProgressData _progress;
         private readonly CurrencyModel _currencyModel;
+        private readonly LeaderBoardModel _leaderBoardModel;
         private int _score = 0;
         private bool _isGameStop = false;
         private bool _isNewRecord = false;
 
-        public GameScoreService(ITimerService timerService, IGameStateService gameStateService, ProgressData progress, CurrencyModel currencyModel)
+        public GameScoreService(ITimerService timerService, IGameStateService gameStateService, ProgressData progress, 
+            CurrencyModel currencyModel, LeaderBoardModel leaderBoardModel)
         {
             _gameStateService = gameStateService;
             _progress = progress;
             _currencyModel = currencyModel;
+            _leaderBoardModel = leaderBoardModel;
             _timerService = timerService;
 
             _gameStateService.OnGameLose += () =>
@@ -35,6 +39,7 @@ namespace Code.Gameplay.Services.GameScoreService
                 {
                     // _progress.ProgressData.MaxScore = _score;
                     _progress.ChangeMaxScore(_score);
+                    _leaderBoardModel.SetLeaderboard(LeaderBoardType.FVBestRecordAllTime, _score);
                     _isNewRecord = true;
                 }
             };

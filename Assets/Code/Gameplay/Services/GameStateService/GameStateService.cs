@@ -8,7 +8,7 @@ using Zenject;
 
 namespace Code.Gameplay.Services.GameStateService
 {
-    public class IGameStateService : ITickable
+    public class IGameStateService : IInitializable, ITickable
     {
         public event Action<float> OnGameSpeedChange; 
         public float GameSpeed { get; set; }
@@ -23,18 +23,22 @@ namespace Code.Gameplay.Services.GameStateService
         {
             _windowService = windowService;
             _gameStateMachine = gameStateMachine;
+        }
 
+        public void Initialize()
+        {
             GameSpeed = 1;
-            IsGameStop = false;
+            IsGameStop = true;
         }
 
         public void GameStart()
         {
-            IsGameStop = true;
+            IsGameStop = false;
         }
 
         public void GameLose()
         {
+            IsGameStop = true;
             GameSpeed = 1f;
             OnGameLose?.Invoke();
             _windowService.Open(WindowId.GameLoseWindow);
@@ -48,7 +52,7 @@ namespace Code.Gameplay.Services.GameStateService
 
         public void Tick()
         {
-            if (!IsGameStop) return;
+            if (IsGameStop) return;
             
             GameSpeed += Time.deltaTime / 100f;
         }

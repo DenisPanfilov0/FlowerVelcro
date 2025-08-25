@@ -18,6 +18,7 @@ namespace Code.Inventory
         private InventoryModel _inventoryModel;
         private InventoryChanger _changer;
         private bool _isLocked;
+        private float _currentAnimationProgress;
 
         private const float AnimDuration = 0.2f;
         private const float StaggerDelay = 0.025f;
@@ -48,6 +49,7 @@ namespace Code.Inventory
 
             gameObject.SetActive(true);
             transform.localScale = Vector3.zero;
+            _currentAnimationProgress = 0f;
             _currentAnimation = StartCoroutine(AppearAnimationSmoothOvershoot());
         }
 
@@ -65,6 +67,12 @@ namespace Code.Inventory
 
         public void HideAnimated(Action onComplete)
         {
+            if (!gameObject.activeSelf)
+            {
+                onComplete?.Invoke();
+                return;
+            }
+
             if (_currentAnimation != null)
             {
                 StopCoroutine(_currentAnimation);
@@ -74,17 +82,54 @@ namespace Code.Inventory
             _currentAnimation = StartCoroutine(DisappearAnimation(onComplete));
         }
 
+        public void ReverseAppearAnimated(Action onComplete)
+        {
+            if (!gameObject.activeSelf)
+            {
+                onComplete?.Invoke();
+                return;
+            }
+
+            if (_currentAnimation != null)
+            {
+                StopCoroutine(_currentAnimation);
+                _currentAnimation = null;
+            }
+
+            _currentAnimation = StartCoroutine(ReverseAppearAnimation(onComplete));
+        }
+
         public IEnumerator AppearAnimationSmoothOvershoot()
         {
-            float t = 0f;
+            float t = _currentAnimationProgress;
             while (t < 1f)
             {
                 t += Time.deltaTime / AnimDuration;
+                _currentAnimationProgress = t;
                 float eased = EaseOutBack(t);
                 transform.localScale = Vector3.one * eased;
                 yield return null;
             }
             transform.localScale = Vector3.one;
+            _currentAnimationProgress = 1f;
+            _currentAnimation = null;
+        }
+
+        private IEnumerator ReverseAppearAnimation(Action onComplete)
+        {
+            float t = _currentAnimationProgress;
+            while (t > 0f)
+            {
+                t -= Time.deltaTime / AnimDuration;
+                _currentAnimationProgress = t;
+                float eased = EaseOutBack(t);
+                transform.localScale = Vector3.one * eased;
+                yield return null;
+            }
+            transform.localScale = Vector3.zero;
+            gameObject.SetActive(false);
+            _currentAnimationProgress = 0f;
+            onComplete?.Invoke();
             _currentAnimation = null;
         }
 
@@ -151,13 +196,13 @@ namespace Code.Inventory
             }
             transform.localScale = Vector3.zero;
             gameObject.SetActive(false);
+            _currentAnimationProgress = 0f;
             onComplete?.Invoke();
             _currentAnimation = null;
         }
 
         public void SetSelected(bool isSelected)
         {
-            // _backImage.color = isSelected ? _selectedColor : Color.white;
             _frameImage.gameObject.SetActive(isSelected);
             _useButton.interactable = !isSelected && !_isLocked;
         }

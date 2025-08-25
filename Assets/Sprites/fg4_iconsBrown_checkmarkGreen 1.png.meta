@@ -173,7 +173,8 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      fg4_iconsBrown_checkmarkGreen 1_0: -1976843786166169856
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

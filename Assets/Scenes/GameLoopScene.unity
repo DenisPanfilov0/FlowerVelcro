@@ -2360,11 +2360,20 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
+    - target: {fileID: 9158218785970102261, guid: 41e60cfb99f57e842a0548692fff859f, type: 3}
+      propertyPath: _characterIcon
+      value: 
+      objectReference: {fileID: 1540970554211163733}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 41e60cfb99f57e842a0548692fff859f, type: 3}
+--- !u!212 &1540970554211163733 stripped
+SpriteRenderer:
+  m_CorrespondingSourceObject: {fileID: 5361300124764533484, guid: 41e60cfb99f57e842a0548692fff859f, type: 3}
+  m_PrefabInstance: {fileID: 1540970554211163732}
+  m_PrefabAsset: {fileID: 0}
 --- !u!224 &1633054966323147363
 RectTransform:
   m_ObjectHideFlags: 0

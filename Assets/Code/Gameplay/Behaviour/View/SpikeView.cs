@@ -18,10 +18,10 @@ namespace Code.Gameplay.Behaviour.View
         {
             if (other.gameObject.GetComponent<PlayerView>())
             {
-                if (other.transform.position.y > transform.position.y)
+                Rigidbody2D playerRb = other.gameObject.GetComponent<Rigidbody2D>();
+                if (playerRb != null && playerRb.linearVelocity.y < 0 && other.transform.position.y > transform.position.y)
                 {
                     _heartService?.DecreaseHeart();
-                    // StartCoroutine(GetComponent<ItemAppearance>().DisappearAnimation(() => _spawnerService?.ReturnToPool(this, _typeId)));
                     _spawnerService.ReturnToPool(this, _typeId);
                 }
             }

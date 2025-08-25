@@ -24,10 +24,12 @@ namespace Code
         [SerializeField] private Button _backButton; // Closes the current window by deactivating it
 
         private AudioManager _audioManager;
+        private LanguageModel _languageModel;
 
         [Inject]
-        public void Construct(AudioManager audioManager)
+        public void Construct(AudioManager audioManager, LanguageModel languageModel)
         {
+            _languageModel = languageModel;
             _audioManager = audioManager;
         }
 
@@ -35,6 +37,9 @@ namespace Code
         {
             InitializeUI();
             SetupButtonListeners();
+            
+            LanguageType language = _languageModel.GetLanguageType();
+            _languageChanger.SetLanguage(language);
         }
 
         private void InitializeUI()

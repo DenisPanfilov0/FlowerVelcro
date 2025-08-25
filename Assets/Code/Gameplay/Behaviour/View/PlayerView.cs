@@ -6,6 +6,8 @@ using Code.Gameplay.Services.GameStateService;
 using Code.Gameplay.Services.PlayerFallingService;
 using Code.Gameplay.Services.PlayerStickingService;
 using Code.GlobalScreen.Behaviour;
+using Code.Inventory;
+using UnityEngine.UI;
 
 namespace Code.Gameplay.Behaviour.View
 {
@@ -18,6 +20,7 @@ namespace Code.Gameplay.Behaviour.View
         [SerializeField] private float _centerThreshold = 0.1f;
         [SerializeField] private float _stopThreshold = 0.05f;
         [SerializeField] public float N = 1f; // For Inspector visibility, updated by GameSpeed
+        [SerializeField] private SpriteRenderer _characterIcon;
 
         private IPlayerFallingService _playerFallingService;
         private IPlayerStickingService _playerStickingService;
@@ -36,6 +39,7 @@ namespace Code.Gameplay.Behaviour.View
         private Vector2 _lastScreenResolution;
         private float _playerHeight;
         private bool _hasCollectedFirstPollen;
+        private InventoryModel _inventoryModel;
 
         [Inject]
         public void Construct(
@@ -44,8 +48,10 @@ namespace Code.Gameplay.Behaviour.View
             IGameStateService gameStateService,
             Camera mainCamera,
             IGameScoreService gameScoreService,
-            AudioManager audioManager)
+            AudioManager audioManager,
+            InventoryModel inventoryModel)
         {
+            _inventoryModel = inventoryModel;
             _gameScoreService = gameScoreService;
             _playerFallingService = playerFallingService;
             _playerStickingService = playerStickingService;
@@ -79,6 +85,8 @@ namespace Code.Gameplay.Behaviour.View
             UpdateScreenBounds();
             _lastOrthographicSize = _mainCamera.orthographicSize;
             _lastScreenResolution = new Vector2(Screen.width, Screen.height);
+
+            _characterIcon.sprite = _inventoryModel.GetSkin(InventoryCategoryType.Character);
         }
 
         private void OnEnable()
@@ -243,6 +251,8 @@ namespace Code.Gameplay.Behaviour.View
 
         private void HandleGameLose()
         {
+            _rb.gameObject.SetActive(false);
+            
             _isGameActive = false;
             _isFalling = false;
             if (_moveCoroutine != null)

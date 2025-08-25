@@ -2350,7 +2350,7 @@ GameObject:
   - component: {fileID: 471973644}
   - component: {fileID: 471973643}
   m_Layer: 5
-  m_Name: Leaderboard
+  m_Name: Leaderboard_button
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -8135,6 +8135,17 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1967573127}
   m_CullTransparentMesh: 1
+--- !u!114 &1975390351 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8254165508231122762, guid: b7750079162b78c4d95b1fc9f0a2aa62, type: 3}
+  m_PrefabInstance: {fileID: 6417812197029340467}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7d722ecb43724c69ad8e612b311c8fa5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &2000168235
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -10399,7 +10410,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1484509906395239192, guid: b7750079162b78c4d95b1fc9f0a2aa62, type: 3}
       propertyPath: m_SizeDelta.y
-      value: 206.9487
+      value: 90
       objectReference: {fileID: 0}
     - target: {fileID: 1937537481413777792, guid: b7750079162b78c4d95b1fc9f0a2aa62, type: 3}
       propertyPath: m_Pivot.x
@@ -10489,22 +10500,6 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 4718399087192706634, guid: b7750079162b78c4d95b1fc9f0a2aa62, type: 3}
-      propertyPath: m_AnchorMax.y
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4718399087192706634, guid: b7750079162b78c4d95b1fc9f0a2aa62, type: 3}
-      propertyPath: m_AnchorMin.y
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4718399087192706634, guid: b7750079162b78c4d95b1fc9f0a2aa62, type: 3}
-      propertyPath: m_AnchoredPosition.x
-      value: 398.585
-      objectReference: {fileID: 0}
-    - target: {fileID: 4718399087192706634, guid: b7750079162b78c4d95b1fc9f0a2aa62, type: 3}
-      propertyPath: m_AnchoredPosition.y
-      value: -123.47435
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -10542,6 +10537,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9e94ded9adb845d8943832c50026c16a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _openLBWindow: {fileID: 471973643}
+  _lbWindow: {fileID: 1975390351}
   _startButton: {fileID: 7650585272972505010}
   _openInventoryWindow: {fileID: 417429790}
   _inventoryChanger: {fileID: 2060496820}

@@ -48,17 +48,13 @@ namespace Code.Inventory
 
         private void Start()
         {
-            // var firstCategory = _inventorySkinConfigs.InventorySkinsConfigs.FirstOrDefault()?.Type ?? InventoryCategoryType.Unknown;
             var firstCategory = InventoryCategoryType.Character;
-            // if (firstCategory != InventoryCategoryType.Unknown)
-            // {
             InventoryCategoryItem firstCategoryItem = _firstOpenCategory;
 
             if (firstCategoryItem != null)
             {
                 ChangeCategory(firstCategory, firstCategoryItem);
             }
-            // }
             
             _chestButton.onClick.AddListener(OpeningChestPanelShow);
             _closeButton.onClick.AddListener(Hide);
@@ -102,20 +98,20 @@ namespace Code.Inventory
             }
 
             _switchVersion++;
-            if (_currentHideCoroutine != null)
-            {
-                StopCoroutine(_currentHideCoroutine);
-                _currentHideCoroutine = null;
-            }
             if (_currentShowCoroutine != null)
             {
                 StopCoroutine(_currentShowCoroutine);
                 _currentShowCoroutine = null;
+                _currentHideCoroutine = StartCoroutine(HideStaggered(categoryType, _switchVersion, true));
             }
-
-            if (_activeItems.Count > 0)
+            else if (_currentHideCoroutine != null)
             {
-                _currentHideCoroutine = StartCoroutine(HideStaggered(categoryType, _switchVersion));
+                StopCoroutine(_currentHideCoroutine);
+                _currentHideCoroutine = StartCoroutine(HideStaggered(categoryType, _switchVersion, false));
+            }
+            else if (_activeItems.Count > 0)
+            {
+                _currentHideCoroutine = StartCoroutine(HideStaggered(categoryType, _switchVersion, false));
             }
             else
             {
@@ -136,7 +132,7 @@ namespace Code.Inventory
             _chestImage.color = hasLockedSkins ? _activeColor : _inactiveColor;
         }
 
-        private IEnumerator HideStaggered(InventoryCategoryType categoryType, int thisVersion)
+        private IEnumerator HideStaggered(InventoryCategoryType categoryType, int thisVersion, bool reverseFromShow)
         {
             var hideOrder = _activeItems.OrderByDescending(item => item.transform.GetSiblingIndex()).ToList();
             int count = hideOrder.Count;
@@ -148,6 +144,10 @@ namespace Code.Inventory
                 {
                     foreach (var item in _activeItems)
                     {
+                        if (item.gameObject.activeSelf)
+                        {
+                            item.gameObject.SetActive(false);
+                        }
                         _pool.Push(item);
                     }
                     _activeItems.Clear();
@@ -157,11 +157,31 @@ namespace Code.Inventory
 
             for (int i = 0; i < hideOrder.Count; i++)
             {
-                hideOrder[i].HideAnimated(onHidden);
-                if (i < hideOrder.Count - 1)
+                if (hideOrder[i].gameObject.activeSelf)
                 {
-                    yield return new WaitForSeconds(StaggerDelay);
+                    if (reverseFromShow)
+                    {
+                        hideOrder[i].ReverseAppearAnimated(onHidden);
+                    }
+                    else
+                    {
+                        hideOrder[i].HideAnimated(onHidden);
+                    }
+                    if (i < hideOrder.Count - 1)
+                    {
+                        yield return new WaitForSeconds(StaggerDelay);
+                    }
                 }
+                else
+                {
+                    onHidden?.Invoke();
+                }
+            }
+
+            // Ensure completion if no items were active
+            if (count == 0 && thisVersion == _switchVersion)
+            {
+                ShowCategorySkins(categoryType);
             }
         }
 

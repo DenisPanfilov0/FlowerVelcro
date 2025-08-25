@@ -34,9 +34,9 @@ namespace Code
                 item.Setup(this, _audioManager);
             }
 
-            // Имитация выбора языка при старте без звука
-            LanguageType language = _languageModel.GetLanguageType();
-            SelectLanguageItem(language);
+            // // Имитация выбора языка при старте без звука
+            // LanguageType language = _languageModel.GetLanguageType();
+            // SelectLanguageItem(language);
 
             UpdateSimulationLang();
             _closeButton.onClick.AddListener(Hide);
