@@ -1,10 +1,9 @@
 using System;
 using System.Collections.Generic;
-using Sirenix.OdinInspector;
 using UnityEngine;
 using Zenject;
 
-namespace Code.GlobalScreen.Behaviour
+namespace Code
 {
     [Serializable]
     public class AudioSettingsData
@@ -14,13 +13,18 @@ namespace Code.GlobalScreen.Behaviour
         public AudioClipTypeId CurrentTrackId;
     }
 
-    public class AudioManager : SerializedMonoBehaviour, ISaveLoad
+    public class AudioManager : MonoBehaviour, ISaveLoad
     {
         [SerializeField] private AudioSource musicSource;
         [SerializeField] private AudioSource sfxSource;
 
-        [SerializeField] private Dictionary<AudioClipTypeId, AudioClip> backgroundMusicTracks;
-        [SerializeField] public Dictionary<AudioClipTypeId, AudioClip> soundEffects;
+        [SerializeField] private List<AudioClipTypeId> backgroundMusicTrackIds;
+        [SerializeField] private List<AudioClip> backgroundMusicTrackClips;
+        [SerializeField] private List<AudioClipTypeId> soundEffectIds;
+        [SerializeField] private List<AudioClip> soundEffectClips;
+
+        private Dictionary<AudioClipTypeId, AudioClip> backgroundMusicTracks;
+        private Dictionary<AudioClipTypeId, AudioClip> soundEffects;
 
         private bool isMusicMuted = false;
         private bool isSfxMuted = false;
@@ -38,6 +42,29 @@ namespace Code.GlobalScreen.Behaviour
         private void Start()
         {
             DontDestroyOnLoad(this);
+            InitializeDictionaries();
+        }
+
+        private void InitializeDictionaries()
+        {
+            backgroundMusicTracks = new Dictionary<AudioClipTypeId, AudioClip>();
+            soundEffects = new Dictionary<AudioClipTypeId, AudioClip>();
+
+            for (int i = 0; i < backgroundMusicTrackIds.Count && i < backgroundMusicTrackClips.Count; i++)
+            {
+                if (backgroundMusicTrackIds[i] != AudioClipTypeId.Unknown && backgroundMusicTrackClips[i] != null)
+                {
+                    backgroundMusicTracks[backgroundMusicTrackIds[i]] = backgroundMusicTrackClips[i];
+                }
+            }
+
+            for (int i = 0; i < soundEffectIds.Count && i < soundEffectClips.Count; i++)
+            {
+                if (soundEffectIds[i] != AudioClipTypeId.Unknown && soundEffectClips[i] != null)
+                {
+                    soundEffects[soundEffectIds[i]] = soundEffectClips[i];
+                }
+            }
         }
 
         public void PlayMusic(AudioClipTypeId musicId)
@@ -196,8 +223,6 @@ namespace Code.GlobalScreen.Behaviour
         EndFly,
         NewRecord,
         CollectedPollen,
-        
-        
         Theme1,
     }
 }

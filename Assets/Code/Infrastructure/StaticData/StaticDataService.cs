@@ -17,7 +17,7 @@ namespace Code.Infrastructure.StaticData
     public void LoadAll()
     {
       LoadWindows();
-      LoadItemsSpawner();
+      // LoadItemsSpawner();
     }
 
     public GameObject GetWindowPrefab(WindowId id) =>
@@ -25,10 +25,10 @@ namespace Code.Infrastructure.StaticData
         ? prefab
         : throw new Exception($"Prefab config for window {id} was not found");
     
-    public GameObject GetItemSpawnerPrefab(ItemSpawnerTypeId id) =>
-      _itemsSpawnerPrefabsById.TryGetValue(id, out GameObject prefab)
-        ? prefab
-        : throw new Exception($"Prefab config for window {id} was not found");
+    // public GameObject GetItemSpawnerPrefab(ItemSpawnerTypeId id) =>
+    //   _itemsSpawnerPrefabsById.TryGetValue(id, out GameObject prefab)
+    //     ? prefab
+    //     : throw new Exception($"Prefab config for window {id} was not found");
 
     private void LoadWindows()
     {
@@ -38,12 +38,12 @@ namespace Code.Infrastructure.StaticData
         .ToDictionary(x => x.Id, x => x.Prefab);
     }
     
-    private void LoadItemsSpawner()
-    {
-      _itemsSpawnerPrefabsById = Resources
-        .Load<ItemsSpawnerConfig>("Configs/ItemsSpawner/ItemSpawnerConfig")
-        .ItemSpawnerConfigs
-        .ToDictionary(x => x.Id, x => x.Prefab);
-    }
+    // private void LoadItemsSpawner()
+    // {
+    //   // _itemsSpawnerPrefabsById = Resources
+    //   //   .Load<ItemsSpawnerConfig>("Configs/ItemsSpawner/ItemSpawnerConfig")
+    //   //   .ItemSpawnerConfigs
+    //   //   .ToDictionary(x => x.Id, x => x.Prefab);
+    // }
   }
 }

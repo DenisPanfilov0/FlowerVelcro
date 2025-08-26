@@ -1,5 +1,4 @@
 using System;
-using Code.GlobalScreen.Behaviour;
 using UnityEngine;
 using UnityEngine.UI;
 using Zenject;

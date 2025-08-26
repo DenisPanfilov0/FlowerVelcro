@@ -4,7 +4,6 @@ using Code.Gameplay.Services.GameStateService;
 using Code.Infrastructure.States.GameStates;
 using Code.Infrastructure.States.StateMachine;
 using Code.Infrastructure.WindowsService;
-using Code.GlobalScreen.Behaviour;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;

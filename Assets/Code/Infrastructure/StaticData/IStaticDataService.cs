@@ -10,6 +10,6 @@ namespace Code.Infrastructure.StaticData
     void LoadAll();
     
     GameObject GetWindowPrefab(WindowId id);
-    GameObject GetItemSpawnerPrefab(ItemSpawnerTypeId id);
+    // GameObject GetItemSpawnerPrefab(ItemSpawnerTypeId id);
   }
 }

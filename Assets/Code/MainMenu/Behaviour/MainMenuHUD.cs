@@ -1,4 +1,3 @@
-using Code.GlobalScreen.Behaviour;
 using Code.Infrastructure.States.GameStates;
 using Code.Infrastructure.States.StateMachine;
 using Code.Inventory;
@@ -21,13 +20,12 @@ namespace Code.MainMenu.Behaviour
         [SerializeField] private InventoryChanger _inventoryChanger;
         [SerializeField] private Button _openSettingWindow;
         [SerializeField] private SettingsWindow _settingWindow;
-        [SerializeField] private GameObject _setingsPanel;
         [SerializeField] private TextMeshProUGUI _maxScore;
         [SerializeField] private TMP_Text _currency;
         
         private IGameStateMachine _stateMachine;
         private ProgressData _progress;
-        private bool _isSettingsPanelOpen = false;
+        // private bool _isSettingsPanelOpen = false;
         private Vector2 _initialPosition;
         private CurrencyModel _currencyModel;
         private AudioManager _audioManager;
@@ -50,10 +48,6 @@ namespace Code.MainMenu.Behaviour
 
             _maxScore.text = _progress.MaxScore.ToString();
             _currency.text = _currencyModel.GetCurrencyAmount().ToString();
-
-            RectTransform rectTransform = _setingsPanel.GetComponent<RectTransform>();
-            _initialPosition = rectTransform.anchoredPosition;
-            _setingsPanel.SetActive(false);
 
             _currencyModel.AmountChanged += ChangePollenAmount;
         }

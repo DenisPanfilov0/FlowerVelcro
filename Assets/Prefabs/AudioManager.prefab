@@ -45,7 +45,7 @@ AudioSource:
   m_audioClip: {fileID: 8300000, guid: 5b991486c426dba439d8a7714d2bd9b5, type: 3}
   m_Resource: {fileID: 8300000, guid: 5b991486c426dba439d8a7714d2bd9b5, type: 3}
   m_PlayOnAwake: 1
-  m_Volume: 1
+  m_Volume: 0.4
   m_Pitch: 1
   Loop: 0
   Mute: 0
@@ -174,7 +174,7 @@ AudioSource:
   m_audioClip: {fileID: 0}
   m_Resource: {fileID: 0}
   m_PlayOnAwake: 1
-  m_Volume: 1
+  m_Volume: 0.7
   m_Pitch: 1
   Loop: 0
   Mute: 0
@@ -304,134 +304,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0e664bb3cbb44de6a5238e2a317877df, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  serializationData:
-    SerializedFormat: 2
-    SerializedBytes: 
-    ReferencedUnityObjects:
-    - {fileID: 8300000, guid: 5b991486c426dba439d8a7714d2bd9b5, type: 3}
-    - {fileID: 8300000, guid: 6b9ad94cd9fef2f438fb525cd90a4066, type: 3}
-    - {fileID: 8300000, guid: 516ee872c35784c4092e4f36b46ec573, type: 3}
-    - {fileID: 8300000, guid: 6fa43939b2eec644c9dd95dee0a5c57a, type: 3}
-    - {fileID: 8300000, guid: 039d50acd6ffffc47a2565880461d24d, type: 3}
-    - {fileID: 8300000, guid: 8de0d63abb436b04f91d4fa21537bd79, type: 3}
-    SerializedBytesString: 
-    Prefab: {fileID: 0}
-    PrefabModificationsReferencedUnityObjects: []
-    PrefabModifications: []
-    SerializationNodes:
-    - Name: backgroundMusicTracks
-      Entry: 7
-      Data: 0|System.Collections.Generic.Dictionary`2[[Code.GlobalScreen.Behaviour.AudioClipTypeId,
-        Assembly-CSharp],[UnityEngine.AudioClip, UnityEngine.AudioModule]], mscorlib
-    - Name: comparer
-      Entry: 7
-      Data: 1|System.Collections.Generic.EnumEqualityComparer`1[[Code.GlobalScreen.Behaviour.AudioClipTypeId,
-        Assembly-CSharp]], mscorlib
-    - Name: 
-      Entry: 12
-      Data: 0
-    - Name: 
-      Entry: 13
-      Data: 
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 12
-      Data: 1
-    - Name: 
-      Entry: 7
-      Data: 
-    - Name: $k
-      Entry: 3
-      Data: 6
-    - Name: $v
-      Entry: 10
-      Data: 0
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 13
-      Data: 
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: soundEffects
-      Entry: 7
-      Data: 2|System.Collections.Generic.Dictionary`2[[Code.GlobalScreen.Behaviour.AudioClipTypeId,
-        Assembly-CSharp],[UnityEngine.AudioClip, UnityEngine.AudioModule]], mscorlib
-    - Name: comparer
-      Entry: 9
-      Data: 1
-    - Name: 
-      Entry: 12
-      Data: 5
-    - Name: 
-      Entry: 7
-      Data: 
-    - Name: $k
-      Entry: 3
-      Data: 1
-    - Name: $v
-      Entry: 10
-      Data: 1
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 7
-      Data: 
-    - Name: $k
-      Entry: 3
-      Data: 2
-    - Name: $v
-      Entry: 10
-      Data: 2
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 7
-      Data: 
-    - Name: $k
-      Entry: 3
-      Data: 3
-    - Name: $v
-      Entry: 10
-      Data: 3
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 7
-      Data: 
-    - Name: $k
-      Entry: 3
-      Data: 4
-    - Name: $v
-      Entry: 10
-      Data: 4
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 7
-      Data: 
-    - Name: $k
-      Entry: 3
-      Data: 5
-    - Name: $v
-      Entry: 10
-      Data: 5
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 13
-      Data: 
-    - Name: 
-      Entry: 8
-      Data: 
   musicSource: {fileID: 6581816146467076806}
   sfxSource: {fileID: 4091894126699236475}
+  backgroundMusicTrackIds: 06000000
+  backgroundMusicTrackClips:
+  - {fileID: 8300000, guid: 5b991486c426dba439d8a7714d2bd9b5, type: 3}
+  soundEffectIds: 0100000002000000030000000400000005000000
+  soundEffectClips:
+  - {fileID: 8300000, guid: 6b9ad94cd9fef2f438fb525cd90a4066, type: 3}
+  - {fileID: 8300000, guid: 516ee872c35784c4092e4f36b46ec573, type: 3}
+  - {fileID: 8300000, guid: 6fa43939b2eec644c9dd95dee0a5c57a, type: 3}
+  - {fileID: 8300000, guid: 039d50acd6ffffc47a2565880461d24d, type: 3}
+  - {fileID: 8300000, guid: 8de0d63abb436b04f91d4fa21537bd79, type: 3}

@@ -9,6 +9,7 @@ namespace Code.Infrastructure.Installers
     {
         public List<MonoBehaviour> Initializers;
         [SerializeField] private Camera _mainCamera;
+        [SerializeField] private ItemSpawnerConfig _spawnConfig;
         
         public override void InstallBindings()
         {
@@ -18,6 +19,8 @@ namespace Code.Infrastructure.Installers
             }
 
             Container.BindInterfacesAndSelfTo<Camera>().FromInstance(_mainCamera).AsCached();
+            
+            Container.Bind<ItemSpawnerConfig>().FromInstance(_spawnConfig).AsSingle().NonLazy();
             
             Container.BindInterfacesAndSelfTo<ItemSpawnerService>().AsSingle();
         }

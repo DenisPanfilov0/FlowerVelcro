@@ -10,7 +10,7 @@ namespace Code.Gameplay.Services.GameStateService
 {
     public class IGameStateService : IInitializable, ITickable
     {
-        public event Action<float> OnGameSpeedChange; 
+        // public event Action<float> OnGameSpeedChange; 
         public float GameSpeed { get; set; }
         public bool IsGameStop { get; set; }
 

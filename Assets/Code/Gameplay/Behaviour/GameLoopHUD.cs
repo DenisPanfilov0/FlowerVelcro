@@ -8,7 +8,7 @@ namespace Code.Gameplay.Behaviour
 {
     public class GameLoopHUD : MonoBehaviour
     {
-        [SerializeField] private Button _mainMenuButton;
+        // [SerializeField] private Button _mainMenuButton;
         
         private IGameStateMachine _stateMachine;
 
@@ -20,12 +20,12 @@ namespace Code.Gameplay.Behaviour
 
         private void Start()
         {
-            _mainMenuButton.onClick.AddListener(EnterMainMenu);
+            // _mainMenuButton.onClick.AddListener(EnterMainMenu);
         }
 
         private void OnDestroy()
         {
-            _mainMenuButton.onClick.RemoveListener(EnterMainMenu);
+            // _mainMenuButton.onClick.RemoveListener(EnterMainMenu);
         }
 
         private void EnterMainMenu()

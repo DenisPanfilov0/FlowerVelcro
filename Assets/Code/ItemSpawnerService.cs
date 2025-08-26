@@ -1,246 +1,118 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using Code.Configs.ItemSpawnerConfig;
 using Code.Gameplay.Behaviour.View;
 using Code.Gameplay.Services.FallManagerService;
+using Code.Gameplay.Services.GameScoreService;
 using Code.Gameplay.Services.GameStateService;
 using Code.Gameplay.Services.HeartService;
 using Code.Gameplay.Services.PlayerStickingService;
-using Code.Infrastructure.StaticData;
 using Code.Inventory;
 using UnityEngine;
 using Zenject;
-using Object = UnityEngine.Object;
 using Random = UnityEngine.Random;
 
 namespace Code.Gameplay.Services.SpawnersServices
 {
-    [Serializable]
-    public class ItemSpawnConfig
-    {
-        public ItemSpawnerTypeId TypeId;
-        public InventoryCategoryType CategoryType;
-        public Vector2 Size;
-    }
-
-    [Serializable]
-    public class SpawnPatternItem
-    {
-        public ItemSpawnerTypeId TypeId;
-        public bool UseSamePosition;
-        public float Delay;
-        public bool PreferSideSpawn;
-        public bool IsSafeZoneAvoided;
-    }
-
-    [Serializable]
-    public class SpawnPattern
-    {
-        public List<SpawnPatternItem> Items;
-    }
 
     public class ItemSpawnerService : IInitializable, IDisposable, ITickable
     {
-        private readonly IStaticDataService _staticDataService;
-        private readonly IFallManagerService _fallManagerService;
         private readonly IGameStateService _gameStateService;
+        private readonly IGameScoreService _gameScoreService;
         private readonly InventoryModel _inventoryModel;
         private readonly IPlayerStickingService _playerStickingService;
         private readonly IHeartService _heartService;
-        private readonly List<ItemSpawnConfig> _spawnConfigs;
+        private readonly IFallManagerService _fallManagerService;
+        private readonly ItemSpawnerConfig _config;
+        private readonly List<ItemSpawnerConfig.StageConfig> _stages;
         private readonly Dictionary<ItemSpawnerTypeId, ItemView> _prefabs = new();
         private readonly Dictionary<ItemSpawnerTypeId, Sprite> _icons = new();
         private readonly Dictionary<ItemSpawnerTypeId, Queue<ItemView>> _objectPools = new();
-        private readonly List<SpawnPattern>[] _patternsByStage = new List<SpawnPattern>[3];
-        private readonly List<Vector2> _recentSpawnPositions = new();
+        private readonly Dictionary<ItemSpawnerTypeId, Vector2> _objectSizes = new();
+        private readonly List<(Vector2 Position, ItemSpawnerTypeId TypeId)> _recentSpawnPositions = new();
         private bool _isSpawningActive;
         private Transform _spawnZoneTransform;
-        private float _gameTime;
-        private SpawnPattern _currentPattern;
-        private int _currentPatternItemIndex;
+        private int _currentStageIndex;
+        private int _targetScore;
+        private List<int> _currentSpawnSequence;
+        private int _currentSequenceIndex;
         private float _currentItemDelay;
-        private float _patternDelay;
-        private Vector2? _lastPosition;
+        private ItemSpawnerTypeId? _lastSpawnedType;
+        private Dictionary<int, ItemSpawnerTypeId> _typeIndexToTypeId; // Изменено на int -> ItemSpawnerTypeId для удобства
+        private const float MinSpawnDistance = 0.5f; // Уменьшено с 1.0f для меньшей строгости
+        private const int InitialPoolSize = 4;
 
-        private const float BaseMinPatternDelay = 0.4f; // Ускорили спавн
-        private const float BaseMaxPatternDelay = 1.2f; // Ускорили спавн
-        private const float BaseSpikeStageTime = 20f; // Шипы раньше (было 15f)
-        private const float BaseZigzagStageTime = 50f; // Зигзаги раньше (было 30f)
-        private const int InitialPoolSize = 10;
-        private const float SafeZoneRadius = 2f;
-        private const float MinSpawnDistance = 1.5f;
-
+        [Inject]
         public ItemSpawnerService(
-            IStaticDataService staticDataService,
-            IFallManagerService fallManagerService,
             IGameStateService gameStateService,
+            IGameScoreService gameScoreService,
             InventoryModel inventoryModel,
             IPlayerStickingService playerStickingService,
-            IHeartService heartService)
+            IHeartService heartService,
+            IFallManagerService fallManagerService,
+            ItemSpawnerConfig config)
         {
-            _staticDataService = staticDataService;
-            _fallManagerService = fallManagerService;
             _gameStateService = gameStateService;
+            _gameScoreService = gameScoreService;
             _inventoryModel = inventoryModel;
             _playerStickingService = playerStickingService;
             _heartService = heartService;
-
-            _spawnConfigs = new List<ItemSpawnConfig>
+            _fallManagerService = fallManagerService;
+            _config = config;
+            _stages = config.Stages.Select(s => new ItemSpawnerConfig.StageConfig
             {
-                new ItemSpawnConfig { TypeId = ItemSpawnerTypeId.Slime, CategoryType = InventoryCategoryType.Flowers, Size = new Vector2(1f, 1f) },
-                new ItemSpawnConfig { TypeId = ItemSpawnerTypeId.Bomb, CategoryType = InventoryCategoryType.Bomb, Size = new Vector2(1.2f, 1.2f) },
-                new ItemSpawnConfig { TypeId = ItemSpawnerTypeId.Zigzag, CategoryType = InventoryCategoryType.Zigzag, Size = new Vector2(1.5f, 1f) },
-                new ItemSpawnConfig { TypeId = ItemSpawnerTypeId.Spike, CategoryType = InventoryCategoryType.Spike, Size = new Vector2(1f, 1.5f) },
-            };
-
-            InitializePatterns();
-        }
-
-        private void InitializePatterns()
-        {
-            bool IsValidPattern(List<SpawnPatternItem> items)
-            {
-                int slimeCount = 0;
-                for (int i = 0; i < items.Count; i++)
-                {
-                    if (items[i].TypeId == ItemSpawnerTypeId.Slime)
-                    {
-                        slimeCount++;
-                    }
-                    else if (i > 0 && items[i - 1].TypeId != ItemSpawnerTypeId.Slime)
-                    {
-                        Debug.LogError("Invalid pattern: Enemy after non-Slime.");
-                        return false;
-                    }
-                    else if (slimeCount < 2 && i > 0 && items[i].TypeId != ItemSpawnerTypeId.Slime)
-                    {
-                        Debug.LogError("Invalid pattern: Fewer than 2 Slimes before enemy.");
-                        return false;
-                    }
-                    else if (items[i].TypeId != ItemSpawnerTypeId.Slime)
-                    {
-                        slimeCount = 0;
-                    }
-                }
-                return true;
-            }
-
-            _patternsByStage[0] = new List<SpawnPattern>
-            {
-                new SpawnPattern { Items = new List<SpawnPatternItem> { 
-                    new() { TypeId = ItemSpawnerTypeId.Slime, Delay = 0.5f }, 
-                    new() { TypeId = ItemSpawnerTypeId.Slime, Delay = 0.5f, PreferSideSpawn = true }, 
-                    new() { TypeId = ItemSpawnerTypeId.Bomb, Delay = 0.8f, IsSafeZoneAvoided = true } 
-                } },
-                new SpawnPattern { Items = new List<SpawnPatternItem> { 
-                    new() { TypeId = ItemSpawnerTypeId.Slime, Delay = 0.5f }, 
-                    new() { TypeId = ItemSpawnerTypeId.Slime, Delay = 0.5f, IsSafeZoneAvoided = true }, 
-                    new() { TypeId = ItemSpawnerTypeId.Bomb, Delay = 0.8f, PreferSideSpawn = true } 
-                } },
-                new SpawnPattern { Items = new List<SpawnPatternItem> { 
-                    new() { TypeId = ItemSpawnerTypeId.Slime, Delay = 0.5f, PreferSideSpawn = true }, 
-                    new() { TypeId = ItemSpawnerTypeId.Slime, Delay = 0.5f }, 
-                    new() { TypeId = ItemSpawnerTypeId.Bomb, Delay = 0.8f } 
-                } },
-                new SpawnPattern { Items = new List<SpawnPatternItem> { 
-                    new() { TypeId = ItemSpawnerTypeId.Slime, Delay = 0.5f }, 
-                    new() { TypeId = ItemSpawnerTypeId.Slime, Delay = 0.5f, UseSamePosition = true }, 
-                    new() { TypeId = ItemSpawnerTypeId.Slime, Delay = 0.5f } 
-                } },
-            };
-
-            _patternsByStage[1] = new List<SpawnPattern>
-            {
-                new SpawnPattern { Items = new List<SpawnPatternItem> { 
-                    new() { TypeId = ItemSpawnerTypeId.Slime, Delay = 0.5f }, 
-                    new() { TypeId = ItemSpawnerTypeId.Slime, Delay = 0.5f, PreferSideSpawn = true }, 
-                    new() { TypeId = ItemSpawnerTypeId.Spike, Delay = 0.8f, IsSafeZoneAvoided = true } 
-                } },
-                new SpawnPattern { Items = new List<SpawnPatternItem> { 
-                    new() { TypeId = ItemSpawnerTypeId.Slime, Delay = 0.5f, IsSafeZoneAvoided = true }, 
-                    new() { TypeId = ItemSpawnerTypeId.Slime, Delay = 0.5f }, 
-                    new() { TypeId = ItemSpawnerTypeId.Bomb, Delay = 0.8f } 
-                } },
-                new SpawnPattern { Items = new List<SpawnPatternItem> { 
-                    new() { TypeId = ItemSpawnerTypeId.Slime, Delay = 0.5f }, 
-                    new() { TypeId = ItemSpawnerTypeId.Slime, Delay = 0.5f, UseSamePosition = true }, 
-                    new() { TypeId = ItemSpawnerTypeId.Spike, Delay = 0.8f, PreferSideSpawn = true } 
-                } },
-                new SpawnPattern { Items = new List<SpawnPatternItem> { 
-                    new() { TypeId = ItemSpawnerTypeId.Slime, Delay = 0.5f, PreferSideSpawn = true }, 
-                    new() { TypeId = ItemSpawnerTypeId.Slime, Delay = 0.5f }, 
-                    new() { TypeId = ItemSpawnerTypeId.Bomb, Delay = 0.8f, IsSafeZoneAvoided = true } 
-                } },
-            };
-
-            _patternsByStage[2] = new List<SpawnPattern>
-            {
-                new SpawnPattern { Items = new List<SpawnPatternItem> { 
-                    new() { TypeId = ItemSpawnerTypeId.Slime, Delay = 0.5f }, 
-                    new() { TypeId = ItemSpawnerTypeId.Slime, Delay = 0.5f, PreferSideSpawn = true }, 
-                    new() { TypeId = ItemSpawnerTypeId.Zigzag, Delay = 0.8f, IsSafeZoneAvoided = true } 
-                } },
-                new SpawnPattern { Items = new List<SpawnPatternItem> { 
-                    new() { TypeId = ItemSpawnerTypeId.Slime, Delay = 0.5f, IsSafeZoneAvoided = true }, 
-                    new() { TypeId = ItemSpawnerTypeId.Slime, Delay = 0.5f }, 
-                    new() { TypeId = ItemSpawnerTypeId.Bomb, Delay = 0.8f } 
-                } },
-                new SpawnPattern { Items = new List<SpawnPatternItem> { 
-                    new() { TypeId = ItemSpawnerTypeId.Slime, Delay = 0.5f }, 
-                    new() { TypeId = ItemSpawnerTypeId.Slime, Delay = 0.5f, UseSamePosition = true }, 
-                    new() { TypeId = ItemSpawnerTypeId.Zigzag, Delay = 0.8f, PreferSideSpawn = true } 
-                } },
-                new SpawnPattern { Items = new List<SpawnPatternItem> { 
-                    new() { TypeId = ItemSpawnerTypeId.Slime, Delay = 0.5f, PreferSideSpawn = true }, 
-                    new() { TypeId = ItemSpawnerTypeId.Slime, Delay = 0.5f }, 
-                    new() { TypeId = ItemSpawnerTypeId.Spike, Delay = 0.8f, IsSafeZoneAvoided = true } 
-                } },
-            };
-
-            foreach (var stagePatterns in _patternsByStage)
-            {
-                foreach (var pattern in stagePatterns)
-                {
-                    if (!IsValidPattern(pattern.Items))
-                    {
-                        Debug.LogError($"Invalid pattern detected in stage {Array.IndexOf(_patternsByStage, stagePatterns)}");
-                    }
-                }
-            }
+                Blocks = s.Blocks.Select(b => new ItemSpawnerConfig.BlockConfig { Items = new List<ItemSpawnerConfig.BlockItem>(b.Items) }).ToList(),
+                ScoreRange = s.ScoreRange
+            }).ToList();
         }
 
         public void Initialize()
         {
             _gameStateService.GameStart();
-            
-            foreach (var config in _spawnConfigs)
+            foreach (var config in _config.SpawnConfigs)
             {
-                GameObject prefab = _staticDataService.GetItemSpawnerPrefab(config.TypeId);
-                ItemView view = prefab?.GetComponent<ItemView>();
+                if (config.Prefab == null) continue;
+                ItemView view = config.Prefab.GetComponent<ItemView>();
                 if (view != null)
                 {
                     _prefabs[config.TypeId] = view;
                     _icons[config.TypeId] = _inventoryModel.GetSkin(config.CategoryType);
                     _objectPools[config.TypeId] = new Queue<ItemView>();
+                    Vector2 size = Vector2.one; // Значение по умолчанию
+                    var collider = config.Prefab.GetComponent<BoxCollider2D>();
+                    if (collider != null)
+                    {
+                        size = Vector2.Scale(collider.size, config.Prefab.transform.localScale);
+                        size = Vector2.Min(size, new Vector2(2f, 2f)); // Ограничиваем максимальный размер
+                        Debug.Log($"[ItemSpawnerService] Size for {config.TypeId}: {size} (Collider: {collider.size}, Scale: {config.Prefab.transform.localScale})");
+                    }
+                    _objectSizes[config.TypeId] = size;
                     for (int i = 0; i < InitialPoolSize; i++)
                     {
-                        ItemView item = Object.Instantiate(_prefabs[config.TypeId], Vector3.zero, Quaternion.identity, _spawnZoneTransform);
-                        if (item != null)
-                        {
-                            item.gameObject.SetActive(false);
-                            item.SetupPool(this, config.TypeId);
-                            item.Setup(_playerStickingService, _icons[config.TypeId], config.TypeId, _heartService, _gameStateService);
-                            _objectPools[config.TypeId].Enqueue(item);
-                        }
+                        ItemView item = UnityEngine.Object.Instantiate(_prefabs[config.TypeId], Vector3.zero, Quaternion.identity, _spawnZoneTransform);
+                        item.gameObject.SetActive(false);
+                        item.SetupPool(this, config.TypeId);
+                        item.Setup(_playerStickingService, _icons[config.TypeId], config.TypeId, _heartService, _gameStateService);
+                        _objectPools[config.TypeId].Enqueue(item);
                     }
                 }
             }
             _gameStateService.OnGameLose += StopSpawn;
+            _gameScoreService.ScoreChange += OnScoreChange;
+            _currentStageIndex = 0;
+            _targetScore = Random.Range(_stages[0].ScoreRange.x, _stages[0].ScoreRange.y + 1);
+            _currentSpawnSequence = null;
+            _currentSequenceIndex = 0;
+            _currentItemDelay = 0f;
+            _lastSpawnedType = null;
+            _typeIndexToTypeId = new Dictionary<int, ItemSpawnerTypeId>();
         }
 
         public void Dispose()
         {
             _gameStateService.OnGameLose -= StopSpawn;
+            _gameScoreService.ScoreChange -= OnScoreChange;
             foreach (var pool in _objectPools.Values)
             {
                 while (pool.Count > 0)
@@ -248,7 +120,7 @@ namespace Code.Gameplay.Services.SpawnersServices
                     ItemView item = pool.Dequeue();
                     if (item != null && item.gameObject != null)
                     {
-                        Object.Destroy(item.gameObject);
+                        UnityEngine.Object.Destroy(item.gameObject);
                     }
                 }
             }
@@ -260,39 +132,29 @@ namespace Code.Gameplay.Services.SpawnersServices
             if (spawnZoneTransform == null) return;
             _isSpawningActive = true;
             _spawnZoneTransform = spawnZoneTransform;
-            _gameTime = 0f;
-            _currentPattern = null;
-            _currentPatternItemIndex = 0;
+            _currentSpawnSequence = null;
+            _currentSequenceIndex = 0;
             _currentItemDelay = 0f;
-            _patternDelay = 0f;
-            _lastPosition = null;
             _recentSpawnPositions.Clear();
+            _lastSpawnedType = null;
         }
 
         public void Tick()
         {
             if (!_isSpawningActive || _spawnZoneTransform == null) return;
 
-            _gameTime += Time.deltaTime * _gameStateService.GameSpeed;
-
-            if (_currentPattern == null)
+            if (_currentSpawnSequence == null || _currentSequenceIndex >= _currentSpawnSequence.Count)
             {
-                if (_patternDelay > 0f)
+                if (_currentItemDelay > 0f)
                 {
-                    _patternDelay -= Time.deltaTime * _gameStateService.GameSpeed;
+                    _currentItemDelay -= Time.deltaTime * _gameStateService.GameSpeed;
                     return;
                 }
-
-                int stage = GetCurrentStage();
-                List<SpawnPattern> patterns = _patternsByStage[stage];
-                if (patterns == null || patterns.Count == 0) return;
-                _currentPattern = patterns[Random.Range(0, patterns.Count)];
-                Debug.Log($"Selected pattern for stage {stage}: {string.Join(", ", _currentPattern.Items.ConvertAll(item => item.TypeId.ToString()))}");
-                _currentPatternItemIndex = 0;
-                _currentItemDelay = _currentPattern.Items[0].Delay / _gameStateService.GameSpeed;
+                SelectNewBlock();
+                // Не устанавливаем задержку здесь, сразу переходим к спавну первого элемента
             }
 
-            if (_currentPatternItemIndex < _currentPattern.Items.Count)
+            if (_currentSequenceIndex < _currentSpawnSequence.Count)
             {
                 if (_currentItemDelay > 0f)
                 {
@@ -300,38 +162,192 @@ namespace Code.Gameplay.Services.SpawnersServices
                     return;
                 }
 
-                SpawnPatternItem item = _currentPattern.Items[_currentPatternItemIndex];
-                Vector2 spawnPosition = GetSpawnPosition(item);
-                if (spawnPosition != Vector2.zero)
+                int typeIndex = _currentSpawnSequence[_currentSequenceIndex];
+                if (!_typeIndexToTypeId.TryGetValue(typeIndex, out ItemSpawnerTypeId typeId))
                 {
-                    SpawnItem(item.TypeId, spawnPosition);
-                    _lastPosition = spawnPosition;
-                    _recentSpawnPositions.Add(spawnPosition);
-                    if (_recentSpawnPositions.Count > 10)
-                        _recentSpawnPositions.RemoveAt(0);
+                    typeId = ItemSpawnerTypeId.Slime; // Значение по умолчанию
                 }
 
-                _currentPatternItemIndex++;
-                if (_currentPatternItemIndex < _currentPattern.Items.Count)
+                Vector2 spawnPosition = GetSpawnPosition(typeId);
+                if (spawnPosition != Vector2.zero)
                 {
-                    _currentItemDelay = _currentPattern.Items[_currentPatternItemIndex].Delay / _gameStateService.GameSpeed;
+                    SpawnItem(typeId, spawnPosition);
+                    _recentSpawnPositions.Add((spawnPosition, typeId));
+                    if (_recentSpawnPositions.Count > 10)
+                        _recentSpawnPositions.RemoveAt(0);
+                    _lastSpawnedType = typeId;
+                    _currentSequenceIndex++;
+                    _currentItemDelay = Random.Range(_config.SpawnDelayRange.x, _config.SpawnDelayRange.y) / _gameStateService.GameSpeed;
                 }
                 else
                 {
-                    _currentPattern = null;
-                    _patternDelay = Random.Range(BaseMinPatternDelay, BaseMaxPatternDelay) / _gameStateService.GameSpeed;
+                    Debug.LogWarning($"[ItemSpawnerService] Pausing spawn for {typeId}: no valid position found");
+                    // Не увеличиваем _currentSequenceIndex, ждём следующего тика
                 }
             }
         }
 
-        private int GetCurrentStage()
+        private void OnScoreChange(int totalScore)
         {
-            float scaledTime = _gameTime / _gameStateService.GameSpeed;
-            if (scaledTime >= BaseZigzagStageTime)
-                return 2;
-            if (scaledTime >= BaseSpikeStageTime)
-                return 1;
-            return 0;
+            if (_currentStageIndex >= _stages.Count - 1) return; // Последняя стадия бесконечная
+            if (totalScore >= _targetScore)
+            {
+                _currentStageIndex++;
+                _currentSpawnSequence = null;
+                _currentSequenceIndex = 0;
+                _currentItemDelay = 0f;
+                _lastSpawnedType = null; // Сбрасываем, чтобы новый блок мог начинаться с любого объекта
+                if (_currentStageIndex < _stages.Count)
+                {
+                    _targetScore = Random.Range(_stages[_currentStageIndex].ScoreRange.x, _stages[_currentStageIndex].ScoreRange.y + 1);
+                }
+            }
+        }
+
+        private void SelectNewBlock()
+        {
+            var stage = _stages[_currentStageIndex];
+            if (stage.Blocks.Count == 0) return;
+
+            var block = stage.Blocks[Random.Range(0, stage.Blocks.Count)];
+            _currentSpawnSequence = GenerateSpawnSequence(block);
+            _currentSequenceIndex = 0;
+            _currentItemDelay = Random.Range(_config.SpawnDelayRange.x, _config.SpawnDelayRange.y) / _gameStateService.GameSpeed;
+        }
+
+        private List<int> GenerateSpawnSequence(ItemSpawnerConfig.BlockConfig block)
+        {
+            var sequence = new List<int>();
+            _typeIndexToTypeId = new Dictionary<int, ItemSpawnerTypeId>();
+            int index = 1; // Начинаем с 1 для Slime
+
+            // Присваиваем индексы: Slime = 1, остальные от 2 и выше
+            foreach (var item in block.Items)
+            {
+                int typeIndex = item.TypeId == ItemSpawnerTypeId.Slime ? 1 : ++index;
+                _typeIndexToTypeId[typeIndex] = item.TypeId;
+                for (int i = 0; i < item.Quantity; i++)
+                {
+                    sequence.Add(typeIndex);
+                }
+            }
+
+            // Обеспечиваем наличие слайма между не-слаймовыми элементами
+            for (int i = 0; i < sequence.Count - 1; )
+            {
+                if (sequence[i] != 1 && sequence[i + 1] != 1)
+                {
+                    // Вставляем слайм между ними, если есть слайм в последовательности
+                    int slimeIndex = sequence.FindIndex(i + 2, x => x == 1); // Ищем слайм после текущей позиции
+                    if (slimeIndex != -1)
+                    {
+                        sequence.RemoveAt(slimeIndex);
+                        sequence.Insert(i + 1, 1);
+                        i += 2; // Пропускаем вставленный слайм
+                    }
+                    else
+                    {
+                        // Если слайма нет дальше, просто продолжаем (но по конфигу должно быть)
+                        i++;
+                    }
+                }
+                else
+                {
+                    i++;
+                }
+            }
+
+            // Улучшенное перемешивание для большей рандомизации
+            int shuffleAttempts = sequence.Count * 3; // Увеличиваем попытки для лучшей рандомизации
+            for (int attempt = 0; attempt < shuffleAttempts; attempt++)
+            {
+                int i = Random.Range(0, sequence.Count);
+                int j = Random.Range(0, sequence.Count);
+                if (i == j) continue;
+
+                // Временная замена для проверки
+                (sequence[i], sequence[j]) = (sequence[j], sequence[i]);
+
+                // Проверяем, нарушено ли правило
+                bool valid = true;
+
+                // Проверка соседей для i
+                if (i > 0 && sequence[i - 1] != 1 && sequence[i] != 1) valid = false;
+                if (i < sequence.Count - 1 && sequence[i + 1] != 1 && sequence[i] != 1) valid = false;
+
+                // Проверка соседей для j
+                if (j > 0 && sequence[j - 1] != 1 && sequence[j] != 1) valid = false;
+                if (j < sequence.Count - 1 && sequence[j + 1] != 1 && sequence[j] != 1) valid = false;
+
+                if (!valid)
+                {
+                    // Откатываем замену
+                    (sequence[i], sequence[j]) = (sequence[j], sequence[i]);
+                }
+            }
+
+            // Проверка и корректировка первого элемента относительно последнего из предыдущего блока
+            if (_lastSpawnedType.HasValue && _lastSpawnedType != ItemSpawnerTypeId.Slime)
+            {
+                if (sequence.Count > 0 && sequence[0] != 1)
+                {
+                    // Первый элемент - враг, а предыдущий тоже враг -> нужно исправить
+                    // Ищем позицию для перемещения врага (sequence[0])
+                    bool relocated = false;
+                    for (int pos = 1; pos < sequence.Count; pos++)
+                    {
+                        // Проверяем, можно ли вставить врага на pos (заменить или вставить)
+                        // Но проще: найти слайм и поменять местами с первым элементом, если это не нарушит правила дальше
+                        if (sequence[pos] == 1)
+                        {
+                            // Проверяем соседей для новой позиции
+                            bool validForFirst = true;
+                            if (pos - 1 > 0 && sequence[pos - 2] != 1 && sequence[pos - 1] != 1) validForFirst = false; // После замены sequence[pos-1] станет врагом
+
+                            bool validForPos = true;
+                            if (pos > 0 && _lastSpawnedType != ItemSpawnerTypeId.Slime && sequence[0] != 1) validForPos = false; // Нет, первый станет слаймом
+                            // После замены: sequence[0] = 1 (слайм), sequence[pos] = враг
+                            // Для sequence[0]: теперь слайм, так что ок относительно предыдущего
+                            // Для sequence[pos]: проверяем соседей
+                            if (pos > 0 && sequence[pos - 1] != 1 && sequence[0] != 1) continue; // sequence[0] будет слаймом после, но проверяем текущие
+                            // Лучше симулировать замену
+                            int temp = sequence[0];
+                            sequence[0] = sequence[pos];
+                            sequence[pos] = temp;
+
+                            // Проверяем всю последовательность на нарушения
+                            bool sequenceValid = true;
+                            for (int k = 0; k < sequence.Count - 1; k++)
+                            {
+                                if (sequence[k] != 1 && sequence[k + 1] != 1)
+                                {
+                                    sequenceValid = false;
+                                    break;
+                                }
+                            }
+
+                            if (sequenceValid)
+                            {
+                                relocated = true;
+                                break;
+                            }
+                            else
+                            {
+                                // Откат
+                                (sequence[0], sequence[pos]) = (sequence[pos], sequence[0]);
+                            }
+                        }
+                    }
+
+                    if (!relocated)
+                    {
+                        // Если не удалось переместить, вставляем слайм в начало (по инструкции, спавним слайм, но поскольку очередь, добавляем в начало)
+                        sequence.Insert(0, 1);
+                    }
+                }
+            }
+
+            return sequence;
         }
 
         private void StopSpawn()
@@ -349,14 +365,14 @@ namespace Code.Gameplay.Services.SpawnersServices
                 item = _objectPools[typeId].Dequeue();
                 if (item == null || item.gameObject == null)
                 {
-                    item = Object.Instantiate(_prefabs[typeId], spawnPosition, Quaternion.identity, _spawnZoneTransform);
+                    item = UnityEngine.Object.Instantiate(_prefabs[typeId], spawnPosition, Quaternion.identity, _spawnZoneTransform);
                     item.SetupPool(this, typeId);
                     item.Setup(_playerStickingService, _icons[typeId], typeId, _heartService, _gameStateService);
                 }
             }
             else
             {
-                item = Object.Instantiate(_prefabs[typeId], spawnPosition, Quaternion.identity, _spawnZoneTransform);
+                item = UnityEngine.Object.Instantiate(_prefabs[typeId], spawnPosition, Quaternion.identity, _spawnZoneTransform);
                 item.SetupPool(this, typeId);
                 item.Setup(_playerStickingService, _icons[typeId], typeId, _heartService, _gameStateService);
             }
@@ -377,9 +393,11 @@ namespace Code.Gameplay.Services.SpawnersServices
 
             item.gameObject.SetActive(false);
             _objectPools[typeId].Enqueue(item);
+            // Удаляем позицию из _recentSpawnPositions, если объект возвращён в пул
+            _recentSpawnPositions.RemoveAll(p => Vector2.Distance(p.Position, item.transform.position) < 0.01f);
         }
 
-        private Vector2 GetSpawnPosition(SpawnPatternItem item)
+        private Vector2 GetSpawnPosition(ItemSpawnerTypeId typeId)
         {
             if (_spawnZoneTransform == null) return Vector2.zero;
 
@@ -394,16 +412,15 @@ namespace Code.Gameplay.Services.SpawnersServices
             Vector2 spawnPosition = Vector2.zero;
             bool positionFound = false;
 
-            for (int attempts = 0; attempts < 10; attempts++)
+            for (int attempts = 0; attempts < 50; attempts++)
             {
-                if (item.UseSamePosition && _lastPosition.HasValue)
-                {
-                    spawnPosition = new Vector2(_lastPosition.Value.x, Random.Range(minY, maxY));
-                }
-                else if (item.PreferSideSpawn)
+                // Враги спавнятся по всей зоне, но с предпочтением боков (70% шанс)
+                bool preferSideSpawn = typeId != ItemSpawnerTypeId.Slime && Random.value < 0.7f;
+
+                if (preferSideSpawn)
                 {
                     bool leftSide = Random.value > 0.5f;
-                    float x = leftSide ? Random.Range(minX, minX + spawnZoneSize.x / 4) : Random.Range(maxX - spawnZoneSize.x / 4, maxX);
+                    float x = leftSide ? Random.Range(minX, minX + spawnZoneSize.x / 2) : Random.Range(maxX - spawnZoneSize.x / 2, maxX);
                     spawnPosition = new Vector2(x, Random.Range(minY, maxY));
                 }
                 else
@@ -411,18 +428,21 @@ namespace Code.Gameplay.Services.SpawnersServices
                     spawnPosition = new Vector2(Random.Range(minX, maxX), Random.Range(minY, maxY));
                 }
 
-                if (item.IsSafeZoneAvoided)
-                {
-                    Vector2 screenCenter = new Vector2(spawnZonePosition.x, spawnZonePosition.y);
-                    if (Vector2.Distance(spawnPosition, screenCenter) < SafeZoneRadius)
-                        continue;
-                }
-
-                if (IsPositionValid(spawnPosition, item.TypeId))
+                if (IsPositionValid(spawnPosition, typeId))
                 {
                     positionFound = true;
+                    Debug.Log($"[ItemSpawnerService] Valid position found for {typeId}: {spawnPosition}");
                     break;
                 }
+                else
+                {
+                    Debug.Log($"[ItemSpawnerService] Position {spawnPosition} rejected for {typeId}: invalid due to overlap");
+                }
+            }
+
+            if (!positionFound)
+            {
+                Debug.LogWarning($"[ItemSpawnerService] Pausing spawn for {typeId}: no valid position found after 50 attempts");
             }
 
             return positionFound ? spawnPosition : Vector2.zero;
@@ -430,21 +450,20 @@ namespace Code.Gameplay.Services.SpawnersServices
 
         private bool IsPositionValid(Vector2 position, ItemSpawnerTypeId typeId)
         {
-            ItemSpawnConfig config = _spawnConfigs.Find(c => c.TypeId == typeId);
-            if (config == null) return false;
+            if (!_objectSizes.ContainsKey(typeId)) return false;
 
-            Vector2 objectSize = config.Size;
-            foreach (Vector2 recentPos in _recentSpawnPositions)
+            Vector2 objectSize = _objectSizes[typeId];
+            foreach (var (recentPos, otherTypeId) in _recentSpawnPositions)
             {
-                ItemSpawnConfig otherConfig = _spawnConfigs.Find(c => _recentSpawnPositions.Contains(recentPos));
-                if (otherConfig == null) continue;
-
-                Vector2 otherSize = otherConfig.Size;
+                Vector2 otherSize = _objectSizes.ContainsKey(otherTypeId) ? _objectSizes[otherTypeId] : Vector2.one;
                 float distance = Vector2.Distance(position, recentPos);
                 float minDistance = (objectSize.x + otherSize.x) / 2 * MinSpawnDistance;
 
                 if (distance < minDistance)
+                {
+                    Debug.Log($"[ItemSpawnerService] Position {position} invalid for {typeId}: too close to {otherTypeId} at {recentPos} (distance: {distance}, minDistance: {minDistance})");
                     return false;
+                }
             }
             return true;
         }

@@ -10,7 +10,6 @@ using Code.Gameplay.Services.SpawnersServices.HeartSpawnerService;
 using Code.Gameplay.Services.SpawnersServices.SlimeSpawnerService;
 using Code.Gameplay.Services.TimerService;
 using Code.Gameplay.Windows;
-using Code.GlobalScreen.Behaviour;
 using Code.Infrastructure.Loading;
 using Code.Infrastructure.States.Factory;
 using Code.Infrastructure.States.GameStates;
@@ -45,6 +44,7 @@ namespace Code.Infrastructure.Installers
             Container.Bind<CurrencyConfig>().FromInstance(_currencyConfig).AsSingle().NonLazy();
             
             Container.Bind<AudioManager>().FromComponentInNewPrefab(_audioManager).AsSingle().NonLazy();
+            
             
             BindInfrastructureServices();
             BindCommonServices();

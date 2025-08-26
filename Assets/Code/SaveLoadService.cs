@@ -27,7 +27,7 @@ namespace Code
                 {
                     return JsonConvert.DeserializeObject<T>(json);
                 }
-                catch (JsonException ex)
+                catch (JsonException)
                 {
                     return null;
                 }

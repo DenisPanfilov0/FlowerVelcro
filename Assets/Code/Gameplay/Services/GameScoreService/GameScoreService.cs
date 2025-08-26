@@ -17,7 +17,7 @@ namespace Code.Gameplay.Services.GameScoreService
         private readonly CurrencyModel _currencyModel;
         private readonly LeaderBoardModel _leaderBoardModel;
         private int _score = 0;
-        private bool _isGameStop = false;
+        // private bool _isGameStop = false;
         private bool _isNewRecord = false;
 
         public GameScoreService(ITimerService timerService, IGameStateService gameStateService, ProgressData progress, 
@@ -31,8 +31,8 @@ namespace Code.Gameplay.Services.GameScoreService
 
             _gameStateService.OnGameLose += () =>
             {
-                _isGameStop = true;
-                
+                // _isGameStop = true;
+                        
                 _currencyModel.AddCurrency(_score);
                 
                 if (_progress.MaxScore < _score)
@@ -56,7 +56,7 @@ namespace Code.Gameplay.Services.GameScoreService
         public void Cleanup()
         {
             _score = 0;
-            _isGameStop = false;
+            // _isGameStop = false;
             _isNewRecord = false;
         }
 

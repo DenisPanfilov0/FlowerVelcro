@@ -5,7 +5,6 @@ using Zenject;
 using Code.Gameplay.Services.GameStateService;
 using Code.Gameplay.Services.PlayerFallingService;
 using Code.Gameplay.Services.PlayerStickingService;
-using Code.GlobalScreen.Behaviour;
 using Code.Inventory;
 using UnityEngine.UI;
 
@@ -38,7 +37,7 @@ namespace Code.Gameplay.Behaviour.View
         private float _lastOrthographicSize;
         private Vector2 _lastScreenResolution;
         private float _playerHeight;
-        private bool _hasCollectedFirstPollen;
+        // private bool _hasCollectedFirstPollen;
         private InventoryModel _inventoryModel;
 
         [Inject]
@@ -72,7 +71,7 @@ namespace Code.Gameplay.Behaviour.View
             Collider2D collider = GetComponent<Collider2D>();
             _playerHeight = collider.bounds.size.y;
 
-            _hasCollectedFirstPollen = false; // Сбрасываем флаг при создании объекта
+            // _hasCollectedFirstPollen = false; // Сбрасываем флаг при создании объекта
         }
 
         private void Start()

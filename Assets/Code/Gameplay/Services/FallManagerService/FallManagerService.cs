@@ -8,10 +8,10 @@ namespace Code.Gameplay.Services.FallManagerService
     {
         private readonly IGameStateService _gameStateService;
         private readonly List<GameObject> _fallingObjects = new List<GameObject>();
-        private readonly float _fallSpeed = 2.5f;
+        // private readonly float _fallSpeed = 2.5f;
 
-        private bool _isCanFalling = true;
-        private bool _isGameStop = false;
+        // private bool _isCanFalling = true;
+        // private bool _isGameStop = false;
 
         public FallManagerService(IGameStateService gameStateService)
         {
@@ -19,7 +19,7 @@ namespace Code.Gameplay.Services.FallManagerService
 
             _gameStateService.OnGameLose += () =>
             {
-                _isGameStop = true;
+                // _isGameStop = true;
             };
         }
 
@@ -53,8 +53,8 @@ namespace Code.Gameplay.Services.FallManagerService
         public void Cleanup()
         {
             _fallingObjects.Clear();
-            _isCanFalling = true;
-            _isGameStop = false;
+            // _isCanFalling = true;
+            // _isGameStop = false;
         }
     }
 }

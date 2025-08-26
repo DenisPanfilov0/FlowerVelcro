@@ -1,7 +1,6 @@
 using System;
 using System.Collections;
 using System.Linq;
-using Code.GlobalScreen.Behaviour;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;

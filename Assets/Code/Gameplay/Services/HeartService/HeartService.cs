@@ -5,6 +5,8 @@ namespace Code.Gameplay.Services.HeartService
 {
     public class HeartService : IHeartService
     {
+        private const int HEART_MAX = 1;
+        
         private readonly IGameStateService _gameStateService;
         public event Action<int> HeartCountChange; 
         
@@ -20,7 +22,7 @@ namespace Code.Gameplay.Services.HeartService
 
         public void IncreaseHeart()
         {
-            if (_heartCount < 3)
+            if (_heartCount < HEART_MAX)
             {
                 _heartCount++;
                 HeartCountChange?.Invoke(_heartCount);
@@ -29,7 +31,7 @@ namespace Code.Gameplay.Services.HeartService
 
         public void DecreaseHeart()
         {
-            if (_heartCount >= 1)
+            if (_heartCount >= HEART_MAX)
             {
                 _heartCount--;
                 HeartCountChange?.Invoke(_heartCount);
@@ -43,7 +45,7 @@ namespace Code.Gameplay.Services.HeartService
 
         public void Cleanup()
         {
-            _heartCount = 1;
+            _heartCount = HEART_MAX;
         }
 
         private void GameLose()

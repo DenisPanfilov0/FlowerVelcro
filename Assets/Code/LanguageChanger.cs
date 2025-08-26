@@ -1,6 +1,4 @@
 using System.Collections.Generic;
-using Code.GlobalScreen.Behaviour;
-using Sirenix.OdinInspector;
 using UnityEngine;
 using UnityEngine.UI;
 using Zenject;
@@ -76,7 +74,6 @@ namespace Code
             }
         }
 
-        [Button]
         private void UpdateSimulationLang()
         {
             lang = _languageModel.GetLanguage();
