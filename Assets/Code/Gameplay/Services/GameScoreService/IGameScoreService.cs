@@ -6,7 +6,7 @@ namespace Code.Gameplay.Services.GameScoreService
     {
         // void ScoreUpdate();
         void Cleanup();
-        void IncreaseScore();
+        void IncreaseScore(int valu);
         int GetScore();
         bool CheckTheRecord();
         event Action<int> ScoreChange;

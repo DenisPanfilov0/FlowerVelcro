@@ -15,7 +15,6 @@ using Random = UnityEngine.Random;
 
 namespace Code.Gameplay.Services.SpawnersServices
 {
-
     public class ItemSpawnerService : IInitializable, IDisposable, ITickable
     {
         private readonly IGameStateService _gameStateService;
@@ -39,8 +38,9 @@ namespace Code.Gameplay.Services.SpawnersServices
         private int _currentSequenceIndex;
         private float _currentItemDelay;
         private ItemSpawnerTypeId? _lastSpawnedType;
-        private Dictionary<int, ItemSpawnerTypeId> _typeIndexToTypeId; // Изменено на int -> ItemSpawnerTypeId для удобства
-        private const float MinSpawnDistance = 0.5f; // Уменьшено с 1.0f для меньшей строгости
+        private Dictionary<int, ItemSpawnerTypeId> _typeIndexToTypeId;
+        private float _magicFlowerSpawnChange = 0.13f;
+        private const float MinSpawnDistance = 0.5f;
         private const int InitialPoolSize = 4;
 
         [Inject]
@@ -79,12 +79,12 @@ namespace Code.Gameplay.Services.SpawnersServices
                     _prefabs[config.TypeId] = view;
                     _icons[config.TypeId] = _inventoryModel.GetSkin(config.CategoryType);
                     _objectPools[config.TypeId] = new Queue<ItemView>();
-                    Vector2 size = Vector2.one; // Значение по умолчанию
+                    Vector2 size = Vector2.one;
                     var collider = config.Prefab.GetComponent<BoxCollider2D>();
                     if (collider != null)
                     {
                         size = Vector2.Scale(collider.size, config.Prefab.transform.localScale);
-                        size = Vector2.Min(size, new Vector2(2f, 2f)); // Ограничиваем максимальный размер
+                        size = Vector2.Min(size, new Vector2(2f, 2f));
                         Debug.Log($"[ItemSpawnerService] Size for {config.TypeId}: {size} (Collider: {collider.size}, Scale: {config.Prefab.transform.localScale})");
                     }
                     _objectSizes[config.TypeId] = size;
@@ -151,7 +151,6 @@ namespace Code.Gameplay.Services.SpawnersServices
                     return;
                 }
                 SelectNewBlock();
-                // Не устанавливаем задержку здесь, сразу переходим к спавну первого элемента
             }
 
             if (_currentSequenceIndex < _currentSpawnSequence.Count)
@@ -165,7 +164,7 @@ namespace Code.Gameplay.Services.SpawnersServices
                 int typeIndex = _currentSpawnSequence[_currentSequenceIndex];
                 if (!_typeIndexToTypeId.TryGetValue(typeIndex, out ItemSpawnerTypeId typeId))
                 {
-                    typeId = ItemSpawnerTypeId.Slime; // Значение по умолчанию
+                    typeId = ItemSpawnerTypeId.Slime;
                 }
 
                 Vector2 spawnPosition = GetSpawnPosition(typeId);
@@ -182,21 +181,20 @@ namespace Code.Gameplay.Services.SpawnersServices
                 else
                 {
                     Debug.LogWarning($"[ItemSpawnerService] Pausing spawn for {typeId}: no valid position found");
-                    // Не увеличиваем _currentSequenceIndex, ждём следующего тика
                 }
             }
         }
 
         private void OnScoreChange(int totalScore)
         {
-            if (_currentStageIndex >= _stages.Count - 1) return; // Последняя стадия бесконечная
+            if (_currentStageIndex >= _stages.Count - 1) return;
             if (totalScore >= _targetScore)
             {
                 _currentStageIndex++;
                 _currentSpawnSequence = null;
                 _currentSequenceIndex = 0;
                 _currentItemDelay = 0f;
-                _lastSpawnedType = null; // Сбрасываем, чтобы новый блок мог начинаться с любого объекта
+                _lastSpawnedType = null;
                 if (_currentStageIndex < _stages.Count)
                 {
                     _targetScore = Random.Range(_stages[_currentStageIndex].ScoreRange.x, _stages[_currentStageIndex].ScoreRange.y + 1);
@@ -219,9 +217,8 @@ namespace Code.Gameplay.Services.SpawnersServices
         {
             var sequence = new List<int>();
             _typeIndexToTypeId = new Dictionary<int, ItemSpawnerTypeId>();
-            int index = 1; // Начинаем с 1 для Slime
+            int index = 1;
 
-            // Присваиваем индексы: Slime = 1, остальные от 2 и выше
             foreach (var item in block.Items)
             {
                 int typeIndex = item.TypeId == ItemSpawnerTypeId.Slime ? 1 : ++index;
@@ -232,22 +229,19 @@ namespace Code.Gameplay.Services.SpawnersServices
                 }
             }
 
-            // Обеспечиваем наличие слайма между не-слаймовыми элементами
             for (int i = 0; i < sequence.Count - 1; )
             {
                 if (sequence[i] != 1 && sequence[i + 1] != 1)
                 {
-                    // Вставляем слайм между ними, если есть слайм в последовательности
-                    int slimeIndex = sequence.FindIndex(i + 2, x => x == 1); // Ищем слайм после текущей позиции
+                    int slimeIndex = sequence.FindIndex(i + 2, x => x == 1);
                     if (slimeIndex != -1)
                     {
                         sequence.RemoveAt(slimeIndex);
                         sequence.Insert(i + 1, 1);
-                        i += 2; // Пропускаем вставленный слайм
+                        i += 2;
                     }
                     else
                     {
-                        // Если слайма нет дальше, просто продолжаем (но по конфигу должно быть)
                         i++;
                     }
                 }
@@ -257,65 +251,45 @@ namespace Code.Gameplay.Services.SpawnersServices
                 }
             }
 
-            // Улучшенное перемешивание для большей рандомизации
-            int shuffleAttempts = sequence.Count * 3; // Увеличиваем попытки для лучшей рандомизации
+            int shuffleAttempts = sequence.Count * 3;
             for (int attempt = 0; attempt < shuffleAttempts; attempt++)
             {
                 int i = Random.Range(0, sequence.Count);
                 int j = Random.Range(0, sequence.Count);
                 if (i == j) continue;
 
-                // Временная замена для проверки
                 (sequence[i], sequence[j]) = (sequence[j], sequence[i]);
 
-                // Проверяем, нарушено ли правило
                 bool valid = true;
-
-                // Проверка соседей для i
                 if (i > 0 && sequence[i - 1] != 1 && sequence[i] != 1) valid = false;
                 if (i < sequence.Count - 1 && sequence[i + 1] != 1 && sequence[i] != 1) valid = false;
-
-                // Проверка соседей для j
                 if (j > 0 && sequence[j - 1] != 1 && sequence[j] != 1) valid = false;
                 if (j < sequence.Count - 1 && sequence[j + 1] != 1 && sequence[j] != 1) valid = false;
 
                 if (!valid)
                 {
-                    // Откатываем замену
                     (sequence[i], sequence[j]) = (sequence[j], sequence[i]);
                 }
             }
 
-            // Проверка и корректировка первого элемента относительно последнего из предыдущего блока
             if (_lastSpawnedType.HasValue && _lastSpawnedType != ItemSpawnerTypeId.Slime)
             {
                 if (sequence.Count > 0 && sequence[0] != 1)
                 {
-                    // Первый элемент - враг, а предыдущий тоже враг -> нужно исправить
-                    // Ищем позицию для перемещения врага (sequence[0])
                     bool relocated = false;
                     for (int pos = 1; pos < sequence.Count; pos++)
                     {
-                        // Проверяем, можно ли вставить врага на pos (заменить или вставить)
-                        // Но проще: найти слайм и поменять местами с первым элементом, если это не нарушит правила дальше
                         if (sequence[pos] == 1)
                         {
-                            // Проверяем соседей для новой позиции
                             bool validForFirst = true;
-                            if (pos - 1 > 0 && sequence[pos - 2] != 1 && sequence[pos - 1] != 1) validForFirst = false; // После замены sequence[pos-1] станет врагом
-
+                            if (pos - 1 > 0 && sequence[pos - 2] != 1 && sequence[pos - 1] != 1) validForFirst = false;
                             bool validForPos = true;
-                            if (pos > 0 && _lastSpawnedType != ItemSpawnerTypeId.Slime && sequence[0] != 1) validForPos = false; // Нет, первый станет слаймом
-                            // После замены: sequence[0] = 1 (слайм), sequence[pos] = враг
-                            // Для sequence[0]: теперь слайм, так что ок относительно предыдущего
-                            // Для sequence[pos]: проверяем соседей
-                            if (pos > 0 && sequence[pos - 1] != 1 && sequence[0] != 1) continue; // sequence[0] будет слаймом после, но проверяем текущие
-                            // Лучше симулировать замену
+                            if (pos > 0 && _lastSpawnedType != ItemSpawnerTypeId.Slime && sequence[0] != 1) validForPos = false;
+
                             int temp = sequence[0];
                             sequence[0] = sequence[pos];
                             sequence[pos] = temp;
 
-                            // Проверяем всю последовательность на нарушения
                             bool sequenceValid = true;
                             for (int k = 0; k < sequence.Count - 1; k++)
                             {
@@ -333,7 +307,6 @@ namespace Code.Gameplay.Services.SpawnersServices
                             }
                             else
                             {
-                                // Откат
                                 (sequence[0], sequence[pos]) = (sequence[pos], sequence[0]);
                             }
                         }
@@ -341,7 +314,6 @@ namespace Code.Gameplay.Services.SpawnersServices
 
                     if (!relocated)
                     {
-                        // Если не удалось переместить, вставляем слайм в начало (по инструкции, спавним слайм, но поскольку очередь, добавляем в начало)
                         sequence.Insert(0, 1);
                     }
                 }
@@ -358,6 +330,12 @@ namespace Code.Gameplay.Services.SpawnersServices
         private void SpawnItem(ItemSpawnerTypeId typeId, Vector2 spawnPosition)
         {
             if (!_isSpawningActive || !_prefabs.ContainsKey(typeId) || _spawnZoneTransform == null) return;
+
+            // Check for 25% chance to spawn MagicFlower instead of Slime
+            if (typeId == ItemSpawnerTypeId.Slime && Random.value < _magicFlowerSpawnChange && _prefabs.ContainsKey(ItemSpawnerTypeId.MagicFlower))
+            {
+                typeId = ItemSpawnerTypeId.MagicFlower;
+            }
 
             ItemView item = null;
             if (_objectPools[typeId].Count > 0)
@@ -393,7 +371,6 @@ namespace Code.Gameplay.Services.SpawnersServices
 
             item.gameObject.SetActive(false);
             _objectPools[typeId].Enqueue(item);
-            // Удаляем позицию из _recentSpawnPositions, если объект возвращён в пул
             _recentSpawnPositions.RemoveAll(p => Vector2.Distance(p.Position, item.transform.position) < 0.01f);
         }
 
@@ -414,7 +391,6 @@ namespace Code.Gameplay.Services.SpawnersServices
 
             for (int attempts = 0; attempts < 50; attempts++)
             {
-                // Враги спавнятся по всей зоне, но с предпочтением боков (70% шанс)
                 bool preferSideSpawn = typeId != ItemSpawnerTypeId.Slime && Random.value < 0.7f;
 
                 if (preferSideSpawn)

@@ -11,6 +11,7 @@ namespace Code.Inventory
     public class InventorySaveData
     {
         public List<InventorySkinsData> Skins;
+        public List<InventorySelectedData> SelectedSkins; // Новый поле для selected
     }
 
     [Serializable]
@@ -21,11 +22,19 @@ namespace Code.Inventory
         public bool IsLocked;
     }
 
+    [Serializable]
+    public class InventorySelectedData // Новый класс для selected
+    {
+        public InventoryCategoryType Type;
+        public int SkinId;
+    }
+
     public class InventoryModel : IInitializable, ISaveLoad, IDisposable
     {
         private readonly InventorySkinConfigs _inventorySkinConfigs;
         private readonly SaveLoadService _saveLoadService;
         private List<InventorySkinsData> _inventorySkins = new();
+        private List<InventorySelectedData> _selectedSkins = new(); // Отдельный список для selected
         private const string SAVE_KEY = "InventorySkins";
 
         public InventoryModel(InventorySkinConfigs inventorySkinConfigs, SaveLoadService saveLoadService)
@@ -42,6 +51,7 @@ namespace Code.Inventory
         private void InitializeDefaultValues()
         {
             _inventorySkins = new List<InventorySkinsData>();
+            _selectedSkins = new List<InventorySelectedData>();
             foreach (var config in _inventorySkinConfigs.InventorySkinsConfigs)
             {
                 foreach (var skin in config.InventorySkins)
@@ -53,22 +63,15 @@ namespace Code.Inventory
                         IsLocked = skin.IsLocked
                     });
                 }
-                if (_inventorySkins.Any(x => x.Type == config.Type && !x.IsLocked))
+                var firstSkin = config.InventorySkins.FirstOrDefault(s => !_inventorySkins.Any(x => x.Type == config.Type && x.SkinId == s.SkinId && x.IsLocked)) 
+                    ?? config.InventorySkins.FirstOrDefault();
+                if (firstSkin != null)
                 {
-                    var firstUnlocked = _inventorySkins.FirstOrDefault(x => x.Type == config.Type && !x.IsLocked);
-                    ChangeSkin(config.Type, firstUnlocked.SkinId);
-                }
-                else
-                {
-                    var firstSkin = config.InventorySkins.FirstOrDefault();
-                    if (firstSkin != null)
+                    _selectedSkins.Add(new InventorySelectedData { Type = config.Type, SkinId = firstSkin.SkinId });
+                    var skinData = _inventorySkins.FirstOrDefault(x => x.Type == config.Type && x.SkinId == firstSkin.SkinId);
+                    if (skinData != null)
                     {
-                        ChangeSkin(config.Type, firstSkin.SkinId);
-                        var skinData = _inventorySkins.FirstOrDefault(x => x.Type == config.Type && x.SkinId == firstSkin.SkinId);
-                        if (skinData != null)
-                        {
-                            skinData.IsLocked = false; // Ensure first skin is unlocked
-                        }
+                        skinData.IsLocked = false; // Ensure first skin is unlocked
                     }
                 }
             }
@@ -79,7 +82,8 @@ namespace Code.Inventory
         {
             var data = new InventorySaveData
             {
-                Skins = _inventorySkins
+                Skins = _inventorySkins,
+                SelectedSkins = _selectedSkins
             };
             _saveLoadService.SaveData(SAVE_KEY, data);
         }
@@ -87,10 +91,11 @@ namespace Code.Inventory
         public void LoadData()
         {
             var data = _saveLoadService.LoadData<InventorySaveData>(SAVE_KEY);
-            if (data != null && data.Skins != null)
+            if (data != null)
             {
-                _inventorySkins = data.Skins;
-                // Ensure all skins from config are present in save data
+                _inventorySkins = data.Skins ?? new List<InventorySkinsData>();
+                _selectedSkins = data.SelectedSkins ?? new List<InventorySelectedData>();
+                // Добавляем недостающие скины из конфига
                 foreach (var config in _inventorySkinConfigs.InventorySkinsConfigs)
                 {
                     foreach (var skin in config.InventorySkins)
@@ -103,6 +108,15 @@ namespace Code.Inventory
                                 SkinId = skin.SkinId,
                                 IsLocked = skin.IsLocked
                             });
+                        }
+                    }
+                    // Если нет selected для категории, устанавливаем дефолт
+                    if (!_selectedSkins.Any(x => x.Type == config.Type))
+                    {
+                        var firstSkin = config.InventorySkins.FirstOrDefault();
+                        if (firstSkin != null)
+                        {
+                            _selectedSkins.Add(new InventorySelectedData { Type = config.Type, SkinId = firstSkin.SkinId });
                         }
                     }
                 }
@@ -120,34 +134,28 @@ namespace Code.Inventory
 
         public void ChangeSkin(InventoryCategoryType category, int skinId)
         {
-            InventorySkinsData skinData = _inventorySkins.FirstOrDefault(x => x.Type == category);
-
-            if (skinData != null)
+            var selectedData = _selectedSkins.FirstOrDefault(x => x.Type == category);
+            if (selectedData != null)
             {
-                skinData.SkinId = skinId;
+                selectedData.SkinId = skinId;
             }
             else
             {
-                _inventorySkins.Add(new InventorySkinsData { Type = category, SkinId = skinId, IsLocked = false });
+                _selectedSkins.Add(new InventorySelectedData { Type = category, SkinId = skinId });
             }
             SaveData();
         }
 
         public int GetSelectedSkinId(InventoryCategoryType category)
         {
-            return _inventorySkins.FirstOrDefault(x => x.Type == category)?.SkinId ?? 0;
+            return _selectedSkins.FirstOrDefault(x => x.Type == category)?.SkinId ?? 0;
         }
 
         public Sprite GetSkin(InventoryCategoryType category)
         {
-            InventorySkinsData skinData = _inventorySkins.FirstOrDefault(x => x.Type == category);
+            int selectedId = GetSelectedSkinId(category);
             InventorySkinConfig skinConfig = _inventorySkinConfigs.InventorySkinsConfigs.FirstOrDefault(x => x.Type == category);
-
-            if (skinData != null && skinConfig != null)
-            {
-                return skinConfig.InventorySkins.FirstOrDefault(x => x.SkinId == skinData.SkinId)?.Icon;
-            }
-            return null;
+            return skinConfig?.InventorySkins.FirstOrDefault(x => x.SkinId == selectedId)?.Icon;
         }
 
         public bool IsSkinLocked(InventoryCategoryType category, int skinId)

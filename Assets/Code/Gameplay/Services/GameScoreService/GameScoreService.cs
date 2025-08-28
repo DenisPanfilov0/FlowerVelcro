@@ -60,9 +60,9 @@ namespace Code.Gameplay.Services.GameScoreService
             _isNewRecord = false;
         }
 
-        public void IncreaseScore()
+        public void IncreaseScore(int value)
         {
-            _score++;
+            _score += value;
             
             ScoreChange?.Invoke(_score);
             // ScoreUpdate();

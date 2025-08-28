@@ -49,7 +49,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _rb: {fileID: 7770162052386186670}
   _icon: {fileID: 7926654377359352355}
-  baseFallSpeed: 8
+  baseFallSpeed: 9
   N: 1
   _isGameActive: 1
   _screenBottom: 0

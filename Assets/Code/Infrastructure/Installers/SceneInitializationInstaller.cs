@@ -1,4 +1,6 @@
 using System.Collections.Generic;
+using Code.Gameplay.Services.PlayerFallingService;
+using Code.Gameplay.Services.PlayerStickingService;
 using Code.Gameplay.Services.SpawnersServices;
 using UnityEngine;
 using Zenject;
@@ -18,6 +20,9 @@ namespace Code.Infrastructure.Installers
                 Container.BindInterfacesTo(initializer.GetType()).FromInstance(initializer).AsSingle();
             }
 
+            Container.Bind<IPlayerStickingService>().To<PlayerStickingService>().AsSingle();
+            Container.Bind<IPlayerFallingService>().To<PlayerFallingService>().AsSingle();
+            
             Container.BindInterfacesAndSelfTo<Camera>().FromInstance(_mainCamera).AsCached();
             
             Container.Bind<ItemSpawnerConfig>().FromInstance(_spawnConfig).AsSingle().NonLazy();

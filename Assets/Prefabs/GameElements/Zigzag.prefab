@@ -30,7 +30,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0.7071068, w: 0.7071068}
   m_LocalPosition: {x: -660.11255, y: -18.415497, z: 0}
-  m_LocalScale: {x: 1.85, y: 1.85, z: 1.85}
+  m_LocalScale: {x: 2.9, y: 2.9, z: 2.9}
   m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 0}
@@ -125,7 +125,7 @@ CircleCollider2D:
   m_CompositeOperation: 0
   m_CompositeOrder: 0
   m_Offset: {x: 0, y: 0}
-  m_Radius: 1.17
+  m_Radius: 0.93
 --- !u!50 &7715650546336453523
 Rigidbody2D:
   serializedVersion: 5
@@ -167,9 +167,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _rb: {fileID: 7715650546336453523}
   _icon: {fileID: 1612249821862196965}
-  baseFallSpeed: 8
+  baseFallSpeed: 9
   N: 1
   _isGameActive: 1
   _screenBottom: 0
-  horizontalSpeed: 2
+  horizontalSpeed: 1
   edgeMarginPercent: 0.05

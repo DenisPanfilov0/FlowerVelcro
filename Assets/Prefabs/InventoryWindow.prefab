@@ -1203,12 +1203,12 @@ GameObject:
   - component: {fileID: 5945906878784428345}
   - component: {fileID: 8419717814265728987}
   m_Layer: 5
-  m_Name: shadow (1)
+  m_Name: ActiveShadow
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &3873886129561528677
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1249,7 +1249,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0, g: 0, b: 0, a: 0.9019608}
+  m_Color: {r: 0, g: 0, b: 0, a: 0}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -4874,7 +4874,7 @@ MonoBehaviour:
   m_FillClockwise: 1
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
-  m_PixelsPerUnitMultiplier: 1.76
+  m_PixelsPerUnitMultiplier: 1.22
 --- !u!114 &5286720800013461207
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5926,7 +5926,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4263222082730632675, guid: f00e837153fe6884a975938133ad82b2, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4263222082730632675, guid: f00e837153fe6884a975938133ad82b2, type: 3}
       propertyPath: m_AnchorMin.x
@@ -5934,15 +5934,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4263222082730632675, guid: f00e837153fe6884a975938133ad82b2, type: 3}
       propertyPath: m_AnchorMin.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4263222082730632675, guid: f00e837153fe6884a975938133ad82b2, type: 3}
       propertyPath: m_SizeDelta.x
-      value: 250
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4263222082730632675, guid: f00e837153fe6884a975938133ad82b2, type: 3}
       propertyPath: m_SizeDelta.y
-      value: 250
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4263222082730632675, guid: f00e837153fe6884a975938133ad82b2, type: 3}
       propertyPath: m_LocalPosition.x
@@ -5974,11 +5974,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4263222082730632675, guid: f00e837153fe6884a975938133ad82b2, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 145
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4263222082730632675, guid: f00e837153fe6884a975938133ad82b2, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -135
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4263222082730632675, guid: f00e837153fe6884a975938133ad82b2, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x

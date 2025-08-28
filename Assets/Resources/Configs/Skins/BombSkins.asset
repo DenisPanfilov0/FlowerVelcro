@@ -34,13 +34,13 @@ MonoBehaviour:
     IsLocked: 1
   - SkinId: 7
     Icon: {fileID: 175062916, guid: 313e0f714473cfa4db93a572cefa8a91, type: 3}
-    IsLocked: 0
+    IsLocked: 1
   - SkinId: 8
     Icon: {fileID: -1628976612, guid: 313e0f714473cfa4db93a572cefa8a91, type: 3}
-    IsLocked: 0
+    IsLocked: 1
   - SkinId: 9
     Icon: {fileID: -1175354057, guid: 313e0f714473cfa4db93a572cefa8a91, type: 3}
-    IsLocked: 0
+    IsLocked: 1
   - SkinId: 10
     Icon: {fileID: -1268432569, guid: e8f3ee6578c8dc74c8134ba136b67275, type: 3}
-    IsLocked: 0
+    IsLocked: 1

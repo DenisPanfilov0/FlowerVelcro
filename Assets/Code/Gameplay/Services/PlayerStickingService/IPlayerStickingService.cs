@@ -7,8 +7,8 @@ namespace Code.Gameplay.Services.PlayerStickingService
     {
         void AddPlayer(PlayerView player);
         void Cleanup();
-        void SlimeClicked(SlimeView slimeView);
-        event Action<SlimeView> PlayerGlued;
+        void SlimeClicked(Flower flower);
+        event Action<Flower> PlayerGlued;
         void FinishSticking();
         event Action OnFinishSticking;
     }

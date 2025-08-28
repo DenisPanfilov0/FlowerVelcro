@@ -141,9 +141,9 @@ namespace Code.Gameplay.Behaviour.View
             _screenBottomY = _mainCamera.transform.position.y - cameraHeight / 2f;
         }
 
-        private void MoveToTarget(SlimeView slime)
+        private void MoveToTarget(Flower flower)
         {
-            if (!_isGameActive || slime == null) return;
+            if (!_isGameActive || flower== null) return;
 
             if (_moveCoroutine != null)
             {
@@ -153,7 +153,7 @@ namespace Code.Gameplay.Behaviour.View
             _isFalling = false;
             _rb.linearVelocity = Vector2.zero;
             CreateRope();
-            _moveCoroutine = StartCoroutine(MoveTowards(slime));
+            _moveCoroutine = StartCoroutine(MoveTowards(flower));
         }
 
         private void CreateRope()
@@ -170,24 +170,24 @@ namespace Code.Gameplay.Behaviour.View
             _ropeSpriteRenderer.size = new Vector2(_ropeSpriteRenderer.size.x, 1f);
         }
 
-        private IEnumerator MoveTowards(SlimeView slime)
+        private IEnumerator MoveTowards(Flower flower)
         {
-            if (slime == null || !_isGameActive) yield break;
+            if (flower == null || !_isGameActive) yield break;
 
             float distance;
             do
             {
-                distance = Vector3.Distance(transform.position, slime.transform.position);
+                distance = Vector3.Distance(transform.position, flower.transform.position);
                 if (distance > _centerThreshold)
                 {
                     transform.position = Vector3.MoveTowards(
                         transform.position,
-                        slime.transform.position,
+                        flower.transform.position,
                         _moveSpeed * _gameStateService.GameSpeed * Time.deltaTime
                     );
-                    UpdateRope(slime);
+                    UpdateRope(flower);
                     // Rotate player to face slime (same as rope rotation)
-                    Vector3 direction = slime.transform.position - transform.position;
+                    Vector3 direction = flower.transform.position - transform.position;
                     float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
                     transform.rotation = Quaternion.Euler(0, 0, angle - 90);
                 }
@@ -198,8 +198,16 @@ namespace Code.Gameplay.Behaviour.View
             {
                 Destroy(_ropeObject);
                 _playerStickingService.FinishSticking();
-                slime.CloseFlower();
-                _gameScoreService.IncreaseScore();
+                flower.CloseFlower();
+
+                if (flower.GetComponent<SlimeView>())
+                {
+                    _gameScoreService.IncreaseScore(1);
+                }
+                else
+                {
+                    _gameScoreService.IncreaseScore(3);
+                }
 
                 _audioManager.PlaySoundEffect(AudioClipTypeId.CollectedPollen);
 
@@ -211,11 +219,11 @@ namespace Code.Gameplay.Behaviour.View
             }
         }
 
-        private void UpdateRope(SlimeView slime)
+        private void UpdateRope(Flower flower)
         {
-            if (_ropeObject == null || !_isGameActive || slime == null) return;
+            if (_ropeObject == null || !_isGameActive || flower == null) return;
 
-            Vector3 slimePosition = slime.transform.position;
+            Vector3 slimePosition = flower.transform.position;
             Vector3 playerPosition = transform.position;
             _ropeObject.transform.position = (playerPosition + slimePosition) / 2;
             float distance = Vector3.Distance(playerPosition, slimePosition);

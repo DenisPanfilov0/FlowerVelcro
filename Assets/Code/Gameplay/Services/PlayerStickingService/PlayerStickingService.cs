@@ -9,11 +9,11 @@ namespace Code.Gameplay.Services.PlayerStickingService
     public class PlayerStickingService : IPlayerStickingService
     {
         private readonly IPlayerFallingService _playerFallingService;
-        public event Action<SlimeView> PlayerGlued;
+        public event Action<Flower> PlayerGlued;
         public event Action OnFinishSticking;
 
         private PlayerView _playerView;
-        private SlimeView _currentStickSlime;
+        private Flower _currentStickSlime;
         private bool _isGlued = false;
         private readonly IGameStateService _gameStateService;
 
@@ -39,19 +39,19 @@ namespace Code.Gameplay.Services.PlayerStickingService
             _isGlued = false;
         }
 
-        public void SlimeClicked(SlimeView slimeView)
+        public void SlimeClicked(Flower flower)
         {
-            if (!_isGlued && CanStickToSlime(slimeView))
+            if (!_isGlued && CanStickToSlime(flower))
             {
-                _currentStickSlime = slimeView;
-                StickPlayerToSlime(slimeView);
+                _currentStickSlime = flower;
+                StickPlayerToSlime(flower);
             }
-            else if (_isGlued && CanStickToSlime(slimeView) && slimeView != _currentStickSlime)
+            else if (_isGlued && CanStickToSlime(flower) && flower != _currentStickSlime)
             {
-                _currentStickSlime = slimeView;
-                StickPlayerToSlime(slimeView);
+                _currentStickSlime = flower;
+                StickPlayerToSlime(flower);
             }
-            else if (slimeView == _currentStickSlime)
+            else if (flower == _currentStickSlime)
             {
                 FinishSticking();
             }
@@ -64,7 +64,7 @@ namespace Code.Gameplay.Services.PlayerStickingService
             OnFinishSticking?.Invoke();
         }
 
-        private bool CanStickToSlime(SlimeView slimeView)
+        private bool CanStickToSlime(Flower slimeView)
         {
             if (_playerView == null) return false;
 
@@ -75,7 +75,7 @@ namespace Code.Gameplay.Services.PlayerStickingService
             return slimePos.y > playerPos.y && (slimePos.y - playerPos.y) >= MinDistanceY;
         }
 
-        private void StickPlayerToSlime(SlimeView slimeView)
+        private void StickPlayerToSlime(Flower slimeView)
         {
             _isGlued = true;
             _playerFallingService.StopFalling();

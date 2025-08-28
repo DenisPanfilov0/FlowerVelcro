@@ -27,7 +27,7 @@ namespace Code.Gameplay.Services.GameStateService
 
         public void Initialize()
         {
-            GameSpeed = 1;
+            GameSpeed = 1.1f;
             IsGameStop = true;
         }
 
@@ -39,14 +39,14 @@ namespace Code.Gameplay.Services.GameStateService
         public void GameLose()
         {
             IsGameStop = true;
-            GameSpeed = 1f;
+            GameSpeed = 1.1f;
             OnGameLose?.Invoke();
             _windowService.Open(WindowId.GameLoseWindow);
         }
 
         public void RestartLevel()
         {
-            GameSpeed = 1f;
+            GameSpeed = 1.1f;
             _gameStateMachine.Enter<RestartLevelState>();
         }
 
@@ -54,7 +54,7 @@ namespace Code.Gameplay.Services.GameStateService
         {
             if (IsGameStop) return;
             
-            GameSpeed += Time.deltaTime / 100f;
+            GameSpeed += Time.deltaTime / 250f;
         }
     }
 }

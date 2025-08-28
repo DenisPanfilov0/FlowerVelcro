@@ -40,7 +40,8 @@ namespace Code.Inventory
         private Vector2 _adButtonInitialPos;
         private Vector3 _closePanelInitialScale;
         private AudioManager _audioManager;
-
+        private bool _isOpeningChest = false;
+        
         [Inject]
         public void Construct(CurrencyModel currencyModel, InventorySkinConfigs inventorySkinConfigs, InventoryModel inventoryModel, AudioManager audioManager)
         {
@@ -72,7 +73,9 @@ namespace Code.Inventory
             _closePanel.transform.localScale = Vector3.zero;
             _closePanel.gameObject.SetActive(true);
 
-            _activeShadow.gameObject.SetActive(false);
+            // _activeShadow.gameObject.SetActive(false);
+            _activeShadow.raycastTarget = false;
+            
             _panelShadow.color = new Color(_panelShadow.color.r, _panelShadow.color.g, _panelShadow.color.b, 0f);
             _blocker.SetActive(true);
 
@@ -206,8 +209,12 @@ namespace Code.Inventory
 
         private void BuyChest()
         {
+            // _activeShadow.gameObject.SetActive(true);
+            if (_isOpeningChest) return;
+
             if (_currencyModel.CanSpend(1000))
             {
+                _isOpeningChest = true;
                 _audioManager.PlaySoundEffect(AudioClipTypeId.ButtonClick);
                 _currencyModel.SpendCurrency(1000);
                 OpenChest();
@@ -216,12 +223,19 @@ namespace Code.Inventory
 
         private void WatchAd()
         {
+            // _activeShadow.gameObject.SetActive(true);
+            if (_isOpeningChest) return;
+
+            _isOpeningChest = true;
+            
             _audioManager.PlaySoundEffect(AudioClipTypeId.ButtonClick);
             OpenChest();
         }
 
         private void OpenChest()
         {
+            _activeShadow.raycastTarget = true;
+
             if (_currentAnimation != null)
             {
                 StopCoroutine(_currentAnimation);
@@ -248,7 +262,9 @@ namespace Code.Inventory
             }
             InventorySkinData randomSkin = lockedSkins[UnityEngine.Random.Range(0, lockedSkins.Count)];
 
-            _activeShadow.gameObject.SetActive(true);
+            // _activeShadow.gameObject.SetActive(true);
+            
+            
             Color startShadowColor = _activeShadow.color;
             startShadowColor.a = 0f;
             _activeShadow.color = startShadowColor;
@@ -380,7 +396,9 @@ namespace Code.Inventory
             }
 
             _activeShadow.color = new Color(startShadowColor.r, startShadowColor.g, startShadowColor.b, 0f);
-            _activeShadow.gameObject.SetActive(false);
+            // _activeShadow.gameObject.SetActive(false);
+            _activeShadow.raycastTarget = false;
+
 
             if (_rewardSkinInstance != null)
             {
@@ -398,6 +416,7 @@ namespace Code.Inventory
 
             _isHidingReward = false;
             _blocker.SetActive(false);
+            _isOpeningChest = false;
 
             InventoryCategoryType category = _inventoryChanger.GetCurrentCategory();
             InventorySkinConfig skinConfig = _inventorySkinConfigs.InventorySkinsConfigs.FirstOrDefault(x => x.Type == category);

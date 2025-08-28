@@ -8,5 +8,6 @@ namespace Code.Configs.ItemSpawnerConfig
         Slime = 3,
         Zigzag = 4,
         Spike = 5,
+        MagicFlower = 6,
     }
 }

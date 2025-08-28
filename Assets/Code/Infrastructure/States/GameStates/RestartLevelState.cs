@@ -18,12 +18,12 @@ namespace Code.Infrastructure.States.GameStates
     
         public void Enter()
         {
-            _sceneLoader.LoadScene(RestartLevelSceneName, EnterRestartLevelState);
+            _sceneLoader.RestartScene(EnterRestartLevelState);
         }
 
         private void EnterRestartLevelState()
         {
-            _stateMachine.Enter<LoadGameLoopState>();
+            _stateMachine.Enter<GameLoopState>();
         }
 
         public void Exit()

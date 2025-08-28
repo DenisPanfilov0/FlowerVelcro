@@ -17,7 +17,6 @@ using Code.Infrastructure.States.StateMachine;
 using Code.Infrastructure.StaticData;
 using Code.Inventory;
 using Code.Leaderboards;
-using Code.MainMenu.Services.AmbientSoundService;
 using Code.Progress.Data;
 using UnityEngine;
 using Zenject;
@@ -29,6 +28,7 @@ namespace Code.Infrastructure.Installers
         [SerializeField] private InventorySkinConfigs _inventorySkinConfigs;
         [SerializeField] private CurrencyConfig _currencyConfig;
         [SerializeField] private AudioManager _audioManager;
+        [SerializeField] private SceneLoaderUI _sceneLoaderUI;
         
         public override void InstallBindings()
         {
@@ -48,7 +48,6 @@ namespace Code.Infrastructure.Installers
             
             BindInfrastructureServices();
             BindCommonServices();
-            BindMainMenuServices();
             BindGameplayServices();
             BindStateMachine();
             BindStateFactory();
@@ -83,26 +82,10 @@ namespace Code.Infrastructure.Installers
         {
             
         }
-        
-        private void BindMainMenuServices()
-        {
-            Container.Bind<IAmbientSoundService>().To<AmbientSoundService>().AsSingle();
-        }
 
         private void BindGameplayServices()
         {
-            // Container.Bind<IBombSpawnerService>().To<BombSpawnerService>().AsSingle();
-            // Container.Bind<ISlimeSpawnerService>().To<SlimeSpawnerService>().AsSingle();
             
-            
-            
-            // Container.BindInterfacesAndSelfTo<ItemSpawnerService>().AsSingle();
-            
-            
-            
-            // Container.Bind<IHeartSpawnerService>().To<HeartSpawnerService>().AsSingle();
-            Container.Bind<IPlayerStickingService>().To<PlayerStickingService>().AsSingle();
-            Container.Bind<IPlayerFallingService>().To<PlayerFallingService>().AsSingle();
             Container.BindInterfacesAndSelfTo<IGameStateService>().AsSingle();
             Container.Bind<IGameScoreService>().To<GameScoreService>().AsSingle();
             Container.Bind<IHeartService>().To<HeartService>().AsSingle();
@@ -121,6 +104,7 @@ namespace Code.Infrastructure.Installers
         private void BindCommonServices()
         {
             Container.Bind<ISceneLoader>().To<SceneLoader>().AsSingle();
+            Container.Bind<SceneLoaderUI>().FromComponentInNewPrefab(_sceneLoaderUI).AsSingle().NonLazy();
         }
 
         public void Initialize()
