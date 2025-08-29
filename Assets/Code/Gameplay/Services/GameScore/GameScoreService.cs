@@ -1,17 +1,15 @@
 using System;
 using Code.Gameplay.Services.GameStateService;
-using Code.Gameplay.Services.TimerService;
 using Code.Inventory;
 using Code.Leaderboards;
 using Code.Progress.Data;
 
-namespace Code.Gameplay.Services.GameScoreService
+namespace Code.Gameplay.Services.GameScore
 {
-    public class GameScoreService : IGameScoreService
+    public class GameScoreService
     {
         public event Action<int> ScoreChange;
         
-        private readonly ITimerService _timerService;
         private readonly IGameStateService _gameStateService;
         private readonly ProgressData _progress;
         private readonly CurrencyModel _currencyModel;
@@ -20,14 +18,13 @@ namespace Code.Gameplay.Services.GameScoreService
         // private bool _isGameStop = false;
         private bool _isNewRecord = false;
 
-        public GameScoreService(ITimerService timerService, IGameStateService gameStateService, ProgressData progress, 
+        public GameScoreService(IGameStateService gameStateService, ProgressData progress, 
             CurrencyModel currencyModel, LeaderBoardModel leaderBoardModel)
         {
             _gameStateService = gameStateService;
             _progress = progress;
             _currencyModel = currencyModel;
             _leaderBoardModel = leaderBoardModel;
-            _timerService = timerService;
 
             _gameStateService.OnGameLose += () =>
             {
@@ -45,20 +42,12 @@ namespace Code.Gameplay.Services.GameScoreService
             };
         }
 
-        // public void ScoreUpdate()
-        // {
-        //     if (!_isGameStop)
-        //     {
-        //         _timerService.StartTimer(0.5f, IncreaseScore);
-        //     }
-        // }
-
         public void MultiplyReward()
         {
             _currencyModel.AddCurrency(_score * 2);
         }
 
-        public void Cleanup()
+        public void Dispose()
         {
             _score = 0;
             // _isGameStop = false;
@@ -81,11 +70,6 @@ namespace Code.Gameplay.Services.GameScoreService
         public bool CheckTheRecord()
         {
             return _isNewRecord;
-        }
-
-        public void Dispose()
-        {
-            throw new NotImplementedException();
         }
     }
 }

@@ -1,14 +1,12 @@
 using System;
 using Code.Gameplay.Behaviour.View;
 using Code.Gameplay.Services.GameStateService;
-using Code.Gameplay.Services.PlayerFallingService;
 using UnityEngine;
 
-namespace Code.Gameplay.Services.PlayerStickingService
+namespace Code.Gameplay.Services.PlayerSticking
 {
-    public class PlayerStickingService : IPlayerStickingService
+    public class PlayerStickingService : IDisposable
     {
-        private readonly IPlayerFallingService _playerFallingService;
         public event Action<Flower> PlayerGlued;
         public event Action OnFinishSticking;
 
@@ -20,9 +18,8 @@ namespace Code.Gameplay.Services.PlayerStickingService
         // Минимальная вертикальная дистанция в world units, чтобы можно было прилипнуть
         private const float MinDistanceY = 1.5f;
 
-        public PlayerStickingService(IPlayerFallingService playerFallingService, IGameStateService gameStateService)
+        public PlayerStickingService(IGameStateService gameStateService)
         {
-            _playerFallingService = playerFallingService;
             _gameStateService = gameStateService;
 
             _gameStateService.OnGameLose += FinishSticking;
@@ -33,7 +30,7 @@ namespace Code.Gameplay.Services.PlayerStickingService
             _playerView = player;
         }
 
-        public void Cleanup()
+        public void Dispose()
         {
             _playerView = null;
             _isGlued = false;
@@ -78,7 +75,6 @@ namespace Code.Gameplay.Services.PlayerStickingService
         private void StickPlayerToSlime(Flower slimeView)
         {
             _isGlued = true;
-            _playerFallingService.StopFalling();
             PlayerGlued?.Invoke(slimeView);
         }
     }

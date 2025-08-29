@@ -1,9 +1,9 @@
 using System;
 using Code.Gameplay.Services.GameStateService;
 
-namespace Code.Gameplay.Services.HeartService
+namespace Code.Gameplay.Services.Heart
 {
-    public class HeartService : IHeartService
+    public class HeartService : IDisposable
     {
         private const int HEART_MAX = 1;
         
@@ -43,7 +43,7 @@ namespace Code.Gameplay.Services.HeartService
             }
         }
 
-        public void Cleanup()
+        public void Dispose()
         {
             _heartCount = HEART_MAX;
         }

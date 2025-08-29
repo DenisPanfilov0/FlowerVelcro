@@ -1,6 +1,6 @@
 using System.Collections;
 using Code.Advertising;
-using Code.Gameplay.Services.GameScoreService;
+using Code.Gameplay.Services.GameScore;
 using Code.Gameplay.Services.GameStateService;
 using Code.Infrastructure.States.GameStates;
 using Code.Infrastructure.States.StateMachine;
@@ -22,7 +22,7 @@ namespace Code.Gameplay.Windows.GameLoseWindow
         [SerializeField] private TMP_Text _newRecordMessage;
         [SerializeField] private TMP_Text _newRecordCounter;
         private IGameStateService _gameStateService;
-        private IGameScoreService _gameScoreService;
+        private GameScoreService _gameScoreService;
         private IGameStateMachine _gameStateMachine;
         private AudioManager _audioManager;
         private Vector3 _initialWindowScale;
@@ -36,7 +36,7 @@ namespace Code.Gameplay.Windows.GameLoseWindow
         private const float StaggerDelay = 0.2f;
 
         [Inject]
-        public void Construct(IGameStateService gameStateService, IGameScoreService gameScoreService, IGameStateMachine gameStateMachine, 
+        public void Construct(IGameStateService gameStateService, GameScoreService gameScoreService, IGameStateMachine gameStateMachine, 
             AudioManager audioManager, AdvertisingService advertisingService)
         {
             _advertisingService = advertisingService;

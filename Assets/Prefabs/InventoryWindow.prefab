@@ -2605,7 +2605,8 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_text: "\u041E\u0442\u043A\u0440\u043E\u0439 \u0441\u0443\u043D\u0434\u0443\u043A
-    \u0438 \u043F\u043E\u043B\u0443\u0447\u0438 \u0441\u043A\u0438\u043D"
+    \u0438 \u043F\u043E\u043B\u0443\u0447\u0438 \u043E\u0431\u0440\u0430\u0437\u044B
+    \u043E\u043A\u0440\u0443\u0436\u0435\u043D\u0438\u044F"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -2811,16 +2812,17 @@ MonoBehaviour:
       hi: 
   text: 
   ru: "\u041E\u0442\u043A\u0440\u043E\u0439 \u0441\u0443\u043D\u0434\u0443\u043A
-    \u0438 \u043F\u043E\u043B\u0443\u0447\u0438 \u043E\u0431\u0440\u0430\u0437"
-  en: Open the chest and get a skin
-  tr: "G\xF6\u011Fs\xFCn\xFC a\xE7 ve bir cilt al"
+    \u0438 \u043F\u043E\u043B\u0443\u0447\u0438 \u043E\u0431\u0440\u0430\u0437\u044B
+    \u043E\u043A\u0440\u0443\u0436\u0435\u043D\u0438\u044F"
+  en: Open the chest and get the images of the environment
+  tr: "G\xF6\u011Fs\xFC a\xE7 ve \xE7evrenin g\xF6r\xFCnt\xFClerini al\u0131n"
   az: 
   be: 
   he: 
   hy: 
   ka: 
   et: 
-  fr: Ouvrez la poitrine et obtenez une peau
+  fr: Ouvrez la poitrine et obtenez les images de l'environnement
   kk: 
   ky: 
   lt: 
@@ -2830,13 +2832,13 @@ MonoBehaviour:
   tk: 
   uk: 
   uz: 
-  es: Abre el cofre y consigue una piel
+  es: "Abra el cofre y obtenga las im\xE1genes del entorno"
   pt: 
   ar: 
   id: 
-  ja: "\u80F8\u3092\u958B\u3051\u3066\u808C\u3092\u624B\u306B\u5165\u308C\u307E\u3059"
+  ja: "\u80F8\u3092\u958B\u3051\u3066\u3001\u74B0\u5883\u306E\u753B\u50CF\u3092\u53D6\u5F97\u3057\u307E\u3059"
   it: 
-  de: "\xD6ffne die Brust und bekomme eine Haut"
+  de: "\xD6ffnen Sie die Brust und erhalten Sie die Bilder der Umgebung"
   hi: 
   changeOnlyFont: 0
   fontNumber: 0
@@ -3841,7 +3843,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 300
+  m_text: 350
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}

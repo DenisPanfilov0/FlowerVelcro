@@ -1,8 +1,8 @@
 using Code.Configs.ItemSpawnerConfig;
-using Code.Gameplay.Services.PlayerStickingService;
-using Code.Gameplay.Services.HeartService;
 using Code.Gameplay.Services.SpawnersServices;
 using Code.Gameplay.Services.GameStateService;
+using Code.Gameplay.Services.Heart;
+using Code.Gameplay.Services.PlayerSticking;
 using UnityEngine;
 using Zenject;
 
@@ -17,8 +17,8 @@ namespace Code.Gameplay.Behaviour.View
         [SerializeField] public float N = 1f; // For Inspector visibility, updated by GameSpeed
         protected bool _isFalling = true;
         [SerializeField] protected bool _isGameActive = true;
-        protected IPlayerStickingService _playerStickingService;
-        protected IHeartService _heartService;
+        protected PlayerStickingService _playerStickingService;
+        protected HeartService _heartService;
         protected ItemSpawnerService _spawnerService;
         protected ItemSpawnerTypeId _typeId;
         protected IGameStateService _gameStateService;
@@ -30,7 +30,8 @@ namespace Code.Gameplay.Behaviour.View
             _gameStateService = gameStateService;
         }
 
-        public virtual void Setup(IPlayerStickingService playerStickingService, Sprite icon, ItemSpawnerTypeId typeId, IHeartService heartService, IGameStateService gameStateService)
+        public virtual void Setup(PlayerStickingService playerStickingService, Sprite icon, ItemSpawnerTypeId typeId, 
+            HeartService heartService, IGameStateService gameStateService)
         {
             if (gameObject == null) return;
             _playerStickingService = playerStickingService;

@@ -1,7 +1,5 @@
 using Code.Configs.ItemSpawnerConfig;
 using Code.Gameplay.Services.GameStateService;
-using Code.Gameplay.Services.PlayerStickingService;
-using Code.Gameplay.Services.HeartService;
 using UnityEngine;
 
 namespace Code.Gameplay.Behaviour.View

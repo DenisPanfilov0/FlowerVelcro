@@ -1,8 +1,7 @@
 using Code.Configs.ItemSpawnerConfig;
-using Code.Gameplay.Services.FallManagerService;
 using Code.Gameplay.Services.GameStateService;
-using Code.Gameplay.Services.HeartService;
-using Code.Gameplay.Services.PlayerStickingService;
+using Code.Gameplay.Services.Heart;
+using Code.Gameplay.Services.PlayerSticking;
 using UnityEngine;
 
 namespace Code.Gameplay.Behaviour.View
@@ -11,7 +10,8 @@ namespace Code.Gameplay.Behaviour.View
     {
         private bool _isReturningToPool;
 
-        public override void Setup(IPlayerStickingService playerStickingService, Sprite slimeIcon, ItemSpawnerTypeId typeId, IHeartService heartService, IGameStateService gameStateService)
+        public override void Setup(PlayerStickingService playerStickingService, Sprite slimeIcon, ItemSpawnerTypeId typeId, 
+            HeartService heartService, IGameStateService gameStateService)
         {
             base.Setup(playerStickingService, slimeIcon, typeId, heartService, gameStateService);
             _isReturningToPool = false;

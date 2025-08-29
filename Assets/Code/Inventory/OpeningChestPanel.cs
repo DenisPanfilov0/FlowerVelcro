@@ -84,7 +84,7 @@ namespace Code.Inventory
 
         private void Start()
         {
-            bool canSpend = _currencyModel.CanSpend(300);
+            bool canSpend = _currencyModel.CanSpend(350);
             _buyButton.interactable = canSpend;
             _buyText.color = canSpend ? _activeColor : _inactiveColor;
             _buyImage.color = canSpend ? _activeColor : _inactiveColor;
@@ -212,11 +212,11 @@ namespace Code.Inventory
             // _activeShadow.gameObject.SetActive(true);
             if (_isOpeningChest) return;
 
-            if (_currencyModel.CanSpend(300))
+            if (_currencyModel.CanSpend(350))
             {
                 _isOpeningChest = true;
                 _audioManager.PlaySoundEffect(AudioClipTypeId.ButtonClick);
-                _currencyModel.SpendCurrency(300);
+                _currencyModel.SpendCurrency(350);
                 OpenChest();
             }
         }
@@ -409,7 +409,7 @@ namespace Code.Inventory
 
             _promptText.color = new Color(startPromptColor.r, startPromptColor.g, startPromptColor.b, 0f);
 
-            bool canSpend = _currencyModel.CanSpend(300);
+            bool canSpend = _currencyModel.CanSpend(350);
             _buyButton.interactable = canSpend;
             _buyText.color = canSpend ? _activeColor : _inactiveColor;
             _buyImage.color = canSpend ? _activeColor : _inactiveColor;

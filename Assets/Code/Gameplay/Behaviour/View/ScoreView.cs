@@ -1,4 +1,4 @@
-using Code.Gameplay.Services.GameScoreService;
+using Code.Gameplay.Services.GameScore;
 using TMPro;
 using UnityEngine;
 using Zenject;
@@ -8,10 +8,10 @@ namespace Code.Gameplay.Behaviour.View
     public class ScoreView : MonoBehaviour
     {
         [SerializeField] private TextMeshProUGUI _score;
-        private IGameScoreService _gameScoreService;
+        private GameScoreService _gameScoreService;
 
         [Inject]
-        public void Construct(IGameScoreService gameScoreService)
+        public void Construct(GameScoreService gameScoreService)
         {
             _gameScoreService = gameScoreService;
         }

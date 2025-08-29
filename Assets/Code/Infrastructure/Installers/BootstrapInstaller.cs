@@ -1,9 +1,6 @@
 using Code.Advertising;
-using Code.Gameplay.Services.FallManagerService;
-using Code.Gameplay.Services.GameScoreService;
+using Code.Gameplay.Services.GameScore;
 using Code.Gameplay.Services.GameStateService;
-using Code.Gameplay.Services.HeartService;
-using Code.Gameplay.Services.TimerService;
 using Code.Gameplay.Windows;
 using Code.Infrastructure.Loading;
 using Code.Infrastructure.States.Factory;
@@ -82,19 +79,13 @@ namespace Code.Infrastructure.Installers
         private void BindGameplayServices()
         {
             
-            Container.BindInterfacesAndSelfTo<IGameStateService>().AsSingle();
-            Container.Bind<IGameScoreService>().To<GameScoreService>().AsSingle();
-            Container.Bind<IHeartService>().To<HeartService>().AsSingle();
-            Container.Bind<IFallManagerService>().To<FallManagerService>().AsSingle();
         }
 
         private void BindInfrastructureServices()
         {
             Container.BindInterfacesTo<BootstrapInstaller>().FromInstance(this).AsSingle();
             Container.Bind<IStaticDataService>().To<StaticDataService>().AsSingle();
-            Container.Bind<ITimerService>().To<TimerService>().AsSingle();
-            Container.Bind<IWindowFactory>().To<WindowFactory>().AsSingle();
-            Container.Bind<IWindowService>().To<WindowService>().AsSingle();
+            
         }
 
         private void BindCommonServices()

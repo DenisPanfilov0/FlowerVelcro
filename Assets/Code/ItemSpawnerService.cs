@@ -3,11 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using Code.Configs.ItemSpawnerConfig;
 using Code.Gameplay.Behaviour.View;
-using Code.Gameplay.Services.FallManagerService;
-using Code.Gameplay.Services.GameScoreService;
+using Code.Gameplay.Services.GameScore;
 using Code.Gameplay.Services.GameStateService;
-using Code.Gameplay.Services.HeartService;
-using Code.Gameplay.Services.PlayerStickingService;
+using Code.Gameplay.Services.Heart;
+using Code.Gameplay.Services.PlayerSticking;
 using Code.Inventory;
 using UnityEngine;
 using Zenject;
@@ -18,11 +17,11 @@ namespace Code.Gameplay.Services.SpawnersServices
     public class ItemSpawnerService : IInitializable, IDisposable, ITickable
     {
         private readonly IGameStateService _gameStateService;
-        private readonly IGameScoreService _gameScoreService;
+        private readonly GameScoreService _gameScoreService;
         private readonly InventoryModel _inventoryModel;
-        private readonly IPlayerStickingService _playerStickingService;
-        private readonly IHeartService _heartService;
-        private readonly IFallManagerService _fallManagerService;
+        private readonly PlayerStickingService _playerStickingService;
+        private readonly HeartService _heartService;
+        // private readonly IFallManagerService _fallManagerService;
         private readonly ItemSpawnerConfig _config;
         private readonly List<ItemSpawnerConfig.StageConfig> _stages;
         private readonly Dictionary<ItemSpawnerTypeId, ItemView> _prefabs = new();
@@ -46,11 +45,11 @@ namespace Code.Gameplay.Services.SpawnersServices
         [Inject]
         public ItemSpawnerService(
             IGameStateService gameStateService,
-            IGameScoreService gameScoreService,
+            GameScoreService gameScoreService,
             InventoryModel inventoryModel,
-            IPlayerStickingService playerStickingService,
-            IHeartService heartService,
-            IFallManagerService fallManagerService,
+            PlayerStickingService playerStickingService,
+            HeartService heartService,
+            // IFallManagerService fallManagerService,
             ItemSpawnerConfig config)
         {
             _gameStateService = gameStateService;
@@ -58,7 +57,7 @@ namespace Code.Gameplay.Services.SpawnersServices
             _inventoryModel = inventoryModel;
             _playerStickingService = playerStickingService;
             _heartService = heartService;
-            _fallManagerService = fallManagerService;
+            // _fallManagerService = fallManagerService;
             _config = config;
             _stages = config.Stages.Select(s => new ItemSpawnerConfig.StageConfig
             {
@@ -361,7 +360,7 @@ namespace Code.Gameplay.Services.SpawnersServices
                 item.transform.rotation = Quaternion.identity;
                 item.gameObject.SetActive(true);
                 item.Reset();
-                _fallManagerService.AddFallingObject(item.gameObject);
+                // _fallManagerService.AddFallingObject(item.gameObject);
             }
         }
 

@@ -1,10 +1,9 @@
 using System.Collections;
-using Code.Gameplay.Services.GameScoreService;
+using Code.Gameplay.Services.GameScore;
 using UnityEngine;
 using Zenject;
 using Code.Gameplay.Services.GameStateService;
-using Code.Gameplay.Services.PlayerFallingService;
-using Code.Gameplay.Services.PlayerStickingService;
+using Code.Gameplay.Services.PlayerSticking;
 using Code.Inventory;
 using UnityEngine.UI;
 
@@ -21,10 +20,9 @@ namespace Code.Gameplay.Behaviour.View
         [SerializeField] public float N = 1f; // For Inspector visibility, updated by GameSpeed
         [SerializeField] private SpriteRenderer _characterIcon;
 
-        private IPlayerFallingService _playerFallingService;
-        private IPlayerStickingService _playerStickingService;
+        private PlayerStickingService _playerStickingService;
         private IGameStateService _gameStateService;
-        private IGameScoreService _gameScoreService;
+        private GameScoreService _gameScoreService;
         private AudioManager _audioManager;
         private GameObject _ropeObject;
         private SpriteRenderer _ropeSpriteRenderer;
@@ -42,17 +40,15 @@ namespace Code.Gameplay.Behaviour.View
 
         [Inject]
         public void Construct(
-            IPlayerStickingService playerStickingService,
-            IPlayerFallingService playerFallingService,
+            PlayerStickingService playerStickingService,
             IGameStateService gameStateService,
             Camera mainCamera,
-            IGameScoreService gameScoreService,
+            GameScoreService gameScoreService,
             AudioManager audioManager,
             InventoryModel inventoryModel)
         {
             _inventoryModel = inventoryModel;
             _gameScoreService = gameScoreService;
-            _playerFallingService = playerFallingService;
             _playerStickingService = playerStickingService;
             _gameStateService = gameStateService;
             _mainCamera = mainCamera;
@@ -77,7 +73,6 @@ namespace Code.Gameplay.Behaviour.View
         private void Start()
         {
             _playerStickingService.AddPlayer(this);
-            _playerFallingService.AddPlayer(this);
             _playerStickingService.PlayerGlued += MoveToTarget;
             _playerStickingService.OnFinishSticking += HandleFinishSticking;
             _gameStateService.OnGameLose += HandleGameLose;

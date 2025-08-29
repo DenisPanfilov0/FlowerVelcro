@@ -2969,16 +2969,16 @@ MonoBehaviour:
       de: 
       hi: 
   text: 
-  ru: "\u0421\u043C\u043E\u0442\u0440\u0435\u0442\u044C"
-  en: Look
-  tr: Bakmak
+  ru: "\u04453 \u041F\u042B\u041B\u042C\u0426\u0410"
+  en: X3 pollen
+  tr: X3 Polen
   az: 
   be: 
   he: 
   hy: 
   ka: 
   et: 
-  fr: Regarder
+  fr: X3 Pollen
   kk: 
   ky: 
   lt: 
@@ -2988,13 +2988,13 @@ MonoBehaviour:
   tk: 
   uk: 
   uz: 
-  es: Mirar
+  es: X3 polen
   pt: 
   ar: 
   id: 
-  ja: "\u898B\u3066"
+  ja: "X3\u82B1\u7C89"
   it: 
-  de: Suchen
+  de: X3 Pollen
   hi: 
   changeOnlyFont: 0
   fontNumber: 0

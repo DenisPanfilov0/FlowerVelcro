@@ -1,8 +1,8 @@
 using Code.Configs.ItemSpawnerConfig;
-using Code.Gameplay.Services.FallManagerService;
+// using Code.Gameplay.Services.FallManagerService;
 using Code.Gameplay.Services.GameStateService;
-using Code.Gameplay.Services.HeartService;
-using Code.Gameplay.Services.PlayerStickingService;
+using Code.Gameplay.Services.Heart;
+using Code.Gameplay.Services.PlayerSticking;
 using UnityEngine;
 
 namespace Code.Gameplay.Behaviour.View
@@ -15,7 +15,8 @@ namespace Code.Gameplay.Behaviour.View
         private float _amplitude;
         private float _startTime;
 
-        public override void Setup(IPlayerStickingService playerStickingService, Sprite icon, ItemSpawnerTypeId typeId, IHeartService heartService, IGameStateService gameStateService)
+        public override void Setup(PlayerStickingService playerStickingService, Sprite icon, ItemSpawnerTypeId typeId, 
+            HeartService heartService, IGameStateService gameStateService)
         {
             base.Setup(playerStickingService, icon, typeId, heartService, gameStateService);
             CalculateScreenBounds();
