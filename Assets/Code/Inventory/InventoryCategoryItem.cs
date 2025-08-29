@@ -65,5 +65,6 @@ namespace Code.Inventory
         Zigzag = 3,
         Spike = 4,
         Character = 5,
+        MagicFlower = 6,
     }
 }

@@ -413,7 +413,7 @@ MonoBehaviour:
       color1: {r: 1, g: 0.831, b: 0.149, a: 1}
       color2: {r: 0.36, g: 0.09, b: 1, a: 1}
     pixelRatioEnable: 1
-    pixelRatioValue: 1.4
+    pixelRatioValue: 2
     developerBuild: 0
   platformInfo:
     ownHost: 0

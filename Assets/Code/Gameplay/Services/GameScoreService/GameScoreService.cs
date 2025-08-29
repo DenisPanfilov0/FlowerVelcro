@@ -53,6 +53,11 @@ namespace Code.Gameplay.Services.GameScoreService
         //     }
         // }
 
+        public void MultiplyReward()
+        {
+            _currencyModel.AddCurrency(_score * 2);
+        }
+
         public void Cleanup()
         {
             _score = 0;
@@ -76,6 +81,11 @@ namespace Code.Gameplay.Services.GameScoreService
         public bool CheckTheRecord()
         {
             return _isNewRecord;
+        }
+
+        public void Dispose()
+        {
+            throw new NotImplementedException();
         }
     }
 }

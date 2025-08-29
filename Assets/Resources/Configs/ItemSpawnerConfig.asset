@@ -26,7 +26,7 @@ MonoBehaviour:
     CategoryType: 4
     Prefab: {fileID: 3770128284525656280, guid: fb5f5f37b5b138d429285b4d7490d0bb, type: 3}
   - TypeId: 6
-    CategoryType: 1
+    CategoryType: 6
     Prefab: {fileID: 327843768602748358, guid: aa66032de9e7ba744b911ef31deca968, type: 3}
   SpawnDelayRange: {x: 0.9, y: 1.6}
   Stages:

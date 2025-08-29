@@ -2,7 +2,7 @@ using System;
 
 namespace Code.Gameplay.Services.GameScoreService
 {
-    public interface IGameScoreService
+    public interface IGameScoreService : IDisposable
     {
         // void ScoreUpdate();
         void Cleanup();
@@ -10,5 +10,6 @@ namespace Code.Gameplay.Services.GameScoreService
         int GetScore();
         bool CheckTheRecord();
         event Action<int> ScoreChange;
+        void MultiplyReward();
     }
 }

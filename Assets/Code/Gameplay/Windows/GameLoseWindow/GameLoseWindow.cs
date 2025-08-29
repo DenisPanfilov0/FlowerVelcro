@@ -1,4 +1,5 @@
 using System.Collections;
+using Code.Advertising;
 using Code.Gameplay.Services.GameScoreService;
 using Code.Gameplay.Services.GameStateService;
 using Code.Infrastructure.States.GameStates;
@@ -13,11 +14,13 @@ namespace Code.Gameplay.Windows.GameLoseWindow
 {
     public class GameLoseWindow : BaseWindow
     {
+        [SerializeField] private Button _multiplyReward;
         [SerializeField] private Button _restartLevel;
         [SerializeField] private Button _home;
         [SerializeField] private TMP_Text _score;
         [SerializeField] private TMP_Text _recordCounter;
         [SerializeField] private TMP_Text _newRecordMessage;
+        [SerializeField] private TMP_Text _newRecordCounter;
         private IGameStateService _gameStateService;
         private IGameScoreService _gameScoreService;
         private IGameStateMachine _gameStateMachine;
@@ -28,12 +31,15 @@ namespace Code.Gameplay.Windows.GameLoseWindow
         private Vector3 _initialHomeButtonScale;
         private Vector3 _initialRecordCounterScale;
         private Vector3 _initialRecordMessageScale;
+        private AdvertisingService _advertisingService;
 
         private const float StaggerDelay = 0.2f;
 
         [Inject]
-        public void Construct(IGameStateService gameStateService, IGameScoreService gameScoreService, IGameStateMachine gameStateMachine, AudioManager audioManager)
+        public void Construct(IGameStateService gameStateService, IGameScoreService gameScoreService, IGameStateMachine gameStateMachine, 
+            AudioManager audioManager, AdvertisingService advertisingService)
         {
+            _advertisingService = advertisingService;
             _gameStateMachine = gameStateMachine;
             _gameScoreService = gameScoreService;
             _gameStateService = gameStateService;
@@ -66,6 +72,7 @@ namespace Code.Gameplay.Windows.GameLoseWindow
 
         private void Start()
         {
+            _multiplyReward.onClick.AddListener(MultiplyReward);
             _restartLevel.onClick.AddListener(RestartLevel);
             _home.onClick.AddListener(EnterMainMenu);
 
@@ -78,6 +85,7 @@ namespace Code.Gameplay.Windows.GameLoseWindow
 
         private void OnDestroy()
         {
+            _multiplyReward.onClick.RemoveListener(MultiplyReward);
             _restartLevel.onClick.RemoveListener(RestartLevel);
             _home.onClick.RemoveListener(EnterMainMenu);
         }
@@ -135,6 +143,8 @@ namespace Code.Gameplay.Windows.GameLoseWindow
             int targetScore = _gameScoreService.GetScore();
             int startScore = 0;
 
+            _newRecordCounter.text = $"{targetScore}";
+
             while (elapsed < duration)
             {
                 elapsed += Time.deltaTime;
@@ -150,14 +160,52 @@ namespace Code.Gameplay.Windows.GameLoseWindow
             _score.text = targetScore.ToString();
         }
 
+        private IEnumerator AnimateScoreCounterAfterReward(int startScore, int targetScore)
+        {
+            float duration = 0.6f;
+            float elapsed = 0f;
+
+            while (elapsed < duration)
+            {
+                elapsed += Time.deltaTime;
+                float t = elapsed / duration;
+                float eased = EaseOutQuad(t);
+                int currentScore = Mathf.RoundToInt(Mathf.Lerp(startScore, targetScore, eased));
+                _recordCounter.text = currentScore.ToString();
+                _score.text = currentScore.ToString();
+                yield return null;
+            }
+
+            _recordCounter.text = targetScore.ToString();
+            _score.text = targetScore.ToString();
+        }
+
+        private async void MultiplyReward()
+        {
+            _audioManager.PlaySoundEffect(AudioClipTypeId.ButtonClick);
+            
+            bool advStatus = await _advertisingService.AddReward(RewardType.MultiplyReward);
+
+            if (advStatus)
+            {
+                _multiplyReward.gameObject.SetActive(false);
+                int startScore = _gameScoreService.GetScore();
+                _gameScoreService.MultiplyReward();
+                int targetScore = _gameScoreService.GetScore() * 3; // Утроенное значение после MultiplyReward
+                StartCoroutine(AnimateScoreCounterAfterReward(startScore, targetScore));
+            }
+        }
+
         private void RestartLevel()
         {
+            _advertisingService.AddInterstitial();
             _audioManager.PlaySoundEffect(AudioClipTypeId.ButtonClick);
             _gameStateService.RestartLevel();
         }
 
         private void EnterMainMenu()
         {
+            _advertisingService.AddInterstitial();
             _audioManager.PlaySoundEffect(AudioClipTypeId.ButtonClick);
             _gameStateMachine.Enter<LoadMainMenuState>();
         }

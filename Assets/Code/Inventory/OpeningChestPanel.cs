@@ -54,7 +54,7 @@ namespace Code.Inventory
         private void Awake()
         {
             _buyButtonInitialPos = _buyButton.GetComponent<RectTransform>().anchoredPosition;
-            _adButtonInitialPos = _adButton.GetComponent<RectTransform>().anchoredPosition;
+            // _adButtonInitialPos = _adButton.GetComponent<RectTransform>().anchoredPosition;
             _closePanelInitialScale = _closePanel.transform.localScale;
 
             _chestImage.transform.localScale = Vector3.zero;
@@ -67,8 +67,8 @@ namespace Code.Inventory
             _buyButton.GetComponent<RectTransform>().anchoredPosition = _buyButtonInitialPos + new Vector2(-Screen.width, 0f);
             _buyButton.gameObject.SetActive(false);
 
-            _adButton.GetComponent<RectTransform>().anchoredPosition = _adButtonInitialPos + new Vector2(Screen.width, 0f);
-            _adButton.gameObject.SetActive(false);
+            // _adButton.GetComponent<RectTransform>().anchoredPosition = _adButtonInitialPos + new Vector2(Screen.width, 0f);
+            // _adButton.gameObject.SetActive(false);
 
             _closePanel.transform.localScale = Vector3.zero;
             _closePanel.gameObject.SetActive(true);
@@ -84,13 +84,13 @@ namespace Code.Inventory
 
         private void Start()
         {
-            bool canSpend = _currencyModel.CanSpend(1000);
+            bool canSpend = _currencyModel.CanSpend(300);
             _buyButton.interactable = canSpend;
             _buyText.color = canSpend ? _activeColor : _inactiveColor;
             _buyImage.color = canSpend ? _activeColor : _inactiveColor;
 
             _buyButton.onClick.AddListener(BuyChest);
-            _adButton.onClick.AddListener(WatchAd);
+            // _adButton.onClick.AddListener(WatchAd);
             _interactiveShadow.onClick.AddListener(HideReward);
             _closePanel.onClick.AddListener(Hide);
         }
@@ -98,7 +98,7 @@ namespace Code.Inventory
         private void OnDestroy()
         {
             _buyButton.onClick.RemoveListener(BuyChest);
-            _adButton.onClick.RemoveListener(WatchAd);
+            // _adButton.onClick.RemoveListener(WatchAd);
             _interactiveShadow.onClick.RemoveListener(HideReward);
             _closePanel.onClick.RemoveListener(Hide);
         }
@@ -145,15 +145,15 @@ namespace Code.Inventory
 
             yield return new WaitForSeconds(0.2f);
             _buyButton.gameObject.SetActive(true);
-            _adButton.gameObject.SetActive(true);
+            // _adButton.gameObject.SetActive(true);
             StartCoroutine(SlideButtonCoroutine(_buyButton.GetComponent<RectTransform>(), 
                 _buyButtonInitialPos + new Vector2(-Screen.width, 0f), 
                 _buyButtonInitialPos, 
                 elementDuration));
-            StartCoroutine(SlideButtonCoroutine(_adButton.GetComponent<RectTransform>(), 
-                _adButtonInitialPos + new Vector2(Screen.width, 0f), 
-                _adButtonInitialPos, 
-                elementDuration));
+            // StartCoroutine(SlideButtonCoroutine(_adButton.GetComponent<RectTransform>(), 
+                // _adButtonInitialPos + new Vector2(Screen.width, 0f), 
+                // _adButtonInitialPos, 
+                // elementDuration));
 
             yield return new WaitForSeconds(0.2f);
             StartCoroutine(ScaleCoroutine(_closePanel.transform, Vector3.zero, _closePanelInitialScale, elementDuration));
@@ -175,10 +175,10 @@ namespace Code.Inventory
                 _buyButton.GetComponent<RectTransform>().anchoredPosition, 
                 _buyButtonInitialPos + new Vector2(-Screen.width, 0f), 
                 elementDuration));
-            Coroutine adButtonCoroutine = StartCoroutine(SlideButtonCoroutine(_adButton.GetComponent<RectTransform>(), 
-                _adButton.GetComponent<RectTransform>().anchoredPosition, 
-                _adButtonInitialPos + new Vector2(Screen.width, 0f), 
-                elementDuration));
+            // Coroutine adButtonCoroutine = StartCoroutine(SlideButtonCoroutine(_adButton.GetComponent<RectTransform>(), 
+                // _adButton.GetComponent<RectTransform>().anchoredPosition, 
+                // _adButtonInitialPos + new Vector2(Screen.width, 0f), 
+                // elementDuration));
 
             yield return new WaitForSeconds(0.2f);
             Coroutine textCoroutine = StartCoroutine(FadeTextCoroutine(_chestText, 1f, 0f, elementDuration));
@@ -189,13 +189,13 @@ namespace Code.Inventory
 
             yield return closeButtonCoroutine;
             yield return buyButtonCoroutine;
-            yield return adButtonCoroutine;
+            // yield return adButtonCoroutine;
             yield return textCoroutine;
             yield return categoryTextCoroutine;
             yield return chestCoroutine;
 
             _buyButton.gameObject.SetActive(false);
-            _adButton.gameObject.SetActive(false);
+            // _adButton.gameObject.SetActive(false);
 
             Coroutine panelCoroutine = StartCoroutine(ScaleCoroutine(transform, transform.localScale, Vector3.zero, panelDuration));
             Coroutine shadowCoroutine = StartCoroutine(FadeImageCoroutine(_panelShadow, _panelShadow.color.a, 0f, panelDuration));
@@ -212,11 +212,11 @@ namespace Code.Inventory
             // _activeShadow.gameObject.SetActive(true);
             if (_isOpeningChest) return;
 
-            if (_currencyModel.CanSpend(1000))
+            if (_currencyModel.CanSpend(300))
             {
                 _isOpeningChest = true;
                 _audioManager.PlaySoundEffect(AudioClipTypeId.ButtonClick);
-                _currencyModel.SpendCurrency(1000);
+                _currencyModel.SpendCurrency(300);
                 OpenChest();
             }
         }
@@ -409,7 +409,7 @@ namespace Code.Inventory
 
             _promptText.color = new Color(startPromptColor.r, startPromptColor.g, startPromptColor.b, 0f);
 
-            bool canSpend = _currencyModel.CanSpend(1000);
+            bool canSpend = _currencyModel.CanSpend(300);
             _buyButton.interactable = canSpend;
             _buyText.color = canSpend ? _activeColor : _inactiveColor;
             _buyImage.color = canSpend ? _activeColor : _inactiveColor;

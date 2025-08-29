@@ -1,13 +1,8 @@
+using Code.Advertising;
 using Code.Gameplay.Services.FallManagerService;
 using Code.Gameplay.Services.GameScoreService;
 using Code.Gameplay.Services.GameStateService;
 using Code.Gameplay.Services.HeartService;
-using Code.Gameplay.Services.PlayerFallingService;
-using Code.Gameplay.Services.PlayerStickingService;
-using Code.Gameplay.Services.SpawnersServices;
-using Code.Gameplay.Services.SpawnersServices.BombSpawnerService;
-using Code.Gameplay.Services.SpawnersServices.HeartSpawnerService;
-using Code.Gameplay.Services.SpawnersServices.SlimeSpawnerService;
 using Code.Gameplay.Services.TimerService;
 using Code.Gameplay.Windows;
 using Code.Infrastructure.Loading;
@@ -34,6 +29,7 @@ namespace Code.Infrastructure.Installers
         {
             Container.BindInterfacesAndSelfTo<SaveLoadService>().AsSingle().NonLazy();
             Container.BindInterfacesAndSelfTo<ProgressData>().AsSingle().NonLazy();
+            Container.BindInterfacesAndSelfTo<AdvertisingService>().AsSingle().NonLazy();
             Container.BindInterfacesAndSelfTo<LanguageModel>().AsSingle().NonLazy();
             Container.BindInterfacesAndSelfTo<LeaderBoardModel>().AsSingle().NonLazy();
             
