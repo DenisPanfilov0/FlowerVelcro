@@ -229,7 +229,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0.5}
   m_AnchorMax: {x: 1, y: 0.5}
   m_AnchoredPosition: {x: -14.951691, y: 0}
-  m_SizeDelta: {x: -190.762, y: 41.5836}
+  m_SizeDelta: {x: -268.7183, y: 17.5971}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &31750013
 MonoBehaviour:
@@ -244,15 +244,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 0.5568628, g: 0.28235295, b: 0.039215688, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 1318656195, guid: 1fad8afaad2bfe44489b2a0c191895b9, type: 3}
-  m_Type: 1
+  m_Sprite: {fileID: -732825729, guid: 537c297808aa03647ba0438e3d28735b, type: 3}
+  m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 4
@@ -8608,7 +8608,31 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1120432884555113400, guid: 3a1cda059484ddd488a84adbfc991913, type: 3}
       propertyPath: m_SizeDelta.y
-      value: 0
+      value: 260
+      objectReference: {fileID: 0}
+    - target: {fileID: 1883311012302553559, guid: 3a1cda059484ddd488a84adbfc991913, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1883311012302553559, guid: 3a1cda059484ddd488a84adbfc991913, type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1883311012302553559, guid: 3a1cda059484ddd488a84adbfc991913, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 250
+      objectReference: {fileID: 0}
+    - target: {fileID: 1883311012302553559, guid: 3a1cda059484ddd488a84adbfc991913, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 250
+      objectReference: {fileID: 0}
+    - target: {fileID: 1883311012302553559, guid: 3a1cda059484ddd488a84adbfc991913, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 400
+      objectReference: {fileID: 0}
+    - target: {fileID: 1883311012302553559, guid: 3a1cda059484ddd488a84adbfc991913, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -135
       objectReference: {fileID: 0}
     - target: {fileID: 4593510651279917412, guid: 3a1cda059484ddd488a84adbfc991913, type: 3}
       propertyPath: m_Pivot.x
@@ -8690,13 +8714,37 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7960011097274281831, guid: 3a1cda059484ddd488a84adbfc991913, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7960011097274281831, guid: 3a1cda059484ddd488a84adbfc991913, type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7960011097274281831, guid: 3a1cda059484ddd488a84adbfc991913, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 250
+      objectReference: {fileID: 0}
+    - target: {fileID: 7960011097274281831, guid: 3a1cda059484ddd488a84adbfc991913, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 250
+      objectReference: {fileID: 0}
+    - target: {fileID: 7960011097274281831, guid: 3a1cda059484ddd488a84adbfc991913, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 145
+      objectReference: {fileID: 0}
+    - target: {fileID: 7960011097274281831, guid: 3a1cda059484ddd488a84adbfc991913, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -135
+      objectReference: {fileID: 0}
     - target: {fileID: 8667047491655962449, guid: 3a1cda059484ddd488a84adbfc991913, type: 3}
       propertyPath: m_Name
       value: InventoryWindow
       objectReference: {fileID: 0}
     - target: {fileID: 8667047491655962449, guid: 3a1cda059484ddd488a84adbfc991913, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -9299,7 +9347,7 @@ GameObject:
   - component: {fileID: 56233549509256892}
   - component: {fileID: 6434446492098418960}
   m_Layer: 5
-  m_Name: UIRoot
+  m_Name: UI_Button
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -9461,8 +9509,8 @@ SceneRoots:
   m_Roots:
   - {fileID: 519420032}
   - {fileID: 619394802}
+  - {fileID: 722808135}
   - {fileID: 1118206531768484383}
   - {fileID: 1925821380}
-  - {fileID: 722808135}
   - {fileID: 63959553}
   - {fileID: 2062288372}

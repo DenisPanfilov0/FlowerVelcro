@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 9158218785970102261}
   - component: {fileID: 6506267151905333687}
   - component: {fileID: 8648087303055012951}
-  m_Layer: 2
+  m_Layer: 6
   m_Name: Player 1
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -108,6 +108,7 @@ MonoBehaviour:
   _centerThreshold: 0.5
   _stopThreshold: 0.05
   N: 1
+  _characterIcon: {fileID: 0}
 --- !u!58 &6506267151905333687
 CircleCollider2D:
   m_ObjectHideFlags: 0
