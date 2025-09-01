@@ -69,7 +69,7 @@ namespace Code.Tutorial
             }
             else
             {
-                _progressData.SetTutorialChecked(false);
+                _progressData.SetTutorialChecked(true);
                 _sceneLoader.LoadScene(MainMenuSceneName);
             }
         }
