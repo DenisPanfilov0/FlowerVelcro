@@ -1,5 +1,6 @@
 using System;
 using Code.Gameplay.Services.GameStateService;
+using Code.Progress.Data;
 
 namespace Code.Gameplay.Services.Heart
 {
@@ -8,13 +9,16 @@ namespace Code.Gameplay.Services.Heart
         private const int HEART_MAX = 1;
         
         private readonly IGameStateService _gameStateService;
-        public event Action<int> HeartCountChange; 
+        private readonly ProgressData _progressData;
+        public event Action<int> HeartCountChange;
+        public event Action HeartDecrease;
         
         private int _heartCount = 1;
 
-        public HeartService(IGameStateService gameStateService)
+        public HeartService(IGameStateService gameStateService, ProgressData progressData)
         {
             _gameStateService = gameStateService;
+            _progressData = progressData;
         }
 
         public int GetCountHeart() => 
@@ -31,6 +35,12 @@ namespace Code.Gameplay.Services.Heart
 
         public void DecreaseHeart()
         {
+            if (!_progressData.IsTutorialChecked)
+            {
+                HeartDecrease?.Invoke();
+                return;
+            }
+            
             if (_heartCount >= HEART_MAX)
             {
                 _heartCount--;

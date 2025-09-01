@@ -12,10 +12,10 @@ namespace Code.Gameplay.Behaviour.View
         [SerializeField] protected bool _isCollected;
         [SerializeField] protected ParticleSystem _particlePrefab;
 
-        public override void Setup(PlayerStickingService playerStickingService, Sprite slimeIcon, ItemSpawnerTypeId typeId, 
-            HeartService heartService, IGameStateService gameStateService)
+        public override void Setup(PlayerStickingService playerStickingService, Sprite slimeIcon, 
+            HeartService heartService, IGameStateService gameStateService, bool isTutorial)
         {
-            base.Setup(playerStickingService, slimeIcon, typeId, heartService, gameStateService);
+            base.Setup(playerStickingService, slimeIcon, heartService, gameStateService, isTutorial);
         }
 
         public override void Reset()

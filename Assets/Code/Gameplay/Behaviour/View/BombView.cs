@@ -2,6 +2,7 @@ using Code.Configs.ItemSpawnerConfig;
 using Code.Gameplay.Services.GameStateService;
 using Code.Gameplay.Services.Heart;
 using Code.Gameplay.Services.PlayerSticking;
+using DG.Tweening;
 using UnityEngine;
 
 namespace Code.Gameplay.Behaviour.View
@@ -10,10 +11,10 @@ namespace Code.Gameplay.Behaviour.View
     {
         private bool _isReturningToPool;
 
-        public override void Setup(PlayerStickingService playerStickingService, Sprite slimeIcon, ItemSpawnerTypeId typeId, 
-            HeartService heartService, IGameStateService gameStateService)
+        public override void Setup(PlayerStickingService playerStickingService, Sprite slimeIcon, 
+            HeartService heartService, IGameStateService gameStateService, bool isTutorial)
         {
-            base.Setup(playerStickingService, slimeIcon, typeId, heartService, gameStateService);
+            base.Setup(playerStickingService, slimeIcon, heartService, gameStateService, isTutorial);
             _isReturningToPool = false;
         }
 
@@ -24,16 +25,17 @@ namespace Code.Gameplay.Behaviour.View
             {
                 _heartService?.DecreaseHeart();
                 _isReturningToPool = true;
-                // StartCoroutine(GetComponent<ItemAppearance>().DisappearAnimation(() => 
-                // {
-                //     if (_spawnerService != null && gameObject != null)
-                //     {
-                //         _spawnerService.ReturnToPool(this, _typeId);
-                //     }
-                //     _isReturningToPool = false;
-                // }));
-                
-                _spawnerService.ReturnToPool(this, _typeId);
+
+                if (!_isTutorial)
+                {
+                    _spawnerService.ReturnToPool(this, _typeId);
+                }
+                else
+                {
+                    // Анимация уменьшения масштаба с эффектом баунс
+                    transform.DOScale(Vector3.zero, 0.5f)
+                        .SetEase(Ease.OutBounce);
+                }
             }
         }
     }

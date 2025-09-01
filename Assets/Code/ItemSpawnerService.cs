@@ -92,7 +92,7 @@ namespace Code.Gameplay.Services.SpawnersServices
                         ItemView item = UnityEngine.Object.Instantiate(_prefabs[config.TypeId], Vector3.zero, Quaternion.identity, _spawnZoneTransform);
                         item.gameObject.SetActive(false);
                         item.SetupPool(this, config.TypeId);
-                        item.Setup(_playerStickingService, _icons[config.TypeId], config.TypeId, _heartService, _gameStateService);
+                        item.Setup(_playerStickingService, _icons[config.TypeId], _heartService, _gameStateService, false);
                         _objectPools[config.TypeId].Enqueue(item);
                     }
                 }
@@ -344,14 +344,14 @@ namespace Code.Gameplay.Services.SpawnersServices
                 {
                     item = UnityEngine.Object.Instantiate(_prefabs[typeId], spawnPosition, Quaternion.identity, _spawnZoneTransform);
                     item.SetupPool(this, typeId);
-                    item.Setup(_playerStickingService, _icons[typeId], typeId, _heartService, _gameStateService);
+                    item.Setup(_playerStickingService, _icons[typeId], _heartService, _gameStateService, false);
                 }
             }
             else
             {
                 item = UnityEngine.Object.Instantiate(_prefabs[typeId], spawnPosition, Quaternion.identity, _spawnZoneTransform);
                 item.SetupPool(this, typeId);
-                item.Setup(_playerStickingService, _icons[typeId], typeId, _heartService, _gameStateService);
+                item.Setup(_playerStickingService, _icons[typeId], _heartService, _gameStateService, false);
             }
 
             if (item != null)

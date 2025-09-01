@@ -9,10 +9,10 @@ namespace Code.Gameplay.Behaviour.View
 {
     public class SpikeView : ItemView
     {
-        public override void Setup(PlayerStickingService playerStickingService, Sprite icon, ItemSpawnerTypeId typeId, 
-            HeartService heartService, IGameStateService gameStateService)
+        public override void Setup(PlayerStickingService playerStickingService, Sprite icon, 
+            HeartService heartService, IGameStateService gameStateService, bool isTutorial)
         {
-            base.Setup(playerStickingService, icon, typeId, heartService, gameStateService);
+            base.Setup(playerStickingService, icon, heartService, gameStateService, isTutorial);
         }
 
         private void OnTriggerEnter2D(Collider2D other)

@@ -49,7 +49,8 @@ namespace Code.Gameplay.Services.GameScore
 
         public void Dispose()
         {
-            _score = 0;
+            // _score = 0;
+            ResetScore();
             // _isGameStop = false;
             _isNewRecord = false;
         }
@@ -60,6 +61,11 @@ namespace Code.Gameplay.Services.GameScore
             
             ScoreChange?.Invoke(_score);
             // ScoreUpdate();
+        }
+
+        public void ResetScore()
+        {
+            _score = 0;
         }
 
         public int GetScore()

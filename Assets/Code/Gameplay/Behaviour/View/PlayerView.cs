@@ -94,6 +94,10 @@ namespace Code.Gameplay.Behaviour.View
 
         private void OnDestroy()
         {
+            Destroy(_ropeObject);
+            _playerStickingService.FinishSticking();
+            
+            
             _playerStickingService.PlayerGlued -= MoveToTarget;
             _playerStickingService.OnFinishSticking -= HandleFinishSticking;
             _gameStateService.OnGameLose -= HandleGameLose;

@@ -17,5 +17,8 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/RestartLevel.unity
     guid: 6ed230839d98400478e006f039717bb4
+  - enabled: 1
+    path: Assets/Scenes/TutorialScene.unity
+    guid: 151c6bb3d183fea468df2c01fced45c1
   m_configObjects: {}
   m_UseUCBPForAssetBundles: 0

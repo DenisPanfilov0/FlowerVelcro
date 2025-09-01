@@ -16,6 +16,7 @@ namespace Code.Gameplay.Behaviour.View
         [SerializeField] protected float baseFallSpeed = 5f;
         [SerializeField] public float N = 1f; // For Inspector visibility, updated by GameSpeed
         protected bool _isFalling = true;
+        protected bool _isTutorial;
         [SerializeField] protected bool _isGameActive = true;
         protected PlayerStickingService _playerStickingService;
         protected HeartService _heartService;
@@ -30,14 +31,15 @@ namespace Code.Gameplay.Behaviour.View
             _gameStateService = gameStateService;
         }
 
-        public virtual void Setup(PlayerStickingService playerStickingService, Sprite icon, ItemSpawnerTypeId typeId, 
-            HeartService heartService, IGameStateService gameStateService)
+        public virtual void Setup(PlayerStickingService playerStickingService, Sprite icon, 
+            HeartService heartService, IGameStateService gameStateService, bool isTutorial)
         {
             if (gameObject == null) return;
             _playerStickingService = playerStickingService;
             _heartService = heartService;
             _gameStateService = gameStateService ?? _gameStateService; // Ensure gameStateService is set
-            _icon.sprite = icon;
+            _icon.sprite = icon != null ? icon : _icon.sprite;
+            _isTutorial = isTutorial;
             // if (GetComponent<ItemAppearance>() == null)
             // {
             //     gameObject.AddComponent<ItemAppearance>();

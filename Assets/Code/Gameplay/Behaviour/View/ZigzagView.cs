@@ -15,10 +15,10 @@ namespace Code.Gameplay.Behaviour.View
         private float _amplitude;
         private float _startTime;
 
-        public override void Setup(PlayerStickingService playerStickingService, Sprite icon, ItemSpawnerTypeId typeId, 
-            HeartService heartService, IGameStateService gameStateService)
+        public override void Setup(PlayerStickingService playerStickingService, Sprite icon, 
+            HeartService heartService, IGameStateService gameStateService, bool isTutorial)
         {
-            base.Setup(playerStickingService, icon, typeId, heartService, gameStateService);
+            base.Setup(playerStickingService, icon, heartService, gameStateService, isTutorial);
             CalculateScreenBounds();
             Vector3 centerPos = transform.position;
             centerPos.x = Camera.main.transform.position.x;
