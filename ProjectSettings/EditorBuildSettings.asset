@@ -14,7 +14,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/GameLoopScene.unity
     guid: 487bc9be274612f4498f1dfe6292af35
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/RestartLevel.unity
     guid: 6ed230839d98400478e006f039717bb4
   - enabled: 1
