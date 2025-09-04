@@ -15,7 +15,6 @@ namespace Code.Progress.Data
         public int TotalPollenCollected;
         public int TotalGamesPlayed;
 
-        // [Inject]
         public ProgressData(SaveLoadService saveLoadService)
         {
             _saveLoadService = saveLoadService;
@@ -72,6 +71,8 @@ namespace Code.Progress.Data
                 // Инициализация значений по умолчанию, если данных нет
                 MaxScore = 0;
                 IsTutorialChecked = false;
+                TotalPollenCollected = 0;
+                TotalGamesPlayed = 0;
                 SaveData(); // Сохраняем начальные значения
             }
         }

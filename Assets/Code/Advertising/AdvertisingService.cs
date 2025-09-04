@@ -8,13 +8,15 @@ namespace Code.Advertising
 {
     public class AdvertisingService : IInitializable, ITickable
     {
+        private const float FIXED_REWARD_TIME = 300f;
+        
         private float _time;
         private TaskCompletionSource<bool> _rewardTaskCompletionSource;
         private bool _rewardReceived;
 
         public void Initialize()
         {
-            _time = 180;
+            _time = FIXED_REWARD_TIME;
 
             YG2.onRewardAdv += RewardedAdv;
             YG2.onErrorRewardedAdv += CloseRewardedAdv;
@@ -58,7 +60,7 @@ namespace Code.Advertising
             // Если награда получена, сбрасываем таймер
             if (result)
             {
-                _time = 180;
+                _time = FIXED_REWARD_TIME;
             }
 
             return result;
@@ -69,7 +71,7 @@ namespace Code.Advertising
             if (_time <= 0)
             {
                 YG2.InterstitialAdvShow();
-                _time = 180;
+                _time = FIXED_REWARD_TIME;
             }
         }
 

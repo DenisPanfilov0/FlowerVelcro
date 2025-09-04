@@ -34,13 +34,13 @@ namespace Code.Gameplay.Services.GameScore
                 _progress.TotalPollenCollected += _score;
                 _progress.TotalGamesPlayed++;
                 
-                // if (_progress.MaxScore < _score)
-                // {
+                if (_progress.MaxScore < _score)
+                {
                     // _progress.ProgressData.MaxScore = _score;
                     _progress.ChangeMaxScore(_score);
                     _leaderBoardModel.SetLeaderboard(LeaderBoardType.FVBestRecordAllTime, _score);
                     _isNewRecord = true;
-                // }
+                }
             };
         }
 

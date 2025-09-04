@@ -24,7 +24,7 @@ namespace Code
         private void Start()
         {
             _selectLanguage.onClick.AddListener(SelectLanguage);
-            _selectedImage.gameObject.SetActive(false); // По умолчанию изображение не активно
+            // _selectedImage.gameObject.SetActive(false); // По умолчанию изображение не активно
         }
 
         private void OnDestroy()
