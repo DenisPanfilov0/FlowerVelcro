@@ -100,5 +100,7 @@ namespace Code
         es, //
         ja, //
         de, //
+        zh, //
+        id, //
     }
 }

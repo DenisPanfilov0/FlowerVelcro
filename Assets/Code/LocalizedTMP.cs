@@ -11,6 +11,14 @@ namespace Code
     public class LocalizedTMP : MonoBehaviour
     {
         [SerializeField] private string LocalizationKey;
+        private FontStyles _initialFontStyle; // Сохраняем исходный стиль
+
+        private void Awake()
+        {
+            // Сохраняем исходный fontStyle при создании компонента
+            TMP_Text tmpText = GetComponent<TMP_Text>();
+            _initialFontStyle = tmpText.fontStyle;
+        }
 
         private void Start()
         {
@@ -25,7 +33,22 @@ namespace Code
 
         private void Localize()
         {
-            GetComponent<TMP_Text>().text = LocalizationManager.Localize(LocalizationKey);
+            TMP_Text tmpText = GetComponent<TMP_Text>();
+            tmpText.text = LocalizationManager.Localize(LocalizationKey);
+            tmpText.font = LanguageFontService.Instance.GetFontByLanguageType();
+
+            // Применяем настройки TMP_Text
+            var settings = LanguageFontService.Instance.GetTMPSettingsByLanguageType();
+            if (settings.HasValue && settings.Value.FontStyle.HasValue)
+            {
+                // Если есть специфичные настройки для языка (например, для японского), применяем их
+                tmpText.fontStyle = settings.Value.FontStyle.Value;
+            }
+            else
+            {
+                // Для всех других языков восстанавливаем исходный стиль
+                tmpText.fontStyle = _initialFontStyle;
+            }
         }
 
         public void SetKey(string key)

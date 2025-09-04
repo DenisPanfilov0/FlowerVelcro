@@ -21,14 +21,18 @@ namespace Code.Infrastructure.Installers
         [SerializeField] private CurrencyConfig _currencyConfig;
         [SerializeField] private AudioManager _audioManager;
         [SerializeField] private SceneLoaderUI _sceneLoaderUI;
+        [SerializeField] private LanguageFontConfig _languageFontConfig;
         
         public override void InstallBindings()
         {
             Container.BindInterfacesAndSelfTo<SaveLoadService>().AsSingle().NonLazy();
             Container.BindInterfacesAndSelfTo<ProgressData>().AsSingle().NonLazy();
             Container.BindInterfacesAndSelfTo<AdvertisingService>().AsSingle().NonLazy();
-            Container.BindInterfacesAndSelfTo<LanguageModel>().AsSingle().NonLazy();
             Container.BindInterfacesAndSelfTo<LeaderBoardModel>().AsSingle().NonLazy();
+            
+            Container.BindInterfacesAndSelfTo<LanguageModel>().AsSingle().NonLazy();
+            Container.Bind<LanguageFontConfig>().FromInstance(_languageFontConfig).AsSingle().NonLazy();
+            Container.BindInterfacesAndSelfTo<LanguageFontService>().AsSingle().NonLazy();
             
             Container.BindInterfacesAndSelfTo<InventoryModel>().AsSingle().NonLazy();
             Container.Bind<InventorySkinConfigs>().FromInstance(_inventorySkinConfigs).AsSingle().NonLazy();

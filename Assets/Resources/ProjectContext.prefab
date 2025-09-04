@@ -78,3 +78,4 @@ MonoBehaviour:
   _currencyConfig: {fileID: 11400000, guid: 9e2d414bc1debda408c6ae78f37f011b, type: 2}
   _audioManager: {fileID: 494207302971246681, guid: 329cd9a5153c6d0419e6a104167d90cf, type: 3}
   _sceneLoaderUI: {fileID: 2803346729910733566, guid: 1ba86be5391b34f45bc95e09e56fb183, type: 3}
+  _languageFontConfig: {fileID: 11400000, guid: 083b3f70eac8be24a86f053a7a4f9e29, type: 2}
