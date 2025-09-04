@@ -1596,7 +1596,7 @@ GameObject:
   - component: {fileID: 5892572817381814473}
   - component: {fileID: 7006379667403102587}
   - component: {fileID: 4632342059295960695}
-  - component: {fileID: 7056972873667606795}
+  - component: {fileID: 2350820651871742833}
   m_Layer: 5
   m_Name: Text (TMP)
   m_TagString: Untagged
@@ -1722,7 +1722,7 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
---- !u!114 &7056972873667606795
+--- !u!114 &2350820651871742833
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1731,166 +1731,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 4427226625235527540}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f34f36451b093ee4c83ad4aa5459d2ac, type: 3}
+  m_Script: {fileID: 11500000, guid: 9eb94e0242494647a8f441e6f0ae1e5a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  textMPComponent: {fileID: 4632342059295960695}
-  uniqueFontTMP: {fileID: 0}
-  textLComponent: {fileID: 0}
-  info:
-    domainAutoLocalization: com
-    languages:
-      ru: 1
-      en: 1
-      tr: 1
-      az: 0
-      be: 0
-      he: 0
-      hy: 0
-      ka: 0
-      et: 0
-      fr: 1
-      kk: 0
-      ky: 0
-      lt: 0
-      lv: 0
-      ro: 0
-      tg: 0
-      tk: 0
-      uk: 0
-      uz: 0
-      es: 1
-      pt: 0
-      ar: 0
-      id: 0
-      ja: 1
-      it: 0
-      de: 1
-      hi: 0
-    fonts:
-      defaultFont:
-      - {fileID: 12800000, guid: e3265ab4bf004d28a9537516768c1c75, type: 3}
-      ru: []
-      en: []
-      tr: []
-      az: []
-      be: []
-      he: []
-      hy: []
-      ka: []
-      et: []
-      fr: []
-      kk: []
-      ky: []
-      lt: []
-      lv: []
-      ro: []
-      tg: []
-      tk: []
-      uk: []
-      uz: []
-      es: []
-      pt: []
-      ar: []
-      id: []
-      ja: []
-      it: []
-      de: []
-      hi: []
-    fontsTMP:
-      defaultFont:
-      - {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-      ru: []
-      en: []
-      tr: []
-      az: []
-      be: []
-      he: []
-      hy: []
-      ka: []
-      et: []
-      fr: []
-      kk: []
-      ky: []
-      lt: []
-      lv: []
-      ro: []
-      tg: []
-      tk: []
-      uk: []
-      uz: []
-      es: []
-      pt: []
-      ar: []
-      id: []
-      ja: []
-      it: []
-      de: []
-      hi: []
-    fontsSizeCorrect:
-      ru: 
-      en: 
-      tr: 
-      az: 
-      be: 
-      he: 
-      hy: 
-      ka: 
-      et: 
-      fr: 
-      kk: 
-      ky: 
-      lt: 
-      lv: 
-      ro: 
-      tg: 
-      tk: 
-      uk: 
-      uz: 
-      es: 
-      pt: 
-      ar: 
-      id: 
-      ja: 
-      it: 
-      de: 
-      hi: 
-  text: 
-  ru: "\u0418\u041D\u0412\u0415\u041D\u0422\u0410\u0420\u042C"
-  en: INVENTORY
-  tr: ENVANTER
-  az: 
-  be: 
-  he: 
-  hy: 
-  ka: 
-  et: 
-  fr: INVENTAIRE
-  kk: 
-  ky: 
-  lt: 
-  lv: 
-  ro: 
-  tg: 
-  tk: 
-  uk: 
-  uz: 
-  es: INVENTARIO
-  pt: 
-  ar: 
-  id: 
-  ja: "\u5728\u5EAB"
-  it: 
-  de: INVENTAR
-  hi: 
-  changeOnlyFont: 0
-  fontNumber: 0
-  uniqueFont: {fileID: 0}
-  additionalText: {fileID: 0}
-  textHeight: 20
-  processTranslateLabel: 7/7 completed
-  componentTextField: 1
-  countLang: 7
+  LocalizationKey: INVENTORY
 --- !u!1 &4650209935080036017
 GameObject:
   m_ObjectHideFlags: 0

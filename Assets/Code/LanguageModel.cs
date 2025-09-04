@@ -41,7 +41,7 @@ namespace Code
             else
             {
                 // Если нет сохранённых данных, используем текущий язык из YG2
-                _language = YG2.lang;
+                // _language = YG2.lang;
                 if (Enum.TryParse<LanguageType>(_language, true, out var languageType))
                 {
                     _languageType = languageType;
@@ -49,7 +49,7 @@ namespace Code
                 else
                 {
                     // Опционально: установка языка по умолчанию
-                    _languageType = LanguageType.ru;
+                    _languageType = LanguageType.en;
                     _language = _languageType.ToString();
                     YG2.SwitchLanguage(_language);
                 }
