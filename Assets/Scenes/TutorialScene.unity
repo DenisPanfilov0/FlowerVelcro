@@ -130,7 +130,6 @@ GameObject:
   - component: {fileID: 13033336}
   - component: {fileID: 13033335}
   - component: {fileID: 13033334}
-  - component: {fileID: 13033337}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -212,18 +211,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &13033337
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 13033333}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a79441f348de89743a2939f4d699eac1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1001 &52882542
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -781,7 +768,7 @@ GameObject:
   m_Component:
   - component: {fileID: 217034669}
   m_Layer: 5
-  m_Name: Stage_4
+  m_Name: old_Stage_4
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -876,7 +863,7 @@ GameObject:
   m_Component:
   - component: {fileID: 266958165}
   - component: {fileID: 266958164}
-  - component: {fileID: 266958163}
+  - component: {fileID: 266958166}
   m_Layer: 0
   m_Name: EventSystem
   m_TagString: Untagged
@@ -884,26 +871,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &266958163
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 266958162}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4f231c4fb786f3946a6b90b886c48677, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_SendPointerHoverToParent: 1
-  m_HorizontalAxis: Horizontal
-  m_VerticalAxis: Vertical
-  m_SubmitButton: Submit
-  m_CancelButton: Cancel
-  m_InputActionsPerSecond: 10
-  m_RepeatDelay: 0.5
-  m_ForceModuleActive: 0
 --- !u!114 &266958164
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -934,6 +901,37 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &266958166
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 266958162}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 01614664b831546d2ae94a42149d80ac, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_SendPointerHoverToParent: 1
+  m_MoveRepeatDelay: 0.5
+  m_MoveRepeatRate: 0.1
+  m_XRTrackingOrigin: {fileID: 0}
+  m_ActionsAsset: {fileID: -944628639613478452, guid: ca9f5fa95ffab41fb9a615ab714db018, type: 3}
+  m_PointAction: {fileID: -1654692200621890270, guid: ca9f5fa95ffab41fb9a615ab714db018, type: 3}
+  m_MoveAction: {fileID: -8784545083839296357, guid: ca9f5fa95ffab41fb9a615ab714db018, type: 3}
+  m_SubmitAction: {fileID: 392368643174621059, guid: ca9f5fa95ffab41fb9a615ab714db018, type: 3}
+  m_CancelAction: {fileID: 7727032971491509709, guid: ca9f5fa95ffab41fb9a615ab714db018, type: 3}
+  m_LeftClickAction: {fileID: 3001919216989983466, guid: ca9f5fa95ffab41fb9a615ab714db018, type: 3}
+  m_MiddleClickAction: {fileID: -2185481485913320682, guid: ca9f5fa95ffab41fb9a615ab714db018, type: 3}
+  m_RightClickAction: {fileID: -4090225696740746782, guid: ca9f5fa95ffab41fb9a615ab714db018, type: 3}
+  m_ScrollWheelAction: {fileID: 6240969308177333660, guid: ca9f5fa95ffab41fb9a615ab714db018, type: 3}
+  m_TrackedDevicePositionAction: {fileID: 6564999863303420839, guid: ca9f5fa95ffab41fb9a615ab714db018, type: 3}
+  m_TrackedDeviceOrientationAction: {fileID: 7970375526676320489, guid: ca9f5fa95ffab41fb9a615ab714db018, type: 3}
+  m_DeselectOnBackgroundClick: 1
+  m_PointerBehavior: 0
+  m_CursorLockBehavior: 0
+  m_ScrollDeltaPerTick: 6
 --- !u!1 &300683978
 GameObject:
   m_ObjectHideFlags: 0
@@ -1118,7 +1116,7 @@ GameObject:
   m_Component:
   - component: {fileID: 421214872}
   m_Layer: 5
-  m_Name: Stage_3
+  m_Name: old_Stage_3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1388,6 +1386,7 @@ GameObject:
   - component: {fileID: 503401637}
   - component: {fileID: 503401639}
   - component: {fileID: 503401638}
+  - component: {fileID: 503401640}
   m_Layer: 5
   m_Name: Text (TMP)
   m_TagString: Untagged
@@ -1434,8 +1433,10 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "\u0421\u043E\u0431\u0435\u0440\u0438 \u0446\u0432\u0435\u0442\u043E\u0447\u0435\u043A
-    \u0438 \u043D\u0435 \u043E\u0431\u043E\u0441\u0440\u0438\u0441\u044C"
+  m_text: "\u0421\u043E\u0431\u0438\u0440\u0430\u044F \u0446\u0432\u0435\u0442\u044B,
+    \u0442\u044B \u0437\u0430\u0440\u0430\u0431\u0430\u0442\u044B\u0432\u0430\u0435\u0448\u044C
+    \u043F\u044B\u043B\u044C\u0446\u0443 \u0438 \u0441\u0442\u0430\u0432\u0438\u0448\u044C
+    \u0440\u0435\u043A\u043E\u0440\u0434\u044B"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -1514,6 +1515,19 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 503401636}
   m_CullTransparentMesh: 1
+--- !u!114 &503401640
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 503401636}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9eb94e0242494647a8f441e6f0ae1e5a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  LocalizationKey: By picking flowers, you earn pollen and set records
 --- !u!1001 &513618841
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1690,7 +1704,7 @@ GameObject:
   m_Component:
   - component: {fileID: 711516303}
   m_Layer: 5
-  m_Name: Stage_2
+  m_Name: old_Stage_2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2202,6 +2216,7 @@ GameObject:
   - component: {fileID: 989295194}
   - component: {fileID: 989295196}
   - component: {fileID: 989295195}
+  - component: {fileID: 989295197}
   m_Layer: 5
   m_Name: Text (TMP)
   m_TagString: Untagged
@@ -2330,6 +2345,20 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 989295193}
   m_CullTransparentMesh: 1
+--- !u!114 &989295197
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 989295193}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9eb94e0242494647a8f441e6f0ae1e5a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  LocalizationKey: While pulling, you can switch to another flower to change the
+    movement.
 --- !u!1001 &1002576816
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3185,6 +3214,7 @@ GameObject:
   - component: {fileID: 1301717658}
   - component: {fileID: 1301717660}
   - component: {fileID: 1301717659}
+  - component: {fileID: 1301717661}
   m_Layer: 5
   m_Name: Text (TMP)
   m_TagString: Untagged
@@ -3313,6 +3343,19 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1301717657}
   m_CullTransparentMesh: 1
+--- !u!114 &1301717661
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1301717657}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9eb94e0242494647a8f441e6f0ae1e5a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  LocalizationKey: You can fly up through the spikes, but falling on them is deadly.
 --- !u!1 &1319431714
 GameObject:
   m_ObjectHideFlags: 0
@@ -3486,6 +3529,7 @@ GameObject:
   - component: {fileID: 1384240363}
   - component: {fileID: 1384240365}
   - component: {fileID: 1384240364}
+  - component: {fileID: 1384240366}
   m_Layer: 5
   m_Name: Text (TMP)
   m_TagString: Untagged
@@ -3614,6 +3658,20 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1384240362}
   m_CullTransparentMesh: 1
+--- !u!114 &1384240366
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1384240362}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9eb94e0242494647a8f441e6f0ae1e5a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  LocalizationKey: And these are beetles, their danger lies in movement, don't get
+    in their way
 --- !u!1 &1398293281
 GameObject:
   m_ObjectHideFlags: 0
@@ -4994,22 +5052,6 @@ Canvas:
   m_SortingLayerID: 0
   m_SortingOrder: 0
   m_TargetDisplay: 0
---- !u!1 &5647179140766071873
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 8752455183534610738}
-  m_Layer: 6
-  m_Name: StartPosition
-  m_TagString: Player
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
 --- !u!224 &5813369749274969779
 RectTransform:
   m_ObjectHideFlags: 0
@@ -5071,21 +5113,6 @@ MonoBehaviour:
   m_DefaultSpriteDPI: 96
   m_DynamicPixelsPerUnit: 1
   m_PresetInfoIsWorld: 0
---- !u!4 &8752455183534610738
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5647179140766071873}
-  serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.3, y: -34.9, z: 0}
-  m_LocalScale: {x: 1.95, y: 1.95, z: 1.95}
-  m_ConstrainProportionsScale: 1
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
@@ -5095,6 +5122,5 @@ SceneRoots:
   - {fileID: 266958165}
   - {fileID: 1917762662}
   - {fileID: 1540970554211163732}
-  - {fileID: 8752455183534610738}
   - {fileID: 1319431716}
   - {fileID: 790662904}

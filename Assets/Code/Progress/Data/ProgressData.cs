@@ -12,6 +12,8 @@ namespace Code.Progress.Data
 
         public int MaxScore { get; private set; }
         public bool IsTutorialChecked { get; private set; }
+        public int TotalPollenCollected;
+        public int TotalGamesPlayed;
 
         // [Inject]
         public ProgressData(SaveLoadService saveLoadService)
@@ -43,12 +45,14 @@ namespace Code.Progress.Data
             SaveData(); // Сохраняем сразу после изменения
         }
 
-        private void SaveData()
+        public void SaveData()
         {
             var data = new ProgressSaveData
             {
                 MaxScore = MaxScore,
-                IsTutorialChecked = IsTutorialChecked
+                IsTutorialChecked = IsTutorialChecked,
+                TotalPollenCollected = TotalPollenCollected,
+                TotalGamesPlayed = TotalGamesPlayed,
             };
             _saveLoadService.SaveData(SAVE_KEY, data);
         }
@@ -60,6 +64,8 @@ namespace Code.Progress.Data
             {
                 MaxScore = data.MaxScore;
                 IsTutorialChecked = data.IsTutorialChecked;
+                TotalPollenCollected = data.TotalPollenCollected;
+                TotalGamesPlayed = data.TotalGamesPlayed;
             }
             else
             {
@@ -76,5 +82,7 @@ namespace Code.Progress.Data
     {
         public int MaxScore;
         public bool IsTutorialChecked;
+        public int TotalPollenCollected;
+        public int TotalGamesPlayed;
     }
 }

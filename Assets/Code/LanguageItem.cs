@@ -32,7 +32,7 @@ namespace Code
             _selectLanguage.onClick.RemoveListener(SelectLanguage);
         }
 
-        public void SelectLanguage()
+        private void SelectLanguage()
         {
             _audioManager.PlaySoundEffect(AudioClipTypeId.ButtonClick);
             _languageChanger.SetLanguage(_language);

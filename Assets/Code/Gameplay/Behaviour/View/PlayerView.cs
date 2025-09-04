@@ -35,8 +35,8 @@ namespace Code.Gameplay.Behaviour.View
         private float _lastOrthographicSize;
         private Vector2 _lastScreenResolution;
         private float _playerHeight;
-        // private bool _hasCollectedFirstPollen;
         private InventoryModel _inventoryModel;
+        private Flower _targetFlower; // Для сохранения цели притягивания при паузе
 
         [Inject]
         public void Construct(
@@ -67,7 +67,12 @@ namespace Code.Gameplay.Behaviour.View
             Collider2D collider = GetComponent<Collider2D>();
             _playerHeight = collider.bounds.size.y;
 
-            // _hasCollectedFirstPollen = false; // Сбрасываем флаг при создании объекта
+            if (_gameStateService != null)
+            {
+                _gameStateService.OnGameLose += HandleGameLose;
+                _gameStateService.OnGamePause += HandleGamePause;
+                _gameStateService.OnGameResume += HandleGameResume;
+            }
         }
 
         private void Start()
@@ -75,7 +80,6 @@ namespace Code.Gameplay.Behaviour.View
             _playerStickingService.AddPlayer(this);
             _playerStickingService.PlayerGlued += MoveToTarget;
             _playerStickingService.OnFinishSticking += HandleFinishSticking;
-            _gameStateService.OnGameLose += HandleGameLose;
             UpdateScreenBounds();
             _lastOrthographicSize = _mainCamera.orthographicSize;
             _lastScreenResolution = new Vector2(Screen.width, Screen.height);
@@ -85,10 +89,13 @@ namespace Code.Gameplay.Behaviour.View
 
         private void OnEnable()
         {
-            if (_isGameActive)
+            if (_isGameActive && _gameStateService != null)
             {
                 N = _gameStateService.GameSpeed; // Update serialized field for Inspector
-                _rb.linearVelocity = Vector2.down * _baseFallSpeed * _gameStateService.GameSpeed;
+                if (_isFalling)
+                {
+                    _rb.linearVelocity = Vector2.down * _baseFallSpeed * _gameStateService.GameSpeed;
+                }
             }
         }
 
@@ -96,16 +103,19 @@ namespace Code.Gameplay.Behaviour.View
         {
             Destroy(_ropeObject);
             _playerStickingService.FinishSticking();
-            
-            
             _playerStickingService.PlayerGlued -= MoveToTarget;
             _playerStickingService.OnFinishSticking -= HandleFinishSticking;
-            _gameStateService.OnGameLose -= HandleGameLose;
+            if (_gameStateService != null)
+            {
+                _gameStateService.OnGameLose -= HandleGameLose;
+                _gameStateService.OnGamePause -= HandleGamePause;
+                _gameStateService.OnGameResume -= HandleGameResume;
+            }
         }
 
         private void Update()
         {
-            if (!_isGameActive) return;
+            if (!_isGameActive || _gameStateService.IsGamePause) return;
 
             if (_mainCamera.orthographicSize != _lastOrthographicSize ||
                 Screen.width != _lastScreenResolution.x ||
@@ -121,7 +131,7 @@ namespace Code.Gameplay.Behaviour.View
 
         private void FixedUpdate()
         {
-            if (!_isGameActive || !_isFalling) return;
+            if (!_isGameActive || !_isFalling || _gameStateService.IsGamePause) return;
 
             N = _gameStateService.GameSpeed; // Update serialized field for Inspector
             _rb.linearVelocity = Vector2.down * _baseFallSpeed * _gameStateService.GameSpeed;
@@ -142,8 +152,9 @@ namespace Code.Gameplay.Behaviour.View
 
         private void MoveToTarget(Flower flower)
         {
-            if (!_isGameActive || flower== null) return;
+            if (!_isGameActive || flower == null || _gameStateService.IsGamePause) return;
 
+            _targetFlower = flower; // Сохраняем цель для возобновления после паузы
             if (_moveCoroutine != null)
             {
                 StopCoroutine(_moveCoroutine);
@@ -162,7 +173,7 @@ namespace Code.Gameplay.Behaviour.View
                 Destroy(_ropeObject);
             }
 
-            if (!_isGameActive) return;
+            if (!_isGameActive || _gameStateService.IsGamePause) return;
 
             _ropeObject = Instantiate(_ropePrefab, transform.position, Quaternion.identity);
             _ropeSpriteRenderer = _ropeObject.GetComponent<SpriteRenderer>();
@@ -176,6 +187,7 @@ namespace Code.Gameplay.Behaviour.View
             float distance;
             do
             {
+                if (_gameStateService.IsGamePause) yield break; // Прерываем корутину при паузе
                 distance = Vector3.Distance(transform.position, flower.transform.position);
                 if (distance > _centerThreshold)
                 {
@@ -185,17 +197,18 @@ namespace Code.Gameplay.Behaviour.View
                         _moveSpeed * _gameStateService.GameSpeed * Time.deltaTime
                     );
                     UpdateRope(flower);
-                    // Rotate player to face slime (same as rope rotation)
+                    // Rotate player to face flower
                     Vector3 direction = flower.transform.position - transform.position;
                     float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
                     transform.rotation = Quaternion.Euler(0, 0, angle - 90);
                 }
                 yield return null;
-            } while (distance > _centerThreshold && _isGameActive);
+            } while (distance > _centerThreshold && _isGameActive && !_gameStateService.IsGamePause);
 
-            if (_isGameActive)
+            if (_isGameActive && !_gameStateService.IsGamePause)
             {
                 Destroy(_ropeObject);
+                _ropeObject = null;
                 _playerStickingService.FinishSticking();
                 flower.CloseFlower();
 
@@ -209,32 +222,26 @@ namespace Code.Gameplay.Behaviour.View
                 }
 
                 _audioManager.PlaySoundEffect(AudioClipTypeId.CollectedPollen);
-
-                // // Проигрываем звук при первом сборе цветка
-                // if (!_hasCollectedFirstPollen)
-                // {
-                //     _hasCollectedFirstPollen = true;
-                // }
             }
         }
 
         private void UpdateRope(Flower flower)
         {
-            if (_ropeObject == null || !_isGameActive || flower == null) return;
+            if (_ropeObject == null || !_isGameActive || flower == null || _gameStateService.IsGamePause) return;
 
-            Vector3 slimePosition = flower.transform.position;
+            Vector3 flowerPosition = flower.transform.position;
             Vector3 playerPosition = transform.position;
-            _ropeObject.transform.position = (playerPosition + slimePosition) / 2;
-            float distance = Vector3.Distance(playerPosition, slimePosition);
+            _ropeObject.transform.position = (playerPosition + flowerPosition) / 2;
+            float distance = Vector3.Distance(playerPosition, flowerPosition);
             _ropeSpriteRenderer.size = new Vector2(_ropeSpriteRenderer.size.x, distance);
-            Vector3 direction = slimePosition - playerPosition;
+            Vector3 direction = flowerPosition - playerPosition;
             float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
             _ropeObject.transform.rotation = Quaternion.Euler(0, 0, angle - 90);
         }
 
         private void HandleFinishSticking()
         {
-            if (!_isGameActive) return;
+            if (!_isGameActive || _gameStateService.IsGamePause) return;
 
             if (_ropeObject != null)
             {
@@ -249,6 +256,7 @@ namespace Code.Gameplay.Behaviour.View
             }
 
             _isFalling = true;
+            _targetFlower = null; // Сбрасываем цель
             N = _gameStateService.GameSpeed; // Update serialized field for Inspector
             _rb.linearVelocity = Vector2.down * _baseFallSpeed * _gameStateService.GameSpeed;
             // Reset rotation to face upward when falling
@@ -258,7 +266,6 @@ namespace Code.Gameplay.Behaviour.View
         private void HandleGameLose()
         {
             _rb.gameObject.SetActive(false);
-            
             _isGameActive = false;
             _isFalling = false;
             if (_moveCoroutine != null)
@@ -275,8 +282,50 @@ namespace Code.Gameplay.Behaviour.View
             {
                 _rb.linearVelocity = Vector2.zero;
             }
+            _targetFlower = null; // Сбрасываем цель
             // Reset rotation to face upward on game over
             transform.rotation = Quaternion.Euler(0, 0, 0);
+        }
+
+        private void HandleGamePause()
+        {
+            _isFalling = false;
+            if (_moveCoroutine != null)
+            {
+                StopCoroutine(_moveCoroutine);
+                _moveCoroutine = null;
+            }
+            if (_ropeObject != null)
+            {
+                Destroy(_ropeObject);
+                _ropeObject = null;
+            }
+            if (_rb != null)
+            {
+                _rb.linearVelocity = Vector2.zero;
+            }
+            // Сохраняем текущую цель притягивания (если есть)
+        }
+
+        private void HandleGameResume()
+        {
+            if (!_isGameActive) return;
+
+            _isFalling = true;
+            N = _gameStateService.GameSpeed; // Update serialized field for Inspector
+            if (_targetFlower != null)
+            {
+                // Возобновляем притягивание к цветку
+                MoveToTarget(_targetFlower);
+            }
+            else
+            {
+                // Возобновляем падение
+                if (_rb != null)
+                {
+                    _rb.linearVelocity = Vector2.down * _baseFallSpeed * _gameStateService.GameSpeed;
+                }
+            }
         }
     }
 }

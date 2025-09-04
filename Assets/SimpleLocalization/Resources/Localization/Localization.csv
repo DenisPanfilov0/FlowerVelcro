@@ -1,0 +1,76 @@
+Key,ru,en,de,fr,tr,es,ja
+Main Menu,,,,,,,
+LEADERBOARD,ТАБЛИЦА ЛИДЕРОВ,LEADERBOARD,BESTENLISTE,CLASSEMENT,LİDER TABLOSU,TABLA DE CLASIFICACIÓN,リーダーボード
+RECORD,РЕКОРД,RECORD,AUFZEICHNEN,ENREGISTRER,KAYIT,REGISTRO,記録
+IN FLIGHT,В ПОЛЕТ,IN FLIGHT,IM FLUG,EN VOL,UÇUŞTA,EN VUELO,飛行中
+INVENTORY,ИНВЕНТАРЬ,INVENTORY,INVENTAR,INVENTAIRE,ENVANTER,INVENTARIO,在庫
+SETTINGS,НАСТРОЙКИ,SETTINGS,EINSTELLUNGEN,PARAMÈTRES,AYARLAR,AJUSTES,設定
+RECORDS,РЕКОРДЫ,RECORDS,AUFZEICHNUNGEN,ENREGISTREMENTS,KAYITLAR,ARCHIVOS,記録
+BACK,НАЗАД,BACK,ZURÜCK,DOS,GERİ,ATRÁS,戻る
+OPEN,ОТКРЫТЬ,OPEN,OFFEN,OUVRIR,AÇIK,ABIERTO,開ける
+CHARACTER,ПЕРСОНАЖ,CHARACTER,CHARAKTER,PERSONNAGE,KARAKTER,PERSONAJE,キャラクター
+FLOWERS,ЦВЕТЫ,FLOWERS,BLUMEN,FLEURS,ÇİÇEKLER,FLORES,花
+BOMBS,БОМБЫ,BOMBS,BOMBEN,BOMBES,BOMBALAR,BOMBAS,爆弾
+SPIKES,ШИПЫ,SPIKES,SPIKES,POINTES,ÇİVİLER,ZAPATILLAS CON CLAVOS,スパイク
+BEETLES,ЖУКИ,BEETLES,Käfer,COLÉOPTÈRES,BÖCEKLER,ESCARABAJOS,カブトムシ
+Open the chest and get the environment images,Открой сундук и получи образы окружения,Open the chest and get the environment images,Öffnen Sie die Truhe und holen Sie sich die Umgebungsbilder,Ouvrez le coffre et obtenez les images de l'environnement,Sandığı açın ve çevre görüntülerini alın,Abre el cofre y obtén las imágenes del entorno.,宝箱を開けて環境画像を入手
+CONTINUE...,ПРОДОЛЖИТЬ...,CONTINUE...,WEITERMACHEN...,CONTINUER...,DEVAM ETMEK...,CONTINUAR...,続く...
+Language,Язык,Language,Sprache,Langue,Dil,Idioma,言語
+,,,,,,,
+Game Loop,,,,,,,
+The collection is over,Сбор окончен,The collection is over,Die Sammlung ist beendet,La collection est terminée,Koleksiyon bitti,La colección ha terminado,コレクションは終了しました
+New Record,Новый Рекорд,New Record,Neuer Rekord,Nouveau record,Yeni Kayıt,Nuevo récord,新記録
+x3 POLLEN,х3 ПЫЛЬЦА,x3 POLLEN,x3 POLLEN,x3 POLLEN,x3 POLEN,x3 POLEN,花粉×3
+HOME,ДОМОЙ,HOME,HEIM,MAISON,EV,HOGAR,家
+AGAIN,СНОВА,AGAIN,WIEDER,ENCORE,TEKRAR,DE NUEVO,また
+PAUSE,ПАУЗА,PAUSE,PAUSE,PAUSE,DURAKLAT,PAUSA,一時停止
+,,,,,,,
+Tutorial,,,,,,,
+"By picking flowers, you earn pollen and set records","Собирая цветы, ты зарабатываешь пыльцу и ставишь рекорды","By picking flowers, you earn pollen and set records",Durch das Pflücken von Blumen erhältst du Pollen und stellst Rekorde auf,"En cueillant des fleurs, vous gagnez du pollen et établissez des records",Çiçek toplayarak polen kazanıp rekor kırabilirsiniz,"Recogiendo flores, ganas polen y estableces récords",花を摘むことで花粉を獲得し、記録を樹立することができます
+"While pulling, you can switch to another flower to change the movement.",Во время притягивания ты можешь переключиться на другой цветок для смены движения,"While pulling, you can switch to another flower to change the movement.","Während des Ziehens können Sie zu einer anderen Blume wechseln, um die Bewegung zu ändern.","En tirant, vous pouvez passer à une autre fleur pour changer le mouvement.",Çekerken diğer çiçeğe geçerek hareketi değiştirebilirsiniz.,"Mientras tiras, puedes cambiar a otra flor para cambiar el movimiento.",引っ張っている間に別の花に切り替えると動きを変えることができます。
+"You can fly up through the spikes, but falling on them is deadly.","Через шипы ты можешь пролететь вверх, но падать на них смертельно опасно","You can fly up through the spikes, but falling on them is deadly.","Sie können durch die Stacheln nach oben fliegen, aber darauf zu fallen ist tödlich.","Vous pouvez voler à travers les pointes, mais tomber dessus est mortel.","Dikenlerin arasından uçarak yukarı çıkabilirsiniz, ancak üzerlerine düşmeniz ölümcüldür.","Puedes volar a través de los picos, pero caer sobre ellos es mortal.",スパイクを飛び越えて上へ飛ぶことはできますが、スパイクの上に落ちると致命的です。
+"And these are beetles, their danger lies in movement, don't get in their way","А это жуки, их опасность заключается в движении, не попадайся им на пути","And these are beetles, their danger lies in movement, don't get in their way","Und das sind Käfer, ihre Gefahr liegt in der Bewegung, steh ihnen nicht im Weg","Et ce sont des scarabées, leur danger réside dans le mouvement, ne vous mettez pas en travers de leur chemin","Ve bunlar böcekler, tehlikeleri hareket halindedir, yollarına çıkmayın","Y estos son escarabajos, su peligro está en el movimiento, no te metas en su camino.",これらは甲虫です。動きが危険です。邪魔をしないでください。
+End Tutorial,"Поздравляю, теперь ты знаешь всё! 
+
+Заработанную пыльцу можно потратить в инвентаре на интересные образы.
+
+Не забывай отслеживать свой прогресс в Таблице Лидеров.
+
+Удачи!","Congratulations, now you know everything!
+
+The pollen you earn can be spent in your inventory on interesting looks.
+
+Don't forget to track your progress in the Leaderboard.
+
+Good luck!","Herzlichen Glückwunsch, jetzt weißt du alles!
+
+Den Pollen, den du verdienst, kannst du in deinem Inventar für interessante Looks ausgeben.
+
+Vergiss nicht, deinen Fortschritt in der Bestenliste zu verfolgen.
+
+Viel Glück!","Félicitations, vous savez maintenant tout !
+
+Le pollen que vous gagnez peut être utilisé dans votre inventaire pour créer des looks intéressants.
+
+N'oubliez pas de suivre votre progression dans le classement.
+
+Bonne chance !","Tebrikler, artık her şeyi biliyorsunuz!
+
+Kazandığınız polenleri envanterinizde ilginç görünümler için kullanabilirsiniz.
+
+Liderlik Tablosu'nda ilerlemenizi takip etmeyi unutmayın.
+
+Bol şans!","¡Felicidades, ya lo sabes todo!
+
+El polen que ganes se puede gastar en tu inventario para comprar looks interesantes.
+
+No olvides seguir tu progreso en la tabla de clasificación.
+
+¡Mucha suerte!","おめでとうございます！これですべて分かりました！
+
+獲得した花粉は、インベントリで素敵な見た目のアイテムに使うことができます。
+
+リーダーボードで進捗状況を確認するのをお忘れなく。
+
+頑張ってください！"
+CONTINUE,ПРОДОЛЖИТЬ,CONTINUE,WEITERMACHEN,CONTINUER,DEVAM ETMEK,CONTINUAR,続く

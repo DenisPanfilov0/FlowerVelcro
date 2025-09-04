@@ -128,8 +128,8 @@ namespace Code.Inventory
         {
             _blocker.SetActive(true);
 
-            float panelDuration = 0.3f;
-            float elementDuration = 0.5f;
+            float panelDuration = 0.3f / 1.5f; // Ускоряем в 1.5 раза
+            float elementDuration = 0.5f / 1.5f; // Ускоряем в 1.5 раза
 
             Coroutine panelCoroutine = StartCoroutine(ScaleCoroutine(transform, Vector3.zero, Vector3.one, panelDuration));
             Coroutine shadowCoroutine = StartCoroutine(FadeImageCoroutine(_panelShadow, 0f, 230f / 255f, panelDuration));
@@ -139,11 +139,11 @@ namespace Code.Inventory
 
             StartCoroutine(ScaleCoroutine(_chestImage.transform, Vector3.zero, Vector3.one, elementDuration));
 
-            yield return new WaitForSeconds(0.3f);
+            yield return new WaitForSeconds(0.3f / 1.5f); // Ускоряем задержку
             StartCoroutine(FadeTextCoroutine(_chestText, 0f, 1f, elementDuration));
             StartCoroutine(FadeTextCoroutine(_categoryText, 0f, 1f, elementDuration));
 
-            yield return new WaitForSeconds(0.2f);
+            yield return new WaitForSeconds(0.2f / 1.5f); // Ускоряем задержку
             _buyButton.gameObject.SetActive(true);
             // _adButton.gameObject.SetActive(true);
             StartCoroutine(SlideButtonCoroutine(_buyButton.GetComponent<RectTransform>(), 
@@ -151,11 +151,11 @@ namespace Code.Inventory
                 _buyButtonInitialPos, 
                 elementDuration));
             // StartCoroutine(SlideButtonCoroutine(_adButton.GetComponent<RectTransform>(), 
-                // _adButtonInitialPos + new Vector2(Screen.width, 0f), 
-                // _adButtonInitialPos, 
-                // elementDuration));
+            //     _adButtonInitialPos + new Vector2(Screen.width, 0f), 
+            //     _adButtonInitialPos, 
+            //     elementDuration));
 
-            yield return new WaitForSeconds(0.2f);
+            yield return new WaitForSeconds(0.2f / 1.5f); // Ускоряем задержку
             StartCoroutine(ScaleCoroutine(_closePanel.transform, Vector3.zero, _closePanelInitialScale, elementDuration));
 
             _blocker.SetActive(false);
@@ -165,26 +165,26 @@ namespace Code.Inventory
         {
             _blocker.SetActive(true);
 
-            float panelDuration = 0.3f;
-            float elementDuration = 0.5f;
+            float panelDuration = 0.3f / 3f; // Ускоряем в 3 раза
+            float elementDuration = 0.5f / 3f; // Ускоряем в 3 раза
 
             Coroutine closeButtonCoroutine = StartCoroutine(ScaleCoroutine(_closePanel.transform, _closePanel.transform.localScale, Vector3.zero, elementDuration));
 
-            yield return new WaitForSeconds(0.3f);
+            yield return new WaitForSeconds(0.3f / 3f); // Ускоряем задержку
             Coroutine buyButtonCoroutine = StartCoroutine(SlideButtonCoroutine(_buyButton.GetComponent<RectTransform>(), 
                 _buyButton.GetComponent<RectTransform>().anchoredPosition, 
                 _buyButtonInitialPos + new Vector2(-Screen.width, 0f), 
                 elementDuration));
             // Coroutine adButtonCoroutine = StartCoroutine(SlideButtonCoroutine(_adButton.GetComponent<RectTransform>(), 
-                // _adButton.GetComponent<RectTransform>().anchoredPosition, 
-                // _adButtonInitialPos + new Vector2(Screen.width, 0f), 
-                // elementDuration));
+            //     _adButton.GetComponent<RectTransform>().anchoredPosition, 
+            //     _adButtonInitialPos + new Vector2(Screen.width, 0f), 
+            //     elementDuration));
 
-            yield return new WaitForSeconds(0.2f);
+            yield return new WaitForSeconds(0.2f / 3f); // Ускоряем задержку
             Coroutine textCoroutine = StartCoroutine(FadeTextCoroutine(_chestText, 1f, 0f, elementDuration));
             Coroutine categoryTextCoroutine = StartCoroutine(FadeTextCoroutine(_categoryText, 1f, 0f, elementDuration));
 
-            yield return new WaitForSeconds(0.2f);
+            yield return new WaitForSeconds(0.2f / 3f); // Ускоряем задержку
             Coroutine chestCoroutine = StartCoroutine(ScaleCoroutine(_chestImage.transform, _chestImage.transform.localScale, Vector3.zero, elementDuration));
 
             yield return closeButtonCoroutine;
@@ -263,7 +263,6 @@ namespace Code.Inventory
             InventorySkinData randomSkin = lockedSkins[UnityEngine.Random.Range(0, lockedSkins.Count)];
 
             // _activeShadow.gameObject.SetActive(true);
-            
             
             Color startShadowColor = _activeShadow.color;
             startShadowColor.a = 0f;
@@ -369,7 +368,7 @@ namespace Code.Inventory
 
         private IEnumerator HideChestAnimation()
         {
-            float fadeDuration = 0.5f;
+            float fadeDuration = 0.5f / 3f; // Ускоряем в 3 раза
             Color startShadowColor = _activeShadow.color;
             Vector3 startRewardScale = _rewardSkinInstance != null ? _rewardSkinInstance.transform.localScale : Vector3.zero;
             Color startPromptColor = _promptText.color;
@@ -398,7 +397,6 @@ namespace Code.Inventory
             _activeShadow.color = new Color(startShadowColor.r, startShadowColor.g, startShadowColor.b, 0f);
             // _activeShadow.gameObject.SetActive(false);
             _activeShadow.raycastTarget = false;
-
 
             if (_rewardSkinInstance != null)
             {

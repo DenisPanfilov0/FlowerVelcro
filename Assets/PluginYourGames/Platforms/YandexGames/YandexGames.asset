@@ -31,4 +31,4 @@ MonoBehaviour:
     dataCaching: 0
     colorSpace: 0
     archivingBuild: 1
-    syncInitSDK: 1
+    syncInitSDK: 0

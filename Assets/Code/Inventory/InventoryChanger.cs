@@ -34,7 +34,7 @@ namespace Code.Inventory
         private InventoryCategoryType _currentCategory;
         private AudioManager _audioManager;
 
-        private const float StaggerDelay = 0.025f;
+        private const float StaggerDelay = 0.025f / 2f; // Ускоряем задержку в 2 раза
 
         [Inject]
         public void Construct(InventorySkinConfigs inventorySkinConfigs, InventoryModel inventoryModel, AudioManager audioManager)
@@ -168,7 +168,7 @@ namespace Code.Inventory
                     }
                     if (i < hideOrder.Count - 1)
                     {
-                        yield return new WaitForSeconds(StaggerDelay);
+                        yield return new WaitForSeconds(StaggerDelay); // Задержка уже уменьшена в 2 раза
                     }
                 }
                 else
@@ -237,7 +237,7 @@ namespace Code.Inventory
                 _activeItems.Add(showOrder[i]);
                 if (i < showOrder.Count - 1)
                 {
-                    yield return new WaitForSeconds(StaggerDelay);
+                    yield return new WaitForSeconds(StaggerDelay); // Задержка уже уменьшена в 2 раза
                 }
             }
         }

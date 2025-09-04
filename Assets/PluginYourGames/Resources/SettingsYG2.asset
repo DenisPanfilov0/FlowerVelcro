@@ -374,7 +374,7 @@ MonoBehaviour:
     autoGRA: 1
     logInEditor: 1
     archivingBuild: 1
-    syncInitSDK: 1
+    syncInitSDK: 0
     loadSceneIfSDKLate: 0
     loadSceneIndex: 0
     simulationLoadScene: 0
@@ -435,4 +435,4 @@ MonoBehaviour:
     dataCaching: 1
     colorSpace: 0
     archivingBuild: 0
-    syncInitSDK: 1
+    syncInitSDK: 0

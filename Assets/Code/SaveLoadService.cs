@@ -1,20 +1,31 @@
 using Newtonsoft.Json;
-using UnityEngine;
-// using PlayerPrefs = RedefineYG.PlayerPrefs;
+// using UnityEngine;
+using PlayerPrefs = RedefineYG.PlayerPrefs;
 
 namespace Code
 {
     public class SaveLoadService
     {
+        private const string VersionKey = "SaveLoadServiceVersion";
+        private const string Version = "3.0"; // Текущая версия сервиса
+
         public SaveLoadService()
         {
-            // PlayerPrefs.DeleteAll();
+            // Проверка версии при инициализации сервиса
+            if (!CheckVersion())
+            {
+                // Если версия не совпадает или отсутствует, удаляем все данные
+                PlayerPrefs.DeleteAll();
+                PlayerPrefs.SetString(VersionKey, Version); // Устанавливаем текущую версию
+                PlayerPrefs.Save();
+            }
         }
-        
+
         public void SaveData<T>(string key, T data)
         {
             string json = JsonConvert.SerializeObject(data);
             PlayerPrefs.SetString(key, json);
+            PlayerPrefs.SetString(VersionKey, Version); // Сохраняем текущую версию
             PlayerPrefs.Save();
         }
 
@@ -33,6 +44,17 @@ namespace Code
                 }
             }
             return null;
+        }
+
+        private bool CheckVersion()
+        {
+            if (!PlayerPrefs.HasKey(VersionKey))
+            {
+                return false; // Ключ версии отсутствует
+            }
+
+            string savedVersion = PlayerPrefs.GetString(VersionKey);
+            return savedVersion == Version; // Проверяем совпадение версий
         }
     }
 

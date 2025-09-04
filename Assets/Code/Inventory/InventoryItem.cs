@@ -19,8 +19,8 @@ namespace Code.Inventory
         private bool _isLocked;
         private float _currentAnimationProgress;
 
-        private const float AnimDuration = 0.2f;
-        private const float StaggerDelay = 0.025f;
+        private const float AnimDuration = 0.2f / 2f; // Ускоряем анимацию в 2 раза
+        private const float StaggerDelay = 0.025f / 2f; // Ускоряем задержку в 2 раза
         private const float BounceOvershoot = 1.2f;
         private const float BounceReturn = 0.9f;
         private Coroutine _currentAnimation;

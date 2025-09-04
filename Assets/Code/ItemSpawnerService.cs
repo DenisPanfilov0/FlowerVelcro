@@ -21,7 +21,6 @@ namespace Code.Gameplay.Services.SpawnersServices
         private readonly InventoryModel _inventoryModel;
         private readonly PlayerStickingService _playerStickingService;
         private readonly HeartService _heartService;
-        // private readonly IFallManagerService _fallManagerService;
         private readonly ItemSpawnerConfig _config;
         private readonly List<ItemSpawnerConfig.StageConfig> _stages;
         private readonly Dictionary<ItemSpawnerTypeId, ItemView> _prefabs = new();
@@ -30,6 +29,7 @@ namespace Code.Gameplay.Services.SpawnersServices
         private readonly Dictionary<ItemSpawnerTypeId, Vector2> _objectSizes = new();
         private readonly List<(Vector2 Position, ItemSpawnerTypeId TypeId)> _recentSpawnPositions = new();
         private bool _isSpawningActive;
+        private bool _isPaused; // Добавляем флаг паузы
         private Transform _spawnZoneTransform;
         private int _currentStageIndex;
         private int _targetScore;
@@ -49,7 +49,6 @@ namespace Code.Gameplay.Services.SpawnersServices
             InventoryModel inventoryModel,
             PlayerStickingService playerStickingService,
             HeartService heartService,
-            // IFallManagerService fallManagerService,
             ItemSpawnerConfig config)
         {
             _gameStateService = gameStateService;
@@ -57,7 +56,6 @@ namespace Code.Gameplay.Services.SpawnersServices
             _inventoryModel = inventoryModel;
             _playerStickingService = playerStickingService;
             _heartService = heartService;
-            // _fallManagerService = fallManagerService;
             _config = config;
             _stages = config.Stages.Select(s => new ItemSpawnerConfig.StageConfig
             {
@@ -98,6 +96,8 @@ namespace Code.Gameplay.Services.SpawnersServices
                 }
             }
             _gameStateService.OnGameLose += StopSpawn;
+            _gameStateService.OnGamePause += HandleGamePause;
+            _gameStateService.OnGameResume += HandleGameResume;
             _gameScoreService.ScoreChange += OnScoreChange;
             _currentStageIndex = 0;
             _targetScore = Random.Range(_stages[0].ScoreRange.x, _stages[0].ScoreRange.y + 1);
@@ -106,11 +106,14 @@ namespace Code.Gameplay.Services.SpawnersServices
             _currentItemDelay = 0f;
             _lastSpawnedType = null;
             _typeIndexToTypeId = new Dictionary<int, ItemSpawnerTypeId>();
+            _isPaused = false;
         }
 
         public void Dispose()
         {
             _gameStateService.OnGameLose -= StopSpawn;
+            _gameStateService.OnGamePause -= HandleGamePause;
+            _gameStateService.OnGameResume -= HandleGameResume;
             _gameScoreService.ScoreChange -= OnScoreChange;
             foreach (var pool in _objectPools.Values)
             {
@@ -130,6 +133,7 @@ namespace Code.Gameplay.Services.SpawnersServices
         {
             if (spawnZoneTransform == null) return;
             _isSpawningActive = true;
+            _isPaused = false;
             _spawnZoneTransform = spawnZoneTransform;
             _currentSpawnSequence = null;
             _currentSequenceIndex = 0;
@@ -140,7 +144,7 @@ namespace Code.Gameplay.Services.SpawnersServices
 
         public void Tick()
         {
-            if (!_isSpawningActive || _spawnZoneTransform == null) return;
+            if (!_isSpawningActive || _spawnZoneTransform == null || _isPaused) return;
 
             if (_currentSpawnSequence == null || _currentSequenceIndex >= _currentSpawnSequence.Count)
             {
@@ -324,11 +328,27 @@ namespace Code.Gameplay.Services.SpawnersServices
         private void StopSpawn()
         {
             _isSpawningActive = false;
+            _isPaused = false;
+        }
+
+        private void HandleGamePause()
+        {
+            _isPaused = true;
+            Debug.Log("[ItemSpawnerService] Spawning paused.");
+        }
+
+        private void HandleGameResume()
+        {
+            if (_isSpawningActive)
+            {
+                _isPaused = false;
+                Debug.Log("[ItemSpawnerService] Spawning resumed.");
+            }
         }
 
         private void SpawnItem(ItemSpawnerTypeId typeId, Vector2 spawnPosition)
         {
-            if (!_isSpawningActive || !_prefabs.ContainsKey(typeId) || _spawnZoneTransform == null) return;
+            if (!_isSpawningActive || _isPaused || !_prefabs.ContainsKey(typeId) || _spawnZoneTransform == null) return;
 
             // Check for 25% chance to spawn MagicFlower instead of Slime
             if (typeId == ItemSpawnerTypeId.Slime && Random.value < _magicFlowerSpawnChange && _prefabs.ContainsKey(ItemSpawnerTypeId.MagicFlower))
@@ -360,7 +380,6 @@ namespace Code.Gameplay.Services.SpawnersServices
                 item.transform.rotation = Quaternion.identity;
                 item.gameObject.SetActive(true);
                 item.Reset();
-                // _fallManagerService.AddFallingObject(item.gameObject);
             }
         }
 
@@ -417,7 +436,7 @@ namespace Code.Gameplay.Services.SpawnersServices
 
             if (!positionFound)
             {
-                Debug.LogWarning($"[ItemSpawnerService] Pausing spawn for {typeId}: no valid position found after 50 attempts");
+                Debug.LogWarning($"[ItemSpawnerService] Pausing spawn for {typeId}: no valid position after 50 attempts");
             }
 
             return positionFound ? spawnPosition : Vector2.zero;

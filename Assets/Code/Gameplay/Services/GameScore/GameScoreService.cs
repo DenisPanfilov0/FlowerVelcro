@@ -31,6 +31,8 @@ namespace Code.Gameplay.Services.GameScore
                 // _isGameStop = true;
                         
                 _currencyModel.AddCurrency(_score);
+                _progress.TotalPollenCollected += _score;
+                _progress.TotalGamesPlayed++;
                 
                 if (_progress.MaxScore < _score)
                 {

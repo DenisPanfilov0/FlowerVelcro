@@ -63,7 +63,7 @@ namespace Code.Gameplay.Behaviour.View
             _icon.color = Color.white;
         }
 
-        protected virtual void Awake()
+        protected virtual void Start()
         {
             if (_rb == null)
                 _rb = GetComponent<Rigidbody2D>();
@@ -74,6 +74,9 @@ namespace Code.Gameplay.Behaviour.View
             if (_gameStateService != null)
             {
                 _gameStateService.OnGameLose += HandleGameLose;
+                
+                _gameStateService.OnGamePause += HandleGamePause;
+                _gameStateService.OnGameResume += HandleGameResume;
             }
         }
 
@@ -91,14 +94,38 @@ namespace Code.Gameplay.Behaviour.View
             if (_gameStateService != null)
             {
                 _gameStateService.OnGameLose -= HandleGameLose;
+                
+                _gameStateService.OnGamePause -= HandleGamePause;
+                _gameStateService.OnGameResume -= HandleGameResume;
+            }
+        }
+
+        private void HandleGamePause()
+        {
+            _isFalling = false;
+            if (_rb != null)
+            {
+                _rb.linearVelocity = Vector2.zero; // Останавливаем движение
+            }
+        }
+
+        private void HandleGameResume()
+        {
+            if (_isGameActive && _rb != null)
+            {
+                _isFalling = true;
+                _rb.linearVelocity = Vector2.down * baseFallSpeed * _gameStateService.GameSpeed; // Возобновляем движение
             }
         }
 
         protected virtual void FixedUpdate()
         {
-            if (!_isFalling || !_isGameActive || gameObject == null || transform == null || _gameStateService == null || _gameStateService.IsGameStop) return;
+            if (!_isFalling || !_isGameActive || gameObject == null || transform == null || _gameStateService == null || _gameStateService.IsGameStop || _gameStateService.IsGamePause)
+            {
+                return;
+            }
 
-            N = _gameStateService.GameSpeed; // Update serialized field for Inspector
+            N = _gameStateService.GameSpeed;
             _rb.linearVelocity = new Vector2(_rb.linearVelocity.x, -baseFallSpeed * _gameStateService.GameSpeed);
             if (transform.position.y < _screenBottom)
             {

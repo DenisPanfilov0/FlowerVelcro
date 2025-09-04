@@ -1,4 +1,5 @@
 using System;
+using Assets.SimpleLocalization.Scripts;
 using YG;
 using Zenject;
 
@@ -26,6 +27,8 @@ namespace Code
 
         public void Initialize()
         {
+            LocalizationManager.Read();
+            
             // Загружаем сохранённые настройки языка
             var settings = _saveLoadService.LoadData<LanguageSettingsData>(LANGUAGE_SETTINGS_KEY);
             if (settings != null && Enum.IsDefined(typeof(LanguageType), settings.LanguageType))
@@ -33,6 +36,7 @@ namespace Code
                 _language = settings.Language;
                 _languageType = settings.LanguageType;
                 YG2.SwitchLanguage(_language); // Устанавливаем сохранённый язык
+                LocalizationManager.Language = _language;
             }
             else
             {
@@ -49,6 +53,9 @@ namespace Code
                     _language = _languageType.ToString();
                     YG2.SwitchLanguage(_language);
                 }
+                
+                LocalizationManager.Language = _language;
+                
                 SaveData(); // Сохраняем начальный язык
             }
         }
@@ -58,6 +65,7 @@ namespace Code
             _language = language.ToString();
             _languageType = language;
             YG2.SwitchLanguage(_language);
+            LocalizationManager.Language = _language;
             SaveData(); // Сохраняем новый язык
             onLanguageSelected?.Invoke(language);
         }
@@ -85,12 +93,12 @@ namespace Code
 
     public enum LanguageType
     {
-        ru,
-        en,
-        tr,
-        fr,
-        es,
-        ja,
-        de,
+        ru, //
+        en, //
+        tr, //
+        fr, //
+        es, //
+        ja, //
+        de, //
     }
 }

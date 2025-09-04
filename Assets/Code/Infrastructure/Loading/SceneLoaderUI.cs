@@ -68,7 +68,7 @@ public class SceneLoaderUI : MonoBehaviour
     private IEnumerator AnimateLoading(System.Action onComplete)
     {
         isAnimating = true;
-        float duration = 1.5f; // Total duration
+        float duration = 0.8f; // Total duration
         float fastDuration = duration * 0.33f; // First 1/3 of duration for faster start
         float slowDuration = duration - fastDuration; // Remaining 2/3
 
@@ -108,14 +108,14 @@ public class SceneLoaderUI : MonoBehaviour
         isAnimating = false;
 
         // Delay 0.2 seconds before unloading
-        yield return new WaitForSeconds(0.2f);
+        yield return new WaitForSeconds(0.05f);
         onComplete?.Invoke();
     }
 
     private IEnumerator AnimateUnloading(System.Action onComplete)
     {
         isAnimating = true;
-        float duration = 1.5f;
+        float duration = 0.8f;
         float startProgress = 1f;
         float endProgress = 0f;
 

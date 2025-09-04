@@ -13,8 +13,12 @@ namespace Code.Gameplay.Services.GameStateService
         // public event Action<float> OnGameSpeedChange; 
         public float GameSpeed { get; set; }
         public bool IsGameStop { get; set; }
+        public bool IsGamePause { get; set; }
 
         public event Action OnGameLose;
+        public event Action OnGamePause;
+        public event Action OnGameResume;
+
         
         private readonly IWindowService _windowService;
         private readonly IGameStateMachine _gameStateMachine;
@@ -50,11 +54,26 @@ namespace Code.Gameplay.Services.GameStateService
             _gameStateMachine.Enter<RestartLevelState>();
         }
 
+        public void GamePause(bool state)
+        {
+            if (state)
+            {
+                IsGamePause = true;
+                OnGamePause?.Invoke();
+            }
+            else
+            {
+                IsGamePause = false;
+                OnGameResume?.Invoke();
+            }
+        }
+
         public void Tick()
         {
-            if (IsGameStop) return;
+            if (IsGameStop || IsGamePause) return;
             
             GameSpeed += Time.deltaTime / 250f;
         }
+
     }
 }

@@ -36,8 +36,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0.00093842, y: -20.6492}
-  m_SizeDelta: {x: 775.17, y: 1091.9176}
+  m_AnchoredPosition: {x: 0.00093842, y: -55.3593}
+  m_SizeDelta: {x: 775.17, y: 1022.4974}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &1220613691612380492
 CanvasRenderer:
@@ -118,7 +118,7 @@ GameObject:
   - component: {fileID: 7121058389830150140}
   - component: {fileID: 5852830462362240171}
   - component: {fileID: 4981460205624485685}
-  - component: {fileID: 4328135314899588478}
+  - component: {fileID: 3178388700643252695}
   m_Layer: 5
   m_Name: Text (TMP)
   m_TagString: Untagged
@@ -143,7 +143,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 600, y: 50}
+  m_SizeDelta: {x: 600, y: 82.9232}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &5852830462362240171
 CanvasRenderer:
@@ -200,10 +200,10 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 60
+  m_fontSize: 72
   m_fontSizeBase: 60
   m_fontWeight: 400
-  m_enableAutoSizing: 0
+  m_enableAutoSizing: 1
   m_fontSizeMin: 18
   m_fontSizeMax: 72
   m_fontStyle: 1
@@ -244,7 +244,7 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
---- !u!114 &4328135314899588478
+--- !u!114 &3178388700643252695
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -253,166 +253,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 276566259384459295}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f34f36451b093ee4c83ad4aa5459d2ac, type: 3}
+  m_Script: {fileID: 11500000, guid: 9eb94e0242494647a8f441e6f0ae1e5a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  textMPComponent: {fileID: 4981460205624485685}
-  uniqueFontTMP: {fileID: 0}
-  textLComponent: {fileID: 0}
-  info:
-    domainAutoLocalization: com
-    languages:
-      ru: 1
-      en: 1
-      tr: 1
-      az: 0
-      be: 0
-      he: 0
-      hy: 0
-      ka: 0
-      et: 0
-      fr: 1
-      kk: 0
-      ky: 0
-      lt: 0
-      lv: 0
-      ro: 0
-      tg: 0
-      tk: 0
-      uk: 0
-      uz: 0
-      es: 1
-      pt: 0
-      ar: 0
-      id: 0
-      ja: 1
-      it: 0
-      de: 1
-      hi: 0
-    fonts:
-      defaultFont:
-      - {fileID: 12800000, guid: e3265ab4bf004d28a9537516768c1c75, type: 3}
-      ru: []
-      en: []
-      tr: []
-      az: []
-      be: []
-      he: []
-      hy: []
-      ka: []
-      et: []
-      fr: []
-      kk: []
-      ky: []
-      lt: []
-      lv: []
-      ro: []
-      tg: []
-      tk: []
-      uk: []
-      uz: []
-      es: []
-      pt: []
-      ar: []
-      id: []
-      ja: []
-      it: []
-      de: []
-      hi: []
-    fontsTMP:
-      defaultFont:
-      - {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-      ru: []
-      en: []
-      tr: []
-      az: []
-      be: []
-      he: []
-      hy: []
-      ka: []
-      et: []
-      fr: []
-      kk: []
-      ky: []
-      lt: []
-      lv: []
-      ro: []
-      tg: []
-      tk: []
-      uk: []
-      uz: []
-      es: []
-      pt: []
-      ar: []
-      id: []
-      ja: []
-      it: []
-      de: []
-      hi: []
-    fontsSizeCorrect:
-      ru: 
-      en: 
-      tr: 
-      az: 
-      be: 
-      he: 
-      hy: 
-      ka: 
-      et: 
-      fr: 
-      kk: 
-      ky: 
-      lt: 
-      lv: 
-      ro: 
-      tg: 
-      tk: 
-      uk: 
-      uz: 
-      es: 
-      pt: 
-      ar: 
-      id: 
-      ja: 
-      it: 
-      de: 
-      hi: 
-  text: 
-  ru: "\u0420\u0415\u041A\u041E\u0420\u0414\u042B"
-  en: Records
-  tr: "Kay\u0131tlar"
-  az: 
-  be: 
-  he: 
-  hy: 
-  ka: 
-  et: 
-  fr: Enregistrements
-  kk: 
-  ky: 
-  lt: 
-  lv: 
-  ro: 
-  tg: 
-  tk: 
-  uk: 
-  uz: 
-  es: Archivos
-  pt: 
-  ar: 
-  id: 
-  ja: "\u8A18\u9332"
-  it: 
-  de: Aufzeichnungen
-  hi: 
-  changeOnlyFont: 0
-  fontNumber: 0
-  uniqueFont: {fileID: 0}
-  additionalText: {fileID: 0}
-  textHeight: 20
-  processTranslateLabel: 7/7 completed
-  componentTextField: 1
-  countLang: 7
+  LocalizationKey: RECORDS
 --- !u!1 &1741936580960427813
 GameObject:
   m_ObjectHideFlags: 0
@@ -854,8 +698,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 59.579987}
-  m_SizeDelta: {x: 0, y: 119.16}
+  m_AnchoredPosition: {x: 0, y: 24.8698}
+  m_SizeDelta: {x: 0, y: 49.7399}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &5956259012121371612
 CanvasRenderer:
@@ -995,7 +839,7 @@ GameObject:
   - component: {fileID: 4795432081483757215}
   - component: {fileID: 2518252140723204354}
   - component: {fileID: 7702519416581731924}
-  - component: {fileID: 2849914829335325268}
+  - component: {fileID: 2853540125682310863}
   m_Layer: 5
   m_Name: Text (TMP)
   m_TagString: Untagged
@@ -1121,7 +965,7 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
---- !u!114 &2849914829335325268
+--- !u!114 &2853540125682310863
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1130,166 +974,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 5618761927796227921}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f34f36451b093ee4c83ad4aa5459d2ac, type: 3}
+  m_Script: {fileID: 11500000, guid: 9eb94e0242494647a8f441e6f0ae1e5a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  textMPComponent: {fileID: 7702519416581731924}
-  uniqueFontTMP: {fileID: 0}
-  textLComponent: {fileID: 0}
-  info:
-    domainAutoLocalization: com
-    languages:
-      ru: 1
-      en: 1
-      tr: 1
-      az: 0
-      be: 0
-      he: 0
-      hy: 0
-      ka: 0
-      et: 0
-      fr: 1
-      kk: 0
-      ky: 0
-      lt: 0
-      lv: 0
-      ro: 0
-      tg: 0
-      tk: 0
-      uk: 0
-      uz: 0
-      es: 1
-      pt: 0
-      ar: 0
-      id: 0
-      ja: 1
-      it: 0
-      de: 1
-      hi: 0
-    fonts:
-      defaultFont:
-      - {fileID: 12800000, guid: e3265ab4bf004d28a9537516768c1c75, type: 3}
-      ru: []
-      en: []
-      tr: []
-      az: []
-      be: []
-      he: []
-      hy: []
-      ka: []
-      et: []
-      fr: []
-      kk: []
-      ky: []
-      lt: []
-      lv: []
-      ro: []
-      tg: []
-      tk: []
-      uk: []
-      uz: []
-      es: []
-      pt: []
-      ar: []
-      id: []
-      ja: []
-      it: []
-      de: []
-      hi: []
-    fontsTMP:
-      defaultFont:
-      - {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-      ru: []
-      en: []
-      tr: []
-      az: []
-      be: []
-      he: []
-      hy: []
-      ka: []
-      et: []
-      fr: []
-      kk: []
-      ky: []
-      lt: []
-      lv: []
-      ro: []
-      tg: []
-      tk: []
-      uk: []
-      uz: []
-      es: []
-      pt: []
-      ar: []
-      id: []
-      ja: []
-      it: []
-      de: []
-      hi: []
-    fontsSizeCorrect:
-      ru: 
-      en: 
-      tr: 
-      az: 
-      be: 
-      he: 
-      hy: 
-      ka: 
-      et: 
-      fr: 
-      kk: 
-      ky: 
-      lt: 
-      lv: 
-      ro: 
-      tg: 
-      tk: 
-      uk: 
-      uz: 
-      es: 
-      pt: 
-      ar: 
-      id: 
-      ja: 
-      it: 
-      de: 
-      hi: 
-  text: 
-  ru: "\u041D\u0410\u0417\u0410\u0414"
-  en: BACK
-  tr: "GER\u0130"
-  az: 
-  be: 
-  he: 
-  hy: 
-  ka: 
-  et: 
-  fr: DOS
-  kk: 
-  ky: 
-  lt: 
-  lv: 
-  ro: 
-  tg: 
-  tk: 
-  uk: 
-  uz: 
-  es: "ATR\xC1S"
-  pt: 
-  ar: 
-  id: 
-  ja: "\u623B\u308B"
-  it: 
-  de: "ZUR\xDCCK"
-  hi: 
-  changeOnlyFont: 0
-  fontNumber: 0
-  uniqueFont: {fileID: 0}
-  additionalText: {fileID: 0}
-  textHeight: 20
-  processTranslateLabel: 7/7 completed
-  componentTextField: 1
-  countLang: 7
+  LocalizationKey: BACK
 --- !u!1 &6196656504421379401
 GameObject:
   m_ObjectHideFlags: 0
@@ -1438,7 +1126,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: -119.15979}
+  m_AnchoredPosition: {x: 0, y: -49.7397}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &6934049926116173485
@@ -1456,7 +1144,7 @@ MonoBehaviour:
   m_Padding:
     m_Left: 22
     m_Right: 0
-    m_Top: 90
+    m_Top: 40
     m_Bottom: 0
   m_ChildAlignment: 4
   m_Spacing: 0
@@ -1511,7 +1199,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8241232976341040655, guid: 5da41a473d5bd1f42935313954dcd5bd, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8241232976341040655, guid: 5da41a473d5bd1f42935313954dcd5bd, type: 3}
       propertyPath: m_AnchorMin.x
@@ -1519,7 +1207,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8241232976341040655, guid: 5da41a473d5bd1f42935313954dcd5bd, type: 3}
       propertyPath: m_AnchorMin.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8241232976341040655, guid: 5da41a473d5bd1f42935313954dcd5bd, type: 3}
       propertyPath: m_SizeDelta.x
@@ -1559,11 +1247,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8241232976341040655, guid: 5da41a473d5bd1f42935313954dcd5bd, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 398.585
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8241232976341040655, guid: 5da41a473d5bd1f42935313954dcd5bd, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -173.47435
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8241232976341040655, guid: 5da41a473d5bd1f42935313954dcd5bd, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
