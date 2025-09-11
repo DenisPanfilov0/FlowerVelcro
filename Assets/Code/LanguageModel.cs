@@ -29,19 +29,23 @@ namespace Code
         {
             LocalizationManager.Read();
             
+            
+            //todo (d.p.) Код для сохранения и загрузки измененных языков в игре, не для Яндекс Игр
+            
             // Загружаем сохранённые настройки языка
-            var settings = _saveLoadService.LoadData<LanguageSettingsData>(LANGUAGE_SETTINGS_KEY);
-            if (settings != null && Enum.IsDefined(typeof(LanguageType), settings.LanguageType))
-            {
-                _language = settings.Language;
-                _languageType = settings.LanguageType;
-                YG2.SwitchLanguage(_language); // Устанавливаем сохранённый язык
-                LocalizationManager.Language = _language;
-            }
-            else
+            // var settings = _saveLoadService.LoadData<LanguageSettingsData>(LANGUAGE_SETTINGS_KEY);
+            // if (settings != null && Enum.IsDefined(typeof(LanguageType), settings.LanguageType))
+            // {
+            //     _language = settings.Language;
+            //     _languageType = settings.LanguageType;
+            //     YG2.SwitchLanguage(_language); // Устанавливаем сохранённый язык
+            //     LocalizationManager.Language = _language;
+            // }
+            // else
             {
                 // Если нет сохранённых данных, используем текущий язык из YG2
                 _language = YG2.lang;
+                
                 if (Enum.TryParse<LanguageType>(_language, true, out var languageType))
                 {
                     _languageType = languageType;
@@ -93,14 +97,14 @@ namespace Code
 
     public enum LanguageType
     {
-        ru, //
-        en, //
-        tr, //
-        fr, //
-        es, //
-        ja, //
-        de, //
-        zh, //
-        id, //
+        ru = 1, 
+        en = 2, 
+        tr = 3, 
+        fr = 4, 
+        es = 5, 
+        ja = 6, 
+        de = 7, 
+        zh = 8, 
+        id = 9, 
     }
 }
