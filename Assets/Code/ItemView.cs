@@ -24,6 +24,9 @@ namespace Code.Gameplay.Behaviour.View
         protected ItemSpawnerTypeId _typeId;
         protected IGameStateService _gameStateService;
         [SerializeField] private float _screenBottom;
+        
+        private float _speedUpdateTimer;
+        private const float SpeedUpdateInterval = 1f; // каждые 1 секунда
 
         [Inject]
         public void Construct(IGameStateService gameStateService)
@@ -118,18 +121,28 @@ namespace Code.Gameplay.Behaviour.View
             }
         }
 
+
         protected virtual void FixedUpdate()
         {
-            if (!_isFalling || !_isGameActive || gameObject == null || transform == null || _gameStateService == null || _gameStateService.IsGameStop || _gameStateService.IsGamePause)
+            _speedUpdateTimer += Time.fixedDeltaTime;
+            if (_speedUpdateTimer >= SpeedUpdateInterval)
             {
-                return;
-            }
+                _speedUpdateTimer = 0f;
+                
+                if (!_isFalling || !_isGameActive || gameObject == null || transform == null ||
+                    _gameStateService == null || _gameStateService.IsGameStop || _gameStateService.IsGamePause)
+                    return;
 
-            N = _gameStateService.GameSpeed;
-            _rb.linearVelocity = new Vector2(_rb.linearVelocity.x, -baseFallSpeed * _gameStateService.GameSpeed);
-            if (transform.position.y < _screenBottom)
-            {
-                _spawnerService?.ReturnToPool(this, _typeId);
+
+
+                N = _gameStateService.GameSpeed;
+                _rb.linearVelocity = new Vector2(_rb.linearVelocity.x, -baseFallSpeed * _gameStateService.GameSpeed);
+
+                // Проверка выхода за границу экрана — лучше оставлять каждый FixedUpdate
+                if (transform.position.y < _screenBottom)
+                {
+                    _spawnerService?.ReturnToPool(this, _typeId);
+                }
             }
         }
 

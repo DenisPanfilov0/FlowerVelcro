@@ -142,6 +142,11 @@ namespace Code.Gameplay.Services.SpawnersServices
             _lastSpawnedType = null;
         }
 
+        public void SetSpawnZone(Transform spawnZoneTransform)
+        {
+            _spawnZoneTransform = spawnZoneTransform;
+        }
+
         public void Tick()
         {
             if (!_isSpawningActive || _spawnZoneTransform == null || _isPaused) return;

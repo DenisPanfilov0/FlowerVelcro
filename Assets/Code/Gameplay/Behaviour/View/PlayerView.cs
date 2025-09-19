@@ -37,6 +37,9 @@ namespace Code.Gameplay.Behaviour.View
         private float _playerHeight;
         private InventoryModel _inventoryModel;
         private Flower _targetFlower; // Для сохранения цели притягивания при паузе
+        
+        private float _speedUpdateTimer;
+        private const float SpeedUpdateInterval = 1f; // каждые 1 секунда
 
         [Inject]
         public void Construct(
@@ -131,16 +134,22 @@ namespace Code.Gameplay.Behaviour.View
 
         private void FixedUpdate()
         {
-            if (!_isGameActive || !_isFalling || _gameStateService.IsGamePause) return;
-
-            N = _gameStateService.GameSpeed; // Update serialized field for Inspector
-            _rb.linearVelocity = Vector2.down * _baseFallSpeed * _gameStateService.GameSpeed;
-
-            float playerBottomY = transform.position.y - _playerHeight / 2f;
-            if (playerBottomY <= _screenBottomY + _stopThreshold)
+            _speedUpdateTimer += Time.fixedDeltaTime;
+            if (_speedUpdateTimer >= SpeedUpdateInterval)
             {
-                transform.position = new Vector3(transform.position.x, _screenBottomY + _playerHeight / 2f, transform.position.z);
-                _rb.linearVelocity = Vector2.zero;
+
+                if (!_isGameActive || !_isFalling || _gameStateService.IsGamePause) return;
+
+                N = _gameStateService.GameSpeed; // Update serialized field for Inspector
+                _rb.linearVelocity = Vector2.down * _baseFallSpeed * _gameStateService.GameSpeed;
+
+                float playerBottomY = transform.position.y - _playerHeight / 2f;
+                if (playerBottomY <= _screenBottomY + _stopThreshold)
+                {
+                    transform.position = new Vector3(transform.position.x, _screenBottomY + _playerHeight / 2f,
+                        transform.position.z);
+                    _rb.linearVelocity = Vector2.zero;
+                }
             }
         }
 

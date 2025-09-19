@@ -36,9 +36,9 @@ namespace Code.Inventory
         private Coroutine _currentAnimation;
         private bool _isHidingReward;
 
-        private Vector2 _buyButtonInitialPos;
         private Vector2 _adButtonInitialPos;
         private Vector3 _closePanelInitialScale;
+        private Vector3 _buyButtonInitialScale;
         private AudioManager _audioManager;
         private bool _isOpeningChest = false;
         
@@ -53,9 +53,9 @@ namespace Code.Inventory
 
         private void Awake()
         {
-            _buyButtonInitialPos = _buyButton.GetComponent<RectTransform>().anchoredPosition;
             // _adButtonInitialPos = _adButton.GetComponent<RectTransform>().anchoredPosition;
             _closePanelInitialScale = _closePanel.transform.localScale;
+            _buyButtonInitialScale = _buyButton.transform.localScale;
 
             _chestImage.transform.localScale = Vector3.zero;
             _chestImage.transform.rotation = Quaternion.identity;
@@ -64,8 +64,8 @@ namespace Code.Inventory
             _categoryText.color = new Color(_categoryText.color.r, _categoryText.color.g, _categoryText.color.b, 0f);
             _promptText.color = new Color(_promptText.color.r, _promptText.color.g, _promptText.color.b, 0f);
 
-            _buyButton.GetComponent<RectTransform>().anchoredPosition = _buyButtonInitialPos + new Vector2(-Screen.width, 0f);
-            _buyButton.gameObject.SetActive(false);
+            _buyButton.transform.localScale = Vector3.zero;
+            _buyButton.gameObject.SetActive(true);
 
             // _adButton.GetComponent<RectTransform>().anchoredPosition = _adButtonInitialPos + new Vector2(Screen.width, 0f);
             // _adButton.gameObject.SetActive(false);
@@ -144,12 +144,8 @@ namespace Code.Inventory
             StartCoroutine(FadeTextCoroutine(_categoryText, 0f, 1f, elementDuration));
 
             yield return new WaitForSeconds(0.2f / 1.5f); // Ускоряем задержку
-            _buyButton.gameObject.SetActive(true);
+            StartCoroutine(ScaleCoroutine(_buyButton.transform, Vector3.zero, _buyButtonInitialScale, elementDuration));
             // _adButton.gameObject.SetActive(true);
-            StartCoroutine(SlideButtonCoroutine(_buyButton.GetComponent<RectTransform>(), 
-                _buyButtonInitialPos + new Vector2(-Screen.width, 0f), 
-                _buyButtonInitialPos, 
-                elementDuration));
             // StartCoroutine(SlideButtonCoroutine(_adButton.GetComponent<RectTransform>(), 
             //     _adButtonInitialPos + new Vector2(Screen.width, 0f), 
             //     _adButtonInitialPos, 
@@ -171,10 +167,7 @@ namespace Code.Inventory
             Coroutine closeButtonCoroutine = StartCoroutine(ScaleCoroutine(_closePanel.transform, _closePanel.transform.localScale, Vector3.zero, elementDuration));
 
             yield return new WaitForSeconds(0.3f / 3f); // Ускоряем задержку
-            Coroutine buyButtonCoroutine = StartCoroutine(SlideButtonCoroutine(_buyButton.GetComponent<RectTransform>(), 
-                _buyButton.GetComponent<RectTransform>().anchoredPosition, 
-                _buyButtonInitialPos + new Vector2(-Screen.width, 0f), 
-                elementDuration));
+            Coroutine buyButtonCoroutine = StartCoroutine(ScaleCoroutine(_buyButton.transform, _buyButton.transform.localScale, Vector3.zero, elementDuration));
             // Coroutine adButtonCoroutine = StartCoroutine(SlideButtonCoroutine(_adButton.GetComponent<RectTransform>(), 
             //     _adButton.GetComponent<RectTransform>().anchoredPosition, 
             //     _adButtonInitialPos + new Vector2(Screen.width, 0f), 
@@ -194,7 +187,7 @@ namespace Code.Inventory
             yield return categoryTextCoroutine;
             yield return chestCoroutine;
 
-            _buyButton.gameObject.SetActive(false);
+            // _buyButton.gameObject.SetActive(false);
             // _adButton.gameObject.SetActive(false);
 
             Coroutine panelCoroutine = StartCoroutine(ScaleCoroutine(transform, transform.localScale, Vector3.zero, panelDuration));

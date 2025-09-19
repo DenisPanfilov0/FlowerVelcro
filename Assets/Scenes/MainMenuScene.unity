@@ -4981,6 +4981,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: SettingWindow
       objectReference: {fileID: 0}
+    - target: {fileID: 7249242711354468229, guid: 534d54399c813ff4cabaacd8048fdd35, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

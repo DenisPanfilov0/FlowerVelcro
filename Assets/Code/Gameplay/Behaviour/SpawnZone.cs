@@ -1,5 +1,6 @@
 using Code.Gameplay.Services.SpawnersServices;
 using UnityEngine;
+using YG;
 using Zenject;
 
 namespace Code.Gameplay.Behaviour
@@ -8,40 +9,79 @@ namespace Code.Gameplay.Behaviour
     {
         private BoxCollider2D _collider;
         private Camera _camera;
+        private ItemSpawnerService _itemSpawner;
 
-        private const float ReferenceWidth = 1179f; // Фиксированная референсная ширина в пикселях (ваш телефон)
+        private int _lastScreenWidth;
+        private int _lastScreenHeight;
+
+        private bool _isFullscreen;
+
+        private float _checkTimer; // таймер для проверки
+        private const float CheckInterval = 0.1f; // раз в 0.1 секунды
+
+        private const float ReferenceWidth = 1179f; // ширина референсного устройства
+        private const float CorrectionFactor = 1.35f; // корректирующий коэффициент
 
         [Inject]
         public void Construct(ItemSpawnerService itemSpawner, Camera mainCamera)
         {
-            itemSpawner.StartSpawn(transform);
+            _itemSpawner = itemSpawner;
+            _itemSpawner.StartSpawn(transform);
             _camera = mainCamera;
         }
 
         private void Start()
         {
-            _collider = gameObject.GetComponent<BoxCollider2D>();
+            _collider = GetComponent<BoxCollider2D>();
             _collider.isTrigger = true;
+
+            ApplyAdaptiveSettings();
+
+            _isFullscreen = YG2.isFullscreen;
+        }
+
+        private void Update()
+        {
+            _checkTimer += Time.deltaTime;
+            if (_checkTimer < CheckInterval)
+                return;
+
+            _checkTimer = 0f; // сброс таймера
+
+            if (YG2.isFullscreen != _isFullscreen)
+            {
+                ApplyAdaptiveSettings();
+                _isFullscreen = YG2.isFullscreen;
+            }
+
+#if UNITY_EDITOR
+            if (Screen.width != _lastScreenWidth || Screen.height != _lastScreenHeight)
+            {
+                ApplyAdaptiveSettings();
+            }
+#endif
+        }
+
+        private void ApplyAdaptiveSettings()
+        {
             AdjustCameraSize();
             UpdateColliderSize();
+
+            _itemSpawner.SetSpawnZone(transform);
+
+            _lastScreenWidth = Screen.width;
+            _lastScreenHeight = Screen.height;
         }
 
         private void AdjustCameraSize()
         {
-            // Берем референсный orthographicSize с текущей камеры (из инспектора)
             float referenceOrthographicSize = _camera.orthographicSize;
-
-            // Текущая ширина экрана в пикселях
             float currentWidth = Screen.width;
 
-            // Корректирующий фактор для достижения 34 при 2028
-            float correctionFactor = 1.35f;
+            float targetOrthographicSize =
+                referenceOrthographicSize * (ReferenceWidth / currentWidth) * CorrectionFactor;
 
-            // Корректируем orthographicSize с учетом ширины и коэффициента
-            float targetOrthographicSize = referenceOrthographicSize * (ReferenceWidth / currentWidth) * correctionFactor;
-
-            // Применяем с ограничением диапазона
-            _camera.orthographicSize = Mathf.Clamp(targetOrthographicSize, 20f, 50f);
+            _camera.orthographicSize = Mathf.Clamp(targetOrthographicSize, 20f, 40f);
         }
 
         private void UpdateColliderSize()
