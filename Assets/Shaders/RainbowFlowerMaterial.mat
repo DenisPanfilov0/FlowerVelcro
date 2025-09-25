@@ -45,7 +45,7 @@ Material:
     - _ColorBlend: 0.3
     - _ColorSpread: 0.83
     - _EnableExternalAlpha: 0
-    - _Intensity: 0.182
+    - _Intensity: 0.235
     - _NoiseAmplitude: 0.5
     - _NoiseScale: 34.4
     - _NoiseSpeed: 0.49

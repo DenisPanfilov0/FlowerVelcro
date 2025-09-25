@@ -1,0 +1,215 @@
+Key,ru,en,de,fr,tr,es,ja,zh,id
+Main Menu,,,,,,,,,
+LEADERBOARD,ТАБЛИЦА ЛИДЕРОВ,LEADERBOARD,BESTENLISTE,CLASSEMENT,LİDER TABLOSU,TABLA DE CLASIFICACIÓN,リーダーボード,排行榜,PAPAN PERINGKAT
+RECORD,РЕКОРД,RECORD,REKORD,RECORD,REKOR,RÉCORD,記録,記錄,REKOR
+IN FLIGHT,В ПОЛЕТ,IN FLIGHT,IM FLUG,EN VOL,UÇUŞTA,EN VUELO,飛行中,飛行中,DALAM PENERBANGAN
+INVENTORY,ИНВЕНТАРЬ,INVENTORY,INVENTAR,INVENTAIRE,ENVANTER,INVENTARIO,在庫,存貨,INVENTARIS
+SETTINGS,НАСТРОЙКИ,SETTINGS,EINSTELLUNGEN,PARAMÈTRES,AYARLAR,AJUSTES,設定,設定,PENGATURAN
+RECORDS,РЕКОРДЫ,RECORDS,REKORDE,RECORDS,REKORLAR,RÉCORDS,記録,記錄,REKOR
+BACK,НАЗАД,BACK,ZURÜCK,RETOUR,GERİ,ATRÁS,戻る,返回,KEMBALI
+OPEN,ОТКРЫТЬ,OPEN,OFFEN,OUVRIR,AÇ,ABIERTO,開ける,打開,MEMBUKA
+CHARACTER,ПЕРСОНАЖ,CHARACTER,CHARAKTER,PERSONNAGE,KARAKTER,PERSONAJE,キャラクター,角色,KARAKTER
+FLOWERS,ЦВЕТЫ,FLOWERS,BLUMEN,FLEURS,ÇİÇEKLER,FLORES,花,花朵,BUNGA
+BOMBS,БОМБЫ,BOMBS,BOMBEN,BOMBES,BOMBALAR,BOMBAS,爆弾,炸彈,BOM
+SPIKES,ШИПЫ,SPIKES,STACHELN,POINTES,DİKENLER,PICOS,スパイク,尖刺,DURI
+BEETLES,ЖУКИ,BEETLES,Käfer,COLÉOPTÈRES,BÖCEKLER,ESCARABAJOS,甲虫,甲蟲,KUMBANG
+Open chest description,Открой сундук и получи образы окружения,Open the chest and get environment images,Öffnen Sie die Truhe und erhalten Sie Umgebungsbilder,Ouvrez le coffre et obtenez des images d'environnement,Sandığı açın ve çevre görüntülerini alın,Abre el cofre y obtén imágenes del entorno.,宝箱を開けて環境画像を入手する,打開箱子，取得環境影像,Buka peti dan dapatkan gambar lingkungan
+CONTINUE...,ПРОДОЛЖИТЬ...,CONTINUE...,WEITERMACHEN...,CONTINUER...,DEVAM ETMEK...,CONTINUAR...,続く...,繼續...,MELANJUTKAN...
+Language,Язык,Language,Sprache,Langue,Dil,Idioma,言語,語言,Bahasa
+,,,,,,,,,
+Game Loop,,,,,,,,,
+The collection is over,Сбор окончен,The collection is over,Die Sammlung ist beendet,La collection est terminée,Koleksiyon bitti,La colección ha terminado,コレクションは終了しました,收集已結束,Koleksinya sudah selesai
+New Record,Новый Рекорд,New Record,Neuer Rekord,Nouveau record,Yeni Kayıt,Nuevo récord,新記録,新紀錄,Rekor Baru
+x3 POLLEN,х3 ПЫЛЬЦА,x3 POLLEN,x3 POLLEN,x3 POLLEN,x3 POLEN,x3 POLEN,花粉×3,x3 花粉,x3 serbuk sari
+x3 ORE,х3 РУДЫ,x3 ORE,x3 ERZ,x3 minerai,x3 CEVHER,x3 MINERAL,鉱石×3,x3 礦石,x3 BIJIH
+HOME,ДОМОЙ,HOME,HEIM,MAISON,EV,HOGAR,家,家,RUMAH
+AGAIN,СНОВА,AGAIN,WIEDER,ENCORE,TEKRAR,DE NUEVO,また,再次,LAGI
+PAUSE,ПАУЗА,PAUSE,PAUSE,PAUSE,DURAKLAT,PAUSA,一時停止,暫停,BERHENTI SEBENTAR
+,,,,,,,,,
+Tutorial,,,,,,,,,
+"By picking flowers, you earn pollen and set records.","Собирая цветы, ты зарабатываешь пыльцу и ставишь рекорды","By picking flowers, you earn pollen and set records.",Durch das Pflücken von Blumen sammeln Sie Pollen und stellen Rekorde auf.,"En cueillant des fleurs, vous gagnez du pollen et établissez des records.",Çiçek toplayarak polen kazanıp rekor kırabiliyorsunuz.,Recogiendo flores ganas polen y estableces récords.,花を摘むことで花粉を獲得し、記録を樹立することができます。,透過採摘花朵，您可以獲得花粉並創造記錄。,"Dengan memetik bunga, Anda memperoleh serbuk sari dan mencetak rekor."
+"While pulling, you can switch to another flower to change your movement.",Во время притягивания ты можешь переключиться на другой цветок для смены движения,"While pulling, you can switch to another flower to change your movement.","Während des Ziehens können Sie zu einer anderen Blume wechseln, um Ihre Bewegung zu ändern.","En tirant, vous pouvez passer à une autre fleur pour modifier votre mouvement.",Çekerken hareketinizi değiştirmek için başka bir çiçeğe geçebilirsiniz.,"Mientras tiras, puedes cambiar a otra flor para cambiar tu movimiento.",引っ張っている間に別の花に切り替えて動きを変えることもできます。,拉動時，您可以切換到另一朵花來改變您的動作。,"Sambil menarik, Anda dapat beralih ke bunga lain untuk mengubah gerakan Anda."
+Tutorial 3,"Через шипы ты можешь пролететь вверх, но падать на них смертельно опасно","You can fly up through the spikes, but falling on them is deadly.","Sie können durch die Stacheln nach oben fliegen, aber darauf zu fallen ist tödlich.","Vous pouvez voler à travers les pointes, mais tomber dessus est mortel.","Dikenlerin arasından uçarak yukarı çıkabilirsiniz, ancak üzerlerine düşmeniz ölümcüldür.","Puedes volar hacia arriba a través de las púas, pero caer sobre ellas es mortal",スパイクを飛び越えて上ることはできますが、スパイクの上に落ちると致命的です。,你可以飛過尖刺，但掉在尖刺上則會致命。,"Anda dapat terbang ke atas melalui duri-duri itu, tetapi jatuh di atasnya mematikan"
+Tutorial 4,"А это жуки, их опасность заключается в движении, не попадайся им на пути","These are beetles, their danger lies in their movement, don't get in their way","Das sind Käfer, ihre Gefahr liegt in ihrer Bewegung, stelle dich ihnen nicht in den Weg","Et ce sont des coléoptères, leur danger réside dans le mouvement, ne vous mettez pas en travers de leur chemin","Ve bunlar kınkanatlı böcekler, tehlikeleri hareketlerinde, yollarına çıkmayın","Estos son escarabajos, su peligrosidad radica en su movimiento, no te interpongas en su camino.",これらは甲虫です。その動きが危険です。邪魔をしないでください。,這些是甲蟲，它們的危險在於它們的運動，不要妨礙它們,"Ini adalah kumbang, bahayanya terletak pada pergerakannya, jangan menghalangi mereka"
+End Tutorial,"Поздравляю, теперь ты знаешь всё! 
+
+Заработанную пыльцу можно потратить в инвентаре на интересные образы.
+
+Не забывай отслеживать свой прогресс в Таблице Лидеров.
+
+Удачи!","Congratulations, now you know everything!
+
+You can spend the pollen you earn in your inventory on interesting skins.
+
+Don't forget to track your progress on the Leaderboard.
+
+Good luck!","Herzlichen Glückwunsch, jetzt weißt du alles!
+
+Den verdienten Pollen kannst du im Inventar für interessante Aussehen ausgeben.
+
+Vergiss nicht, deinen Fortschritt in der Bestenliste zu verfolgen.
+
+Viel Glück!","Félicitations, vous savez tout maintenant !
+
+Le pollen gagné peut être dépensé dans l'inventaire pour des apparences intéressantes.
+
+N'oubliez pas de suivre vos progrès dans le classement.
+
+Bonne chance !","Tebrikler, artık her şeyi biliyorsunuz!
+
+Kazandığınız polenleri envanterinizde ilginç görünümler için kullanabilirsiniz.
+
+Lider Tablosu'nda ilerlemenizi takip etmeyi unutmayın.
+
+Bol şans!","¡Felicidades, ya lo sabes todo!
+
+El polen que ganes se puede gastar en tu inventario en apariencias interesantes.
+
+No olvides seguir tu progreso en la tabla de clasificación.
+
+¡Mucha suerte!","おめでとうございます！これですべて理解できました！
+
+インベントリで獲得した花粉を使って、魅力的なスキンを入手できます。
+
+リーダーボードで進捗状況を確認するのをお忘れなく。
+
+頑張ってください！","恭喜，現在你已經了解一切了！
+
+你可以用庫存中賺取的花粉購買有趣的皮膚。
+
+別忘了在排行榜上追蹤你的進度。
+
+祝你好運！","Selamat, sekarang kamu tahu semuanya!
+
+Serbuk sari yang kamu dapatkan bisa dibelanjakan di inventaris untuk tampilan menarik.
+
+Jangan lupa lacak kemajuanmu di Papan Peringkat.
+
+Semoga sukses!"
+CONTINUE,ПРОДОЛЖИТЬ,CONTINUE,WEITERMACHEN,CONTINUER,DEVAM ETMEK,CONTINUAR,続く,繼續,MELANJUTKAN
+,,,,,,,,,
+RESIKN_NOOBIK,,,,,,,,,
+PICKS,КИРКИ,PICKS,AUSWAHL,CHOIX,SEÇİMLER,SELECCIONES,ピック,撥片,PILIHAN
+ORES,РУДЫ,ORES,ERZE,MINERAIS,CEVHERLER,ORES,鉱石,礦石,BIJIH
+SPIDERS,ПАУКИ,SPIDERS,SPINNEN,ARAIGNÉES,ÖRÜMCEKLER,ARAÑAS,クモ,蜘蛛,LABA-LABA
+Tutorial 1,"Собирая блоки, ты зарабатываешь руду и ставишь рекорды","By collecting blocks, you earn ore and set records","Indem du Blöcke sammelst, verdienst du Erz und stellst Rekorde auf","En collectant des blocs, tu gagnes du minerai et établis des records",Blokları toplayarak cevher kazanırsın ve rekorlar kırarsın,"Al recolectar bloques, ganas mineral y estableces récords",ブロックを集めることで、鉱石を獲得し、記録を打ち立てるよ！,透過收集方塊，您可以賺取礦石並創下記錄。,"Dengan mengumpulkan blok, kamu mendapatkan bijih dan mencetak rekor"
+Tutorial 2,Во время притягивания ты можешь переключиться на другой блок руды для смены движения,"While attracting, you can switch to another ore block to change your movement","Während des Anziehens kannst du zu einem anderen Erzblock wechseln, um die Bewegung zu ändern","Pendant l'attraction, tu peux passer à un autre bloc de minerai pour changer de mouvement","Çekerken, hareketi değiştirmek için başka bir cevher bloğuna geçebilirsin","Mientras atraes, puedes cambiar a otro bloque de mineral para modificar tu movimiento",引き寄せている間に、別の鉱石ブロックに切り替えて動きを変えることができるよ。,拉動時，您可以切換到另一個礦石塊來改變運動。,"Saat menarik, kamu bisa beralih ke blok bijih lain untuk mengubah gerakan"
+Congratulation Tutorial,"Поздравляю, теперь ты знаешь всё! 
+
+Заработанную руду можно потратить в инвентаре на интересные образы.
+
+Не забывай отслеживать свой прогресс в Таблице Лидеров.
+
+Удачи!","Congratulations, now you know everything!
+
+The ore you earn can be spent in the inventory on cool skins.
+
+Don’t forget to track your progress on the Leaderboard.
+
+Good luck!","Gratuliere, jetzt weißt du alles!
+
+Das verdiente Erz kannst du im Inventar für coole Skins ausgeben.
+
+Vergiss nicht, deinen Fortschritt in der Rangliste zu verfolgen.
+
+Viel Erfolg!","Félicitations, maintenant tu sais tout !
+
+Le minerai gagné peut être dépensé dans l'inventaire pour des apparences intéressantes.
+
+N'oublie pas de suivre tes progrès dans le classement.
+
+Bonne chance !","Tebrikler, artık her şeyi biliyorsun!
+
+Kazandığın cevheri envanterde harika görünümler için harcayabilirsin.
+
+Lider Tablosu’nda ilerlemeni takip etmeyi unutma.
+
+Bol şans!","¡Felicidades, ahora lo sabes todo!
+
+El mineral ganado se puede gastar en el inventario en aspectos interesantes.
+
+No olvides seguir tu progreso en la Tabla de Líderes.
+
+¡Buena suerte!","おめでとう！これで全部わかったね！
+
+獲得した鉱石はインベントリでカッコいいスキンに使えます。
+
+リーダーボードで自分の進捗をチェックするのを忘れないでね。
+
+幸運を！","""恭喜，現在你已經了解一切了！
+
+你可以用庫存中賺取的礦石購買有趣的皮膚。
+
+別忘了在排行榜上追蹤你的進度。
+
+祝你好運！""","Selamat, sekarang kamu tahu segalanya!
+
+Bijih yang kamu dapatkan bisa digunakan di inventaris untuk membeli skin keren.
+
+Jangan lupa pantau kemajuanmu di Papan Peringkat.
+
+Semoga sukses!"
+,,,,,,,,,
+"By collecting blocks, you earn ore and set records.","Собирая блоки, ты зарабатываешь руду и ставишь рекорды","By collecting blocks, you earn ore and set records.",Durch das Sammeln von Blöcken verdienen Sie Erz und stellen Rekorde auf.,"En collectant des blocs, vous gagnez du minerai et établissez des records.",Blokları toplayarak cevher kazanıp rekor kırabilirsiniz.,"Al recolectar bloques, ganas minerales y estableces récords.",ブロックを集めることで鉱石を獲得し、記録を更新することができます。,透過收集方塊，您可以賺取礦石並創下記錄。,"Dengan mengumpulkan balok, Anda memperoleh bijih dan mencetak rekor."
+"While pulling, you can switch to another ore block to change movement.",Во время притягивания ты можешь переключиться на другой блок руды для смены движения,"While pulling, you can switch to another ore block to change movement.","Während des Ziehens können Sie zu einem anderen Erzblock wechseln, um die Bewegung zu ändern.","Pendant que vous tirez, vous pouvez passer à un autre bloc de minerai pour modifier le mouvement.",Çekerken hareketi değiştirmek için başka bir cevher bloğuna geçebilirsiniz.,"Mientras tiras, puedes cambiar a otro bloque de mineral para cambiar de movimiento.",引っ張っている間に、別の鉱石ブロックに切り替えて動きを変えることができます。,拉動時，您可以切換到另一個礦石塊來改變運動。,"Selagi menarik, Anda dapat beralih ke blok bijih lain untuk mengubah gerakan."
+"Congratulations, now you know everything!
+
+You can spend the ore you earn in your inventory on interesting skins.
+
+Don't forget to track your progress on the Leaderboard.
+
+Good luck!","Поздравляю, теперь ты знаешь всё! 
+
+Заработанную руду можно потратить в инвентаре на интересные образы.
+
+Не забывай отслеживать свой прогресс в Таблице Лидеров.
+
+Удачи!","Congratulations, now you know everything!
+
+You can spend the ore you earn in your inventory on interesting skins.
+
+Don't forget to track your progress on the Leaderboard.
+
+Good luck!","Herzlichen Glückwunsch, jetzt weißt du alles!
+
+Du kannst das Erz, das du in deinem Inventar verdienst, für interessante Skins ausgeben.
+
+Vergiss nicht, deinen Fortschritt in der Bestenliste zu verfolgen.
+
+Viel Glück!","Félicitations, vous savez maintenant tout !
+
+Vous pouvez dépenser le minerai gagné dans votre inventaire pour obtenir des skins intéressants.
+
+N'oubliez pas de suivre votre progression dans le classement.
+
+Bonne chance !","Tebrikler, artık her şeyi biliyorsunuz!
+
+Envanterinizde kazandığınız cevherleri ilginç görünümler için harcayabilirsiniz.
+
+İlerlemenizi Liderlik Tablosu'nda takip etmeyi unutmayın.
+
+Bol şans!","¡Felicidades, ya lo sabes todo!
+
+Puedes gastar el mineral que ganes en tu inventario en aspectos interesantes.
+
+No olvides seguir tu progreso en la tabla de clasificación.
+
+¡Mucha suerte!","おめでとうございます！これですべて理解できました！
+
+インベントリで獲得した鉱石を使って、魅力的なスキンを入手できます。
+
+リーダーボードで進捗状況を確認するのをお忘れなく。
+
+頑張ってください！","恭喜，現在你已經了解一切了！
+
+你可以用庫存中賺取的礦石購買有趣的皮膚。
+
+別忘了在排行榜上追蹤你的進度。
+
+祝你好運！","Selamat, sekarang kamu sudah tahu semuanya!
+
+Kamu bisa menggunakan bijih yang kamu peroleh di inventarismu untuk membeli skin-skin menarik.
+
+Jangan lupa pantau progresmu di Papan Peringkat.
+
+Semoga berhasil!"

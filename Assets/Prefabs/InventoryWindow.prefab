@@ -215,7 +215,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: -397091255, guid: e93a4aa43e241f04382b8e6f0e1841db, type: 3}
+  m_Sprite: {fileID: 21300000, guid: ca2e56ae50a4342a9b2daa8fa422d47c, type: 3}
   m_Type: 0
   m_PreserveAspect: 1
   m_FillCenter: 1
@@ -542,7 +542,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: -596335169, guid: dd8176ff37e7e7b4492c670e55079c14, type: 3}
+  m_Sprite: {fileID: 21300000, guid: ae9f8677ca3c24a7c80d7217a941f886, type: 3}
   m_Type: 1
   m_PreserveAspect: 1
   m_FillCenter: 1
@@ -551,7 +551,7 @@ MonoBehaviour:
   m_FillClockwise: 1
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
-  m_PixelsPerUnitMultiplier: 1.98
+  m_PixelsPerUnitMultiplier: 0.35
 --- !u!114 &369210414140266868
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -733,7 +733,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 3e1f691bc84e03e4cb2fbcd7d2280d58, type: 3}
+  m_Sprite: {fileID: 2537677310410823980, guid: 36fb8e3c56a118746b84fbca1b2b4d7b, type: 3}
   m_Type: 0
   m_PreserveAspect: 1
   m_FillCenter: 1
@@ -1147,7 +1147,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0}
   m_AnchorMax: {x: 0.5, y: 0}
-  m_AnchoredPosition: {x: 11, y: 100}
+  m_AnchoredPosition: {x: 0, y: 62}
   m_SizeDelta: {x: 500, y: 200}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &5284756877848344881
@@ -1178,7 +1178,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: -1028842110, guid: dd8176ff37e7e7b4492c670e55079c14, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 2dd4604925f264cb1990818641361190, type: 3}
   m_Type: 1
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -1187,7 +1187,7 @@ MonoBehaviour:
   m_FillClockwise: 1
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
-  m_PixelsPerUnitMultiplier: 1.22
+  m_PixelsPerUnitMultiplier: 0.36
 --- !u!114 &8684454390600082705
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1848,8 +1848,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -41, y: 0}
-  m_SizeDelta: {x: 300, y: 50}
+  m_AnchoredPosition: {x: 23.2989, y: 0}
+  m_SizeDelta: {x: 377.56, y: 110.3029}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &7599711228806280590
 CanvasRenderer:
@@ -1888,8 +1888,8 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4294967295
-  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
+    rgba: 4278190080
+  m_fontColor: {r: 0, g: 0, b: 0, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -1906,10 +1906,10 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 50
+  m_fontSize: 72
   m_fontSizeBase: 50
   m_fontWeight: 400
-  m_enableAutoSizing: 0
+  m_enableAutoSizing: 1
   m_fontSizeMin: 18
   m_fontSizeMax: 72
   m_fontStyle: 1
@@ -2264,7 +2264,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9eb94e0242494647a8f441e6f0ae1e5a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  LocalizationKey: Open the chest and get the environment images
+  LocalizationKey: Open chest description
 --- !u!1 &5612976294828428097
 GameObject:
   m_ObjectHideFlags: 0
@@ -2276,7 +2276,6 @@ GameObject:
   - component: {fileID: 1157173108780852333}
   - component: {fileID: 6622300374544244452}
   - component: {fileID: 4941839526796219182}
-  - component: {fileID: 8923353714917316306}
   m_Layer: 5
   m_Name: Text (TMP)
   m_TagString: Untagged
@@ -2402,175 +2401,6 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
---- !u!114 &8923353714917316306
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5612976294828428097}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f34f36451b093ee4c83ad4aa5459d2ac, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  textMPComponent: {fileID: 4941839526796219182}
-  uniqueFontTMP: {fileID: 0}
-  textLComponent: {fileID: 0}
-  info:
-    domainAutoLocalization: com
-    languages:
-      ru: 1
-      en: 1
-      tr: 1
-      az: 0
-      be: 0
-      he: 0
-      hy: 0
-      ka: 0
-      et: 0
-      fr: 1
-      kk: 0
-      ky: 0
-      lt: 0
-      lv: 0
-      ro: 0
-      tg: 0
-      tk: 0
-      uk: 0
-      uz: 0
-      es: 1
-      pt: 0
-      ar: 0
-      id: 0
-      ja: 1
-      it: 0
-      de: 1
-      hi: 0
-    fonts:
-      defaultFont:
-      - {fileID: 12800000, guid: e3265ab4bf004d28a9537516768c1c75, type: 3}
-      ru: []
-      en: []
-      tr: []
-      az: []
-      be: []
-      he: []
-      hy: []
-      ka: []
-      et: []
-      fr: []
-      kk: []
-      ky: []
-      lt: []
-      lv: []
-      ro: []
-      tg: []
-      tk: []
-      uk: []
-      uz: []
-      es: []
-      pt: []
-      ar: []
-      id: []
-      ja: []
-      it: []
-      de: []
-      hi: []
-    fontsTMP:
-      defaultFont:
-      - {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-      ru: []
-      en: []
-      tr: []
-      az: []
-      be: []
-      he: []
-      hy: []
-      ka: []
-      et: []
-      fr: []
-      kk: []
-      ky: []
-      lt: []
-      lv: []
-      ro: []
-      tg: []
-      tk: []
-      uk: []
-      uz: []
-      es: []
-      pt: []
-      ar: []
-      id: []
-      ja: []
-      it: []
-      de: []
-      hi: []
-    fontsSizeCorrect:
-      ru: 
-      en: 
-      tr: 
-      az: 
-      be: 
-      he: 
-      hy: 
-      ka: 
-      et: 
-      fr: 
-      kk: 
-      ky: 
-      lt: 
-      lv: 
-      ro: 
-      tg: 
-      tk: 
-      uk: 
-      uz: 
-      es: 
-      pt: 
-      ar: 
-      id: 
-      ja: 
-      it: 
-      de: 
-      hi: 
-  text: 
-  ru: "\u0421\u043C\u043E\u0442\u0440\u0435\u0442\u044C"
-  en: Look
-  tr: Bakmak
-  az: 
-  be: 
-  he: 
-  hy: 
-  ka: 
-  et: 
-  fr: Regarder
-  kk: 
-  ky: 
-  lt: 
-  lv: 
-  ro: 
-  tg: 
-  tk: 
-  uk: 
-  uz: 
-  es: Mirar
-  pt: 
-  ar: 
-  id: 
-  ja: "\u898B\u3066"
-  it: 
-  de: Suchen
-  hi: 
-  changeOnlyFont: 0
-  fontNumber: 0
-  uniqueFont: {fileID: 0}
-  additionalText: {fileID: 0}
-  textHeight: 20
-  processTranslateLabel: 7/7 completed
-  componentTextField: 1
-  countLang: 7
 --- !u!1 &6240500513176378940
 GameObject:
   m_ObjectHideFlags: 0
@@ -2637,7 +2467,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 505366233, guid: dd8176ff37e7e7b4492c670e55079c14, type: 3}
+  m_Sprite: {fileID: 21300000, guid: ae9f8677ca3c24a7c80d7217a941f886, type: 3}
   m_Type: 1
   m_PreserveAspect: 1
   m_FillCenter: 1
@@ -2646,7 +2476,7 @@ MonoBehaviour:
   m_FillClockwise: 1
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
-  m_PixelsPerUnitMultiplier: 1.73
+  m_PixelsPerUnitMultiplier: 0.35
 --- !u!114 &1981621109797112973
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2654,7 +2484,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6240500513176378940}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: cfabb0440166ab443bba8876756fdfa9, type: 3}
   m_Name: 
@@ -3029,7 +2859,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 2121872576, guid: dd8176ff37e7e7b4492c670e55079c14, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 6f2505aafe1be4eebaef05cf00b2966a, type: 3}
   m_Type: 1
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -3038,7 +2868,7 @@ MonoBehaviour:
   m_FillClockwise: 1
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
-  m_PixelsPerUnitMultiplier: 0.74
+  m_PixelsPerUnitMultiplier: 0.19
 --- !u!1 &6925545705719984175
 GameObject:
   m_ObjectHideFlags: 0
@@ -3240,7 +3070,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: -397091255, guid: e93a4aa43e241f04382b8e6f0e1841db, type: 3}
+  m_Sprite: {fileID: 21300000, guid: aeac1c0d6009446f68b9a1e6dc51070a, type: 3}
   m_Type: 0
   m_PreserveAspect: 1
   m_FillCenter: 1
@@ -3540,8 +3370,8 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 742537341, guid: dd8176ff37e7e7b4492c670e55079c14, type: 3}
-  m_Type: 0
+  m_Sprite: {fileID: 21300000, guid: 6f2505aafe1be4eebaef05cf00b2966a, type: 3}
+  m_Type: 1
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 4
@@ -3549,7 +3379,7 @@ MonoBehaviour:
   m_FillClockwise: 1
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
-  m_PixelsPerUnitMultiplier: 1
+  m_PixelsPerUnitMultiplier: 0.19
 --- !u!1 &8421938952744272213
 GameObject:
   m_ObjectHideFlags: 0
@@ -3972,7 +3802,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: -1028842110, guid: dd8176ff37e7e7b4492c670e55079c14, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 2dd4604925f264cb1990818641361190, type: 3}
   m_Type: 1
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -3981,7 +3811,7 @@ MonoBehaviour:
   m_FillClockwise: 1
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
-  m_PixelsPerUnitMultiplier: 1.22
+  m_PixelsPerUnitMultiplier: 0.36
 --- !u!114 &5286720800013461207
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4048,7 +3878,7 @@ PrefabInstance:
       objectReference: {fileID: 6147100317820619860}
     - target: {fileID: 5528288818746212654, guid: b3333d5a242015e4a91e71cf57175c8e, type: 3}
       propertyPath: m_text
-      value: "\u0426\u0412\u0415\u0422\u042B"
+      value: "\u0420\u0423\u0414\u042B"
       objectReference: {fileID: 0}
     - target: {fileID: 5528288818746212654, guid: b3333d5a242015e4a91e71cf57175c8e, type: 3}
       propertyPath: m_fontSize
@@ -4179,7 +4009,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9eb94e0242494647a8f441e6f0ae1e5a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  LocalizationKey: FLOWERS
+  LocalizationKey: ORES
 --- !u!224 &8662858488469609775 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 8625512524618725178, guid: b3333d5a242015e4a91e71cf57175c8e, type: 3}
@@ -4207,7 +4037,7 @@ PrefabInstance:
       objectReference: {fileID: 6147100317820619860}
     - target: {fileID: 5528288818746212654, guid: b3333d5a242015e4a91e71cf57175c8e, type: 3}
       propertyPath: m_text
-      value: "\u041F\u0415\u0420\u0421\u041E\u041D\u0410\u0416"
+      value: "\u041A\u0418\u0420\u041A\u0418"
       objectReference: {fileID: 0}
     - target: {fileID: 5528288818746212654, guid: b3333d5a242015e4a91e71cf57175c8e, type: 3}
       propertyPath: m_fontSize
@@ -4342,7 +4172,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9eb94e0242494647a8f441e6f0ae1e5a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  LocalizationKey: CHARACTER
+  LocalizationKey: PICKS
 --- !u!1001 &2380394874338976820
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -4907,7 +4737,7 @@ PrefabInstance:
       objectReference: {fileID: 6147100317820619860}
     - target: {fileID: 5528288818746212654, guid: b3333d5a242015e4a91e71cf57175c8e, type: 3}
       propertyPath: m_text
-      value: "\u0416\u0423\u041A\u0418"
+      value: "\u041F\u0410\u0423\u041A\u0418"
       objectReference: {fileID: 0}
     - target: {fileID: 5528288818746212654, guid: b3333d5a242015e4a91e71cf57175c8e, type: 3}
       propertyPath: m_fontSize
@@ -5043,7 +4873,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9eb94e0242494647a8f441e6f0ae1e5a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  LocalizationKey: BEETLES
+  LocalizationKey: SPIDERS
 --- !u!1001 &9062416609245005717
 PrefabInstance:
   m_ObjectHideFlags: 0

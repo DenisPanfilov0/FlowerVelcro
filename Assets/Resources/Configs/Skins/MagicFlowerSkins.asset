@@ -15,5 +15,5 @@ MonoBehaviour:
   Type: 6
   InventorySkins:
   - SkinId: 1
-    Icon: {fileID: -4253464808430993802, guid: 281a6dd8a1403a847a3bd6ea953dfb0e, type: 3}
+    Icon: {fileID: -1656452546, guid: c9876f663f5646240bd46b76cc0dd65c, type: 3}
     IsLocked: 1

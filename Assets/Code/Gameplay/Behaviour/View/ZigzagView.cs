@@ -27,7 +27,7 @@ namespace Code.Gameplay.Behaviour.View
 
             // Set initial rotation based on initial velocity
             float initialVelocity = _amplitude * horizontalSpeed * Mathf.Cos(0 * horizontalSpeed);
-            transform.rotation = Quaternion.Euler(0, 0, initialVelocity >= 0 ? -90 : 90);
+            transform.rotation = Quaternion.Euler(0, 0, initialVelocity >= 0 ? 90 : -90);
         }
 
         public override void Reset()
@@ -41,7 +41,7 @@ namespace Code.Gameplay.Behaviour.View
                 transform.position = centerPos;
                 // Set initial rotation based on initial velocity
                 float initialVelocity = _amplitude * horizontalSpeed * Mathf.Cos(0 * horizontalSpeed);
-                transform.rotation = Quaternion.Euler(0, 0, initialVelocity >= 0 ? -90 : 90);
+                transform.rotation = Quaternion.Euler(0, 0, initialVelocity >= 0 ? 90 : -90);
             }
         }
 
@@ -66,7 +66,7 @@ namespace Code.Gameplay.Behaviour.View
                 _rb.linearVelocity = new Vector2(h_vel, _rb.linearVelocity.y);
 
                 // Update rotation every frame based on horizontal velocity
-                transform.rotation = Quaternion.Euler(0, 0, h_vel >= 0 ? -90 : 90);
+                transform.rotation = Quaternion.Euler(0, 0, h_vel >= 0 ? 90 : -90);
             }
         }
 

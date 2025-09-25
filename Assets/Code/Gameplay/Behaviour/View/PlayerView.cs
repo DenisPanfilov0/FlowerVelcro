@@ -39,7 +39,7 @@ namespace Code.Gameplay.Behaviour.View
         private Flower _targetFlower; // Для сохранения цели притягивания при паузе
         
         private float _speedUpdateTimer;
-        private const float SpeedUpdateInterval = 1f; // каждые 1 секунда
+        private const float SpeedUpdateInterval = 0.1f; // каждые 1 секунда
 
         [Inject]
         public void Construct(

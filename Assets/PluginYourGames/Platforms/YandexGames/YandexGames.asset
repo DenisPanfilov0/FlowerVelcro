@@ -26,7 +26,7 @@ MonoBehaviour:
     enableExceptions: 2
     compressionFormat: 0
     decompressionFallback: 0
-    autoGraphicsAPI: 1
+    autoGraphicsAPI: 0
     managedStrippingLevel: 4
     dataCaching: 0
     colorSpace: 0

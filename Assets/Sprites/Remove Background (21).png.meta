@@ -144,7 +144,7 @@ TextureImporter:
         width: 463
         height: 455
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -153,6 +153,28 @@ TextureImporter:
       bones: []
       spriteID: e268af27c25d7604b83c900ecaa15d1f
       internalID: -397091255
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Remove Background (21)_1
+      rect:
+        serializedVersion: 2
+        x: 39
+        y: 70
+        width: 463
+        height: 455
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 43dc665ccea34984d88cb0f8a17e97cd
+      internalID: -661677957
       vertices: []
       indices: 
       edges: []
@@ -172,6 +194,7 @@ TextureImporter:
       entries: []
     nameFileIdTable:
       Remove Background (21)_0: -397091255
+      Remove Background (21)_1: -661677957
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

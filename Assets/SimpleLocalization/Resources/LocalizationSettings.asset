@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   TableId: 1WtcDR3_Y_BQiIUB36z8U90R8z8lGXECTa-RYI2q1dlA
   Sheets:
-  - Name: Localization
+  - Name: Localization FlyBee
     Id: 1329217441
-    TextAsset: {fileID: 4900000, guid: c4caf4e718ec26e4b9a785f0011b390e, type: 3}
+    TextAsset: {fileID: 4900000, guid: 7f21680f32bcaaf48a8008e6ec9a4758, type: 3}
   SaveFolder: {fileID: 102900000, guid: c392831e85f928548b8494fefd912562, type: 3}

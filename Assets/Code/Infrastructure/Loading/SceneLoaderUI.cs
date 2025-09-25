@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 using System.Collections;
+using YG;
 
 public class SceneLoaderUI : MonoBehaviour
 {
@@ -8,6 +9,7 @@ public class SceneLoaderUI : MonoBehaviour
     public Image loadingImage;
     public Material fadeMaterial;
     private bool isAnimating = false;
+    private bool _isFirstLoad;
 
     void Awake()
     {
@@ -24,6 +26,8 @@ public class SceneLoaderUI : MonoBehaviour
 
     void Start()
     {
+        _isFirstLoad = true;
+        
         if (loadingImage == null)
         {
             Debug.LogError("Loading Image not assigned!");
@@ -134,6 +138,13 @@ public class SceneLoaderUI : MonoBehaviour
         fadeMaterial.SetFloat("_BlurRadius", 0f);
         fadeMaterial.SetFloat("_MistIntensity", 0f);
         isAnimating = false;
+
+        if (_isFirstLoad)
+        {
+            _isFirstLoad = false;
+            YG2.GameReadyAPI();
+        }
+        
         onComplete?.Invoke();
     }
 }

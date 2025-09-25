@@ -1169,17 +1169,17 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 426620589}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: 0, y: 1, z: 0, w: 0}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1202209565}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
   m_AnchorMin: {x: 1, y: 0.5}
   m_AnchorMax: {x: 1, y: 0.5}
-  m_AnchoredPosition: {x: -157, y: 100}
-  m_SizeDelta: {x: 895.4083, y: 942.713}
+  m_AnchoredPosition: {x: -154, y: 53}
+  m_SizeDelta: {x: 585.7262, y: 989.4574}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &426620591
 MonoBehaviour:
@@ -1201,7 +1201,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: b584f65f9b0c05049986a56ccbcd1df3, type: 3}
+  m_Sprite: {fileID: 564292444483078500, guid: 298d53997fd881049885a66d0154a748, type: 3}
   m_Type: 0
   m_PreserveAspect: 1
   m_FillCenter: 1
@@ -1276,7 +1276,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 661666215213279980, guid: ed8cf42908ffeea4aa3700e581e98f7f, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 6cc7c4110305e45418586f0466ddd2b2, type: 3}
   m_Type: 1
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -1410,8 +1410,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -182.92009, y: 5.9535}
-  m_SizeDelta: {x: 648.6921, y: 371.5268}
+  m_AnchoredPosition: {x: -206.29231, y: 5.9535}
+  m_SizeDelta: {x: 601.9476, y: 371.5268}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &503401638
 MonoBehaviour:
@@ -1527,7 +1527,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9eb94e0242494647a8f441e6f0ae1e5a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  LocalizationKey: By picking flowers, you earn pollen and set records
+  LocalizationKey: Tutorial 1
 --- !u!1001 &513618841
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1591,7 +1591,7 @@ PrefabInstance:
     - target: {fileID: 8296534807041739767, guid: fb5f5f37b5b138d429285b4d7490d0bb, type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: -3815762470850479585, guid: bf097e37636810742b92ea01496aa081, type: 3}
+      objectReference: {fileID: 1150933800, guid: 93e23f9eff499a14882d07a40b3b220e, type: 3}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -1815,17 +1815,17 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 819604559}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: 0, y: 1, z: 0, w: 0}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1108185836}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
   m_AnchorMin: {x: 1, y: 0.5}
   m_AnchorMax: {x: 1, y: 0.5}
-  m_AnchoredPosition: {x: -157, y: 100}
-  m_SizeDelta: {x: 895.4083, y: 942.713}
+  m_AnchoredPosition: {x: -154, y: 53}
+  m_SizeDelta: {x: 585.7262, y: 989.4574}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &819604561
 MonoBehaviour:
@@ -1847,7 +1847,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: b584f65f9b0c05049986a56ccbcd1df3, type: 3}
+  m_Sprite: {fileID: 564292444483078500, guid: 298d53997fd881049885a66d0154a748, type: 3}
   m_Type: 0
   m_PreserveAspect: 1
   m_FillCenter: 1
@@ -2061,7 +2061,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 661666215213279980, guid: ed8cf42908ffeea4aa3700e581e98f7f, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 6cc7c4110305e45418586f0466ddd2b2, type: 3}
   m_Type: 1
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -2240,8 +2240,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -182.92009, y: 5.9535}
-  m_SizeDelta: {x: 648.6921, y: 371.5268}
+  m_AnchoredPosition: {x: -206.29231, y: 5.9535}
+  m_SizeDelta: {x: 601.9476, y: 371.5268}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &989295195
 MonoBehaviour:
@@ -2293,7 +2293,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 55
+  m_fontSize: 54.75
   m_fontSizeBase: 55
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -2357,8 +2357,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9eb94e0242494647a8f441e6f0ae1e5a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  LocalizationKey: While pulling, you can switch to another flower to change the
-    movement.
+  LocalizationKey: Tutorial 2
 --- !u!1001 &1002576816
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2609,17 +2608,17 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1082635970}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: 0, y: 1, z: 0, w: 0}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 300683979}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
   m_AnchorMin: {x: 1, y: 0.5}
   m_AnchorMax: {x: 1, y: 0.5}
-  m_AnchoredPosition: {x: -157, y: 100}
-  m_SizeDelta: {x: 895.4083, y: 942.713}
+  m_AnchoredPosition: {x: -154, y: 53}
+  m_SizeDelta: {x: 585.7262, y: 989.4574}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1082635972
 MonoBehaviour:
@@ -2641,7 +2640,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: b584f65f9b0c05049986a56ccbcd1df3, type: 3}
+  m_Sprite: {fileID: 564292444483078500, guid: 298d53997fd881049885a66d0154a748, type: 3}
   m_Type: 0
   m_PreserveAspect: 1
   m_FillCenter: 1
@@ -3238,8 +3237,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -182.92009, y: 5.9535}
-  m_SizeDelta: {x: 648.6921, y: 371.5268}
+  m_AnchoredPosition: {x: -206.29231, y: 5.9535}
+  m_SizeDelta: {x: 601.9476, y: 371.5268}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1301717659
 MonoBehaviour:
@@ -3355,7 +3354,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9eb94e0242494647a8f441e6f0ae1e5a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  LocalizationKey: You can fly up through the spikes, but falling on them is deadly.
+  LocalizationKey: Tutorial 3
 --- !u!1 &1319431714
 GameObject:
   m_ObjectHideFlags: 0
@@ -3417,8 +3416,8 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: -1468617235225215949, guid: bb0c60acc7e2bb241a00095bfc0484df, type: 3}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Sprite: {fileID: -4546364986831407924, guid: faad875725b8e6f4fb30f6458c94a58d, type: 3}
+  m_Color: {r: 0.8584906, g: 0.6922164, b: 0.34420612, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -3438,8 +3437,8 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0.1187, z: 0}
-  m_LocalScale: {x: 9, y: 9, z: 9}
-  m_ConstrainProportionsScale: 0
+  m_LocalScale: {x: 11.060001, y: 11.060001, z: 11.060001}
+  m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -3553,8 +3552,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -182.92009, y: 5.9535}
-  m_SizeDelta: {x: 648.6921, y: 371.5268}
+  m_AnchoredPosition: {x: -206.29231, y: 5.9535}
+  m_SizeDelta: {x: 601.9476, y: 371.5268}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1384240364
 MonoBehaviour:
@@ -3670,8 +3669,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9eb94e0242494647a8f441e6f0ae1e5a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  LocalizationKey: And these are beetles, their danger lies in movement, don't get
-    in their way
+  LocalizationKey: Tutorial 4
 --- !u!1 &1398293281
 GameObject:
   m_ObjectHideFlags: 0
@@ -3771,7 +3769,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 661666215213279980, guid: ed8cf42908ffeea4aa3700e581e98f7f, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 6cc7c4110305e45418586f0466ddd2b2, type: 3}
   m_Type: 1
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -4010,17 +4008,17 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1529780508}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: 0, y: 1, z: 0, w: 0}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1937415127}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
   m_AnchorMin: {x: 1, y: 0.5}
   m_AnchorMax: {x: 1, y: 0.5}
-  m_AnchoredPosition: {x: -157, y: 100}
-  m_SizeDelta: {x: 895.4083, y: 942.713}
+  m_AnchoredPosition: {x: -154, y: 53}
+  m_SizeDelta: {x: 585.7262, y: 989.4574}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1529780510
 MonoBehaviour:
@@ -4042,7 +4040,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: b584f65f9b0c05049986a56ccbcd1df3, type: 3}
+  m_Sprite: {fileID: 564292444483078500, guid: 298d53997fd881049885a66d0154a748, type: 3}
   m_Type: 0
   m_PreserveAspect: 1
   m_FillCenter: 1
@@ -4117,7 +4115,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 661666215213279980, guid: ed8cf42908ffeea4aa3700e581e98f7f, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 6cc7c4110305e45418586f0466ddd2b2, type: 3}
   m_Type: 1
   m_PreserveAspect: 0
   m_FillCenter: 1
