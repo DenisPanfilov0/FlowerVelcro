@@ -733,7 +733,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 2537677310410823980, guid: 36fb8e3c56a118746b84fbca1b2b4d7b, type: 3}
+  m_Sprite: {fileID: -6463687224775405481, guid: 5cf8e6ab5d7ced0468a4b5e0a5b649c4, type: 3}
   m_Type: 0
   m_PreserveAspect: 1
   m_FillCenter: 1
@@ -4009,7 +4009,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9eb94e0242494647a8f441e6f0ae1e5a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  LocalizationKey: ORES
+  LocalizationKey: FOOD
 --- !u!224 &8662858488469609775 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 8625512524618725178, guid: b3333d5a242015e4a91e71cf57175c8e, type: 3}
@@ -4172,7 +4172,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9eb94e0242494647a8f441e6f0ae1e5a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  LocalizationKey: PICKS
+  LocalizationKey: LABUBU
 --- !u!1001 &2380394874338976820
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -4873,7 +4873,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9eb94e0242494647a8f441e6f0ae1e5a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  LocalizationKey: SPIDERS
+  LocalizationKey: BEETLES
 --- !u!1001 &9062416609245005717
 PrefabInstance:
   m_ObjectHideFlags: 0

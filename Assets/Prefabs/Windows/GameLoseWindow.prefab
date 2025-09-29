@@ -331,7 +331,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 2537677310410823980, guid: 36fb8e3c56a118746b84fbca1b2b4d7b, type: 3}
+  m_Sprite: {fileID: -6463687224775405481, guid: 5cf8e6ab5d7ced0468a4b5e0a5b649c4, type: 3}
   m_Type: 0
   m_PreserveAspect: 1
   m_FillCenter: 1
@@ -1351,7 +1351,7 @@ RectTransform:
   m_AnchorMin: {x: 0.07425637, y: 0.54468745}
   m_AnchorMax: {x: 0.92912006, y: 0.646}
   m_AnchoredPosition: {x: 1.7248535, y: 261}
-  m_SizeDelta: {x: -429.1955, y: -2.2242}
+  m_SizeDelta: {x: -799.8255, y: -2.2242}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &3803121502418019913
 CanvasRenderer:
@@ -1598,7 +1598,7 @@ MonoBehaviour:
   m_VertexBufferAutoSizeReduction: 0
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: 202.10205, y: 62.185112, z: 203.82956, w: 43.184387}
+  m_margin: {x: 405.55453, y: 62.185112, z: 414.29745, w: 43.184387}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_hasFontAssetChanged: 0
@@ -1819,7 +1819,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 2537677310410823980, guid: 36fb8e3c56a118746b84fbca1b2b4d7b, type: 3}
+  m_Sprite: {fileID: -6463687224775405481, guid: 5cf8e6ab5d7ced0468a4b5e0a5b649c4, type: 3}
   m_Type: 0
   m_PreserveAspect: 1
   m_FillCenter: 1
@@ -2223,7 +2223,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9eb94e0242494647a8f441e6f0ae1e5a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  LocalizationKey: x3 ORE
+  LocalizationKey: x3 SUGAR
 --- !u!1001 &5895161587717713516
 PrefabInstance:
   m_ObjectHideFlags: 0

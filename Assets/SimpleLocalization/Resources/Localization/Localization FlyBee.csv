@@ -150,66 +150,65 @@ Jangan lupa pantau kemajuanmu di Papan Peringkat.
 
 Semoga sukses!"
 ,,,,,,,,,
-"By collecting blocks, you earn ore and set records.","Собирая блоки, ты зарабатываешь руду и ставишь рекорды","By collecting blocks, you earn ore and set records.",Durch das Sammeln von Blöcken verdienen Sie Erz und stellen Rekorde auf.,"En collectant des blocs, vous gagnez du minerai et établissez des records.",Blokları toplayarak cevher kazanıp rekor kırabilirsiniz.,"Al recolectar bloques, ganas minerales y estableces récords.",ブロックを集めることで鉱石を獲得し、記録を更新することができます。,透過收集方塊，您可以賺取礦石並創下記錄。,"Dengan mengumpulkan balok, Anda memperoleh bijih dan mencetak rekor."
-"While pulling, you can switch to another ore block to change movement.",Во время притягивания ты можешь переключиться на другой блок руды для смены движения,"While pulling, you can switch to another ore block to change movement.","Während des Ziehens können Sie zu einem anderen Erzblock wechseln, um die Bewegung zu ändern.","Pendant que vous tirez, vous pouvez passer à un autre bloc de minerai pour modifier le mouvement.",Çekerken hareketi değiştirmek için başka bir cevher bloğuna geçebilirsiniz.,"Mientras tiras, puedes cambiar a otro bloque de mineral para cambiar de movimiento.",引っ張っている間に、別の鉱石ブロックに切り替えて動きを変えることができます。,拉動時，您可以切換到另一個礦石塊來改變運動。,"Selagi menarik, Anda dapat beralih ke blok bijih lain untuk mengubah gerakan."
-"Congratulations, now you know everything!
+,,,,,,,,,
+Reskin Labubu,,,,,,,,,
+LABUBU,ЛАБУБУ,LABUBU,LABUBU,LABUBU,LABUBU,LABUBU,ラブブ,拉布布,LABUBU
+FOOD,ЕДА,FOOD,ESSEN,NOURRITURE,YİYECEK,ALIMENTO,食べ物,食物,MAKANAN
+LAB Tutorial 1,"Собирая еду, ты кормишь Лабубу и зарабатываешь Сахарок, местную валюту","By collecting food, you feed Labubu and earn Sugar, the local currency.","Indem Sie Lebensmittel sammeln, ernähren Sie Labubu und verdienen Zucker, die lokale Währung.","En collectant de la nourriture, vous nourrissez Labubu et gagnez du sucre, la monnaie locale.",Yiyecek toplayarak Labubu'yu besliyor ve yerel para birimi olan Şeker kazanıyorsunuz.,"Al recolectar alimentos, alimentas a Labubu y ganas azúcar, la moneda local.",食べ物を集めると、ラブブに餌を与え、現地通貨である砂糖を獲得できます。,透過收集食物，您可以餵養拉布布並賺取當地貨幣糖。,"Dengan mengumpulkan makanan, Anda memberi makan Labubu dan mendapatkan Gula, mata uang lokal."
+LAB Tutorial 2,Во время притягивания ты можешь переключиться на любую другую еду для смены движения,"While pulling, you can switch to any other food to change the movement.","Während des Ziehens können Sie auf jedes andere Futter umsteigen, um die Bewegung zu verändern.","Pendant que vous tirez, vous pouvez passer à n’importe quel autre aliment pour changer le mouvement.",Çekerken hareketi değiştirmek için başka bir yiyeceğe geçebilirsiniz.,"Mientras tiras, puedes cambiar a cualquier otro alimento para cambiar el movimiento.",引っ張っている間に、他の食べ物に切り替えると動きを変えることができます。,拉動時，您可以換用任何其他食物來改變動作。,"Sambil menarik, Anda dapat beralih ke makanan lain untuk mengubah gerakan."
+LAB Tutorial End,"Поздравляю, теперь ты знаешь всё! 
 
-You can spend the ore you earn in your inventory on interesting skins.
-
-Don't forget to track your progress on the Leaderboard.
-
-Good luck!","Поздравляю, теперь ты знаешь всё! 
-
-Заработанную руду можно потратить в инвентаре на интересные образы.
+Заработанный сахар можно потратить в инвентаре на интересные образы.
 
 Не забывай отслеживать свой прогресс в Таблице Лидеров.
 
 Удачи!","Congratulations, now you know everything!
 
-You can spend the ore you earn in your inventory on interesting skins.
+You can spend the sugar you earn in your inventory on interesting skins.
 
 Don't forget to track your progress on the Leaderboard.
 
 Good luck!","Herzlichen Glückwunsch, jetzt weißt du alles!
 
-Du kannst das Erz, das du in deinem Inventar verdienst, für interessante Skins ausgeben.
+Du kannst den Zucker, den du in deinem Inventar verdienst, für interessante Skins ausgeben.
 
 Vergiss nicht, deinen Fortschritt in der Bestenliste zu verfolgen.
 
 Viel Glück!","Félicitations, vous savez maintenant tout !
 
-Vous pouvez dépenser le minerai gagné dans votre inventaire pour obtenir des skins intéressants.
+Vous pouvez dépenser le sucre gagné dans votre inventaire pour obtenir des skins intéressants.
 
 N'oubliez pas de suivre votre progression dans le classement.
 
 Bonne chance !","Tebrikler, artık her şeyi biliyorsunuz!
 
-Envanterinizde kazandığınız cevherleri ilginç görünümler için harcayabilirsiniz.
+Envanterinizde kazandığınız şekeri ilginç kostümlere harcayabilirsiniz.
 
 İlerlemenizi Liderlik Tablosu'nda takip etmeyi unutmayın.
 
 Bol şans!","¡Felicidades, ya lo sabes todo!
 
-Puedes gastar el mineral que ganes en tu inventario en aspectos interesantes.
+Puedes gastar el azúcar que ganes en tu inventario en aspectos interesantes.
 
 No olvides seguir tu progreso en la tabla de clasificación.
 
 ¡Mucha suerte!","おめでとうございます！これですべて理解できました！
 
-インベントリで獲得した鉱石を使って、魅力的なスキンを入手できます。
+インベントリで獲得した砂糖を使って、魅力的なスキンを入手できます。
 
 リーダーボードで進捗状況を確認するのをお忘れなく。
 
 頑張ってください！","恭喜，現在你已經了解一切了！
 
-你可以用庫存中賺取的礦石購買有趣的皮膚。
+你可以用庫存中賺取的糖來購買有趣的皮膚。
 
 別忘了在排行榜上追蹤你的進度。
 
-祝你好運！","Selamat, sekarang kamu sudah tahu semuanya!
+祝你好運！","Selamat, sekarang kamu tahu segalanya!
 
-Kamu bisa menggunakan bijih yang kamu peroleh di inventarismu untuk membeli skin-skin menarik.
+Kamu bisa menggunakan gula yang kamu peroleh di inventarismu untuk membeli skin-skin menarik.
 
 Jangan lupa pantau progresmu di Papan Peringkat.
 
 Semoga berhasil!"
+x3 SUGAR,х3 САХАРА,x3 SUGAR,x3 ZUCKER,x3 SUCRE,x3 ŞEKER,x3 AZÚCAR,砂糖×3,x3 糖,x3 GULA

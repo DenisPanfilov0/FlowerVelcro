@@ -15,50 +15,53 @@ MonoBehaviour:
   Type: 4
   InventorySkins:
   - SkinId: 1
-    Icon: {fileID: 1150933800, guid: 93e23f9eff499a14882d07a40b3b220e, type: 3}
+    Icon: {fileID: -1526657568, guid: f9ce6c7e5e66d0644bae9c0a96f1d98c, type: 3}
     IsLocked: 0
   - SkinId: 2
-    Icon: {fileID: 2091684188, guid: 93e23f9eff499a14882d07a40b3b220e, type: 3}
+    Icon: {fileID: -1136849887, guid: f9ce6c7e5e66d0644bae9c0a96f1d98c, type: 3}
     IsLocked: 1
   - SkinId: 3
-    Icon: {fileID: -211712134, guid: 93e23f9eff499a14882d07a40b3b220e, type: 3}
+    Icon: {fileID: -371836505, guid: f9ce6c7e5e66d0644bae9c0a96f1d98c, type: 3}
     IsLocked: 1
   - SkinId: 4
-    Icon: {fileID: -1922859265, guid: 93e23f9eff499a14882d07a40b3b220e, type: 3}
+    Icon: {fileID: -705317600, guid: f9ce6c7e5e66d0644bae9c0a96f1d98c, type: 3}
     IsLocked: 1
   - SkinId: 5
-    Icon: {fileID: 348438396, guid: 93e23f9eff499a14882d07a40b3b220e, type: 3}
+    Icon: {fileID: 660405552, guid: f9ce6c7e5e66d0644bae9c0a96f1d98c, type: 3}
     IsLocked: 1
   - SkinId: 6
-    Icon: {fileID: -195359989, guid: 93e23f9eff499a14882d07a40b3b220e, type: 3}
+    Icon: {fileID: 266002558, guid: f9ce6c7e5e66d0644bae9c0a96f1d98c, type: 3}
     IsLocked: 1
   - SkinId: 7
-    Icon: {fileID: -164942219, guid: 93e23f9eff499a14882d07a40b3b220e, type: 3}
+    Icon: {fileID: -1208685321, guid: f9ce6c7e5e66d0644bae9c0a96f1d98c, type: 3}
     IsLocked: 1
   - SkinId: 8
-    Icon: {fileID: 1200399908, guid: 93e23f9eff499a14882d07a40b3b220e, type: 3}
+    Icon: {fileID: 251152931, guid: f9ce6c7e5e66d0644bae9c0a96f1d98c, type: 3}
     IsLocked: 1
   - SkinId: 9
-    Icon: {fileID: 1095982772, guid: 93e23f9eff499a14882d07a40b3b220e, type: 3}
+    Icon: {fileID: -2089172133, guid: f9ce6c7e5e66d0644bae9c0a96f1d98c, type: 3}
     IsLocked: 1
   - SkinId: 10
-    Icon: {fileID: -1099466103, guid: 93e23f9eff499a14882d07a40b3b220e, type: 3}
+    Icon: {fileID: -104693277, guid: f9ce6c7e5e66d0644bae9c0a96f1d98c, type: 3}
     IsLocked: 1
   - SkinId: 11
-    Icon: {fileID: 1338305080, guid: 93e23f9eff499a14882d07a40b3b220e, type: 3}
+    Icon: {fileID: 1936930536, guid: f9ce6c7e5e66d0644bae9c0a96f1d98c, type: 3}
     IsLocked: 1
   - SkinId: 12
-    Icon: {fileID: 1943896679, guid: 93e23f9eff499a14882d07a40b3b220e, type: 3}
+    Icon: {fileID: -235313887, guid: a3bc2fbac7f2b174b90a63c735d3bd63, type: 3}
     IsLocked: 1
   - SkinId: 13
-    Icon: {fileID: -1484141022, guid: 93e23f9eff499a14882d07a40b3b220e, type: 3}
+    Icon: {fileID: -762173260, guid: a3bc2fbac7f2b174b90a63c735d3bd63, type: 3}
     IsLocked: 1
   - SkinId: 14
-    Icon: {fileID: 485279722, guid: 93e23f9eff499a14882d07a40b3b220e, type: 3}
+    Icon: {fileID: -1617527203, guid: a3bc2fbac7f2b174b90a63c735d3bd63, type: 3}
     IsLocked: 1
   - SkinId: 15
-    Icon: {fileID: 959370035, guid: 93e23f9eff499a14882d07a40b3b220e, type: 3}
+    Icon: {fileID: -1396881174, guid: a3bc2fbac7f2b174b90a63c735d3bd63, type: 3}
     IsLocked: 1
   - SkinId: 16
-    Icon: {fileID: 1489089578, guid: 93e23f9eff499a14882d07a40b3b220e, type: 3}
+    Icon: {fileID: -1683037779, guid: a3bc2fbac7f2b174b90a63c735d3bd63, type: 3}
+    IsLocked: 1
+  - SkinId: 17
+    Icon: {fileID: 1705294284, guid: a3bc2fbac7f2b174b90a63c735d3bd63, type: 3}
     IsLocked: 1

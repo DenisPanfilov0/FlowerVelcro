@@ -176,7 +176,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 2537677310410823980, guid: 36fb8e3c56a118746b84fbca1b2b4d7b, type: 3}
+  m_Sprite: {fileID: -6463687224775405481, guid: 5cf8e6ab5d7ced0468a4b5e0a5b649c4, type: 3}
   m_Type: 0
   m_PreserveAspect: 1
   m_FillCenter: 1
@@ -2191,7 +2191,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9eb94e0242494647a8f441e6f0ae1e5a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  LocalizationKey: Congratulation Tutorial
+  LocalizationKey: LAB Tutorial End
 --- !u!1 &981260284
 GameObject:
   m_ObjectHideFlags: 0
@@ -4560,9 +4560,9 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 5391894680881936080, guid: 1fe7be9a93e9d0c48bd8c97bf5c6b840, type: 3}
+  m_Sprite: {fileID: -5893891273190217887, guid: 923c1f47523bed94e9cf0d5f7f7fe7b8, type: 3}
   m_Type: 0
-  m_PreserveAspect: 0
+  m_PreserveAspect: 1
   m_FillCenter: 1
   m_FillMethod: 4
   m_FillAmount: 1
@@ -4633,7 +4633,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0}
   m_AnchorMax: {x: 0.5, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 1094, y: 0}
+  m_SizeDelta: {x: 8041.0435, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &5399238156096786902
 CanvasRenderer:
