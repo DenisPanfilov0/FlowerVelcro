@@ -118,6 +118,8 @@ public class SceneLoaderUI : MonoBehaviour
 
     private IEnumerator AnimateUnloading(System.Action onComplete)
     {
+        YG2.GameReadyAPI();
+
         isAnimating = true;
         float duration = 0.8f;
         float startProgress = 1f;
@@ -142,7 +144,7 @@ public class SceneLoaderUI : MonoBehaviour
         if (_isFirstLoad)
         {
             _isFirstLoad = false;
-            YG2.GameReadyAPI();
+            // YG2.GameReadyAPI();
         }
         
         onComplete?.Invoke();
