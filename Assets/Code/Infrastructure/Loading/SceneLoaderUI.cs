@@ -10,6 +10,7 @@ public class SceneLoaderUI : MonoBehaviour
     public Material fadeMaterial;
     private bool isAnimating = false;
     private bool _isFirstLoad;
+    private bool _isFirstUnload;
 
     void Awake()
     {
@@ -22,11 +23,15 @@ public class SceneLoaderUI : MonoBehaviour
         {
             Destroy(gameObject);
         }
+        
+        _isFirstLoad = true;
+        _isFirstUnload = true;
     }
 
     void Start()
     {
         _isFirstLoad = true;
+        _isFirstUnload = true;
         
         if (loadingImage == null)
         {
@@ -38,17 +43,26 @@ public class SceneLoaderUI : MonoBehaviour
             Debug.LogError("Fade Material not assigned!");
             return;
         }
-        loadingImage.material = fadeMaterial;
-        fadeMaterial.SetFloat("_TransitionProgress", 0f); // Start with original image
-        fadeMaterial.SetFloat("_BlurRadius", 0f); // No blur initially
-        fadeMaterial.SetFloat("_MistIntensity", 0f); // No mist initially
-        loadingImage.color = new Color(1, 1, 1, 1); // Fully visible
+        // loadingImage.material = fadeMaterial;
+        // fadeMaterial.SetFloat("_TransitionProgress", 0f); // Start with original image
+        // fadeMaterial.SetFloat("_BlurRadius", 0f); // No blur initially
+        // fadeMaterial.SetFloat("_MistIntensity", 0f); // No mist initially
+        // loadingImage.color = new Color(1, 1, 1, 1); // Fully visible
     }
 
     public void StartLoadingAnimation(System.Action onComplete)
     {
+        if (_isFirstLoad)
+        {
+            _isFirstLoad = false;
+            onComplete?.Invoke();
+            return;
+        }
+        
         if (!isAnimating)
         {
+            // loadingImage.color = new Color(1, 1, 1, 1); // Fully visible
+
             StartCoroutine(AnimateLoading(onComplete));
         }
         else
@@ -59,6 +73,14 @@ public class SceneLoaderUI : MonoBehaviour
 
     public void StartUnloadingAnimation(System.Action onComplete)
     {
+        if (_isFirstUnload)
+        {
+            YG2.GameReadyAPI();
+            _isFirstUnload = false;
+            onComplete?.Invoke();
+            return;
+        }
+        
         if (!isAnimating)
         {
             StartCoroutine(AnimateUnloading(onComplete));
@@ -118,7 +140,7 @@ public class SceneLoaderUI : MonoBehaviour
 
     private IEnumerator AnimateUnloading(System.Action onComplete)
     {
-        YG2.GameReadyAPI();
+        // YG2.GameReadyAPI();
 
         isAnimating = true;
         float duration = 0.8f;
@@ -141,11 +163,11 @@ public class SceneLoaderUI : MonoBehaviour
         fadeMaterial.SetFloat("_MistIntensity", 0f);
         isAnimating = false;
 
-        if (_isFirstLoad)
-        {
-            _isFirstLoad = false;
-            // YG2.GameReadyAPI();
-        }
+        // if (_isFirstLoad)
+        // {
+        //     _isFirstLoad = false;
+        //     // YG2.GameReadyAPI();
+        // }
         
         onComplete?.Invoke();
     }
