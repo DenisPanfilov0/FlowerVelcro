@@ -102,9 +102,9 @@ namespace Code
         tr = 3, 
         fr = 4, 
         es = 5, 
-        ja = 6, 
+        // ja = 6, 
         de = 7, 
-        zh = 8, 
+        // zh = 8, 
         id = 9, 
     }
 }

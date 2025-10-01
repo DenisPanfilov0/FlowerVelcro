@@ -1,3 +1,3 @@
-Build path: C:/Users/denis/Documents/Game_Builds/Web/FC_Noobik/10
-Build number: 83
+Build path: C:/Users/denis/Documents/Game_Builds/Web/FC_Noobik/19
+Build number: 93
 PluginYG version: 2.005

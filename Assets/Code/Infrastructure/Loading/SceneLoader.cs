@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using YG;
 
 namespace Code.Infrastructure.Loading
 {
@@ -56,7 +57,7 @@ namespace Code.Infrastructure.Loading
             {
                 yield return null;
             }
-
+            
             onLoaded?.Invoke();
         }
     }
