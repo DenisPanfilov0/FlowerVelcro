@@ -50,9 +50,9 @@ namespace Code
                 { LanguageType.tr, _languageFontConfig.DefaultFont },
                 { LanguageType.fr, _languageFontConfig.DefaultFont },
                 { LanguageType.es, _languageFontConfig.DefaultFont },
-                { LanguageType.ja, _languageFontConfig.AsianFont },
+                // { LanguageType.ja, _languageFontConfig.AsianFont },
                 { LanguageType.de, _languageFontConfig.DefaultFont },
-                { LanguageType.zh, _languageFontConfig.AsianFont },
+                // { LanguageType.zh, _languageFontConfig.AsianFont },
                 { LanguageType.id, _languageFontConfig.DefaultFont },
             };
 
@@ -63,9 +63,9 @@ namespace Code
                 { LanguageType.tr, new TMPSettings { FontStyle = null } },
                 { LanguageType.fr, new TMPSettings { FontStyle = null } },
                 { LanguageType.es, new TMPSettings { FontStyle = null } },
-                { LanguageType.ja, new TMPSettings { FontStyle = FontStyles.Normal } },
+                // { LanguageType.ja, new TMPSettings { FontStyle = FontStyles.Normal } },
                 { LanguageType.de, new TMPSettings { FontStyle = null } },
-                { LanguageType.zh, new TMPSettings { FontStyle = FontStyles.Normal } },
+                // { LanguageType.zh, new TMPSettings { FontStyle = FontStyles.Normal } },
                 { LanguageType.id, new TMPSettings { FontStyle = null } },
             };
 
