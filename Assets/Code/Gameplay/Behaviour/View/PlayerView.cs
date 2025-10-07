@@ -223,11 +223,11 @@ namespace Code.Gameplay.Behaviour.View
 
                 if (flower.GetComponent<SlimeView>())
                 {
-                    _gameScoreService.IncreaseScore(1);
+                    _gameScoreService.IncreaseScore(4);
                 }
                 else
                 {
-                    _gameScoreService.IncreaseScore(3);
+                    _gameScoreService.IncreaseScore(12);
                 }
 
                 _audioManager.PlaySoundEffect(AudioClipTypeId.CollectedPollen);

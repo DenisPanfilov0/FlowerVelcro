@@ -70,7 +70,7 @@ namespace Code.Progress.Data
             {
                 // Инициализация значений по умолчанию, если данных нет
                 MaxScore = 0;
-                IsTutorialChecked = false;
+                IsTutorialChecked = true;
                 TotalPollenCollected = 0;
                 TotalGamesPlayed = 0;
                 SaveData(); // Сохраняем начальные значения

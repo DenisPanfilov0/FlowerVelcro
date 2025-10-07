@@ -8,14 +8,18 @@ namespace Code.Advertising
 {
     public class AdvertisingService : IInitializable, ITickable
     {
-        private const float FIXED_REWARD_TIME = 300f;
+        private const float FIXED_REWARD_TIME = 180f;
+        private const float SECOND_INTERSTITIAL_TIME = 120f;
         
         private float _time;
         private TaskCompletionSource<bool> _rewardTaskCompletionSource;
         private bool _rewardReceived;
+        private bool _firstInterstitialViewed;
 
         public void Initialize()
         {
+            _firstInterstitialViewed = false;
+            
             _time = FIXED_REWARD_TIME;
 
             YG2.onRewardAdv += RewardedAdv;
@@ -68,6 +72,14 @@ namespace Code.Advertising
 
         public void AddInterstitial()
         {
+            if (!_firstInterstitialViewed)
+            {
+                _firstInterstitialViewed = true;
+                YG2.InterstitialAdvShow();
+                _time = SECOND_INTERSTITIAL_TIME;
+                return;
+            }
+            
             if (_time <= 0)
             {
                 YG2.InterstitialAdvShow();
