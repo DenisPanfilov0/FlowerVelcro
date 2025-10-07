@@ -33,6 +33,7 @@ namespace Code
         public IEnumerator FadeAlpha(float from, float to, float duration)
         {
             float time = 0f;
+            SetAlpha(from);
             while (time < duration)
             {
                 time += Time.deltaTime;

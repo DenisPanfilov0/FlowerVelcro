@@ -106,10 +106,28 @@ public class ShadowController : MonoBehaviour
         cachedShadowTexture.SetPixels(fillPixels);
     }
 
+    public void FillShadowTextureFullyOpaque()
+    {
+        if (cachedShadowTexture == null) return;
+
+        Color fillColor = shadowImage.color;
+        fillColor.a = 1f; // Fully opaque for the texture
+        Color[] fillPixels = new Color[cachedShadowTexture.width * cachedShadowTexture.height];
+        for (int i = 0; i < fillPixels.Length; i++) fillPixels[i] = fillColor;
+        cachedShadowTexture.SetPixels(fillPixels);
+        cachedShadowTexture.Apply();
+        shadowImage.sprite = Sprite.Create(cachedShadowTexture, new Rect(0, 0, cachedShadowTexture.width, cachedShadowTexture.height), shadowRect.pivot, 100f);
+    }
+
     private void ApplyShadowTexture()
     {
         cachedShadowTexture.Apply();
         shadowImage.sprite = Sprite.Create(cachedShadowTexture, new Rect(0, 0, cachedShadowTexture.width, cachedShadowTexture.height), shadowRect.pivot, 100f);
+    }
+
+    public void SetRaycastTarget(bool value)
+    {
+        shadowImage.raycastTarget = value;
     }
 
     public void RedrawShadowWithImageSafe(Image targetImage)
