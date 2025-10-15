@@ -60,7 +60,7 @@ Material:
     - _ZWrite: 0
     m_Colors:
     - _BrushColor: {r: 0.8509804, g: 0.1882353, b: 0.1882353, a: 1}
-    - _BrushPos: {r: 0.3301711, g: 0.6499033, b: 0, a: 0}
+    - _BrushPos: {r: 0.10792597, g: 0.86847204, b: 0, a: 0}
     - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _FadeColor: {r: 0, g: 0, b: 0, a: 1}
     - _RendererColor: {r: 1, g: 1, b: 1, a: 1}

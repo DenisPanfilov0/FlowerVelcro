@@ -13,10 +13,6 @@ namespace Code.Features.CanvasOfFantasy
         [SerializeField] private Button _deleteImage;
         [SerializeField] private Button _mirrorImage;
         [SerializeField] private Button _selectButton;
-        
-        [SerializeField] private Canvas _overlayCanvas; // Canvas для рамки и кнопок (сериализуемый)
-        [SerializeField] private int _selectedSortingOrder = 100; // SortingOrder при выборе
-        private int _originalSortingOrder; // Исходный SortingOrder для возврата
 
         private CanvasOfFantasyWindow _canvasOfFantasyWindow;
         private Vector2 _dragStartPosition;
@@ -87,14 +83,6 @@ namespace Code.Features.CanvasOfFantasy
             _rotationImage.gameObject.SetActive(true);
             _deleteImage.gameObject.SetActive(true);
             _mirrorImage.gameObject.SetActive(true);
-
-            // Поднимаем Canvas выше всех
-            if (_overlayCanvas != null)
-            {
-                _overlayCanvas.overrideSorting = true; // включаем независимый порядок
-                _originalSortingOrder = _overlayCanvas.sortingOrder; // сохраняем исходный порядок
-                _overlayCanvas.sortingOrder = _selectedSortingOrder;
-            }
         }
 
         public void Deselect()
@@ -105,12 +93,6 @@ namespace Code.Features.CanvasOfFantasy
             _deleteImage.gameObject.SetActive(false);
             _mirrorImage.gameObject.SetActive(false);
             _isDragging = false;
-
-            // Возвращаем исходный SortingOrder Canvas
-            if (_overlayCanvas != null)
-            {
-                _overlayCanvas.sortingOrder = _originalSortingOrder;
-            }
         }
 
         public void EnableInteractivity()
