@@ -11,6 +11,7 @@ namespace Code.Progress.Data
         private const string SAVE_KEY = "ProgressData";
 
         public int MaxScore { get; private set; }
+        public int GamePlayed { get; private set; }
         public bool IsTutorialChecked { get; private set; }
         public int TotalPollenCollected;
         public int TotalGamesPlayed;
@@ -19,7 +20,8 @@ namespace Code.Progress.Data
         {
             _saveLoadService = saveLoadService;
             MaxScore = 0;
-            IsTutorialChecked = false;
+            GamePlayed = 0;
+            IsTutorialChecked = true;
         }
 
         public void Initialize()
@@ -38,6 +40,12 @@ namespace Code.Progress.Data
             SaveData(); // Сохраняем сразу после изменения
         }
 
+        public void ChangeGamePlayed()
+        {
+            GamePlayed++;
+            SaveData();
+        }
+
         public void SetTutorialChecked(bool isChecked)
         {
             IsTutorialChecked = isChecked;
@@ -49,6 +57,7 @@ namespace Code.Progress.Data
             var data = new ProgressSaveData
             {
                 MaxScore = MaxScore,
+                GamePlayed = GamePlayed,
                 IsTutorialChecked = IsTutorialChecked,
                 TotalPollenCollected = TotalPollenCollected,
                 TotalGamesPlayed = TotalGamesPlayed,
@@ -62,6 +71,7 @@ namespace Code.Progress.Data
             if (data != null)
             {
                 MaxScore = data.MaxScore;
+                GamePlayed = data.GamePlayed;
                 IsTutorialChecked = data.IsTutorialChecked;
                 TotalPollenCollected = data.TotalPollenCollected;
                 TotalGamesPlayed = data.TotalGamesPlayed;
@@ -70,6 +80,7 @@ namespace Code.Progress.Data
             {
                 // Инициализация значений по умолчанию, если данных нет
                 MaxScore = 0;
+                GamePlayed = 0;
                 IsTutorialChecked = true;
                 TotalPollenCollected = 0;
                 TotalGamesPlayed = 0;
@@ -82,6 +93,7 @@ namespace Code.Progress.Data
     public class ProgressSaveData
     {
         public int MaxScore;
+        public int GamePlayed;
         public bool IsTutorialChecked;
         public int TotalPollenCollected;
         public int TotalGamesPlayed;

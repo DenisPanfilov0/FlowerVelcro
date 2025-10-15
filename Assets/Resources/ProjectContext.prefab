@@ -79,3 +79,6 @@ MonoBehaviour:
   _audioManager: {fileID: 494207302971246681, guid: 329cd9a5153c6d0419e6a104167d90cf, type: 3}
   _sceneLoaderUI: {fileID: 2803346729910733566, guid: 1ba86be5391b34f45bc95e09e56fb183, type: 3}
   _languageFontConfig: {fileID: 11400000, guid: 083b3f70eac8be24a86f053a7a4f9e29, type: 2}
+  _dailyTaskConfig: {fileID: 11400000, guid: f9e113fb521ea0f49a4dc5d4d2a01ece, type: 2}
+  _dailyLoginConfig: {fileID: 11400000, guid: bffbb64c959e3364b9af2b21b59cd38b, type: 2}
+  _roomUpgradeConfig: {fileID: 11400000, guid: ddb6098fcd8caf0439944a945ff74b43, type: 2}

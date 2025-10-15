@@ -182,5 +182,10 @@ namespace Code.Inventory
             }
             SaveData();
         }
+
+        public List<InventorySkinsData> GetInventorySkinsData()
+        {
+            return _inventorySkins;
+        }
     }
 }

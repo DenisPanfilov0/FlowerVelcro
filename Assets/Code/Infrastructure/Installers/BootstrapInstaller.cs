@@ -1,4 +1,7 @@
 using Code.Advertising;
+using Code.Features.DailyLogin;
+using Code.Features.DailyTask;
+using Code.Features.RoomUpgrade;
 using Code.Gameplay.Services.GameScore;
 using Code.Gameplay.Services.GameStateService;
 using Code.Gameplay.Windows;
@@ -22,6 +25,9 @@ namespace Code.Infrastructure.Installers
         [SerializeField] private AudioManager _audioManager;
         [SerializeField] private SceneLoaderUI _sceneLoaderUI;
         [SerializeField] private LanguageFontConfig _languageFontConfig;
+        [SerializeField] private DailyTaskConfig _dailyTaskConfig;
+        [SerializeField] private DailyLoginConfig _dailyLoginConfig;
+        [SerializeField] private RoomUpgradeConfig _roomUpgradeConfig;
         
         public override void InstallBindings()
         {
@@ -41,6 +47,15 @@ namespace Code.Infrastructure.Installers
             Container.Bind<CurrencyConfig>().FromInstance(_currencyConfig).AsSingle().NonLazy();
             
             Container.Bind<AudioManager>().FromComponentInNewPrefab(_audioManager).AsSingle().NonLazy();
+            
+            Container.BindInterfacesAndSelfTo<DailyTaskModel>().AsSingle().NonLazy();
+            Container.Bind<DailyTaskConfig>().FromInstance(_dailyTaskConfig).AsSingle().NonLazy();
+
+            Container.BindInterfacesAndSelfTo<DailyLoginModel>().AsSingle().NonLazy();
+            Container.Bind<DailyLoginConfig>().FromInstance(_dailyLoginConfig).AsSingle().NonLazy();
+            
+            Container.BindInterfacesAndSelfTo<RoomUpgradeModel>().AsSingle().NonLazy();
+            Container.Bind<RoomUpgradeConfig>().FromInstance(_roomUpgradeConfig).AsSingle().NonLazy();
             
             
             BindInfrastructureServices();

@@ -1,4 +1,5 @@
 using System;
+using Code.Features.DailyTask;
 using Code.Gameplay.Services.GameStateService;
 using Code.Inventory;
 using Code.Leaderboards;
@@ -14,25 +15,31 @@ namespace Code.Gameplay.Services.GameScore
         private readonly ProgressData _progress;
         private readonly CurrencyModel _currencyModel;
         private readonly LeaderBoardModel _leaderBoardModel;
+        private readonly DailyTaskModel _dailyTaskModel;
+
         private int _score = 0;
         // private bool _isGameStop = false;
         private bool _isNewRecord = false;
 
         public GameScoreService(IGameStateService gameStateService, ProgressData progress, 
-            CurrencyModel currencyModel, LeaderBoardModel leaderBoardModel)
+            CurrencyModel currencyModel, LeaderBoardModel leaderBoardModel, DailyTaskModel dailyTaskModel)
         {
             _gameStateService = gameStateService;
             _progress = progress;
             _currencyModel = currencyModel;
             _leaderBoardModel = leaderBoardModel;
+            _dailyTaskModel = dailyTaskModel;
 
             _gameStateService.OnGameLose += () =>
             {
+                _progress.ChangeGamePlayed();
                 // _isGameStop = true;
                         
                 _currencyModel.AddCurrency(_score);
                 _progress.TotalPollenCollected += _score;
                 _progress.TotalGamesPlayed++;
+                
+                if(_score >= 20)_dailyTaskModel.DailyTaskCheck(DailyTaskType.PlayGames3Points20, 1);
                 
                 if (_progress.MaxScore < _score)
                 {

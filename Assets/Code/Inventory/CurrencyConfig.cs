@@ -7,5 +7,8 @@ namespace Code.Inventory
     {
         public Sprite Icon;
         public int Amount;
+
+        public Sprite StarCurrency;
+        public int AmountStar;
     }
 }

@@ -3,7 +3,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace Code
+namespace Code.Tutorial
 {
     public class DialogWindowController : MonoBehaviour
     {

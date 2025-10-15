@@ -1,0 +1,43 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 930d2249bec54b15ac264fa43b5d6471, type: 3}
+  m_Name: DailyLoginConfig
+  m_EditorClassIdentifier: 
+  DailyLoginRewards:
+  - Id: 0
+    TypeReward: 1
+    RewardIcon: {fileID: -6463687224775405481, guid: 5cf8e6ab5d7ced0468a4b5e0a5b649c4, type: 3}
+    RewardAmount: 200
+  - Id: 1
+    TypeReward: 1
+    RewardIcon: {fileID: -6463687224775405481, guid: 5cf8e6ab5d7ced0468a4b5e0a5b649c4, type: 3}
+    RewardAmount: 350
+  - Id: 2
+    TypeReward: 2
+    RewardIcon: {fileID: 21300000, guid: 866de434f16524f469bd196c7651ef26, type: 3}
+    RewardAmount: 20
+  - Id: 3
+    TypeReward: 1
+    RewardIcon: {fileID: -6463687224775405481, guid: 5cf8e6ab5d7ced0468a4b5e0a5b649c4, type: 3}
+    RewardAmount: 550
+  - Id: 4
+    TypeReward: 1
+    RewardIcon: {fileID: -6463687224775405481, guid: 5cf8e6ab5d7ced0468a4b5e0a5b649c4, type: 3}
+    RewardAmount: 800
+  - Id: 5
+    TypeReward: 2
+    RewardIcon: {fileID: 21300000, guid: 866de434f16524f469bd196c7651ef26, type: 3}
+    RewardAmount: 35
+  - Id: 6
+    TypeReward: 1
+    RewardIcon: {fileID: -6463687224775405481, guid: 5cf8e6ab5d7ced0468a4b5e0a5b649c4, type: 3}
+    RewardAmount: 1100
