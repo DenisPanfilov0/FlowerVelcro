@@ -20,6 +20,7 @@ namespace Code.Features.CanvasOfFantasy
 
         [SerializeField] private CanvasOfFantasyWindow _canvasOfFantasyWindow;
         [SerializeField] private RawImage _drawSurface;
+        [SerializeField] private Image stickersBackground;
 
         [Header("Brush Settings")]
         [SerializeField] private Color _brushColor = Color.white;
@@ -198,6 +199,7 @@ namespace Code.Features.CanvasOfFantasy
         private void UpdateDrawSurfaceRaycast()
         {
             _drawSurface.raycastTarget = _pencilActive || _eraserActive;
+            stickersBackground.raycastTarget = !_drawSurface.raycastTarget;
         }
         #endregion
 
