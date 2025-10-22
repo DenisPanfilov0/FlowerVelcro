@@ -1,11 +1,34 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
+using Code.Inventory;
 using TMPro;
 using Unity.Mathematics;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using Zenject;
+
+[System.Serializable]
+public class FruitSaveData
+{
+    public Fruit.FruitType type;
+    public Vector3 position;
+    public Quaternion rotation;
+    public Vector2 velocity;
+    public float angularVelocity;
+    public bool isKinematic;
+    public bool gravityEnabled;
+}
+
+[System.Serializable]
+public class FruitSaveWrapper
+{
+    public List<FruitSaveData> fruits;
+    public int savedScore;
+}
 
 public class GameManager : MonoBehaviour
 {
@@ -23,29 +46,48 @@ public class GameManager : MonoBehaviour
     public float YSpawnPosition, TimeBetweenSpawnes;
 
     [Header("-------------Fruit System-------------")]
-    public Fruit FruitPrefab; // Один универсальный префаб
-    public List<FruitData> fruitDataList; // Список типов и спрайтов
+    public Fruit FruitPrefab;
+    public List<FruitData> fruitDataList;
 
     public AudioSource SoundAudioSource, MusicAudioSource;
     public AudioClip loseSound, SmallMergeSound, BigMergeSound, ReleaseSound;
+
     public int Score;
     public int currentFruitIndex, nextFruitIndex;
-    Camera maincamera;
-    Vector3 SpawnLoc;
-    Fruit currentFruit;
-    float lastSpawnTime, LastWink;
+
+    private Camera maincamera;
+    private Vector3 SpawnLoc;
+    private Fruit currentFruit;
+    private float lastSpawnTime, LastWink;
     [HideInInspector] public bool IsGameOver;
+
+    [SerializeField] private TMP_Text _currencyValue;
+
+    private CurrencyModel _currencyModel;
+
+    [Inject]
+    public void Construct(CurrencyModel currencyModel)
+    {
+        _currencyModel = currencyModel;
+    }
 
     void Start()
     {
         maincamera = Camera.main;
-        currentFruitIndex = UnityEngine.Random.Range(0, fruitDataList.Count);
-        nextFruitIndex = UnityEngine.Random.Range(0, fruitDataList.Count);
 
-        NextFruitUI.sprite = fruitDataList[nextFruitIndex].sprite;
-        SetAimLineAndCurentFruit(new Vector3(0, AimLine.position.y, 0));
-        SpawnFruit(new Vector3(0, YSpawnPosition, 0));
+        _currencyValue.text = _currencyModel.GetCurrencyAmount().ToString();
+        
+        // Загружаем сохранение, если есть
+        if (PlayerPrefs.HasKey("SavedFruits"))
+        {
+            LoadFruits();
+        }
+        else
+        {
+            StartNewSession();
+        }
 
+        // Настройка звука
         if (PlayerPrefs.GetInt("CanPlayMusic", 1) == 0)
         {
             MusicBtn.sprite = musicOff;
@@ -55,21 +97,41 @@ public class GameManager : MonoBehaviour
         {
             SoundBtn.sprite = soundOff;
         }
+
+        // Автосохранение каждые 5 секунд
+        InvokeRepeating(nameof(SaveFruits), 5f, 5f);
+
+        _currencyModel.AmountChanged += CurrencyChange;
     }
 
-    private bool IsPointerOverUIObject()
+    private void OnDestroy()
     {
-        PointerEventData eventData = new PointerEventData(EventSystem.current);
-        eventData.position = Input.mousePosition;
-        List<RaycastResult> results = new List<RaycastResult>();
-        EventSystem.current.RaycastAll(eventData, results);
-        return results.Count > 0;
+        _currencyModel.AmountChanged -= CurrencyChange;
+    }
+
+    private void CurrencyChange(int value)
+    {
+        _currencyValue.text = value.ToString();
+    }
+
+    private void StartNewSession()
+    {
+        currentFruitIndex = UnityEngine.Random.Range(0, fruitDataList.Count);
+        nextFruitIndex = UnityEngine.Random.Range(0, fruitDataList.Count);
+
+        NextFruitUI.sprite = fruitDataList[nextFruitIndex].sprite;
+        SetAimLineAndCurentFruit(new Vector3(0, AimLine.position.y, 0));
+        SpawnFruit(new Vector3(0, YSpawnPosition, 0));
+
+        Score = 0;
+        ScoreText.text = "0";
     }
 
     void Update()
     {
         GameOver();
 
+        // Подмигивание фруктов
         if (Time.time > LastWink + 2)
         {
             LastWink = Time.time;
@@ -80,6 +142,7 @@ public class GameManager : MonoBehaviour
 
         if (IsPointerOverUIObject()) return;
 
+        // Спавн нового фрукта
         if (Time.time > TimeBetweenSpawnes + lastSpawnTime && currentFruit == null)
         {
             lastSpawnTime = Time.time;
@@ -91,6 +154,89 @@ public class GameManager : MonoBehaviour
         FruitSpawner();
     }
 
+    void OnApplicationQuit() => SaveFruits();
+    void OnApplicationPause(bool pause) { if (pause) SaveFruits(); }
+
+    // ============================================================
+    // 💾 Сохранение фруктов и очков
+    // ============================================================
+    void SaveFruits()
+    {
+        if (IsGameOver) return;
+
+        Fruit[] fruits = FindObjectsOfType<Fruit>();
+        List<FruitSaveData> saveList = new();
+
+        foreach (var f in fruits)
+        {
+            // Пропускаем фрукт, если он ещё не отпущен (висит у AimLine)
+            if (f.MyRigidbody2D != null && !f.MyRigidbody2D.simulated)
+                continue;
+
+            Rigidbody2D rb = f.MyRigidbody2D;
+            saveList.Add(new FruitSaveData
+            {
+                type = f.MyType,
+                position = f.transform.position,
+                rotation = f.transform.rotation,
+                velocity = rb.linearVelocity,
+                angularVelocity = rb.angularVelocity,
+                isKinematic = rb.isKinematic,
+                gravityEnabled = rb.simulated
+            });
+        }
+
+        FruitSaveWrapper wrapper = new()
+        {
+            fruits = saveList,
+            savedScore = Score
+        };
+
+        string json = JsonUtility.ToJson(wrapper);
+        PlayerPrefs.SetString("SavedFruits", json);
+        PlayerPrefs.Save();
+
+        Debug.Log($"✅ Сохранено фруктов: {saveList.Count}, Очков: {Score}");
+    }
+
+    // ============================================================
+    // 📥 Загрузка
+    // ============================================================
+    void LoadFruits()
+    {
+        string json = PlayerPrefs.GetString("SavedFruits");
+        FruitSaveWrapper wrapper = JsonUtility.FromJson<FruitSaveWrapper>(json);
+        if (wrapper == null || wrapper.fruits == null || wrapper.fruits.Count == 0)
+        {
+            StartNewSession();
+            return;
+        }
+
+        foreach (FruitSaveData data in wrapper.fruits)
+        {
+            var fruitInfo = fruitDataList.FirstOrDefault(f => f.type == data.type);
+            if (fruitInfo == null) continue;
+
+            Fruit fruit = Instantiate(FruitPrefab, data.position, data.rotation);
+            fruit.Setup(fruitInfo.type, fruitInfo.sprite, fruitInfo.radius);
+            fruit.Initialize();
+
+            Rigidbody2D rb = fruit.MyRigidbody2D;
+            rb.linearVelocity = data.velocity;
+            rb.angularVelocity = data.angularVelocity;
+            rb.isKinematic = data.isKinematic;
+            rb.simulated = data.gravityEnabled;
+        }
+
+        Score = wrapper.savedScore;
+        ScoreText.text = Score.ToString();
+
+        Debug.Log($"🍏 Загружено фруктов: {wrapper.fruits.Count}, Очков: {Score}");
+    }
+
+    // ============================================================
+    // 🎮 Логика игры
+    // ============================================================
     void FruitSpawner()
     {
         if (Input.GetMouseButton(0) && !IsPointerOverUIObject())
@@ -112,43 +258,6 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    void GameOver()
-    {
-        if (IsGameOver && !LosePanel.activeSelf)
-        {
-            Fruit[] loseFruits = FindObjectsOfType<Fruit>();
-            foreach (var f in loseFruits)
-                f.GameOver();
-
-            Invoke(nameof(ShowLosePanel), 1.5f);
-        }
-    }
-
-    public void SetAimLineAndCurentFruit(Vector2 newLoc)
-    {
-        AimLine.gameObject.SetActive(true);
-        float Xpos = newLoc.x;
-
-        float radius = fruitDataList[currentFruitIndex].radius;
-        if (Xpos > 3.7f - radius)
-        {
-            Xpos = 3.7f - radius;
-        }
-        else if (Xpos < -3.7f + radius)
-        {
-            Xpos = -3.7f + radius;
-        }
-
-        AimLine.position = new Vector3(Xpos, 2.56f, 0);
-        if (currentFruit) currentFruit.transform.position = new Vector3(Xpos, YSpawnPosition, 0);
-    }
-
-    private void SetScore(int scoreIncrement)
-    {
-        Score += SumNumbers(scoreIncrement);
-        ScoreText.text = Score.ToString();
-    }
-
     void SpawnFruit(Vector3 spawnLoc)
     {
         currentFruitIndex = nextFruitIndex;
@@ -159,6 +268,7 @@ public class GameManager : MonoBehaviour
         currentFruit = Instantiate(FruitPrefab, spawnLoc, quaternion.identity);
         currentFruit.Setup(fruitInfo.type, fruitInfo.sprite, fruitInfo.radius);
         currentFruit.Initialize();
+        currentFruit.MyRigidbody2D.simulated = false; // пока не отпущен
     }
 
     public void MergeFruit(Fruit f1, Fruit f2)
@@ -170,6 +280,7 @@ public class GameManager : MonoBehaviour
             {
                 PlayClip(n < 5 ? SmallMergeSound : BigMergeSound);
                 SetScore(n);
+                _currencyModel.AddCurrency(3); // 💰 добавляем валюту
 
                 Vector3 position = (f1.transform.position + f2.transform.position) / 2;
                 Destroy(f1.gameObject);
@@ -178,9 +289,36 @@ public class GameManager : MonoBehaviour
                 var newInfo = fruitDataList[n];
                 Fruit newFruit = Instantiate(FruitPrefab, position, quaternion.identity);
                 newFruit.Setup(newInfo.type, newInfo.sprite, newInfo.radius);
+                newFruit.Initialize();
                 newFruit.Release();
             }
         }
+    }
+
+    void GameOver()
+    {
+        if (IsGameOver && !LosePanel.activeSelf)
+        {
+            Fruit[] loseFruits = FindObjectsOfType<Fruit>();
+            foreach (var f in loseFruits)
+                f.GameOver();
+
+            // Сброс очков
+            Score = 0;
+            PlayerPrefs.DeleteKey("SavedFruits");
+            PlayerPrefs.Save();
+
+            Invoke(nameof(ShowLosePanel), 1.5f);
+        }
+    }
+
+    // ============================================================
+    // 🎵 Вспомогательные методы
+    // ============================================================
+    private void SetScore(int scoreIncrement)
+    {
+        Score += SumNumbers(scoreIncrement);
+        ScoreText.text = Score.ToString();
     }
 
     int SumNumbers(int n)
@@ -188,6 +326,14 @@ public class GameManager : MonoBehaviour
         int sum = 0;
         for (int i = 1; i <= n; i++) sum += i;
         return sum;
+    }
+
+    private bool IsPointerOverUIObject()
+    {
+        PointerEventData eventData = new(EventSystem.current) { position = Input.mousePosition };
+        List<RaycastResult> results = new();
+        EventSystem.current.RaycastAll(eventData, results);
+        return results.Count > 0;
     }
 
     public void PlayClip(AudioClip clip)
@@ -208,7 +354,7 @@ public class GameManager : MonoBehaviour
 
     public void ReplayLevelBtn()
     {
-        Advertisements.Instance.ShowInterstitial();
+        PlayerPrefs.DeleteKey("SavedFruits");
         SceneManager.LoadScene(0);
     }
 
@@ -230,6 +376,15 @@ public class GameManager : MonoBehaviour
         PlayerPrefs.SetInt("CanPlayMusic", isOn ? 0 : 1);
         MusicAudioSource.volume = isOn ? 0 : 0.4f;
     }
+    
+    public void SetAimLineAndCurentFruit(Vector2 newLoc)
+    {
+        AimLine.gameObject.SetActive(true);
+        float Xpos = Mathf.Clamp(newLoc.x, -3.7f + fruitDataList[currentFruitIndex].radius, 3.7f - fruitDataList[currentFruitIndex].radius);
+        AimLine.position = new Vector3(Xpos, 2.56f, 0);
+        if (currentFruit)
+            currentFruit.transform.position = new Vector3(Xpos, YSpawnPosition, 0);
+    }
 }
 
 [System.Serializable]
@@ -238,15 +393,4 @@ public class FruitData
     public Fruit.FruitType type;
     public Sprite sprite;
     public float radius = 0.25f;
-}
-
-public enum FruitType
-{
-    Apple,
-    Orange,
-    Lemon,
-    Watermelon,
-    Pineapple,
-    Strawberry,
-    Banana
 }

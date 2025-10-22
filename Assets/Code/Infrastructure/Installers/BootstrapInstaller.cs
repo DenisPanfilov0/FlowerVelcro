@@ -86,6 +86,7 @@ namespace Code.Infrastructure.Installers
             Container.BindInterfacesAndSelfTo<LoadMainMenuState>().AsSingle();
             Container.BindInterfacesAndSelfTo<MainMenuState>().AsSingle();
             Container.BindInterfacesAndSelfTo<LoadGameLoopState>().AsSingle();
+            Container.BindInterfacesAndSelfTo<LoadGameLoopMerge2State>().AsSingle();
             Container.BindInterfacesAndSelfTo<GameLoopState>().AsSingle();
             Container.BindInterfacesAndSelfTo<RestartLevelState>().AsSingle();
         }

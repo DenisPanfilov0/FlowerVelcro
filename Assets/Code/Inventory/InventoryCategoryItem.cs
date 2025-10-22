@@ -66,5 +66,6 @@ namespace Code.Inventory
         Spike = 4,
         Character = 5,
         MagicFlower = 6,
+        StarFlower = 7,
     }
 }

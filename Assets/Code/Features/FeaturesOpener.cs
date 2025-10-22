@@ -1,26 +1,28 @@
 using System.Collections;
-using Code.Features.DailyLogin;
-using Code.Features.DailyTask;
-using Code.Progress.Data;
+using System.Collections.Generic;
 using DG.Tweening;
 using UnityEngine;
 using UnityEngine.UI;
 using Zenject;
+using Code.Progress.Data;
 
 namespace Code.Features
 {
     public class FeaturesOpener : MonoBehaviour
     {
-        [SerializeField] private Button _dailyLoginButton;
-        [SerializeField] private Button _dailyTaskButton;
+        [Header("Objects Sequence")]
+        [SerializeField] private List<GameObject> _objectsToAppear;     // <-- список объектов для поочередного появления
+        [SerializeField] private GameObject _objectToActivateAfterSequence; // <-- объект, который включается после всех
+
+        [Header("Visuals & Effects")]
         [SerializeField] private Image _shadow;
         [SerializeField] private ParticleSystem _particlesPrefab;
 
         [Header("Animation Settings")]
-        [SerializeField] private Transform _spawnPoint;     // <-- новая переменная
+        [SerializeField] private Transform _spawnPoint;
         [SerializeField] private float _appearDuration = 0.9f;
         [SerializeField] private float _moveDuration = 1.5f;
-        [SerializeField] private float _arcHeight = 100f;   // высота дуги полёта
+        [SerializeField] private float _arcHeight = 100f;
 
         private ProgressData _progress;
 
@@ -32,65 +34,80 @@ namespace Code.Features
 
         private void Start()
         {
-            // if (_progress.GamePlayed == 0)
-            // {
-            //     _dailyLoginButton.gameObject.SetActive(false);
-            //     _dailyTaskButton.gameObject.SetActive(false);
-            //     return;
-            // }
+            // Если игрок не играл вообще
+            if (_progress.GamePlayed == 0)
+            {
+                foreach (var obj in _objectsToAppear)
+                    obj.SetActive(false);
+                
+                _shadow.gameObject.SetActive(false);
+                return;
+            }
 
+            // Если уже больше одной игры — не показываем
             if (_progress.GamePlayed > 1)
             {
                 Destroy(gameObject);
                 return;
             }
 
-            // Если сыграна ровно одна игра
+            // Иначе — запускаем красивую последовательность
             StartCoroutine(PlayIntroSequence());
         }
 
         private IEnumerator PlayIntroSequence()
         {
-            // Прячем кнопки изначально
-            _dailyLoginButton.gameObject.SetActive(false);
-            _dailyTaskButton.gameObject.SetActive(false);
+            // Прячем все объекты
+            foreach (var obj in _objectsToAppear)
+                if (obj != null)
+                    obj.SetActive(false);
 
             yield return new WaitForSeconds(0.3f);
 
             // Анимируем поочередно
-            yield return AnimateButton(_dailyLoginButton);
-            yield return new WaitForSeconds(0.3f);
-            yield return AnimateButton(_dailyTaskButton);
+            foreach (var obj in _objectsToAppear)
+            {
+                if (obj == null)
+                    continue;
 
-            yield return new WaitForSeconds(0.3f);
+                yield return AnimateObject(obj);
+                yield return new WaitForSeconds(0.3f);
+            }
 
-            Destroy(gameObject);
+            // После всех появлений — активируем финальный объект
+            if (_objectToActivateAfterSequence != null)
+                _objectToActivateAfterSequence.SetActive(true);
+
+            // После завершения — отключаем текущий объект
+            yield return new WaitForSeconds(0.5f);
+            gameObject.SetActive(false);
         }
 
-        private IEnumerator AnimateButton(Button targetButton)
+        private IEnumerator AnimateObject(GameObject targetObject)
         {
-            if (targetButton == null)
+            if (targetObject == null)
                 yield break;
 
-            RectTransform rect = targetButton.GetComponent<RectTransform>();
-            Vector3 originalPos = rect.position;
+            RectTransform rect = targetObject.GetComponent<RectTransform>();
+            if (rect == null)
+                rect = targetObject.AddComponent<RectTransform>();
 
-            // Место появления — позиция spawnPoint (в мировых координатах)
+            Vector3 originalPos = rect.position;
             Vector3 spawnWorldPos = _spawnPoint != null ? _spawnPoint.position : originalPos;
 
             // Подготовка
-            targetButton.gameObject.SetActive(true);
+            targetObject.SetActive(true);
             rect.localScale = Vector3.zero;
             rect.position = spawnWorldPos;
 
-            // Создаём партиклы в месте появления
+            // Партиклы
             if (_particlesPrefab != null)
             {
                 var particles = Instantiate(_particlesPrefab, spawnWorldPos, Quaternion.identity, transform);
                 Destroy(particles.gameObject, 2f);
             }
 
-            // Анимация появления (из 0 → 1)
+            // Плавное появление
             yield return rect.DOScale(Vector3.one, _appearDuration)
                 .SetEase(Ease.OutBack)
                 .WaitForCompletion();

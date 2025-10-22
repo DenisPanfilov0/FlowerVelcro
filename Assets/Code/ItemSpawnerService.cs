@@ -353,12 +353,26 @@ namespace Code.Gameplay.Services.SpawnersServices
 
         private void SpawnItem(ItemSpawnerTypeId typeId, Vector2 spawnPosition)
         {
-            if (!_isSpawningActive || _isPaused || !_prefabs.ContainsKey(typeId) || _spawnZoneTransform == null) return;
+            if (!_isSpawningActive || _isPaused || !_prefabs.ContainsKey(typeId) || _spawnZoneTransform == null)
+                return;
 
-            // Check for 25% chance to spawn MagicFlower instead of Slime
+            // --- СТАРАЯ ЛОГИКА ДЛЯ SLIME и MAGIC FLOWER ---
+            // (оставляем на месте, чтобы не сломать механику)
             if (typeId == ItemSpawnerTypeId.Slime && Random.value < _magicFlowerSpawnChange && _prefabs.ContainsKey(ItemSpawnerTypeId.MagicFlower))
             {
                 typeId = ItemSpawnerTypeId.MagicFlower;
+            }
+            
+            // --- ДОБАВЛЕННАЯ ЛОГИКА ---
+            // Если тип — MagicFlower, то с шансом 25% заменить его на StarFlower
+            if (typeId == ItemSpawnerTypeId.MagicFlower && _prefabs.ContainsKey(ItemSpawnerTypeId.StarFlower))
+            {
+                float chance = Random.value; // 0..1
+                if (chance < 0.4f) // 40% шанс
+                {
+                    typeId = ItemSpawnerTypeId.StarFlower;
+                    Debug.Log("[ItemSpawnerService] 🎇 Заспавнен StarFlower вместо MagicFlower (шанс 25%)");
+                }
             }
 
             ItemView item = null;

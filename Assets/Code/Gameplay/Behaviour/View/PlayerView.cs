@@ -39,6 +39,7 @@ namespace Code.Gameplay.Behaviour.View
         private Flower _targetFlower; // Для сохранения цели притягивания при паузе
         
         private float _speedUpdateTimer;
+        private CurrencyModel _currencyModel;
         private const float SpeedUpdateInterval = 0.1f; // каждые 1 секунда
 
         [Inject]
@@ -48,8 +49,10 @@ namespace Code.Gameplay.Behaviour.View
             Camera mainCamera,
             GameScoreService gameScoreService,
             AudioManager audioManager,
-            InventoryModel inventoryModel)
+            InventoryModel inventoryModel,
+            CurrencyModel currencyModel)
         {
+            _currencyModel = currencyModel;
             _inventoryModel = inventoryModel;
             _gameScoreService = gameScoreService;
             _playerStickingService = playerStickingService;
@@ -225,9 +228,13 @@ namespace Code.Gameplay.Behaviour.View
                 {
                     _gameScoreService.IncreaseScore(4);
                 }
-                else
+                else if (flower.GetComponent<MagicFlower>())
                 {
                     _gameScoreService.IncreaseScore(12);
+                }
+                else if (flower.GetComponent<StarFlower>())
+                {
+                    _currencyModel.AddStarCurrency(1);
                 }
 
                 _audioManager.PlaySoundEffect(AudioClipTypeId.CollectedPollen);

@@ -16,6 +16,7 @@ namespace Code.MainMenu.Behaviour
         [SerializeField] private Button _openLBWindow;
         [SerializeField] private LeaderboardWindow _lbWindow;
         [SerializeField] private Button _startButton;
+        [SerializeField] private Button _startMerge2Button;
         [SerializeField] private Button _openInventoryWindow;
         [SerializeField] private InventoryChanger _inventoryChanger;
         [SerializeField] private Button _openSettingWindow;
@@ -43,6 +44,7 @@ namespace Code.MainMenu.Behaviour
         {
             _openLBWindow.onClick.AddListener(OpenLeaderboardWindow);
             _startButton.onClick.AddListener(EnterGameLoop);
+            _startMerge2Button.onClick.AddListener(EnterGameLoopMerge2);
             _openInventoryWindow.onClick.AddListener(OpenInventoryWindow);
             _openSettingWindow.onClick.AddListener(OpenSettingWindow);
 
@@ -56,6 +58,7 @@ namespace Code.MainMenu.Behaviour
         {
             _openLBWindow.onClick.RemoveListener(OpenLeaderboardWindow);
             _startButton.onClick.RemoveListener(EnterGameLoop);
+            _startMerge2Button.onClick.RemoveListener(EnterGameLoopMerge2);
             _openInventoryWindow.onClick.RemoveListener(OpenInventoryWindow);
             _openSettingWindow.onClick.RemoveListener(OpenSettingWindow);
             
@@ -84,6 +87,12 @@ namespace Code.MainMenu.Behaviour
         {
             _audioManager.PlaySoundEffect(AudioClipTypeId.ButtonClick);
             _stateMachine.Enter<LoadGameLoopState>();
+        }
+        
+        private void EnterGameLoopMerge2()
+        {
+            _audioManager.PlaySoundEffect(AudioClipTypeId.ButtonClick);
+            _stateMachine.Enter<LoadGameLoopMerge2State>();
         }
 
         private void OpenLeaderboardWindow()

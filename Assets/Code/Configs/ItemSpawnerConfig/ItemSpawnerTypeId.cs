@@ -9,5 +9,6 @@ namespace Code.Configs.ItemSpawnerConfig
         Zigzag = 4,
         Spike = 5,
         MagicFlower = 6,
+        StarFlower = 7,
     }
 }
