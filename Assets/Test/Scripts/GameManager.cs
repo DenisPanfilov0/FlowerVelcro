@@ -21,6 +21,7 @@ public class FruitSaveData
     public float angularVelocity;
     public bool isKinematic;
     public bool gravityEnabled;
+    public Fruit.FruitStatus status;
 }
 
 [System.Serializable]
@@ -76,18 +77,12 @@ public class GameManager : MonoBehaviour
         maincamera = Camera.main;
 
         _currencyValue.text = _currencyModel.GetCurrencyAmount().ToString();
-        
-        // Загружаем сохранение, если есть
-        if (PlayerPrefs.HasKey("SavedFruits"))
-        {
-            LoadFruits();
-        }
-        else
-        {
-            StartNewSession();
-        }
 
-        // Настройка звука
+        if (PlayerPrefs.HasKey("SavedFruits"))
+            LoadFruits();
+        else
+            StartNewSession();
+
         if (PlayerPrefs.GetInt("CanPlayMusic", 1) == 0)
         {
             MusicBtn.sprite = musicOff;
@@ -98,9 +93,7 @@ public class GameManager : MonoBehaviour
             SoundBtn.sprite = soundOff;
         }
 
-        // Автосохранение каждые 5 секунд
         InvokeRepeating(nameof(SaveFruits), 5f, 5f);
-
         _currencyModel.AmountChanged += CurrencyChange;
     }
 
@@ -131,7 +124,6 @@ public class GameManager : MonoBehaviour
     {
         GameOver();
 
-        // Подмигивание фруктов
         if (Time.time > LastWink + 2)
         {
             LastWink = Time.time;
@@ -142,7 +134,6 @@ public class GameManager : MonoBehaviour
 
         if (IsPointerOverUIObject()) return;
 
-        // Спавн нового фрукта
         if (Time.time > TimeBetweenSpawnes + lastSpawnTime && currentFruit == null)
         {
             lastSpawnTime = Time.time;
@@ -157,9 +148,6 @@ public class GameManager : MonoBehaviour
     void OnApplicationQuit() => SaveFruits();
     void OnApplicationPause(bool pause) { if (pause) SaveFruits(); }
 
-    // ============================================================
-    // 💾 Сохранение фруктов и очков
-    // ============================================================
     void SaveFruits()
     {
         if (IsGameOver) return;
@@ -169,7 +157,6 @@ public class GameManager : MonoBehaviour
 
         foreach (var f in fruits)
         {
-            // Пропускаем фрукт, если он ещё не отпущен (висит у AimLine)
             if (f.MyRigidbody2D != null && !f.MyRigidbody2D.simulated)
                 continue;
 
@@ -182,7 +169,8 @@ public class GameManager : MonoBehaviour
                 velocity = rb.linearVelocity,
                 angularVelocity = rb.angularVelocity,
                 isKinematic = rb.isKinematic,
-                gravityEnabled = rb.simulated
+                gravityEnabled = rb.simulated,
+                status = f.MyStatus
             });
         }
 
@@ -195,13 +183,8 @@ public class GameManager : MonoBehaviour
         string json = JsonUtility.ToJson(wrapper);
         PlayerPrefs.SetString("SavedFruits", json);
         PlayerPrefs.Save();
-
-        Debug.Log($"✅ Сохранено фруктов: {saveList.Count}, Очков: {Score}");
     }
 
-    // ============================================================
-    // 📥 Загрузка
-    // ============================================================
     void LoadFruits()
     {
         string json = PlayerPrefs.GetString("SavedFruits");
@@ -218,7 +201,7 @@ public class GameManager : MonoBehaviour
             if (fruitInfo == null) continue;
 
             Fruit fruit = Instantiate(FruitPrefab, data.position, data.rotation);
-            fruit.Setup(fruitInfo.type, fruitInfo.sprite, fruitInfo.radius);
+            fruit.Setup(fruitInfo.type, fruitInfo.sprite, fruitInfo.radius, data.status);
             fruit.Initialize();
 
             Rigidbody2D rb = fruit.MyRigidbody2D;
@@ -230,13 +213,8 @@ public class GameManager : MonoBehaviour
 
         Score = wrapper.savedScore;
         ScoreText.text = Score.ToString();
-
-        Debug.Log($"🍏 Загружено фруктов: {wrapper.fruits.Count}, Очков: {Score}");
     }
 
-    // ============================================================
-    // 🎮 Логика игры
-    // ============================================================
     void FruitSpawner()
     {
         if (Input.GetMouseButton(0) && !IsPointerOverUIObject())
@@ -265,10 +243,15 @@ public class GameManager : MonoBehaviour
         NextFruitUI.sprite = fruitDataList[nextFruitIndex].sprite;
 
         var fruitInfo = fruitDataList[currentFruitIndex];
+
+        // 🎲 3% шанс на статус Star
+        bool isStar = UnityEngine.Random.value <= 0.03f;
+        var status = isStar ? Fruit.FruitStatus.Star : Fruit.FruitStatus.Normal;
+
         currentFruit = Instantiate(FruitPrefab, spawnLoc, quaternion.identity);
-        currentFruit.Setup(fruitInfo.type, fruitInfo.sprite, fruitInfo.radius);
+        currentFruit.Setup(fruitInfo.type, fruitInfo.sprite, fruitInfo.radius, status);
         currentFruit.Initialize();
-        currentFruit.MyRigidbody2D.simulated = false; // пока не отпущен
+        currentFruit.MyRigidbody2D.simulated = false;
     }
 
     public void MergeFruit(Fruit f1, Fruit f2)
@@ -280,7 +263,17 @@ public class GameManager : MonoBehaviour
             {
                 PlayClip(n < 5 ? SmallMergeSound : BigMergeSound);
                 SetScore(n);
-                _currencyModel.AddCurrency(3); // 💰 добавляем валюту
+
+                int starCount = 0;
+                if (f1.MyStatus == Fruit.FruitStatus.Star) starCount++;
+                if (f2.MyStatus == Fruit.FruitStatus.Star) starCount++;
+
+                if (starCount > 0)
+                    _currencyModel.AddStarCurrency(starCount);
+                if (starCount == 2)
+                    _currencyModel.AddCurrency(3);
+                else if (starCount == 0)
+                    _currencyModel.AddCurrency(3);
 
                 Vector3 position = (f1.transform.position + f2.transform.position) / 2;
                 Destroy(f1.gameObject);
@@ -303,7 +296,6 @@ public class GameManager : MonoBehaviour
             foreach (var f in loseFruits)
                 f.GameOver();
 
-            // Сброс очков
             Score = 0;
             PlayerPrefs.DeleteKey("SavedFruits");
             PlayerPrefs.Save();
@@ -312,9 +304,6 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    // ============================================================
-    // 🎵 Вспомогательные методы
-    // ============================================================
     private void SetScore(int scoreIncrement)
     {
         Score += SumNumbers(scoreIncrement);
@@ -376,7 +365,7 @@ public class GameManager : MonoBehaviour
         PlayerPrefs.SetInt("CanPlayMusic", isOn ? 0 : 1);
         MusicAudioSource.volume = isOn ? 0 : 0.4f;
     }
-    
+
     public void SetAimLineAndCurentFruit(Vector2 newLoc)
     {
         AimLine.gameObject.SetActive(true);

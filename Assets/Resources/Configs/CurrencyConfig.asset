@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: CurrencyConfig
   m_EditorClassIdentifier: 
   Icon: {fileID: 21300000, guid: 3e1f691bc84e03e4cb2fbcd7d2280d58, type: 3}
-  Amount: 60000
+  Amount: 500
   StarCurrency: {fileID: 21300000, guid: 866de434f16524f469bd196c7651ef26, type: 3}
-  AmountStar: 500
+  AmountStar: 0

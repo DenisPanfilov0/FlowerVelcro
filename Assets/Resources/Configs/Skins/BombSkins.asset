@@ -22,28 +22,28 @@ MonoBehaviour:
     IsLocked: 0
   - SkinId: 3
     Icon: {fileID: 1009975699, guid: b9d823016bd27fe4fbe7d008e2a872b9, type: 3}
-    IsLocked: 0
+    IsLocked: 1
   - SkinId: 4
     Icon: {fileID: -970859034, guid: b9d823016bd27fe4fbe7d008e2a872b9, type: 3}
-    IsLocked: 0
+    IsLocked: 1
   - SkinId: 5
     Icon: {fileID: 971559677, guid: b9d823016bd27fe4fbe7d008e2a872b9, type: 3}
-    IsLocked: 0
+    IsLocked: 1
   - SkinId: 6
     Icon: {fileID: 30800837, guid: b9d823016bd27fe4fbe7d008e2a872b9, type: 3}
-    IsLocked: 0
+    IsLocked: 1
   - SkinId: 7
     Icon: {fileID: 1487539538, guid: b9d823016bd27fe4fbe7d008e2a872b9, type: 3}
-    IsLocked: 0
+    IsLocked: 1
   - SkinId: 8
     Icon: {fileID: 1567317244, guid: b9d823016bd27fe4fbe7d008e2a872b9, type: 3}
-    IsLocked: 0
+    IsLocked: 1
   - SkinId: 9
     Icon: {fileID: 1356700477, guid: 84b4da92fcd570c4bb0af8245300caa0, type: 3}
-    IsLocked: 0
+    IsLocked: 1
   - SkinId: 10
     Icon: {fileID: 1361075132, guid: 84b4da92fcd570c4bb0af8245300caa0, type: 3}
-    IsLocked: 0
+    IsLocked: 1
   - SkinId: 11
     Icon: {fileID: -1174882233, guid: 84b4da92fcd570c4bb0af8245300caa0, type: 3}
     IsLocked: 1

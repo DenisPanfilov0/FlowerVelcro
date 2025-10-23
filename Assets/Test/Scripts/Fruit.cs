@@ -14,17 +14,31 @@ public class Fruit : MonoBehaviour
         Peach = 7,
         Pineapple = 8,
         Melon = 9,
-        WaterMelon = 10
+        WaterMelon = 10,
+        Fruit1 = 11,
+        Fruit2 = 12,
+        Fruit3 = 13,
+    }
+
+    public enum FruitStatus
+    {
+        Normal,
+        Star
     }
 
     public bool bActive = true;
     public FruitType MyType;
+    public FruitStatus MyStatus = FruitStatus.Normal;
+
     [HideInInspector] public Rigidbody2D MyRigidbody2D;
     [HideInInspector] public CapsuleCollider2D MyCollider;
     [HideInInspector] public GameManager MyGM;
     [HideInInspector] public float raduis;
+
     public SpriteRenderer MySpriteRenderer;
     public Sprite NormalSprite;
+
+    [SerializeField] private GameObject StarEffect;
 
     private void Awake()
     {
@@ -33,12 +47,16 @@ public class Fruit : MonoBehaviour
         MyGM = FindObjectOfType<GameManager>();
     }
 
-    public void Setup(FruitType fruitInfoType, Sprite fruitInfoSprite, float fruitInfoRadius)
+    public void Setup(FruitType fruitInfoType, Sprite fruitInfoSprite, float fruitInfoRadius, FruitStatus status = FruitStatus.Normal)
     {
         MyType = fruitInfoType;
+        MyStatus = status;
         MySpriteRenderer.sprite = fruitInfoSprite;
         MySpriteRenderer.sortingOrder = 10;
         raduis = fruitInfoRadius;
+
+        if (StarEffect != null)
+            StarEffect.SetActive(MyStatus == FruitStatus.Star);
     }
 
     public void Initialize()

@@ -2,7 +2,7 @@ Key,ru,en,de,fr,tr,es,ja,zh,id
 Main Menu,,,,,,,,,
 LEADERBOARD,ТАБЛИЦА ЛИДЕРОВ,LEADERBOARD,BESTENLISTE,CLASSEMENT,LİDER TABLOSU,TABLA DE CLASIFICACIÓN,リーダーボード,排行榜,PAPAN PERINGKAT
 RECORD,РЕКОРД,RECORD,REKORD,RECORD,REKOR,RÉCORD,記録,記錄,REKOR
-IN FLIGHT,В ПОЛЕТ,IN FLIGHT,IM FLUG,EN VOL,UÇUŞTA,EN VUELO,飛行中,飛行中,DALAM PENERBANGAN
+IN FLIGHT,ИГРАТЬ,PLAY,SPIELEN,JOUER,OYNAMAK,JUGAR,遊ぶ,玩,BERMAIN
 INVENTORY,ИНВЕНТАРЬ,INVENTORY,INVENTAR,INVENTAIRE,ENVANTER,INVENTARIO,在庫,存貨,INVENTARIS
 SETTINGS,НАСТРОЙКИ,SETTINGS,EINSTELLUNGEN,PARAMÈTRES,AYARLAR,AJUSTES,設定,設定,PENGATURAN
 RECORDS,РЕКОРДЫ,RECORDS,REKORDE,RECORDS,REKORLAR,RÉCORDS,記録,記錄,REKOR
@@ -212,3 +212,102 @@ Jangan lupa pantau progresmu di Papan Peringkat.
 
 Semoga berhasil!"
 x3 SUGAR,х3 САХАРА,x3 SUGAR,x3 ZUCKER,x3 SUCRE,x3 ŞEKER,x3 AZÚCAR,砂糖×3,x3 糖,x3 GULA
+,,,,,,,,,
+,,,,,,,,,
+Tutorial_New,,,,,,,,,
+Tut_1,Давай перейдем в инвентарь и посмотрим что там есть,Let's go to the inventory and see what's there.,"Gehen wir zum Inventar und sehen wir nach, was dort ist.",Allons à l'inventaire et voyons ce qu'il y a là.,Envantere gidelim ve neler var bakalım.,Vayamos al inventario y veamos qué hay.,在庫に行って、何が入っているか見てみましょう。,我們去庫存看看有什麼。,Mari kita lihat inventaris dan lihat apa yang ada di sana.
+Tut_2,Открой сундук из выбранной категории,Open a chest from the selected category,Öffnen Sie eine Truhe aus der ausgewählten Kategorie,Ouvrir un coffre de la catégorie sélectionnée,Seçili kategoriden bir sandık açın,Abre un cofre de la categoría seleccionada,選択したカテゴリーから宝箱を開ける,打開所選類別的寶箱,Buka peti dari kategori yang dipilih
+Tut_3,"После открытия сундука, ты получишь новый образ в коллекцию","After opening the chest, you will receive a new image for your collection.",Nach dem Öffnen der Truhe erhalten Sie ein neues Bild für Ihre Sammlung.,"Après avoir ouvert le coffre, vous recevrez une nouvelle image pour votre collection.",Sandığı açtıktan sonra koleksiyonunuz için yeni bir resim alacaksınız.,"Después de abrir el cofre, recibirás una nueva imagen para tu colección.",宝箱を開けると、コレクション用の新しい画像が表示されます。,打開寶箱後，您將收到新的圖像以供收藏。,"Setelah membuka peti, Anda akan menerima gambar baru untuk koleksi Anda."
+Tut_4,После открытия получи новый уникальный образ,"After opening, get a new unique look",Nach dem Öffnen erhalten Sie einen neuen einzigartigen Look,"Après ouverture, obtenez un nouveau look unique",Açıldıktan sonra yeni ve benzersiz bir görünüm elde edin,"Después de abrirlo, consigue una nueva apariencia única.",開封後は新しいユニークな外観になります,打開後，獲得全新獨特外觀,"Setelah dibuka, dapatkan tampilan unik baru"
+Tut_5,Теперь давай изменим образ лабубы,Now let's change the image of Labuba,Jetzt ändern wir das Bild von Labuba,"Maintenant, changeons l'image de Labuba",Şimdi Labuba'nın imajını değiştirelim,Ahora cambiemos la imagen de Labuba.,さあ、ラブバのイメージを変えてみましょう,現在讓我們改變拉布巴的形象,Sekarang mari kita ubah citra Labuba
+Tut_6,Теперь давай изменим образ лабубы,Now let's change the image of Labuba,Jetzt ändern wir das Bild von Labuba,"Maintenant, changeons l'image de Labuba",Şimdi Labuba'nın imajını değiştirelim,Ahora cambiemos la imagen de Labuba.,さあ、ラブバのイメージを変えてみましょう,現在讓我們改變拉布巴的形象,Sekarang mari kita ubah citra Labuba
+Tut_7,Выбери новый образ,Choose a new look,Wählen Sie einen neuen Look,Choisissez un nouveau look,Yeni bir görünüm seçin,Elige un nuevo look,新しい外観を選択する,選擇新外觀,Pilih tampilan baru
+Tut_8,Давай сыграем нашу первую игру,Let's play our first game.,Lass uns unser erstes Spiel spielen.,Jouons à notre premier jeu.,İlk oyunumuzu oynayalım.,Juguemos nuestro primer juego.,最初のゲームをプレイしてみましょう。,讓我們玩第一個遊戲。,Ayo mainkan permainan pertama kita.
+Tut_9,Выбери классический режим,Select classic mode,Wählen Sie den klassischen Modus,Sélectionnez le mode classique,Klasik modu seçin,Seleccionar el modo clásico,クラシックモードを選択,選擇經典模式,Pilih mode klasik
+Tut_10,У тебя открылась награда за ежедневный вход. Давай перейдем и заберём её,You've unlocked your daily login reward. Let's head over and claim it.,Sie haben Ihre tägliche Login-Belohnung freigeschaltet. Holen Sie sie sich jetzt.,Vous avez débloqué votre récompense de connexion quotidienne. Allez-y et récupérez-la.,Günlük giriş ödülünüzün kilidini açtınız. Hadi gidip alın.,Has desbloqueado tu recompensa diaria por iniciar sesión. ¡Vamos a reclamarla!,毎日のログイン報酬を獲得しました。さあ、受け取ってください。,您已解鎖每日登入獎勵。快去領取吧！,Kamu sudah mendapatkan hadiah login harianmu. Ayo klaim sekarang juga.
+Tut_11,"Собирай награду каждый день, которая отмечена зеленым цветом","Collect the reward every day, which is marked in green.",Sammeln Sie täglich die grün markierte Belohnung ein.,Récupérez chaque jour la récompense marquée en vert.,Yeşil renkle işaretlenmiş ödülü her gün toplayın.,"Recoge la recompensa cada día, que está marcada en verde.",緑色でマークされた報酬を毎日集めてください。,每天領取獎勵，獎勵以綠色標記。,"Kumpulkan hadiahnya setiap hari, yang ditandai dengan warna hijau."
+Tut_12,А теперь давай сходим в свой первый полёт,Now let's go on our first flight.,Nun geht es los zu unserem ersten Flug.,"Maintenant, partons pour notre premier vol.",Şimdi ilk uçuşumuza geçelim.,Ahora vamos a realizar nuestro primer vuelo.,さあ、初めての飛行に出かけましょう。,現在讓我們開始我們的第一次飛行。,"Sekarang, mari kita terbang pertama kali."
+Tut_13,"Теперь давай перейдём и посмотрим, что у нас есть в ежедневных заданиях",Now let's move on and see what we have in our daily quests.,"Machen wir jetzt weiter und sehen wir, was wir in unseren täglichen Quests haben.",Passons maintenant à autre chose et voyons ce que nous avons dans nos quêtes quotidiennes.,Şimdi günlük görevlerimizin neler olduğuna bir bakalım.,Ahora sigamos adelante y veamos qué tenemos en nuestras misiones diarias.,それでは、先に進んで、毎日のクエストに何があるか見てみましょう。,現在讓我們繼續看看我們的日常任務中有什麼。,Sekarang mari kita lanjutkan dan lihat apa yang kita miliki dalam kegiatan sehari-hari kita.
+Tut_14,"Ого. Мы уже выполнили одно, давай соберём его и получим звездочки","Wow. We've already completed one, let's put it together and get some stars.",Wow. Wir haben schon eins fertiggestellt. Lasst es uns zusammensetzen und ein paar Sterne bekommen.,"Waouh ! On en a déjà terminé un, assemblons-le et obtenons des étoiles.","Vay canına. Bir tanesini tamamladık bile, hadi bir araya getirip birkaç yıldız alalım.",¡Guau! Ya hemos completado uno. Vamos a armarlo y conseguir algunas estrellas.,わあ。もう1つ完成しました。組み立てて星を獲得しましょう。,哇！我們已經完成了一個，讓我們把它拼湊起來，獲得一些星星。,"Wah. Kita sudah menyelesaikan satu, ayo kita susun dan dapatkan beberapa bintang."
+Tut_15,А теперь давай сходим в свой первый полёт,Now let's go on our first flight.,Nun geht es los zu unserem ersten Flug.,"Maintenant, partons pour notre premier vol.",Şimdi ilk uçuşumuza geçelim.,Ahora vamos a realizar nuestro primer vuelo.,さあ、初めての飛行に出かけましょう。,現在讓我們開始我們的第一次飛行。,"Sekarang, mari kita terbang pertama kali."
+Tut_16,"За звездочки мы можем обсустраивать поля и комнаты, открывая более красочные места","For stars we can decorate fields and rooms, opening up more colorful places.",Für Sterne können wir Felder und Räume dekorieren und so farbenfrohere Orte schaffen.,"Pour les étoiles, nous pouvons décorer des champs et des pièces, ouvrant des endroits plus colorés.",Yıldızlar için tarlaları ve odaları dekore ederek daha renkli mekanlar yaratabiliriz.,"Para las estrellas podemos decorar campos y habitaciones, abriendo espacios más coloridos.",星については、フィールドや部屋を飾ることができ、よりカラフルな場所が広がります。,對於星星，我們可以裝飾田野和房間，開闢更多彩的地方。,"Untuk bintang, kita dapat menghias ladang dan ruangan, membuka tempat yang lebih berwarna."
+Tut_17,"Это место выглядит достаточно скучно, давай откроем новые элементы и преобразим его","This place looks pretty boring, let's open up some new elements and transform it.",Dieser Ort sieht ziemlich langweilig aus. Lassen Sie uns einige neue Elemente hinzufügen und ihn umgestalten.,"Cet endroit a l'air assez ennuyeux, ouvrons quelques nouveaux éléments et transformons-le.","Burası oldukça sıkıcı görünüyor, hadi yeni öğeler açıp dönüştürelim.","Este lugar parece bastante aburrido, abramos algunos elementos nuevos y transformémoslo.",この場所はかなり退屈に見えます。いくつかの新しい要素を開いて変身させましょう。,這個地方看起來很無聊，讓我們開放一些新的元素並改造它。,"Tempat ini terlihat cukup membosankan, mari kita buka beberapa elemen baru dan mengubahnya."
+Tut_18,А теперь давай сходим в свой первый полёт,Now let's go on our first flight.,Nun geht es los zu unserem ersten Flug.,"Maintenant, partons pour notre premier vol.",Şimdi ilk uçuşumuza geçelim.,Ahora vamos a realizar nuestro primer vuelo.,さあ、初めての飛行に出かけましょう。,現在讓我們開始我們的第一次飛行。,"Sekarang, mari kita terbang pertama kali."
+Tut_19,Давай заглянем в Альбом на котором можно рисовать и использовать наши образы,Let's take a look at the Album where we can draw and use our images.,"Werfen wir einen Blick auf das Album, in dem wir zeichnen und unsere Bilder verwenden können.",Jetons un œil à l'album où nous pouvons dessiner et utiliser nos images.,Resimlerimizi çizip kullanabileceğimiz Albüme bir göz atalım.,Echemos un vistazo al Álbum donde podemos dibujar y usar nuestras imágenes.,画像を描いたり使用したりできるアルバムを見てみましょう。,讓我們看一下相冊，我們可以在其中繪製和使用我們的圖像。,Mari kita lihat Album tempat kita dapat menggambar dan menggunakan gambar kita.
+Tut_20,Выбери категорию,Select a category,Wählen Sie eine Kategorie,Sélectionnez une catégorie,Bir kategori seçin,Seleccione una categoría,カテゴリーを選択,選擇一個類別,Pilih kategori
+Tut_21,"Выбери образ первый стикер - образ. Обрати внимание, чтоб после размещения ты сможешь изменить размер, поворот или просто удалить ненужный с холста","Select the image as the first sticker. Note that after placing it, you can resize, rotate, or simply delete the unwanted sticker from the canvas.","Wählen Sie das Bild als ersten Sticker aus. Beachten Sie, dass Sie nach dem Platzieren die Größe ändern, den Sticker drehen oder ihn einfach von der Leinwand löschen können.","Sélectionnez l'image comme premier autocollant. Après l'avoir placé, vous pouvez le redimensionner, le faire pivoter ou simplement le supprimer de la zone de travail.","İlk çıkartma olarak resmi seçin. Yerleştirdikten sonra, istenmeyen çıkartmayı yeniden boyutlandırabilir, döndürebilir veya tuvalden silebilirsiniz.","Selecciona la imagen como primer sticker. Recuerda que, después de colocarla, puedes redimensionarla, rotarla o simplemente eliminarla del lienzo.",最初のステッカーとして画像を選択します。配置後、サイズを変更したり、回転させたり、不要なステッカーをキャンバスから削除したりすることができます。,選擇圖像作為第一個貼紙。請注意，放置後，您可以調整大小、旋轉，或直接從畫布中刪除不需要的貼紙。,"Pilih gambar sebagai stiker pertama. Perhatikan bahwa setelah menempelkannya, Anda dapat mengubah ukuran, memutar, atau menghapus stiker yang tidak diinginkan dari kanvas."
+Tut_22,Размести его на холсте. После рахмещения его можно перемещать по холсту сколько угодно или ты можешь выбрать уже приклеенный стикер,"Place it on the canvas. Once placed, you can move it around the canvas as much as you like, or you can choose a pre-applied sticker.",Platzieren Sie es auf der Leinwand. Nach dem Platzieren können Sie es beliebig auf der Leinwand verschieben oder einen bereits angebrachten Aufkleber auswählen.,"Placez-le sur la toile. Une fois posé, vous pouvez le déplacer à votre guise, ou choisir un autocollant pré-appliqué.","Tuvale yerleştirin. Yerleştirdikten sonra, tuval üzerinde istediğiniz kadar hareket ettirebilir veya önceden yapıştırılmış bir çıkartma seçebilirsiniz.","Colócalo en el lienzo. Una vez colocado, puedes moverlo por el lienzo tanto como quieras o elegir una pegatina preaplicada.",キャンバスに貼り付けます。一度配置したら、キャンバス上で好きなように動かすことができます。また、あらかじめ貼り付けられたステッカーを選択することもできます。,把它貼到畫布上。貼好後，你可以隨意在畫布上移動它，或者你也可以選擇預先貼好的貼紙。,"Letakkan di atas kanvas. Setelah diletakkan, Anda dapat memindahkannya ke seluruh kanvas sesuka hati, atau Anda dapat memilih stiker yang sudah terpasang."
+Tut_23,"В этой панели ты сможешь изменить цвет, размер карандаша или ластика","In this panel you can change the color, size of the pencil or eraser",In diesem Bereich können Sie die Farbe und Größe des Bleistifts oder Radiergummis ändern,"Dans ce panneau, vous pouvez modifier la couleur, la taille du crayon ou de la gomme","Bu panelde kalemin veya silginin rengini, boyutunu değiştirebilirsiniz","En este panel puedes cambiar el color, tamaño del lápiz o borrador.",このパネルでは、鉛筆や消しゴムの色やサイズを変更できます。,在此面板中，您可以變更鉛筆或橡皮擦的顏色和大小,"Di panel ini Anda dapat mengubah warna, ukuran pensil atau penghapus"
+Tut_24,А теперь давай сходим в свой первый полёт,Now let's go on our first flight.,Nun geht es los zu unserem ersten Flug.,"Maintenant, partons pour notre premier vol.",Şimdi ilk uçuşumuza geçelim.,Ahora vamos a realizar nuestro primer vuelo.,さあ、初めての飛行に出かけましょう。,現在讓我們開始我們的第一次飛行。,"Sekarang, mari kita terbang pertama kali."
+Tut_25,Давай посмотрим на второй режим игры,Let's take a look at the second game mode.,Werfen wir einen Blick auf den zweiten Spielmodus.,Jetons un œil au deuxième mode de jeu.,İkinci oyun moduna bir göz atalım.,Echemos un vistazo al segundo modo de juego.,2番目のゲームモードを見てみましょう。,讓我們來看看第二種遊戲模式。,Mari kita lihat mode permainan kedua.
+Tut_26,А теперь давай сходим в свой первый полёт,Now let's go on our first flight.,Nun geht es los zu unserem ersten Flug.,"Maintenant, partons pour notre premier vol.",Şimdi ilk uçuşumuza geçelim.,Ahora vamos a realizar nuestro primer vuelo.,さあ、初めての飛行に出かけましょう。,現在讓我們開始我們的第一次飛行。,"Sekarang, mari kita terbang pertama kali."
+,,,,,,,,,
+Tut_start_1,Нажимай на сладости и собирай их. За это ты будешь получать 3 Сахара,"Click on the sweets and collect them. For this, you will receive 3 Sugar.",Klicke auf die Süßigkeiten und sammle sie ein. Dafür erhältst du 3 Zucker.,Cliquez sur les bonbons et récupérez-les. Vous recevrez 3 sucres.,Şekerlere tıklayın ve toplayın. Bunun karşılığında 3 Şeker kazanacaksınız.,Haz clic en los dulces y recógelos. Recibirás 3 Azúcares.,お菓子をクリックして集めましょう。そうすることで、砂糖3個を獲得できます。,點擊糖果並收集它們。您將獲得3個糖。,"Klik permen dan kumpulkan. Untuk ini, Anda akan menerima 3 Gula."
+Tut_start_2,"Так же можно встретить волшебные леденцы, за их сбор ты получишь 12 Сахара","You can also find magic candies, for collecting them you will receive 12 Sugar","Sie können auch magische Süßigkeiten finden, für das Sammeln erhalten Sie 12 Zucker","Vous pouvez également trouver des bonbons magiques, en les collectant, vous recevrez 12 sucres","Ayrıca sihirli şekerler de bulabilirsiniz, onları topladığınızda 12 Şeker kazanırsınız.","También podrás encontrar caramelos mágicos, por recolectarlos recibirás 12 Azúcares",魔法のキャンディーも見つかります。集めると12個の砂糖がもらえます。,您還可以找到魔法糖果，收集它們將獲得 12 顆糖,"Anda juga dapat menemukan permen ajaib, untuk mengumpulkannya Anda akan menerima 12 Gula"
+Tut_start_3,"Иногда попадаются звездочки - собирай их быстрее, это самый редкий ресурс","Sometimes you come across stars - collect them quickly, this is the rarest resource","Manchmal stößt man auf Sterne – sammle sie schnell, das ist die seltenste Ressource","Parfois, vous tombez sur des étoiles - collectez-les rapidement, c'est la ressource la plus rare","Bazen yıldızlarla karşılaşırsınız - onları hemen toplayın, bu en nadir kaynaktır","A veces te encuentras con estrellas: recógelas rápidamente, es el recurso más raro.",時々星に出会うことがあります - 素早く集めてください。これは最も希少な資源です,有時你會遇到星星——快速收集它們，這是最稀有的資源,"Terkadang Anda menemukan bintang - kumpulkan dengan cepat, ini adalah sumber daya yang paling langka"
+Tut_start_4,Бомбочки - самые частые препятствия. Если заденешь - проиграешь,"Bombs are the most common obstacle. If you hit one, you lose.","Bomben stellen das häufigste Hindernis dar. Wenn Sie eine treffen, verlieren Sie.","Les bombes sont l'obstacle le plus courant. Si vous en touchez une, vous perdez.",Bombalar en sık karşılaşılan engellerden biridir. Birine çarparsanız kaybedersiniz.,"Las bombas son el obstáculo más común. Si chocas con una, pierdes.",最も一般的な障害物は爆弾です。爆弾に当たると負けになります。,炸彈是最常見的障礙物。如果你擊中一個，你就輸了。,"Bom adalah rintangan yang paling umum. Jika Anda menabraknya, Anda kalah."
+Tut_start_5,"Жучки и паучки - такие же как и бомбочки, но передвигаются влево и вправо","Bugs and spiders are the same as bombs, but they move left and right.","Käfer und Spinnen sind dasselbe wie Bomben, aber sie bewegen sich nach links und rechts.","Les insectes et les araignées sont les mêmes que les bombes, mais ils se déplacent à gauche et à droite.","Böcekler ve örümcekler bombalarla aynıdır, ancak sola ve sağa hareket ederler.","Los insectos y las arañas son lo mismo que las bombas, pero se mueven de izquierda a derecha.",虫やクモも爆弾と同じですが、左右に移動します。,蟲子和蜘蛛與炸彈相同，但它們左右移動。,"Serangga dan laba-laba sama seperti bom, tetapi mereka bergerak ke kiri dan kanan."
+Tut_start_6,"Шипы - самые безопасные препятствия. 
+Через них можно пролететь вверх, но падать на них - нельзя","Spikes are the safest obstacles.
+You can fly up through them, but you can't fall on them.","Stacheln sind die sichersten Hindernisse.
+Man kann durch sie hindurchfliegen, aber nicht darauf fallen.","Les pics sont les obstacles les plus sûrs. On peut voler à travers, mais on ne peut pas tomber dessus.","Dikenli teller en güvenli engellerdir.
+Üzerlerinden uçarak geçebilirsiniz, ancak üzerlerine düşemezsiniz.","Los picos son los obstáculos más seguros. Puedes volar a través de ellos, pero no puedes caer sobre ellos.","スパイクは最も安全な障害物です。
+飛び越えることはできますが、落ちることはできません。","尖刺是最安全的障礙物。
+你可以飛過去，但不會掉下去。","Paku adalah rintangan yang paling aman.
+Kamu bisa terbang melewatinya, tapi kamu tidak bisa jatuh di atasnya."
+,,,,,,,,,
+,,,,,,,,,
+Tut_merge2_1,"В этом режиме, твоя задача скидывать сверху вниз лабубу для объединения одинаковых. За каждое ебъединение ты получаешь очки и по 3 Сахара. Если лабубу будут выпадать из стакана, то игра закончится. 
+
+Набери больше всех очков и соедени собери всех лабубу
+
+Удачи!","In this mode, your task is to drop Labubus from top to bottom to match identical ones. For each match, you earn points and 3 Sugar. If Labubus fall out of the glass, the game is over.
+
+Score the most points and match all the Labubus.
+
+Good luck!","In diesem Modus besteht deine Aufgabe darin, Labubus von oben nach unten fallen zu lassen, um identische Labubus zu kombinieren. Für jede Kombination erhältst du Punkte und 3 Zucker. Wenn Labubus aus dem Glas fallen, ist das Spiel vorbei.
+
+Erziele die meisten Punkte und kombiniere alle Labubus.
+
+Viel Glück!","Dans ce mode, votre objectif est de faire tomber les Labubus du haut vers le bas pour les associer. Chaque assemblage vous rapporte des points et 3 sucres. Si un Labubus tombe du verre, la partie est terminée.
+
+Marquez le plus de points et associez tous les Labubus.
+
+Bonne chance !","Bu modda göreviniz, aynı Labubus'ları eşleştirmek için yukarıdan aşağıya doğru Labubus'ları düşürmektir. Her eşleşmede puan ve 3 Şeker kazanırsınız. Labubus'lar camdan düşerse oyun biter.
+
+En çok puanı toplayın ve tüm Labubus'ları eşleştirin.
+
+Bol şans!","En este modo, tu tarea es dejar caer Labubus de arriba abajo para que coincidan con los idénticos. Por cada combinación, ganas puntos y 3 de azúcar. Si los Labubus se caen del vaso, se termina el juego.
+
+Consigue la mayor cantidad de puntos y combina todos los Labubus.
+
+¡Mucha suerte!","このモードでは、ラビュバスを上から下へ落として、同じラビュバスを揃えるのが目的です。揃えるごとにポイントと砂糖3個を獲得できます。ラビュバスがガラスから落ちてしまうとゲームオーバーです。
+
+最高得点を獲得し、すべてのラビュバスを揃えましょう。
+
+頑張ってください！","在此模式下，你的任務是將拉布布從玻璃杯頂部向下放置，使其匹配相同的拉布布。每配對一次，你將獲得積分和3顆糖。如果拉布布布從玻璃杯中掉落，遊戲就結束。
+
+獲得最高積分，並匹配所有拉布布布。
+
+祝你好運！","Dalam mode ini, tugasmu adalah menjatuhkan Labubus dari atas ke bawah untuk mencocokkan Labubus yang identik. Untuk setiap pertandingan, kamu akan mendapatkan poin dan 3 Gula. Jika Labubus jatuh dari kaca, permainan berakhir.
+
+Kumpulkan poin terbanyak dan cocokkan semua Labubus.
+
+Semoga berhasil!"
+,,,,,,,,,
+TASKS,ЗАДАНИЯ,TASKS,AUFGABEN,TÂCHES,GÖREVLER,TAREAS,タスク,任務,TUGAS
+ENTRANCE,ВХОД,ENTRANCE,EINGANG,ENTRÉE,GİRİŞ,ENTRADA,入り口,入口,PINTU MASUK
+ROOMS,КОМНАТЫ,ROOMS,ZIMMER,CHAMBRES,ODALAR,ALOJAMIENTO,客室,客房,KAMAR
+ALBUM,АЛЬБОМ,ALBUM,ALBUM,ALBUM,ALBÜM,ÁLBUM,アルバム,專輯,ALBUM
+,,,,,,,,,
+OpenImageChests2,Открыть 1 сундук с образами,Open 1 chest with images,Öffne 1 Truhe mit Bildern,Ouvrir 1 coffre avec des images,Resimli 1 sandığı açın,Abre 1 cofre con imágenes,画像付きの宝箱を1つ開ける,打開 1 個帶有圖像的箱子,Buka 1 peti dengan gambar
+CollectSugar900,Собрать 900 Сахара,Collect 900 Sugar,Sammle 900 Zucker,Récupérez 900 sucres,900 Şeker topla,Recoge 900 azúcares,砂糖900個を集める,收集900糖,Kumpulkan 900 Gula
+CompleteAllTasks,Выполнить все задания,Complete all tasks,Erledige alle Aufgaben,Terminer toutes les tâches,Tüm görevleri tamamlayın,Completar todas las tareas,すべてのタスクを完了する,完成所有任務,Selesaikan semua tugas
+PlayGames3Points20,"Сыграть 3 игры, набрав больше 60 очков",Play 3 games and score more than 60 points,Spiele 3 Spiele und erziele mehr als 60 Punkte,Jouez 3 parties et marquez plus de 60 points,3 oyun oyna ve 60 puandan fazla puan al,Juega 3 partidos y consigue más de 60 puntos.,3ゲームをプレイして60ポイント以上を獲得する,參加3場比賽並得分超過60分,Mainkan 3 permainan dan dapatkan lebih dari 60 poin
+DAILY ENTRY,ЕЖЕДНЕВЫЙ ВХОД,DAILY ENTRY,TÄGLICHER EINTRITT,ENTRÉE QUOTIDIENNE,GÜNLÜK GİRİŞ,ENTRADA DIARIA,毎日のエントリー,每日入場,ENTRI HARIAN
+MODES,РЕЖИМЫ,MODES,MODI,MODES,MODLAR,MODOS,モード,模式,MODE
+Classical,Классический,Classical,Klassik,Classique,Klasik,Clásico,クラシック,古典,Klasik
+Merger,Слияние,Merger,Fusion,Fusionnement,Birleşme,Fusión,合併,合併,Penggabungan
+Pencil,Карандаш,Pencil,Bleistift,Crayon,Kalem,Lápiz,鉛筆,鉛筆,Pensil
+Eraser,Ластик,Eraser,Radiergummi,Gomme,Silgi,Borrador,消しゴム,橡皮,Penghapus
+Clean up,Отчистить,Clean up,Aufräumen,Nettoyer,Temizlemek,Limpiar,掃除,清理,Membersihkan

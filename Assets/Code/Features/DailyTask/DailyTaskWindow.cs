@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Assets.SimpleLocalization.Scripts;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -18,16 +19,20 @@ namespace Code.Features.DailyTask
         private DailyTaskModel _dailyTaskModel;
         private DailyTaskConfig _dailyTaskConfig;
         private Dictionary<DailyTaskType, DailyTaskItem> _taskItems = new();
+        private LanguageModel _languageModel;
 
         [Inject]
-        public void Construct(DailyTaskModel dailyTaskModel, DailyTaskConfig dailyTaskConfig)
+        public void Construct(DailyTaskModel dailyTaskModel, DailyTaskConfig dailyTaskConfig, LanguageModel languageModel)
         {
+            _languageModel = languageModel;
             _dailyTaskConfig = dailyTaskConfig;
             _dailyTaskModel = dailyTaskModel;
         }
         
         private void Start()
         {
+            _timer.gameObject.SetActive(false);
+            
             foreach (var taskProgress in _dailyTaskModel.GetTaskInProgress())
             {
                 var taskItem = Instantiate(_dailyTaskItemPrefab, _container);
@@ -92,11 +97,15 @@ namespace Code.Features.DailyTask
 
         private void UpdateTimer(long time)
         {
+            _timer.gameObject.SetActive(true);
+            
             TimeSpan timeUntilMidnight = TimeSpan.FromMilliseconds(time);
 
-            string formattedTime = $"{timeUntilMidnight.Hours:D2}:{timeUntilMidnight.Minutes:D2}:{timeUntilMidnight.Seconds:D2}";
+            var (h, m, s, label) = TimeLocalization.Get(_languageModel.GetLanguageType());
 
-            _timer.text = $"Time Until Reset: {formattedTime}";
+            string formattedTime = $"{timeUntilMidnight.Hours:D2}{h} {timeUntilMidnight.Minutes:D2}{m} {timeUntilMidnight.Seconds:D2}{s}";
+
+            _timer.text = $"{label}: {formattedTime}";
         }
 
         private void OnDestroy()

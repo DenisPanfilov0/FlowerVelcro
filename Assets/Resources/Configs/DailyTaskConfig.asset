@@ -24,8 +24,8 @@ MonoBehaviour:
     TaskType: 2
     RewardIcon: {fileID: 21300000, guid: 866de434f16524f469bd196c7651ef26, type: 3}
     TypeReward: 2
-    RewardAmount: 25
-    MaxProgress: 0
+    RewardAmount: 5
+    MaxProgress: 1
     IsFinalTask: 0
   - TaskName: CollectSugar900
     TaskType: 3
@@ -38,6 +38,6 @@ MonoBehaviour:
     TaskType: 4
     RewardIcon: {fileID: 21300000, guid: 866de434f16524f469bd196c7651ef26, type: 3}
     TypeReward: 2
-    RewardAmount: 15
+    RewardAmount: 10
     MaxProgress: 3
     IsFinalTask: 1

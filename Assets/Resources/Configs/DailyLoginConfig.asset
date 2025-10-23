@@ -24,11 +24,11 @@ MonoBehaviour:
   - Id: 2
     TypeReward: 2
     RewardIcon: {fileID: 21300000, guid: 866de434f16524f469bd196c7651ef26, type: 3}
-    RewardAmount: 20
+    RewardAmount: 15
   - Id: 3
     TypeReward: 1
     RewardIcon: {fileID: -6463687224775405481, guid: 5cf8e6ab5d7ced0468a4b5e0a5b649c4, type: 3}
-    RewardAmount: 550
+    RewardAmount: 600
   - Id: 4
     TypeReward: 1
     RewardIcon: {fileID: -6463687224775405481, guid: 5cf8e6ab5d7ced0468a4b5e0a5b649c4, type: 3}
@@ -36,7 +36,7 @@ MonoBehaviour:
   - Id: 5
     TypeReward: 2
     RewardIcon: {fileID: 21300000, guid: 866de434f16524f469bd196c7651ef26, type: 3}
-    RewardAmount: 35
+    RewardAmount: 25
   - Id: 6
     TypeReward: 1
     RewardIcon: {fileID: -6463687224775405481, guid: 5cf8e6ab5d7ced0468a4b5e0a5b649c4, type: 3}

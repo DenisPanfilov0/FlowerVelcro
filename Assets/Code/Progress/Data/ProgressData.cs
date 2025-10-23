@@ -1,6 +1,5 @@
 namespace Code.Progress.Data
 {
-    using UnityEngine;
     using Zenject;
     using System;
 
@@ -13,6 +12,8 @@ namespace Code.Progress.Data
         public int MaxScore { get; private set; }
         public int GamePlayed { get; private set; }
         public bool IsTutorialChecked { get; private set; }
+        public bool IsMerge2TutorialChecked { get; private set; }
+        public bool IsFeatureOpened { get; private set; }
         public int TotalPollenCollected;
         public int TotalGamesPlayed;
 
@@ -21,7 +22,7 @@ namespace Code.Progress.Data
             _saveLoadService = saveLoadService;
             MaxScore = 0;
             GamePlayed = 0;
-            IsTutorialChecked = true;
+            // IsTutorialChecked = true;
         }
 
         public void Initialize()
@@ -51,6 +52,18 @@ namespace Code.Progress.Data
             IsTutorialChecked = isChecked;
             SaveData(); // Сохраняем сразу после изменения
         }
+        
+        public void SetMerge2TutorialChecked()
+        {
+            IsMerge2TutorialChecked = true;
+            SaveData();
+        }
+
+        public void SetAllFeatureOpened()
+        {
+            IsFeatureOpened = true;
+            SaveData();
+        }
 
         public void SaveData()
         {
@@ -59,6 +72,8 @@ namespace Code.Progress.Data
                 MaxScore = MaxScore,
                 GamePlayed = GamePlayed,
                 IsTutorialChecked = IsTutorialChecked,
+                IsMerge2TutorialChecked = IsMerge2TutorialChecked,
+                IsFeatureOpened = IsFeatureOpened,
                 TotalPollenCollected = TotalPollenCollected,
                 TotalGamesPlayed = TotalGamesPlayed,
             };
@@ -73,6 +88,8 @@ namespace Code.Progress.Data
                 MaxScore = data.MaxScore;
                 GamePlayed = data.GamePlayed;
                 IsTutorialChecked = data.IsTutorialChecked;
+                IsMerge2TutorialChecked = data.IsMerge2TutorialChecked;
+                IsFeatureOpened = data.IsFeatureOpened;
                 TotalPollenCollected = data.TotalPollenCollected;
                 TotalGamesPlayed = data.TotalGamesPlayed;
             }
@@ -82,6 +99,8 @@ namespace Code.Progress.Data
                 MaxScore = 0;
                 GamePlayed = 0;
                 IsTutorialChecked = true;
+                IsMerge2TutorialChecked = false;
+                IsFeatureOpened = false;
                 TotalPollenCollected = 0;
                 TotalGamesPlayed = 0;
                 SaveData(); // Сохраняем начальные значения
@@ -95,6 +114,8 @@ namespace Code.Progress.Data
         public int MaxScore;
         public int GamePlayed;
         public bool IsTutorialChecked;
+        public bool IsMerge2TutorialChecked;
+        public bool IsFeatureOpened;
         public int TotalPollenCollected;
         public int TotalGamesPlayed;
     }

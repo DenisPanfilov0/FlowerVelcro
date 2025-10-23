@@ -72,7 +72,7 @@ namespace Code.Gameplay.Services.GameStateService
         {
             if (IsGameStop || IsGamePause) return;
             
-            GameSpeed += Time.deltaTime / 250f;
+            // GameSpeed += Time.deltaTime / 250f;
         }
 
     }

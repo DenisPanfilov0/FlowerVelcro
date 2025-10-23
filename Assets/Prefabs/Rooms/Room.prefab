@@ -130,7 +130,7 @@ MonoBehaviour:
   - {fileID: 3777731233281342744}
   - {fileID: 4371682413680824237}
   - {fileID: 3527882928046890571}
-  _price: 3
+  _price: 5
 --- !u!1 &885297738461474359
 GameObject:
   m_ObjectHideFlags: 0
@@ -2265,7 +2265,7 @@ MonoBehaviour:
   - {fileID: 2410484328140366044}
   - {fileID: 3397181563315228695}
   - {fileID: 4415966319120916072}
-  _price: 3
+  _price: 5
 --- !u!1 &6572704793250678406
 GameObject:
   m_ObjectHideFlags: 0
@@ -2887,7 +2887,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _objects:
   - {fileID: 4734150843282598806}
-  _price: 3
+  _price: 5
 --- !u!1 &8545760298657936658
 GameObject:
   m_ObjectHideFlags: 0

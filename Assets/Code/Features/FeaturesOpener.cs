@@ -5,6 +5,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using Zenject;
 using Code.Progress.Data;
+using Code.Tutorial;
 
 namespace Code.Features
 {
@@ -34,6 +35,12 @@ namespace Code.Features
 
         private void Start()
         {
+            if (_progress.IsFeatureOpened)
+            {
+                Destroy(gameObject);
+                return;
+            }
+            
             // Если игрок не играл вообще
             if (_progress.GamePlayed == 0)
             {
@@ -41,6 +48,11 @@ namespace Code.Features
                     obj.SetActive(false);
                 
                 _shadow.gameObject.SetActive(false);
+
+                _progress.SetTutorialChecked(true);
+                _objectToActivateAfterSequence.SetActive(true);
+                _objectToActivateAfterSequence.GetComponent<EndTutorial>().PlayStage(0);
+                
                 return;
             }
 
@@ -48,6 +60,7 @@ namespace Code.Features
             if (_progress.GamePlayed > 1)
             {
                 Destroy(gameObject);
+                Destroy(_objectToActivateAfterSequence.gameObject);
                 return;
             }
 
@@ -76,11 +89,18 @@ namespace Code.Features
 
             // После всех появлений — активируем финальный объект
             if (_objectToActivateAfterSequence != null)
+            {
                 _objectToActivateAfterSequence.SetActive(true);
+                _objectToActivateAfterSequence.GetComponent<EndTutorial>().PlayStage(1);
+
+                _progress.SetAllFeatureOpened();
+            }
 
             // После завершения — отключаем текущий объект
             yield return new WaitForSeconds(0.5f);
-            gameObject.SetActive(false);
+            // gameObject.SetActive(false);
+            
+            Destroy(gameObject);
         }
 
         private IEnumerator AnimateObject(GameObject targetObject)

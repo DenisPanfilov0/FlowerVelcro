@@ -368,7 +368,7 @@ namespace Code.Gameplay.Services.SpawnersServices
             if (typeId == ItemSpawnerTypeId.MagicFlower && _prefabs.ContainsKey(ItemSpawnerTypeId.StarFlower))
             {
                 float chance = Random.value; // 0..1
-                if (chance < 0.4f) // 40% шанс
+                if (chance < 0.35f) // 40% шанс
                 {
                     typeId = ItemSpawnerTypeId.StarFlower;
                     Debug.Log("[ItemSpawnerService] 🎇 Заспавнен StarFlower вместо MagicFlower (шанс 25%)");

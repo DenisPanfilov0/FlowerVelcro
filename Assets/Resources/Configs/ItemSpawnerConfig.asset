@@ -39,14 +39,14 @@ MonoBehaviour:
         Quantity: 6
       - TypeId: 1
         Quantity: 3
-    ScoreRange: {x: 15, y: 20}
+    ScoreRange: {x: 30, y: 40}
   - Blocks:
     - Items:
       - TypeId: 3
         Quantity: 5
       - TypeId: 5
         Quantity: 2
-    ScoreRange: {x: 35, y: 40}
+    ScoreRange: {x: 70, y: 80}
   - Blocks:
     - Items:
       - TypeId: 3
@@ -55,14 +55,14 @@ MonoBehaviour:
         Quantity: 1
       - TypeId: 1
         Quantity: 1
-    ScoreRange: {x: 55, y: 60}
+    ScoreRange: {x: 110, y: 120}
   - Blocks:
     - Items:
       - TypeId: 3
         Quantity: 5
       - TypeId: 4
         Quantity: 2
-    ScoreRange: {x: 75, y: 80}
+    ScoreRange: {x: 150, y: 160}
   - Blocks:
     - Items:
       - TypeId: 3
@@ -71,7 +71,7 @@ MonoBehaviour:
         Quantity: 1
       - TypeId: 1
         Quantity: 3
-    ScoreRange: {x: 95, y: 100}
+    ScoreRange: {x: 190, y: 200}
   - Blocks:
     - Items:
       - TypeId: 3
@@ -80,7 +80,7 @@ MonoBehaviour:
         Quantity: 1
       - TypeId: 5
         Quantity: 2
-    ScoreRange: {x: 115, y: 120}
+    ScoreRange: {x: 230, y: 240}
   - Blocks:
     - Items:
       - TypeId: 3
@@ -91,4 +91,4 @@ MonoBehaviour:
         Quantity: 1
       - TypeId: 4
         Quantity: 1
-    ScoreRange: {x: 135, y: 140}
+    ScoreRange: {x: 270, y: 280}

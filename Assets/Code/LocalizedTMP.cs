@@ -55,5 +55,10 @@ namespace Code
         {
             LocalizationKey = key;
         }
+
+        public string GetKey()
+        {
+            return LocalizationKey;
+        }
     }
 }

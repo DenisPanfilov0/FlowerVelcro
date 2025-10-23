@@ -16,21 +16,30 @@ namespace Code.Features.DailyLogin
         
         private DailyLoginModel _dailyLoginModel;
         private DailyLoginConfig _dailyLoginConfig;
+        private LanguageModel _languageModel;
 
         [Inject]
-        public void Construct(DailyLoginModel dailyLoginModel, DailyLoginConfig dailyLoginConfig)
+        public void Construct(
+            DailyLoginModel dailyLoginModel, 
+            DailyLoginConfig dailyLoginConfig,
+            LanguageModel languageModel)
         {
             _dailyLoginConfig = dailyLoginConfig;
             _dailyLoginModel = dailyLoginModel;
+            _languageModel = languageModel;
         }
 
         private void Start()
         {
+            _timer.gameObject.SetActive(false);
+            
             var dailyLogins = _dailyLoginModel.GetDailyLoginInProgress();
 
             for (int i = 0; i < _dailyLoginItems.Count; i++)
             {
-                var loginData = _dailyLoginConfig.DailyLoginRewards.FirstOrDefault(x => x.Id == dailyLogins[i].Id);
+                var loginData = _dailyLoginConfig.DailyLoginRewards
+                    .FirstOrDefault(x => x.Id == dailyLogins[i].Id);
+
                 _dailyLoginItems[i].Setup(dailyLogins[i], loginData.RewardIcon, ClaimReward);
             }
 
@@ -60,17 +69,26 @@ namespace Code.Features.DailyLogin
         
         private void UpdateTimer(long time)
         {
+            _timer.gameObject.SetActive(true);
+            
             TimeSpan timeUntilMidnight = TimeSpan.FromMilliseconds(time);
 
-            string formattedTime = $"{timeUntilMidnight.Hours:D2}:{timeUntilMidnight.Minutes:D2}:{timeUntilMidnight.Seconds:D2}";
+            var (h, m, s, label) = TimeLocalization.Get(_languageModel.GetLanguageType());
 
-            _timer.text = $"Time Until Reset: {formattedTime}";
+            string formattedTime = 
+                $"{timeUntilMidnight.Hours:D2}{h} " +
+                $"{timeUntilMidnight.Minutes:D2}{m} " +
+                $"{timeUntilMidnight.Seconds:D2}{s}";
+
+            _timer.text = $"{label}: {formattedTime}";
         }
         
         private void DailyLoginItemChange(int idReward)
         {
-            _dailyLoginItems.FirstOrDefault(x => x.GetIdReward() == idReward)
-                .UpdateValue(_dailyLoginModel.GetDailyLoginInProgress().FirstOrDefault(x => x.Id == idReward));
+            _dailyLoginItems
+                .FirstOrDefault(x => x.GetIdReward() == idReward)?
+                .UpdateValue(_dailyLoginModel.GetDailyLoginInProgress()
+                    .FirstOrDefault(x => x.Id == idReward));
         }
 
         private void ClaimReward(int idReward)
