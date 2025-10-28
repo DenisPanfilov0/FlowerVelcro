@@ -6,6 +6,7 @@ using Code.Inventory;
 using TMPro;
 using Unity.Mathematics;
 using UnityEngine;
+using PlayerPrefs = RedefineYG.PlayerPrefs;
 using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -63,6 +64,7 @@ public class GameManager : MonoBehaviour
     [HideInInspector] public bool IsGameOver;
 
     [SerializeField] private TMP_Text _currencyValue;
+    [SerializeField] private TMP_Text _currencyValueEndGame;
 
     private CurrencyModel _currencyModel;
 
@@ -77,6 +79,7 @@ public class GameManager : MonoBehaviour
         maincamera = Camera.main;
 
         _currencyValue.text = _currencyModel.GetCurrencyAmount().ToString();
+        _currencyValueEndGame.text = _currencyModel.GetCurrencyAmount().ToString();
 
         if (PlayerPrefs.HasKey("SavedFruits"))
             LoadFruits();
@@ -105,12 +108,13 @@ public class GameManager : MonoBehaviour
     private void CurrencyChange(int value)
     {
         _currencyValue.text = value.ToString();
+        _currencyValueEndGame.text = value.ToString();
     }
 
     private void StartNewSession()
     {
-        currentFruitIndex = UnityEngine.Random.Range(0, fruitDataList.Count);
-        nextFruitIndex = UnityEngine.Random.Range(0, fruitDataList.Count);
+        currentFruitIndex = GetWeightedRandomFruitIndex();
+        nextFruitIndex = GetWeightedRandomFruitIndex();
 
         NextFruitUI.sprite = fruitDataList[nextFruitIndex].sprite;
         SetAimLineAndCurentFruit(new Vector3(0, AimLine.position.y, 0));
@@ -239,12 +243,11 @@ public class GameManager : MonoBehaviour
     void SpawnFruit(Vector3 spawnLoc)
     {
         currentFruitIndex = nextFruitIndex;
-        nextFruitIndex = UnityEngine.Random.Range(0, fruitDataList.Count);
+        nextFruitIndex = GetWeightedRandomFruitIndex();
         NextFruitUI.sprite = fruitDataList[nextFruitIndex].sprite;
 
         var fruitInfo = fruitDataList[currentFruitIndex];
 
-        // 🎲 3% шанс на статус Star
         bool isStar = UnityEngine.Random.value <= 0.03f;
         var status = isStar ? Fruit.FruitStatus.Star : Fruit.FruitStatus.Normal;
 
@@ -252,6 +255,32 @@ public class GameManager : MonoBehaviour
         currentFruit.Setup(fruitInfo.type, fruitInfo.sprite, fruitInfo.radius, status);
         currentFruit.Initialize();
         currentFruit.MyRigidbody2D.simulated = false;
+    }
+
+    int GetWeightedRandomFruitIndex()
+    {
+        // Используем только индексы от 0 до 5
+        int maxIndex = Mathf.Min(4, fruitDataList.Count - 1);
+        float[] weights = new float[maxIndex + 1];
+        for (int i = 0; i <= maxIndex; i++)
+        {
+            // Чем больше индекс — тем меньше шанс
+            // weights[i] = 1f / (i + 1f);
+            weights[i] = 1f / Mathf.Pow(i + 1f, 2f);
+        }
+
+        float totalWeight = weights.Sum();
+        float randomValue = UnityEngine.Random.value * totalWeight;
+        float cumulative = 0f;
+
+        for (int i = 0; i <= maxIndex; i++)
+        {
+            cumulative += weights[i];
+            if (randomValue <= cumulative)
+                return i;
+        }
+
+        return maxIndex;
     }
 
     public void MergeFruit(Fruit f1, Fruit f2)
@@ -270,10 +299,7 @@ public class GameManager : MonoBehaviour
 
                 if (starCount > 0)
                     _currencyModel.AddStarCurrency(starCount);
-                if (starCount == 2)
-                    _currencyModel.AddCurrency(3);
-                else if (starCount == 0)
-                    _currencyModel.AddCurrency(3);
+                _currencyModel.AddCurrency(3);
 
                 Vector3 position = (f1.transform.position + f2.transform.position) / 2;
                 Destroy(f1.gameObject);
@@ -370,7 +396,7 @@ public class GameManager : MonoBehaviour
     {
         AimLine.gameObject.SetActive(true);
         float Xpos = Mathf.Clamp(newLoc.x, -3.7f + fruitDataList[currentFruitIndex].radius, 3.7f - fruitDataList[currentFruitIndex].radius);
-        AimLine.position = new Vector3(Xpos, 2.56f, 0);
+        AimLine.position = new Vector3(Xpos, 1.56f, 0);
         if (currentFruit)
             currentFruit.transform.position = new Vector3(Xpos, YSpawnPosition, 0);
     }

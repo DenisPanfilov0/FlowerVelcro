@@ -56,6 +56,7 @@ namespace Code.Progress.Data
         public void SetMerge2TutorialChecked()
         {
             IsMerge2TutorialChecked = true;
+            _saveLoadService.SetTutorialEnded(true);
             SaveData();
         }
 
@@ -97,7 +98,7 @@ namespace Code.Progress.Data
             {
                 // Инициализация значений по умолчанию, если данных нет
                 MaxScore = 0;
-                GamePlayed = 0;
+                GamePlayed = 1;
                 IsTutorialChecked = true;
                 IsMerge2TutorialChecked = false;
                 IsFeatureOpened = false;

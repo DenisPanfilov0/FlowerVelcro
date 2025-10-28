@@ -1,5 +1,6 @@
 using System;
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.EventSystems;
@@ -8,9 +9,9 @@ using UnityEngine.UI;
 namespace Code.Tutorial
 {
     [RequireComponent(typeof(Image))]
-    public class ShadowController : MonoBehaviour
+    public class ShadowController : MonoBehaviour, IPointerClickHandler
     {
-        [SerializeField] private Image holeImage; 
+        [SerializeField] private Image holeImage;
         [SerializeField] private Button _updateFigure;
 
         private Image shadowImage;
@@ -21,13 +22,11 @@ namespace Code.Tutorial
         private Camera uiCamera;
         private Canvas parentCanvas;
         private bool isInitialized = false;
+        private bool isShadowFullyVisible = false;
 
         private UnityAction updateButtonAction;
-        private bool _isMouseDownInTransparentArea = false;
 
         public event Action OnTransparentAreaReleased;
-
-        private EventSystem _eventSystem;
 
         private void Awake()
         {
@@ -39,8 +38,6 @@ namespace Code.Tutorial
             uiCamera = (parentCanvas != null && parentCanvas.renderMode != RenderMode.ScreenSpaceOverlay)
                 ? parentCanvas.worldCamera
                 : null;
-
-            _eventSystem = EventSystem.current;
 
             updateButtonAction = () => RedrawShadowWithImageSafe(holeImage);
         }
@@ -105,7 +102,24 @@ namespace Code.Tutorial
             ApplyShadowTexture();
 
             isInitialized = true;
-            yield break;
+
+            yield return StartCoroutine(WaitForFullShadowVisibility());
+        }
+
+        private IEnumerator WaitForFullShadowVisibility()
+        {
+            isShadowFullyVisible = false;
+            yield return null;
+
+            float duration = 0.1f;
+            float timer = 0f;
+            while (timer < duration)
+            {
+                timer += Time.deltaTime;
+                yield return null;
+            }
+
+            isShadowFullyVisible = true;
         }
 
         private void FillShadowTexture()
@@ -121,7 +135,7 @@ namespace Code.Tutorial
             if (cachedShadowTexture == null) return;
 
             Color fillColor = shadowImage.color;
-            fillColor.a = 1f; 
+            fillColor.a = 1f;
             Color[] fillPixels = new Color[cachedShadowTexture.width * cachedShadowTexture.height];
             for (int i = 0; i < fillPixels.Length; i++) fillPixels[i] = fillColor;
             cachedShadowTexture.SetPixels(fillPixels);
@@ -137,11 +151,6 @@ namespace Code.Tutorial
             shadowImage.sprite = Sprite.Create(cachedShadowTexture,
                 new Rect(0, 0, cachedShadowTexture.width, cachedShadowTexture.height),
                 shadowRect.pivot, 100f);
-        }
-
-        public void SetRaycastTarget(bool value)
-        {
-            shadowImage.raycastTarget = value;
         }
 
         public void RedrawShadowWithImageSafe(Image targetImage)
@@ -192,7 +201,8 @@ namespace Code.Tutorial
             if (endX <= startX || endY <= startY) return;
 
             Rect spriteRect = targetImage.sprite.rect;
-            Color[] holePixels = holeTex.GetPixels((int)spriteRect.x, (int)spriteRect.y, (int)spriteRect.width, (int)spriteRect.height);
+            Color[] holePixels = holeTex.GetPixels((int)spriteRect.x, (int)spriteRect.y,
+                (int)spriteRect.width, (int)spriteRect.height);
             Color[] shadowPixels = cachedShadowTexture.GetPixels();
 
             int overlapW = endX - startX;
@@ -227,77 +237,49 @@ namespace Code.Tutorial
                 shadowRect.pivot, 100f);
         }
 
-        private void Update()
+        public void OnPointerClick(PointerEventData eventData)
         {
-            bool inTransparent = !IsMouseInOpaqueArea();
-            shadowImage.raycastTarget = !inTransparent;
+            if (!isInitialized || !isShadowFullyVisible) return;
 
-            if (Input.GetMouseButtonDown(0))
+            Vector2 mousePos = eventData.position;
+            if (!IsMouseInOpaqueArea(mousePos)) // проверяем вырез
             {
-                _isMouseDownInTransparentArea = inTransparent;
-            }
-
-            if (Input.GetMouseButtonUp(0))
-            {
-                if (_isMouseDownInTransparentArea && inTransparent)
+                Button foundButton = FindTopmostActiveButtonUnderPosition(mousePos);
+                if (foundButton != null)
                 {
-                    // Проверяем есть ли кнопка под курсором
-                    if (TryClickUnderlyingButton(Input.mousePosition))
-                    {
-                        OnTransparentAreaReleased?.Invoke();
-                    }
-                    // иначе — игнорируем клик
+                    foundButton.onClick?.Invoke();
+                    OnTransparentAreaReleased?.Invoke();
                 }
-
-                _isMouseDownInTransparentArea = false;
             }
         }
 
-        /// <summary>
-        /// Проверяет наличие кнопки под курсором и имитирует клик по ней.
-        /// </summary>
-        private bool TryClickUnderlyingButton(Vector2 screenPosition)
+        private Button FindTopmostActiveButtonUnderPosition(Vector2 screenPos)
         {
-            if (_eventSystem == null)
-                _eventSystem = EventSystem.current;
+            if (EventSystem.current == null) return null;
 
-            if (_eventSystem == null)
+            PointerEventData eventData = new PointerEventData(EventSystem.current)
             {
-                Debug.LogWarning("EventSystem not found.");
-                return false;
-            }
-
-            PointerEventData pointerData = new PointerEventData(_eventSystem)
-            {
-                position = screenPosition
+                position = screenPos
             };
 
-            var results = new System.Collections.Generic.List<RaycastResult>();
-            _eventSystem.RaycastAll(pointerData, results);
+            List<RaycastResult> results = new List<RaycastResult>();
+            EventSystem.current.RaycastAll(eventData, results);
 
             foreach (var result in results)
             {
-                Button button = result.gameObject.GetComponent<Button>();
-                if (button != null && button.interactable && button.enabled)
-                {
-                    // Симулируем полноценный клик
-                    ExecuteEvents.Execute(button.gameObject, pointerData, ExecuteEvents.pointerEnterHandler);
-                    ExecuteEvents.Execute(button.gameObject, pointerData, ExecuteEvents.pointerDownHandler);
-                    ExecuteEvents.Execute(button.gameObject, pointerData, ExecuteEvents.pointerClickHandler);
-                    ExecuteEvents.Execute(button.gameObject, pointerData, ExecuteEvents.pointerUpHandler);
-                    ExecuteEvents.Execute(button.gameObject, pointerData, ExecuteEvents.pointerExitHandler);
-                    return true;
-                }
+                if (result.gameObject == gameObject) continue;
+                Button btn = result.gameObject.GetComponentInParent<Button>();
+                if (btn != null && btn.gameObject.activeInHierarchy && btn.interactable)
+                    return btn;
             }
 
-            return false;
+            return null;
         }
 
-        public bool IsMouseInOpaqueArea()
+        public bool IsMouseInOpaqueArea(Vector2 mouse)
         {
             if (cachedShadowTexture == null) return false;
 
-            Vector2 mouse = Input.mousePosition;
             Rect shadowScreenRect = new Rect(shadowScreenBottomLeft, shadowScreenSize);
             if (!shadowScreenRect.Contains(mouse)) return true;
 

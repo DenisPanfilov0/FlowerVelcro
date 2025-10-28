@@ -1349,6 +1349,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _score: {fileID: 405600431}
+  _settingButton: {fileID: 1215037426}
 --- !u!1 &1917762660
 GameObject:
   m_ObjectHideFlags: 0

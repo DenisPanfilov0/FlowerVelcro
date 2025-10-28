@@ -107,14 +107,31 @@ namespace Code.Tutorial
                 _shadowController.RedrawShadowWithImageSafe(stage.Images[_currentStepIndex]);
 
             if (_currentStepIndex < stage.DialogControllers.Count && stage.DialogControllers[_currentStepIndex] != null)
-                stage.DialogControllers[_currentStepIndex].gameObject.SetActive(true);
+            {
+                var dialog = stage.DialogControllers[_currentStepIndex];
+                dialog.gameObject.SetActive(true);
+                dialog.SetAlpha(1f); // Диалог сразу видимый
+            }
 
+            // === ИСПРАВЛЕНИЕ ТОЛЬКО ДЛЯ ПЕРВОЙ РУКИ ===
             if (_currentStepIndex < stage.HandAnimations.Count)
             {
                 var hand = stage.HandAnimations[_currentStepIndex];
                 hand.SetActive(true);
-                hand.Animate(this);
+                hand.SetAlpha(0f); // Принудительно сбрасываем альфу
+                hand.transform.localScale = Vector3.one; // Принудительно сбрасываем scale
+
+                // Запускаем FadeIn + анимацию
+                StartCoroutine(FadeInFirstHandAndAnimate(hand));
             }
+        }
+
+        private IEnumerator FadeInFirstHandAndAnimate(HandAnimation hand)
+        {
+            // Плавное появление
+            yield return hand.FadeAlpha(0f, 1f, 0.5f);
+            // Запуск анимации после появления
+            hand.Animate(this);
         }
 
         private IEnumerator TransitionToNext()
@@ -147,7 +164,7 @@ namespace Code.Tutorial
             if (_currentStepIndex < stage.DialogControllers.Count)
                 stage.DialogControllers[_currentStepIndex].gameObject.SetActive(false);
 
-            _shadowController.SetRaycastTarget(false);
+            // _shadowController.SetRaycastTarget(false);
             _shadowController.FillShadowTextureFullyOpaque();
 
             _currentStepIndex++;
@@ -188,7 +205,7 @@ namespace Code.Tutorial
                 stage.HandAnimations[_currentStepIndex].SetAlpha(0f);
             }
 
-            _shadowController.SetRaycastTarget(true);
+            // _shadowController.SetRaycastTarget(true);
 
             Coroutine fadeHandIn = null;
             Coroutine fadeDialogIn = null;

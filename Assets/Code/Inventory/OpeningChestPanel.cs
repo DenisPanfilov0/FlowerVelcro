@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Linq;
+using Code.Features.DailyTask;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -41,10 +42,13 @@ namespace Code.Inventory
         private Vector3 _buyButtonInitialScale;
         private AudioManager _audioManager;
         private bool _isOpeningChest = false;
-        
+        private DailyTaskModel _dailyTaskModel;
+
         [Inject]
-        public void Construct(CurrencyModel currencyModel, InventorySkinConfigs inventorySkinConfigs, InventoryModel inventoryModel, AudioManager audioManager)
+        public void Construct(CurrencyModel currencyModel, InventorySkinConfigs inventorySkinConfigs, InventoryModel inventoryModel, 
+            AudioManager audioManager, DailyTaskModel dailyTaskModel)
         {
+            _dailyTaskModel = dailyTaskModel;
             _audioManager = audioManager;
             _currencyModel = currencyModel;
             _inventorySkinConfigs = inventorySkinConfigs;
@@ -210,6 +214,7 @@ namespace Code.Inventory
                 _isOpeningChest = true;
                 _audioManager.PlaySoundEffect(AudioClipTypeId.ButtonClick);
                 _currencyModel.SpendCurrency(350);
+                _dailyTaskModel.DailyTaskCheck(DailyTaskType.OpenImageChests2, 1);
                 OpenChest();
             }
         }

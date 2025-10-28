@@ -5,6 +5,7 @@ using Code.Gameplay.Services.GameStateService;
 using Code.Infrastructure.States.GameStates;
 using Code.Infrastructure.States.StateMachine;
 using Code.Infrastructure.WindowsService;
+using Code.Progress.Data;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -32,13 +33,15 @@ namespace Code.Gameplay.Windows.GameLoseWindow
         private Vector3 _initialRecordCounterScale;
         private Vector3 _initialRecordMessageScale;
         private AdvertisingService _advertisingService;
+        private ProgressData _progressData;
 
         private const float StaggerDelay = 0.2f;
 
         [Inject]
         public void Construct(IGameStateService gameStateService, GameScoreService gameScoreService, IGameStateMachine gameStateMachine, 
-            AudioManager audioManager, AdvertisingService advertisingService)
+            AudioManager audioManager, AdvertisingService advertisingService, ProgressData progressData)
         {
+            _progressData = progressData;
             _advertisingService = advertisingService;
             _gameStateMachine = gameStateMachine;
             _gameScoreService = gameScoreService;
@@ -72,6 +75,12 @@ namespace Code.Gameplay.Windows.GameLoseWindow
 
         private void Start()
         {
+            if (!_progressData.IsFeatureOpened)
+            {
+                _restartLevel.gameObject.SetActive(false);
+                _multiplyReward.gameObject.SetActive(false);
+            }
+            
             _multiplyReward.onClick.AddListener(MultiplyReward);
             _restartLevel.onClick.AddListener(RestartLevel);
             _home.onClick.AddListener(EnterMainMenu);
