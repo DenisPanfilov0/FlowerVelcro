@@ -557,7 +557,7 @@ GameObject:
   - component: {fileID: 292174290}
   - component: {fileID: 292174291}
   m_Layer: 0
-  m_Name: Stage_3
+  m_Name: 3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2369,7 +2369,7 @@ GameObject:
   - component: {fileID: 945548636}
   - component: {fileID: 945548637}
   m_Layer: 0
-  m_Name: Stage_1
+  m_Name: 1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2728,7 +2728,7 @@ GameObject:
   - component: {fileID: 1057003296}
   - component: {fileID: 1057003297}
   m_Layer: 0
-  m_Name: Stage_4
+  m_Name: 4
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4242,7 +4242,7 @@ GameObject:
   - component: {fileID: 1661185681}
   - component: {fileID: 1661185682}
   m_Layer: 0
-  m_Name: Stage_5
+  m_Name: 5
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4477,7 +4477,7 @@ GameObject:
   - component: {fileID: 1762053955}
   - component: {fileID: 1762053956}
   m_Layer: 0
-  m_Name: Stage_6
+  m_Name: 6
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4675,6 +4675,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _score: {fileID: 405600431}
+  _settingButton: {fileID: 0}
 --- !u!1 &1874379690
 GameObject:
   m_ObjectHideFlags: 0
@@ -5040,7 +5041,7 @@ GameObject:
   - component: {fileID: 2013151988}
   - component: {fileID: 2013151989}
   m_Layer: 0
-  m_Name: Stage_2
+  m_Name: 2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

@@ -1,13 +1,13 @@
 using Newtonsoft.Json;
-using UnityEngine;
-// using PlayerPrefs = RedefineYG.PlayerPrefs;
+// using UnityEngine;
+using PlayerPrefs = RedefineYG.PlayerPrefs;
 
 namespace Code
 {
     public class SaveLoadService
     {
         private const string VersionKey = "SaveLoadServiceVersion";
-        private const string Version = "104.0"; // Текущая версия сервиса
+        private const string Version = "107.0"; // Текущая версия сервиса
         private const string TutorialEndedKey = "TutorialEndedFlag";
 
         private bool _isTutorialEnded = false;

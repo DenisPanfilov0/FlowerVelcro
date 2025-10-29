@@ -38,7 +38,7 @@ namespace Code.Gameplay.Services.SpawnersServices
         private float _currentItemDelay;
         private ItemSpawnerTypeId? _lastSpawnedType;
         private Dictionary<int, ItemSpawnerTypeId> _typeIndexToTypeId;
-        private float _magicFlowerSpawnChange = 0.13f;
+        private float _magicFlowerSpawnChange = 0.16f;
         private const float MinSpawnDistance = 0.5f;
         private const int InitialPoolSize = 4;
 

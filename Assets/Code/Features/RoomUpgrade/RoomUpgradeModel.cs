@@ -120,8 +120,9 @@ namespace Code.Features.RoomUpgrade
 
         public bool AvailableBuyButton()
         {
-            return _availableBuyButton;
+            // return _availableBuyButton;
             // return _currencyModel.CanStarSpend(_roomProgress[_currentRoom].GroupProgress[_groupOpened].Price);
+            return _currencyModel.CanStarSpend(_roomProgress.GroupProgress[_groupOpened].Price);
         }
 
         public int GetAvailableRoomsToOpen()

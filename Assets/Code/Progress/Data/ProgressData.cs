@@ -98,8 +98,8 @@ namespace Code.Progress.Data
             {
                 // Инициализация значений по умолчанию, если данных нет
                 MaxScore = 0;
-                GamePlayed = 1;
-                IsTutorialChecked = true;
+                GamePlayed = 0;
+                IsTutorialChecked = false;
                 IsMerge2TutorialChecked = false;
                 IsFeatureOpened = false;
                 TotalPollenCollected = 0;

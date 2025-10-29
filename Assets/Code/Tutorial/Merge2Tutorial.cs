@@ -2,6 +2,7 @@ using System;
 using Code.Progress.Data;
 using UnityEngine;
 using UnityEngine.UI;
+using YG;
 using Zenject;
 
 namespace Code.Tutorial
@@ -37,6 +38,8 @@ namespace Code.Tutorial
 
         private void TutorialEnded()
         {
+            YG2.MetricaSend("tutorial", "End", $"{gameObject.name}");
+            
             _progressData.SetMerge2TutorialChecked();
             Destroy(gameObject);
         }

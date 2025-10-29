@@ -39,7 +39,7 @@ namespace Code.Gameplay.Services.GameScore
                 _progress.TotalPollenCollected += _score;
                 _progress.TotalGamesPlayed++;
                 
-                if(_score >= 20)_dailyTaskModel.DailyTaskCheck(DailyTaskType.PlayGames3Points20, 1);
+                if(_score >= 60)_dailyTaskModel.DailyTaskCheck(DailyTaskType.PlayGames3Points20, 1);
                 
                 if (_progress.MaxScore < _score)
                 {

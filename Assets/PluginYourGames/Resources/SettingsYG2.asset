@@ -241,6 +241,11 @@ MonoBehaviour:
         extraData: 
   Localization:
     setLanguageMod: 1
+  Metrica:
+    enable: 1
+    metricaCounterID: 104892962
+    log: 1
+    useYandexMetrica: 1
   RewardedAdv:
     skipInterAdvAfterReward: 0
     labelAdvSimLabel: 0
@@ -311,6 +316,8 @@ MonoBehaviour:
     showFirstAdv: 0
     interAdvInterval: 0
     postponeCallByFail: 0
+    useYandexMetrica: 0
+    metricaCounterID: 0
     skipInterAdvAfterReward: 0
     saveLocal: 0
     saveCloud: 0

@@ -5,6 +5,7 @@ using Code.Gameplay.Services.GameStateService;
 using Code.Gameplay.Services.Heart;
 using Code.Gameplay.Services.PlayerSticking;
 using UnityEngine;
+using YG;
 using Zenject;
 
 namespace Code.Tutorial
@@ -42,6 +43,8 @@ namespace Code.Tutorial
             {
                 item.Setup(_playerStickingService, null, _heartService, _gameStateService, true);
             }
+            
+            YG2.MetricaSend("tutorial", "Start", $"{gameObject.name}");
         }
 
         public void StageActive()

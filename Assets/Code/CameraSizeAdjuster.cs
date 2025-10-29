@@ -2,77 +2,64 @@ using UnityEngine;
 
 namespace Code.Gameplay.Behaviour
 {
+    [RequireComponent(typeof(Camera))]
     public class CameraSizeAdjuster : MonoBehaviour
     {
         [SerializeField] private Camera _camera;
-        private int _lastScreenWidth;
-        private float _checkTimer;
-        private const float CheckInterval = 0.1f; // Check every 0.1 seconds
-        private const float ReferenceWidth = 1179f; // Reference device width
-        private const float ReferenceHeight = 2556f; // Reference device height
-        private const float ReferenceCameraSize = 7f; // Camera size for 1179x2556
-        private const float NineBySixteenCameraSize = 7.4f; // Camera size for 9:16 aspect ratio
-        private const float ReferenceAspectRatio = ReferenceWidth / ReferenceHeight; // ~0.461
-        private const float NineBySixteenAspectRatio = 9f / 16f; // 0.5625
-        private const float CorrectionFactor = 1.35f; // Correction factor for scaling
+        [SerializeField] private float _adjustSpeed = 2f; // скорость плавного изменения
+        [SerializeField] private float _referenceWidth = 1179f;
+        [SerializeField] private float _referenceHeight = 2556f;
+        [SerializeField] private float _referenceCameraSize = 7f;
+        [SerializeField] private float _minCameraSize = 5.5f;
+        [SerializeField] private float _maxCameraSize = 7.5f;
+
+        private float _targetCameraSize;
+        private float _lastAspect;
+        private const float CheckInterval = 0.2f;
+        private float _timer;
 
         private void Start()
         {
             if (_camera == null)
-            {
                 _camera = Camera.main;
-            }
-            AdjustCameraSize();
-            _lastScreenWidth = Screen.width;
+
+            _lastAspect = GetCurrentAspectRatio();
+            UpdateTargetCameraSize();
+            _camera.orthographicSize = _targetCameraSize;
         }
 
         private void Update()
         {
-            _checkTimer += Time.deltaTime;
-            if (_checkTimer < CheckInterval)
-                return;
-
-            _checkTimer = 0f;
-
-            if (Screen.width != _lastScreenWidth)
+            _timer += Time.deltaTime;
+            if (_timer >= CheckInterval)
             {
-                AdjustCameraSize();
-                _lastScreenWidth = Screen.width;
+                _timer = 0f;
+                float aspect = GetCurrentAspectRatio();
+                if (!Mathf.Approximately(aspect, _lastAspect))
+                {
+                    _lastAspect = aspect;
+                    UpdateTargetCameraSize();
+                }
             }
+
+            // Плавно двигаем текущий размер к целевому
+            _camera.orthographicSize = Mathf.Lerp(_camera.orthographicSize, _targetCameraSize, Time.deltaTime * _adjustSpeed);
         }
 
-        private void AdjustCameraSize()
+        private void UpdateTargetCameraSize()
         {
-            float currentWidth = Screen.width;
-            float currentHeight = Screen.height;
-            float currentAspectRatio = currentWidth / currentHeight;
+            float currentAspect = GetCurrentAspectRatio();
+            float referenceAspect = _referenceWidth / _referenceHeight;
+            float ratio = Mathf.InverseLerp(referenceAspect, 9f / 16f, currentAspect);
 
-            float targetCameraSize;
+            // Линейно интерполируем между 7 (при reference) и 6.7 (при 9:16)
+            _targetCameraSize = Mathf.Lerp(_referenceCameraSize, 6.7f, ratio);
+            _targetCameraSize = Mathf.Clamp(_targetCameraSize, _minCameraSize, _maxCameraSize);
+        }
 
-            if (Mathf.Approximately(currentWidth, ReferenceWidth) && Mathf.Approximately(currentHeight, ReferenceHeight))
-            {
-                // Exact match for reference resolution (1179x2556)
-                targetCameraSize = ReferenceCameraSize;
-            }
-            else if (Mathf.Approximately(currentAspectRatio, NineBySixteenAspectRatio))
-            {
-                // Exact match for 9:16 aspect ratio
-                targetCameraSize = NineBySixteenCameraSize;
-            }
-            else
-            {
-                // Interpolate/extrapolate based on aspect ratio
-                float referenceOrthographicSize = ReferenceCameraSize;
-                float widthScaleFactor = ReferenceWidth / currentWidth;
-                float aspectRatioDifference = currentAspectRatio - ReferenceAspectRatio;
-                float aspectAdjustment = Mathf.Lerp(ReferenceCameraSize, NineBySixteenCameraSize, 
-                    Mathf.InverseLerp(ReferenceAspectRatio, NineBySixteenAspectRatio, currentAspectRatio));
-                
-                targetCameraSize = referenceOrthographicSize * widthScaleFactor * CorrectionFactor;
-                targetCameraSize = Mathf.Lerp(targetCameraSize, aspectAdjustment, 0.5f); // Blend width-based and aspect-based adjustments
-            }
-
-            _camera.orthographicSize = Mathf.Clamp(targetCameraSize, 5f, 10f);
+        private float GetCurrentAspectRatio()
+        {
+            return (float)Screen.width / Screen.height;
         }
     }
 }

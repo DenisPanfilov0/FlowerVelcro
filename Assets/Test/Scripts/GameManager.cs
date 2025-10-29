@@ -259,13 +259,21 @@ public class GameManager : MonoBehaviour
 
     int GetWeightedRandomFruitIndex()
     {
-        // Используем только индексы от 0 до 5
-        int maxIndex = Mathf.Min(4, fruitDataList.Count - 1);
+        int maxPossibleIndex = fruitDataList.Count - 1;
+        int maxIndex = 0;
+
+        if (Score < 30)
+            maxIndex = 0;
+        else if (Score < 60)
+            maxIndex = Mathf.Min(1, maxPossibleIndex);
+        else if (Score < 100)
+            maxIndex = Mathf.Min(2, maxPossibleIndex);
+        else
+            maxIndex = Mathf.Min(3, maxPossibleIndex);
+
         float[] weights = new float[maxIndex + 1];
         for (int i = 0; i <= maxIndex; i++)
         {
-            // Чем больше индекс — тем меньше шанс
-            // weights[i] = 1f / (i + 1f);
             weights[i] = 1f / Mathf.Pow(i + 1f, 2f);
         }
 

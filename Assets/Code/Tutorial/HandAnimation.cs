@@ -1,6 +1,8 @@
+using System;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
+using YG;
 
 namespace Code.Tutorial
 {
@@ -25,6 +27,11 @@ namespace Code.Tutorial
                     handImage = handObject.GetComponent<Image>();
                 }
             }
+        }
+
+        private void Start()
+        {
+            YG2.MetricaSend("tutorial", "Main_Menu", $"{gameObject.name}");
         }
 
         public void Animate(MonoBehaviour monoBehaviour)
