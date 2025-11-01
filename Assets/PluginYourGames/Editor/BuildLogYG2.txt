@@ -1,3 +1,3 @@
-Build path: C:/Users/denis/Documents/Game_Builds/Web/FC_Labubu/19
-Build number: 96
+Build path: C:/Users/denis/Documents/Game_Builds/Web/FC_Labubu/21
+Build number: 98
 PluginYG version: 2.005

@@ -10,6 +10,7 @@ public class SceneLoaderUI : MonoBehaviour
     public Material fadeMaterial;
     private bool isAnimating = false;
     private bool _isFirstLoad;
+    private bool _isFirstUnload;
 
     void Awake()
     {
@@ -22,11 +23,15 @@ public class SceneLoaderUI : MonoBehaviour
         {
             Destroy(gameObject);
         }
+        
+        _isFirstLoad = true;
+        _isFirstUnload = true;
     }
 
     void Start()
     {
         _isFirstLoad = true;
+        _isFirstUnload = true;
         
         if (loadingImage == null)
         {
@@ -38,17 +43,25 @@ public class SceneLoaderUI : MonoBehaviour
             Debug.LogError("Fade Material not assigned!");
             return;
         }
-        loadingImage.material = fadeMaterial;
-        fadeMaterial.SetFloat("_TransitionProgress", 0f); // Start with original image
-        fadeMaterial.SetFloat("_BlurRadius", 0f); // No blur initially
-        fadeMaterial.SetFloat("_MistIntensity", 0f); // No mist initially
-        loadingImage.color = new Color(1, 1, 1, 1); // Fully visible
+        // loadingImage.material = fadeMaterial;
+        // fadeMaterial.SetFloat("_TransitionProgress", 0f); // Start with original image
+        // fadeMaterial.SetFloat("_BlurRadius", 0f); // No blur initially
+        // fadeMaterial.SetFloat("_MistIntensity", 0f); // No mist initially
+        // loadingImage.color = new Color(1, 1, 1, 1); // Fully visible
+        
+        // fadeMaterial.SetFloat("_TransitionProgress", 0f);
+        // fadeMaterial.SetFloat("_BlurRadius", 0f);
+        // fadeMaterial.SetFloat("_MistIntensity", 0f);
     }
 
     public void StartLoadingAnimation(System.Action onComplete)
     {
+        
+        
         if (!isAnimating)
         {
+            // loadingImage.color = new Color(1, 1, 1, 1); // Fully visible
+
             StartCoroutine(AnimateLoading(onComplete));
         }
         else
@@ -59,6 +72,15 @@ public class SceneLoaderUI : MonoBehaviour
 
     public void StartUnloadingAnimation(System.Action onComplete)
     {
+        // if (_isFirstUnload)
+        // {
+        //     _isFirstUnload = false;
+        //     onComplete?.Invoke();
+        //     // YG2.GameReadyAPI();
+        //
+        //     return;
+        // }
+        
         if (!isAnimating)
         {
             StartCoroutine(AnimateUnloading(onComplete));
@@ -71,6 +93,21 @@ public class SceneLoaderUI : MonoBehaviour
 
     private IEnumerator AnimateLoading(System.Action onComplete)
     {
+        // if (_isFirstLoad)
+        // {
+        //     _isFirstLoad = false;
+        //     onComplete?.Invoke();
+        //     
+        //     YG2.GameReadyAPI();
+        //     
+        //     // Debug.LogError("Первый раз включили заставку");
+        //     
+        //     yield break;
+        // }
+        
+        // loadingImage.color = new Color(1, 1, 1, 1); // Fully visible
+        // Debug.LogError("Второй раз включили заставку");
+        
         isAnimating = true;
         float duration = 0.8f; // Total duration
         float fastDuration = duration * 0.33f; // First 1/3 of duration for faster start
@@ -114,10 +151,25 @@ public class SceneLoaderUI : MonoBehaviour
         // Delay 0.2 seconds before unloading
         yield return new WaitForSeconds(0.05f);
         onComplete?.Invoke();
+        // YG2.GameReadyAPI();
+
     }
 
     private IEnumerator AnimateUnloading(System.Action onComplete)
     {
+        // if (_isFirstUnload)
+        // {
+        //     _isFirstUnload = false;
+        //     onComplete?.Invoke();
+        //     // YG2.GameReadyAPI();
+        //     
+        //     // Debug.LogError("Первый раз выключили заставку");
+        //
+        //     yield break;
+        // }
+
+        // Debug.LogError("Хмм.. Второй раз выключили заставку");
+    
         isAnimating = true;
         float duration = 0.8f;
         float startProgress = 1f;
@@ -132,19 +184,20 @@ public class SceneLoaderUI : MonoBehaviour
             float mist = Mathf.Lerp(0.3f, 0f, progress);
             fadeMaterial.SetFloat("_BlurRadius", blur);
             fadeMaterial.SetFloat("_MistIntensity", mist);
+
+            // Вызов GameReadyAPI спустя 0.5 секунды после начала анимации
+            if (t >= 0.15f)
+            {
+                YG2.GameReadyAPI();
+            }
+        
             yield return null;
         }
         fadeMaterial.SetFloat("_TransitionProgress", 0f);
         fadeMaterial.SetFloat("_BlurRadius", 0f);
         fadeMaterial.SetFloat("_MistIntensity", 0f);
         isAnimating = false;
-
-        if (_isFirstLoad)
-        {
-            _isFirstLoad = false;
-            YG2.GameReadyAPI();
-        }
-        
+    
         onComplete?.Invoke();
     }
 }

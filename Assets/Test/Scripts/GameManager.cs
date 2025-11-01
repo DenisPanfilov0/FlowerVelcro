@@ -30,6 +30,15 @@ public class FruitSaveWrapper
 {
     public List<FruitSaveData> fruits;
     public int savedScore;
+    public int maxFruitProgress; // сохраняем максимальный фрукт для UI
+}
+
+[System.Serializable]
+public class FruitData
+{
+    public Fruit.FruitType type;
+    public Sprite sprite;
+    public float radius = 0.25f;
 }
 
 public class GameManager : MonoBehaviour
@@ -51,11 +60,16 @@ public class GameManager : MonoBehaviour
     public Fruit FruitPrefab;
     public List<FruitData> fruitDataList;
 
+    [Header("----------Fruit Progress UI----------")]
+    [SerializeField] private Color lockedColor = Color.gray;
+    [SerializeField] private List<Image> fruitProgressImages;
+
     public AudioSource SoundAudioSource, MusicAudioSource;
     public AudioClip loseSound, SmallMergeSound, BigMergeSound, ReleaseSound;
 
     public int Score;
     public int currentFruitIndex, nextFruitIndex;
+    private int maxFruitProgress = 0; // хранение текущего прогресса фруктов
 
     private Camera maincamera;
     private Vector3 SpawnLoc;
@@ -77,9 +91,10 @@ public class GameManager : MonoBehaviour
     void Start()
     {
         maincamera = Camera.main;
-
         _currencyValue.text = _currencyModel.GetCurrencyAmount().ToString();
         _currencyValueEndGame.text = _currencyModel.GetCurrencyAmount().ToString();
+
+        InitFruitProgressUI();
 
         if (PlayerPrefs.HasKey("SavedFruits"))
             LoadFruits();
@@ -111,17 +126,28 @@ public class GameManager : MonoBehaviour
         _currencyValueEndGame.text = value.ToString();
     }
 
+    private void InitFruitProgressUI()
+    {
+        foreach (var img in fruitProgressImages)
+        {
+            img.color = lockedColor;
+        }
+    }
+
     private void StartNewSession()
     {
         currentFruitIndex = GetWeightedRandomFruitIndex();
         nextFruitIndex = GetWeightedRandomFruitIndex();
-
         NextFruitUI.sprite = fruitDataList[nextFruitIndex].sprite;
         SetAimLineAndCurentFruit(new Vector3(0, AimLine.position.y, 0));
         SpawnFruit(new Vector3(0, YSpawnPosition, 0));
 
         Score = 0;
         ScoreText.text = "0";
+        maxFruitProgress = 0;
+
+        // Первый фрукт сразу доступен
+        UnlockFruitProgress(0);
     }
 
     void Update()
@@ -155,7 +181,6 @@ public class GameManager : MonoBehaviour
     void SaveFruits()
     {
         if (IsGameOver) return;
-
         Fruit[] fruits = FindObjectsOfType<Fruit>();
         List<FruitSaveData> saveList = new();
 
@@ -181,7 +206,8 @@ public class GameManager : MonoBehaviour
         FruitSaveWrapper wrapper = new()
         {
             fruits = saveList,
-            savedScore = Score
+            savedScore = Score,
+            maxFruitProgress = maxFruitProgress
         };
 
         string json = JsonUtility.ToJson(wrapper);
@@ -216,7 +242,18 @@ public class GameManager : MonoBehaviour
         }
 
         Score = wrapper.savedScore;
+        maxFruitProgress = wrapper.maxFruitProgress;
         ScoreText.text = Score.ToString();
+
+        // Восстанавливаем прогресс фруктов
+        for (int i = 0; i < maxFruitProgress; i++)
+            UnlockFruitProgress(i);
+    }
+
+    private void UnlockFruitProgress(int index)
+    {
+        if (index >= 0 && index < fruitProgressImages.Count && fruitProgressImages[index].color != Color.white)
+            fruitProgressImages[index].color = Color.white;
     }
 
     void FruitSpawner()
@@ -247,7 +284,6 @@ public class GameManager : MonoBehaviour
         NextFruitUI.sprite = fruitDataList[nextFruitIndex].sprite;
 
         var fruitInfo = fruitDataList[currentFruitIndex];
-
         bool isStar = UnityEngine.Random.value <= 0.03f;
         var status = isStar ? Fruit.FruitStatus.Star : Fruit.FruitStatus.Normal;
 
@@ -273,9 +309,7 @@ public class GameManager : MonoBehaviour
 
         float[] weights = new float[maxIndex + 1];
         for (int i = 0; i <= maxIndex; i++)
-        {
             weights[i] = 1f / Mathf.Pow(i + 1f, 2f);
-        }
 
         float totalWeight = weights.Sum();
         float randomValue = UnityEngine.Random.value * totalWeight;
@@ -304,7 +338,6 @@ public class GameManager : MonoBehaviour
                 int starCount = 0;
                 if (f1.MyStatus == Fruit.FruitStatus.Star) starCount++;
                 if (f2.MyStatus == Fruit.FruitStatus.Star) starCount++;
-
                 if (starCount > 0)
                     _currencyModel.AddStarCurrency(starCount);
                 _currencyModel.AddCurrency(3);
@@ -318,6 +351,13 @@ public class GameManager : MonoBehaviour
                 newFruit.Setup(newInfo.type, newInfo.sprite, newInfo.radius);
                 newFruit.Initialize();
                 newFruit.Release();
+
+                // обновляем прогресс только если новый фрукт выше текущего прогресса
+                if (n >= maxFruitProgress)
+                {
+                    maxFruitProgress = n + 1;
+                    UnlockFruitProgress(n);
+                }
             }
         }
     }
@@ -408,12 +448,4 @@ public class GameManager : MonoBehaviour
         if (currentFruit)
             currentFruit.transform.position = new Vector3(Xpos, YSpawnPosition, 0);
     }
-}
-
-[System.Serializable]
-public class FruitData
-{
-    public Fruit.FruitType type;
-    public Sprite sprite;
-    public float radius = 0.25f;
 }

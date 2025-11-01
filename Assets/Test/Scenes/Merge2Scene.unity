@@ -3972,6 +3972,22 @@ MonoBehaviour:
   - type: 13
     sprite: {fileID: -1812182079, guid: 95a9eec88f8852a4fba8063b1bb64b3f, type: 3}
     radius: 0.25
+  lockedColor: {r: 0, g: 0, b: 0, a: 0.94509804}
+  fruitProgressImages:
+  - {fileID: 9039871705498914197}
+  - {fileID: 4624505112052675382}
+  - {fileID: 4688272877281643462}
+  - {fileID: 492100603868559813}
+  - {fileID: 8907961871310326017}
+  - {fileID: 7217547324221122318}
+  - {fileID: 4034939464856170096}
+  - {fileID: 3075774357001427682}
+  - {fileID: 8421976962854937055}
+  - {fileID: 8116626063739881010}
+  - {fileID: 4533039790415392211}
+  - {fileID: 3628015799401743630}
+  - {fileID: 2356037072625712215}
+  - {fileID: 2186606652032346420}
   SoundAudioSource: {fileID: 1992494991}
   MusicAudioSource: {fileID: 535570380}
   loseSound: {fileID: 8300000, guid: 555bc1fdb9037824884c2e7912eaa7e4, type: 3}

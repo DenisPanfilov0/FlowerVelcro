@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using YG;
 
 namespace Code.Infrastructure.Loading
 {
@@ -30,8 +31,8 @@ namespace Code.Infrastructure.Loading
         {
             // if (SceneManager.GetActiveScene().name == nextScene)
             // {
-                // onLoaded?.Invoke();
-                // yield break;
+            // onLoaded?.Invoke();
+            // yield break;
             // }
 
             // Start loading animation (fill with black)
