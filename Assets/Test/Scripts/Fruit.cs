@@ -31,7 +31,7 @@ public class Fruit : MonoBehaviour
     public FruitStatus MyStatus = FruitStatus.Normal;
 
     [HideInInspector] public Rigidbody2D MyRigidbody2D;
-    [HideInInspector] public CapsuleCollider2D MyCollider;
+    [SerializeField] public CircleCollider2D MyCollider;
     [HideInInspector] public GameManager MyGM;
     [HideInInspector] public float raduis;
 
@@ -43,7 +43,7 @@ public class Fruit : MonoBehaviour
     private void Awake()
     {
         MyRigidbody2D = GetComponent<Rigidbody2D>();
-        MyCollider = GetComponent<CapsuleCollider2D>();
+        // MyCollider = GetComponent<CapsuleCollider2D>();
         MyGM = FindObjectOfType<GameManager>();
     }
 

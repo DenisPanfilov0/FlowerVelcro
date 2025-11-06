@@ -7,7 +7,7 @@ namespace Code
     public class SaveLoadService
     {
         private const string VersionKey = "SaveLoadServiceVersion";
-        private const string Version = "110.0"; // Текущая версия сервиса
+        private const string Version = "115.0"; // Текущая версия сервиса
         private const string TutorialEndedKey = "TutorialEndedFlag";
 
         private bool _isTutorialEnded = false;
